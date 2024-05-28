@@ -7,6 +7,10 @@ android {
     namespace = "com.android.hanple"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.android.hanple"
         minSdk = 24
