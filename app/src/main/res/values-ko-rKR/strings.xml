@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">한플</string>
+    <string name="title_settings">설정</string>
+    <string name="menu_search_history">검색 기록</string>
+    <string name="menu_bookmarks">보관함</string>
+    <string name="menu_logout">로그아웃</string>
+    <string name="menu_sign_off">탈퇴하기</string>
+</resources>
