@@ -25,6 +25,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"/>
 
+    <ImageView
+        android:id="@+id/iv_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_settings_black_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
     <LinearLayout
         android:id="@+id/ll_menu"
         android:layout_width="wrap_content"
@@ -38,21 +45,25 @@
                 android:id="@+id/tv_search_histoy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/menu_search_history"/>
+                android:text="@string/menu_search_history"
+                android:textSize="@dimen/settings_menu_text_size"/>
             <TextView
                 android:id="@+id/tv_bookmarks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/menu_bookmarks"/>
+                android:text="@string/menu_bookmarks"
+                android:textSize="@dimen/settings_menu_text_size"/>
             <TextView
                 android:id="@+id/tv_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/menu_logout"/>
+                android:text="@string/menu_logout"
+                android:textSize="@dimen/settings_menu_text_size"/>
             <TextView
                 android:id="@+id/tv_sign_off"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/menu_sign_off"/>
+                android:text="@string/menu_sign_off"
+                android:textSize="@dimen/settings_menu_text_size"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
