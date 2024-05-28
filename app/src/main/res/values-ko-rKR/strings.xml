@@ -19,6 +19,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">여행지 점수 계산 중...</string>
 
+    <!--임의로 탭에 정보 넣기 위해 추가함. 수정하셔도 됩니다.-->
+    <string name="title_search">검색</string>
     <!--feat/SettingsFragment-->
     <string name="title_settings">설정</string>
     <string name="menu_search_history">검색 기록</string>
