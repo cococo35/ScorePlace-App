@@ -4,11 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.android.scoreplace"
+    namespace = "com.android.hanple"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
-        applicationId = "com.android.scoreplace"
+        applicationId = "com.android.hanple"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -42,6 +46,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

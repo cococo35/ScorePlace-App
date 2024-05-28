@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchTimeFragment">
+    tools:context=".ui.search.SearchTimeFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_time_enter_destination"

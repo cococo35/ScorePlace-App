@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--feat/SearchFragment. app_name = ScorePlace에서 Hanple로 교체 -->
     <string name="app_name">Hanple</string>
@@ -19,9 +20,9 @@
     <string name="loading">여행지 점수 계산 중...</string>
 
     <!--feat/SettingsFragment-->
-    <string name="title_settings">Settings</string>
-    <string name="menu_search_history">Search History</string>
-    <string name="menu_bookmarks">Bookmarks</string>
-    <string name="menu_logout">Logout from Hanple</string>
-    <string name="menu_sign_off">Sign Off</string>
+    <string name="title_settings">설정</string>
+    <string name="menu_search_history">검색 기록</string>
+    <string name="menu_bookmarks">보관함</string>
+    <string name="menu_logout">로그아웃</string>
+    <string name="menu_sign_off">탈퇴하기</string>
 </resources>
