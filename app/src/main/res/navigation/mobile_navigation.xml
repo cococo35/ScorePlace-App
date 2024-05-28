@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_settings">
+    app:startDestination="@+id/navigation_recommend">
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.android.hanple.ui.settings.SettingsFragment"
-        android:label="@string/title_settings"
+        app:route="settings_route"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/navigation_recommend"
+        android:name="com.android.hanple.ui.ListViewFragment"
+        app:route="recommend_route"
+        tools:layout="@layout/fragment_list_view" />
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.android.hanple.ui.search.SearchFragment"
+        app:route="search_route"
+        tools:layout="@layout/fragment_search" />
 </navigation>
