@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Hanple"
         tools:targetApi="31">
         <activity
-            android:name=".ArchiveActivity"
+            android:name=".ui.ArchiveActivity"
             android:exported="false" />
         <activity
-            android:name=".OnboardingActivity"
+            android:name=".ui.OnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.android.hanple.ui.settings
+package com.android.hanple.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,11 +1,9 @@
-package com.android.hanple
+package com.android.hanple.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import com.android.hanple.R
 import com.android.hanple.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

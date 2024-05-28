@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchDestinationFragment">
+    tools:context=".ui.search.SearchDestinationFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_destination_enter_destination"

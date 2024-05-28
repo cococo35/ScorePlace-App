@@ -1,4 +1,4 @@
-package com.android.hanple
+package com.android.hanple.ui
 
 import android.content.Intent
 import android.os.Bundle
