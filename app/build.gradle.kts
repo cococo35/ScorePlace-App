@@ -54,4 +54,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.fragment.ktx)
+
+    //Preferences DataStore 추가하기. https://developer.android.com/topic/libraries/architecture/datastore
+    val dataStoreVersion = "1.1.1"
+    implementation("androidx.datastore:datastore-preferences:${dataStoreVersion}")
+    implementation("androidx.datastore:datastore-preferences-core:${dataStoreVersion}")
 }
