@@ -64,10 +64,4 @@ class SettingsFragment : Fragment() {
             startActivity(intent)
         }
     }
-
-    private fun clickBackButton(binding: FragmentSettingsBinding) {
-        binding.ivBackButton.setOnClickListener{
-            //뒤로가기
-        }
-    }
 }
