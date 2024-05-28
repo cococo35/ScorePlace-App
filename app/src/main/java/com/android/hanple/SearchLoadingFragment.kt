@@ -1,4 +1,4 @@
-package com.android.scoreplace
+package com.android.hanple
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

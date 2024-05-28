@@ -17,6 +17,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading">여행지 점수 계산 중...</string>
+
     <!--feat/SettingsFragment-->
     <string name="title_settings">Settings</string>
     <string name="menu_search_history">Search History</string>
