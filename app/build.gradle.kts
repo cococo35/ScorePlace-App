@@ -1,14 +1,14 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
-    namespace = "com.android.hanple"
+    namespace = "com.android.scoreplace"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.android.hanple"
+        applicationId = "com.android.scoreplace"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -45,4 +45,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.fragment.ktx)
 }
