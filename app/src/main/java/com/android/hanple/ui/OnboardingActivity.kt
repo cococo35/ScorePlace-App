@@ -13,11 +13,12 @@ class OnboardingActivity : AppCompatActivity() { //회원가입 및 로그인 �
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sharedPreferences = context.defaultSharedPreferences
-        sharedPreferences.edit {
-            putString("key", "value")
-        }
-        val value = sharedPreferences.getString("key", "default_value")
+//        val sharedPreferences = context.defaultSharedPreferences
+//        sharedPreferences.edit {
+//            putString("key", "value")
+//        }
+//        val value = sharedPreferences.getString("key", "default_value")
+
 //        while (loginState) {
 //        앱 처음 설치 - 회원가입 플로우
 //        현재 지금 로그인이 되어있는지 체크
