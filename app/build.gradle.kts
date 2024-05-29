@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -54,6 +55,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.fragment.ktx)
+    //retrofit etc..
+    implementation ("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("io.coil-kt:coil:2.6.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.2")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
 
     //Preferences DataStore 추가하기. https://developer.android.com/topic/libraries/architecture/datastore
     val dataStoreVersion = "1.1.1"
