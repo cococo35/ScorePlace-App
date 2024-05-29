@@ -11,6 +11,7 @@ import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -22,11 +23,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.getStartAddress("경복궁")
-        viewModel.getEndAddress("코엑스")
-        viewModel.getWeatherData()
-        viewModel.getDustData()
-        viewModel.getCongestionData()
         setNavigation()
 
 //        각 메뉴 탭의 id를 setOf 안에 작성
