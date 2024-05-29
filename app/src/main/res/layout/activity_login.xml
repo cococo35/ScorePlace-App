@@ -6,18 +6,17 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.LogInctivity">
+    tools:context=".ui.LogInActivity">
 
     <ImageView
         android:id="@+id/img_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="50dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/et_id"
+        android:src="@drawable/smile_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:src="@tools:sample/avatars" />
+        tools:layout_editor_absoluteY="42dp" />
 
 
     <EditText
@@ -33,7 +32,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="315dp" />
+        app:layout_constraintTop_toBottomOf="@+id/img_profile" />
 
     <EditText
         android:id="@+id/et_password"
@@ -96,5 +95,6 @@
         app:layout_constraintEnd_toStartOf="@+id/view_left"
         app:layout_constraintStart_toEndOf="@+id/view_right"
         app:layout_constraintTop_toTopOf="@+id/view_left" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

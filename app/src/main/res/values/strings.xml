@@ -13,8 +13,14 @@
     <string name="skip">건너뛰기</string>
     <string name="time_from">부터</string>
     <string name="tvid" translatable="false">ID</string>
+    <string name="etid" translatable="false">ID</string>
+    <string name="etnumber" translatable="false">Phonenumber</string>
+    <string name="welcome" translatable="false">어서오세요!</string>
     <string name="tvpassword" translatable="false">password</string>
+    <string name="ts_signup_error" translatable="false">오류.</string>
+    <string name="etpassword" translatable="false">password</string>
     <string name="tvname" translatable="false">Name</string>
+    <string name="etname" translatable="false">Name</string>
     <string name="ts_login_id" translatable="false">비밀번호가 유효하지 않습니다</string>
     <string name="ts_login_ps" translatable="false">아이디가 유효하지 않습니다</string>
     <string name="btn_signup_confirm" translatable="false">Sign up</string>
