@@ -23,18 +23,3 @@ class SignUpActivity : AppCompatActivity() {
         val etPassword = binding.etPassword
     }
 }
-
-
-gi
-
-
-
-
-
-
-
-    }
-
-        }
-    }
-}

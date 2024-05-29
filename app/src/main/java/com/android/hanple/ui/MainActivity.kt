@@ -2,23 +2,18 @@ package com.android.hanple.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import com.android.hanple.Dust.DustViewModel
-import com.android.hanple.Dust.DustViewModelFactory
 import com.android.hanple.R
-import com.android.hanple.Weather.WeatherViewModel
-import com.android.hanple.Weather.WeatherViewModelFactory
-import com.android.hanple.data.congestion.CongestionViewModel
-import com.android.hanple.data.congestion.CongestionViewModelFactory
 import com.android.hanple.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     private val viewModel by lazy {
         ViewModelProvider(this, SearchViewModelFactory())[SearchViewModel::class.java]
     }
