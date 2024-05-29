@@ -63,4 +63,13 @@ dependencies {
     implementation("io.coil-kt:coil:2.6.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.2")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
+
+    //Preferences DataStore 추가하기. https://developer.android.com/topic/libraries/architecture/datastore
+    val dataStoreVersion = "1.1.1"
+    implementation("androidx.datastore:datastore-preferences:${dataStoreVersion}")
+    implementation("androidx.datastore:datastore-preferences-core:${dataStoreVersion}")
+
+    //DataStore로 마이그레이션 전, SharedPreferences 사용을 위한 디펜던시 추가
+    val core_version = "1.13.1"
+    implementation ("androidx.core:core-ktx:${core_version}}")
 }

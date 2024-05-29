@@ -14,6 +14,7 @@ import com.android.hanple.viewmodel.SearchViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     private val viewModel by lazy {
         ViewModelProvider(this, SearchViewModelFactory())[SearchViewModel::class.java]
     }
