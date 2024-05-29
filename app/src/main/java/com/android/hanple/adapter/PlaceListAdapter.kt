@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.databinding.RecyclerviewItemBinding
 
 class PlaceListAdapter(
-    private val onItemClicked: (Place) -> Unit
+    private val onItemClicked: (Place) -> Unit,
+    private val listData: List<Place>
 ) : ListAdapter<Place, PlaceListAdapter.PlaceViewHolder>(diffCallback) {
 
     class PlaceViewHolder(
@@ -18,6 +19,7 @@ class PlaceListAdapter(
         fun bind(place: Place) = with(binding) {
 
             // 데이터 바인딩 설정
+            // tvItemAddress.text = place.address
 
             binding.root.setOnClickListener {
                 onItemClicked(place)
@@ -35,7 +37,8 @@ class PlaceListAdapter(
     }
 
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val currentItem = listData[position]
+        holder.bind(currentItem)
     }
 
     companion object {
