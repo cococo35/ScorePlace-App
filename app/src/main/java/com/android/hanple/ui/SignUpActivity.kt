@@ -38,7 +38,7 @@ class SignUpActivity : AppCompatActivity() {
             editor.apply()
         }
 
-        binding.btnLogin.setOnClickListener {// 저장된 id, pw 로그에 띄워줌ㅁㄴ
+        binding.btnLogin.setOnClickListener {// 저장된 id, pw 로그에 띄워줌
             val sharedPreference = getSharedPreferences("userInfo", MODE_PRIVATE)
             val savedUserId = sharedPreference.getString("userId", "")
             val savedUserPw = sharedPreference.getString("userPw", "")
