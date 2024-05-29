@@ -13,6 +13,7 @@ class OnboardingActivity : AppCompatActivity() { //회원가입 및 로그인 �
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+//        binding.
 //        val sharedPreferences = context.defaultSharedPreferences
 //        sharedPreferences.edit {
 //            putString("key", "value")
