@@ -24,7 +24,7 @@ class SignupActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener {
             val loginIntent = Intent(this, LogInActivity::class.java)
             startActivity(loginIntent)
-            finish() // 현재 액티비티를 종료합니다.
+            finish() // 현재 액티비티를 종료
         }
 
         binding.btnSignup.setOnClickListener {

@@ -2,8 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_enabled="true"
-        android:drawable="@drawable/btn_signup_enable" />
+        android:drawable="@drawable/btn_login_enable" />
     <item
         android:state_enabled="false"
-        android:drawable="@drawable/btn_signup_disable" />
+        android:drawable="@drawable/btn_login_disable" />
 </selector>
