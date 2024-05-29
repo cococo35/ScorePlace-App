@@ -6,16 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import com.android.hanple.Dust.DustViewModel
-import com.android.hanple.Dust.DustViewModelFactory
 import com.android.hanple.R
-import com.android.hanple.Weather.WeatherViewModel
-import com.android.hanple.Weather.WeatherViewModelFactory
-import com.android.hanple.data.congestion.CongestionViewModel
-import com.android.hanple.data.congestion.CongestionViewModelFactory
 import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -27,11 +22,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.getStartAddress("경복궁")
-        viewModel.getEndAddress("코엑스")
-        viewModel.getWeatherData()
-        viewModel.getDustData()
-        viewModel.getCongestionData()
         setNavigation()
 
 //        각 메뉴 탭의 id를 setOf 안에 작성

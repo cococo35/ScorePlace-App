@@ -25,16 +25,5 @@ class SignUpActivity : AppCompatActivity() {
 }
 
 
-gi
 
 
-
-
-
-
-
-    }
-
-        }
-    }
-}
