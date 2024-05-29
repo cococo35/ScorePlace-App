@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Hanple"
         tools:targetApi="31">
         <activity
-            android:name=".ui.SignUpActivity"
+            android:name=".ui.LogInctivity"
             android:exported="false" />
         <activity
             android:name=".ui.ArchiveActivity"
