@@ -25,7 +25,7 @@ class SignUpActivity : AppCompatActivity() {
 }
 
 
-gi
+
 
 
 
