@@ -13,7 +13,9 @@
     <string name="skip">건너뛰기</string>
     <string name="time_from">부터</string>
     <string name="tvid" translatable="false">ID</string>
-    <string name="tvpassword">password</string>
+    <string name="tvpassword" translatable="false">password</string>
+    <string name="ts_login_id" translatable="false">Password does not match</string>
+    <string name="ts_login_ps" translatable="false">Id does not match</string>
     <string name="detail_mark" translatable="false">상세 점수가 궁금하세요?</string>
     <string name="store" translatable="false">주변 맛집 보러가기</string>
     <string name="time_to">까지 주로 활동해요!</string>
