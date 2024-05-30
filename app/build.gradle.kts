@@ -72,4 +72,7 @@ dependencies {
     //DataStore로 마이그레이션 전, SharedPreferences 사용을 위한 디펜던시 추가
     val core_version = "1.13.1"
     implementation ("androidx.core:core-ktx:${core_version}}")
+
+    // Splash Screen
+    implementation ("androidx.core:core-splashscreen:1.0.0-rc01")
 }
