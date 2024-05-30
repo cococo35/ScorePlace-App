@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivitySignUpBinding
 
-class SignupActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
-    private val viewModel: SignupViewModel by viewModels()
+    private val viewModel: SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +81,7 @@ class SignupActivity : AppCompatActivity() {
 
     private fun eventFail() {
         Toast.makeText(
-            this@SignupActivity, getString(R.string.ts_signup_error), Toast.LENGTH_SHORT
+            this@SignUpActivity, getString(R.string.ts_signup_error), Toast.LENGTH_SHORT
         ).show()
     }
 
@@ -95,11 +95,11 @@ class SignupActivity : AppCompatActivity() {
             ).forEach { editables ->
                 editables.addTextChangedListener { editable ->
                     val field = when (editables.id) {
-                        etName.id -> SignupViewModel.Field.NAME
-                        etId.id -> SignupViewModel.Field.ID
-                        etPassword.id -> SignupViewModel.Field.PASSWORD
+                        etName.id -> SignUpViewModel.Field.NAME
+                        etId.id -> SignUpViewModel.Field.ID
+                        etPassword.id -> SignUpViewModel.Field.PASSWORD
                         etNumber.id -> {
-                            if (phoneNumberRegex.containsMatchIn(editable.toString())) SignupViewModel.Field.EMAIL else SignupViewModel.Field.PHONE
+                            if (phoneNumberRegex.containsMatchIn(editable.toString())) SignUpViewModel.Field.EMAIL else SignUpViewModel.Field.PHONE
                         }
                         else -> null
                     }

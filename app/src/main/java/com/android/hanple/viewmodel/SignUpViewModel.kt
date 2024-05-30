@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.android.hanple.data.User
 import com.android.hanple.repository.UserRepository
 
-class SignupViewModel : ViewModel() {
+class SignUpViewModel : ViewModel() {
     private val _signupData = MutableLiveData(SignupData())
     val signupData: LiveData<SignupData> = _signupData
 
