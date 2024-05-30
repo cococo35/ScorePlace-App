@@ -83,8 +83,8 @@ class SearchViewModel(
                     5,
                     "POI002"
                 )
-                list.add(response!!.SeoulRtd_citydata_ppltn?.get(0)!!.areaCongestLv!!)
-                response.SeoulRtd_citydata_ppltn!!.forEach {
+                list.add(response!!.seoulRtdCitydataPpltn?.get(0)!!.areaCongestLv!!)
+                response.seoulRtdCitydataPpltn!!.forEach {
                     val data = it.fcstPpltn
                     data!!.forEach { item ->
                         list.add(item?.fcstCongestLv!!)
@@ -137,6 +137,7 @@ class SearchViewModel(
             }
         }
     }
+
 
     private fun getCongestionScore(): Int {
         var score: Int = 0
@@ -216,6 +217,6 @@ class SearchViewModelFactory : ViewModelProvider.Factory {
         addressRepository,
         dustRepository,
         congestionRepository,
-        weatherRepository
+        weatherRepository,
     ) as T
 }

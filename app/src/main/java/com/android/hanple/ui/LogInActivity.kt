@@ -48,8 +48,8 @@ class LogInActivity : AppCompatActivity() {
 
         // 회원가입 텍스트뷰 클릭 리스너 설정
         binding.tvSignup.setOnClickListener {
-            val signupIntent = Intent(this, SignupActivity::class.java)
-            startActivity(signupIntent)
+//            val signupIntent = Intent(this, SignupActivity::class.java)
+//            startActivity(signupIntent)
         }
     }
 }

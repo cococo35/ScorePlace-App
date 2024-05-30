@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import android.content.Intent
-import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -48,74 +47,74 @@ class SignupActivity : AppCompatActivity() {
             editor.apply()
         }
 
-        binding.btnLogin.setOnClickListener {// 저장된 id, pw 로그에 띄워줌
-            val sharedPreference = getSharedPreferences("userInfo", MODE_PRIVATE)
-            val savedUserId = sharedPreference.getString("userId", "")
-            val savedUserPw = sharedPreference.getString("userPw", "")
-            Log.d("유저 정보", "저장된 ID: " + savedUserId)
-            Log.d("유저 정보", "저장된 PW: " + savedUserPw)
-        }
+//        binding.btnLogin.setOnClickListener {// 저장된 id, pw 로그에 띄워줌
+//            val sharedPreference = getSharedPreferences("userInfo", MODE_PRIVATE)
+//            val savedUserId = sharedPreference.getString("userId", "")
+//            val savedUserPw = sharedPreference.getString("userPw", "")
+//            Log.d("유저 정보", "저장된 ID: " + savedUserId)
+//            Log.d("유저 정보", "저장된 PW: " + savedUserPw)
+//        }
     }
 }
 // 여기까지 feat/SharedPreferences 코드입니다.
 
-        binding.btnSignup.setOnClickListener {
-            if (viewModel.checkStatus()) {
-                viewModel.registerUser()
-            } else {
-                eventFail()
-            }
-        }
-        
-        watchEditText()
+//        binding.btnSignup.setOnClickListener {
+//            if (viewModel.checkStatus()) {
+//                viewModel.registerUser()
+//            } else {
+//                eventFail()
+//            }
+//        }
+//
+//        watchEditText()
+//
+//        viewModel.signupSuccess.observe(this, Observer { success ->
+//            if (success) {
+//                Toast.makeText(this, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+//                finish()
+//            } else {
+//                eventFail()
+//            }
+//        })
+//
+//        viewModel.signupData.observe(this, Observer { signupData ->
+//            binding.btnSignup.isEnabled = signupData.checkStatus()
+//        })
+//    }
 
-        viewModel.signupSuccess.observe(this, Observer { success ->
-            if (success) {
-                Toast.makeText(this, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
-                finish()
-            } else {
-                eventFail()
-            }
-        })
+//    private fun eventFail() {
+//        Toast.makeText(
+//            this@SignupActivity, getString(R.string.ts_signup_error), Toast.LENGTH_SHORT
+//        ).show()
+//    }
 
-        viewModel.signupData.observe(this, Observer { signupData ->
-            binding.btnSignup.isEnabled = signupData.checkStatus()
-        })
-    }
-
-    private fun eventFail() {
-        Toast.makeText(
-            this@SignupActivity, getString(R.string.ts_signup_error), Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun watchEditText() {
-        binding.apply {
-            listOf(
-                etNumber,
-                etName,
-                etId,
-                etPassword
-            ).forEach { editables ->
-                editables.addTextChangedListener { editable ->
-                    val field = when (editables.id) {
-                        etName.id -> SignupViewModel.Field.NAME
-                        etId.id -> SignupViewModel.Field.ID
-                        etPassword.id -> SignupViewModel.Field.PASSWORD
-                        etNumber.id -> {
-                            if (phoneNumberRegex.containsMatchIn(editable.toString())) SignupViewModel.Field.EMAIL else SignupViewModel.Field.PHONE
-                        }
-                        else -> null
-                    }
-                    field?.let {
-                        viewModel.updateSignupData(it, editable.toString())
-                    }
-                }
-            }
-        }
-    }
-
-    companion object {
-        private val phoneNumberRegex = "^\\+?\\d{1,4}[- ]?\\d{4,}(?:[- ]?\\d{4,})?\$".toRegex()
-    }
-}
+//    private fun watchEditText() {
+//        binding.apply {
+//            listOf(
+//                etNumber,
+//                etName,
+//                etId,
+//                etPassword
+//            ).forEach { editables ->
+//                editables.addTextChangedListener { editable ->
+//                    val field = when (editables.id) {
+//                        etName.id -> SignupViewModel.Field.NAME
+//                        etId.id -> SignupViewModel.Field.ID
+//                        etPassword.id -> SignupViewModel.Field.PASSWORD
+//                        etNumber.id -> {
+//                            if (phoneNumberRegex.containsMatchIn(editable.toString())) SignupViewModel.Field.EMAIL else SignupViewModel.Field.PHONE
+//                        }
+//                        else -> null
+//                    }
+//                    field?.let {
+//                        viewModel.updateSignupData(it, editable.toString())
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    companion object {
+//        private val phoneNumberRegex = "^\\+?\\d{1,4}[- ]?\\d{4,}(?:[- ]?\\d{4,})?\$".toRegex()
+//    }
+//}
