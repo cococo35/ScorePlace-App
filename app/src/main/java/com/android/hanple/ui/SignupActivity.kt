@@ -1,22 +1,30 @@
 package com.android.hanple.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivitySignUpBinding
+import com.android.hanple.utils.ConvertUtils
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignupViewModel by viewModels()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //시간 변환 테스트 시작
+        Log.d("MainActivity", ConvertUtils.unixTimeConverter(1717053033).toString())
+        //1717053033 SECONDS SINCE JAN 01 1970. (UTC) 4:10:37 PM
+        //시간 변환 테스트 끝
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
