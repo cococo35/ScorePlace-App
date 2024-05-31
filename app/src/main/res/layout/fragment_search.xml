@@ -40,7 +40,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-    
+
     <EditText
         android:id="@+id/ed_search_type_address"
         android:layout_width="match_parent"
@@ -69,10 +69,7 @@
         android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
         />
     </com.google.android.material.card.MaterialCardView>
-=======
 
-
->>>>>>> 9ad39484581c8bb649e7b1b088138430420ba59d
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_check"
         android:layout_width="120dp"
