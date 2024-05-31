@@ -22,7 +22,8 @@ class SearchDestinationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return binding.root
+        return inflater.inflate(R.layout.fragment_search_destination, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
