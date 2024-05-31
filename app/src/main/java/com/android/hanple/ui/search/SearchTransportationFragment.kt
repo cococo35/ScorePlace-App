@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.android.hanple.R
 
-class SearchLoadingFragment : Fragment() {
+class SearchTransportationFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search_loading, container, false)
+        return inflater.inflate(R.layout.fragment_search_transportation, container, false)
     }
 }
