@@ -55,6 +55,7 @@
         android:layout_marginEnd="25dp"
         android:hint="@string/enter_start_address" />
 
+
     <TextView
         android:id="@+id/tv_search_destination_from"
         android:layout_width="wrap_content"
