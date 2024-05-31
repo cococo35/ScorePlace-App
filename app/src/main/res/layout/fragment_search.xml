@@ -40,8 +40,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-
-<<<<<<< HEAD
+    
     <EditText
         android:id="@+id/ed_search_type_address"
         android:layout_width="match_parent"
