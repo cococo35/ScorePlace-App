@@ -3,7 +3,7 @@ package com.android.hanple.data.congestion.model
 import com.google.gson.annotations.SerializedName
 
 data class CongestionResponse(
-    @SerializedName("SeoulRtd.citydata_ppltn") val SeoulRtd_citydata_ppltn : List<CityData>?,
+    @SerializedName("SeoulRtd.citydata_ppltn") val seoulRtdCitydataPpltn : List<CityData>?,
     @SerializedName("RESULT") val result: Result?,
 )
 

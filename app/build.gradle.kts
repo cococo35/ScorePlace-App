@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -10,6 +11,22 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
+    }
+
+    secrets {
+        // Optionally specify a different file name containing your secrets.
+        // The plugin defaults to "local.properties"
+        propertiesFileName = "secrets.properties"
+
+        // A properties file containing default secret values. This file can be
+        // checked in version control.
+        defaultPropertiesFileName = "local.defaults.properties"
+
+        // Configure which keys should be ignored by the plugin by providing regular expressions.
+        // "sdk.dir" is ignored by default.
+        ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
+        ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
     }
 
     defaultConfig {
@@ -31,6 +48,8 @@ android {
             )
         }
     }
+
+    
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -39,6 +58,7 @@ android {
         jvmTarget = "1.8"
     }
 }
+
 
 dependencies {
 
@@ -73,6 +93,12 @@ dependencies {
     val core_version = "1.13.1"
     implementation ("androidx.core:core-ktx:${core_version}}")
 
+    // google map api dependency
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.0"))
+    implementation("com.google.android.libraries.places:places:3.5.0")
+
+
     // Splash Screen
     implementation ("androidx.core:core-splashscreen:1.0.0-rc01")
+
 }
