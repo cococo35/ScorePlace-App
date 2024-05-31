@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.android.hanple.data.User
 import com.android.hanple.repository.UserRepository
 
-class SignupViewModel : ViewModel() {
+class SignUpViewModel : ViewModel() {
     private val _signupData = MutableLiveData(SignupData())
     val signupData: LiveData<SignupData> = _signupData
 
@@ -19,7 +19,6 @@ class SignupViewModel : ViewModel() {
             Field.NAME -> currentData.copy(name = value)
             Field.ID -> currentData.copy(id = value)
             Field.PASSWORD -> currentData.copy(password = value)
-            Field.EMAIL -> if (emailRegex.containsMatchIn(value)) currentData.copy(address = value) else currentData.copy(address = null)
             Field.PHONE -> if (phoneNumberRegex.containsMatchIn(value)) currentData.copy(phoneNumber = value) else currentData.copy(phoneNumber = null)
         }
         _signupData.value = updatedData
@@ -40,31 +39,28 @@ class SignupViewModel : ViewModel() {
     }
 
     companion object {
-        private val emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$".toRegex()
-        private val phoneNumberRegex = "^\\+?\\d{1,3}[- ]?\\d{3,}(?:[- ]?\\d{3,})?\$".toRegex()
+        private val phoneNumberRegex = "^\\+?\\d{1,4}[- ]?\\d{4,}(?:[- ]?\\d{4,})?\$".toRegex()
     }
 
     enum class Field {
-        NAME, ID, PASSWORD, EMAIL, PHONE
+        NAME, ID, PASSWORD, PHONE
     }
 
     data class SignupData(
         val phoneNumber: String? = null,
-        val address: String? = null,
         val name: String? = null,
         val id: String? = null,
         val password: String? = null,
     ) {
         fun checkStatus(): Boolean =
-            (!phoneNumber.isNullOrBlank() || !address.isNullOrBlank()) && !name.isNullOrBlank() && !id.isNullOrBlank() && !password.isNullOrBlank()
+            !phoneNumber.isNullOrBlank() && !name.isNullOrBlank() && !id.isNullOrBlank() && !password.isNullOrBlank()
 
         fun asUser(): User {
             return User(
                 id = id ?: "",
                 name = name ?: "",
                 password = password ?: "",
-                phoneNumber = phoneNumber,
-                address = address
+                phoneNumber = phoneNumber ?: ""
             )
         }
     }

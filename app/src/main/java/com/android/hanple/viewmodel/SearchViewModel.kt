@@ -15,6 +15,8 @@ import com.android.hanple.network.AddressRetrofit
 import com.android.hanple.network.CongestionRetrofit
 import com.android.hanple.network.DustRetrofit
 import com.android.hanple.network.WeatherRetrofit
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.PlacesClient
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
@@ -200,6 +202,7 @@ class SearchViewModel(
        var totalScore = score1 + score2 + score3
         Log.d("총 점수", "여행 점수는 총 ${totalScore}점 입니다")
     }
+
 
 }
 

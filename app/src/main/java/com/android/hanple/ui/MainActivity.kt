@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setNavigation()
-
+        initTest()
 
 //        각 메뉴 탭의 id를 setOf 안에 작성
 //        val appBarConfiguration = AppBarConfiguration(setOf(..., R.id.navigation_settings))
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             .setIncludedTypes(includeType) // 이것도 includeType 확인 해주세요
             .setMaxResultCount(10) // 말 그대로 결괏값의 max를 Int로 지정
             .build()
-        placesClient.searchNearby(searchNearbyRequest) // 바로 위에 선언한 SearchNearByRequest를 해당 메소드에 꽂아줌
+            placesClient.searchNearby(searchNearbyRequest) // 바로 위에 선언한 SearchNearByRequest를 해당 메소드에 꽂아줌
             .addOnSuccessListener { response ->
                 var place : List<Place>
                 place = response.places // place에 해당 결괏값 대입

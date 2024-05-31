@@ -92,7 +92,13 @@ dependencies {
     //DataStore로 마이그레이션 전, SharedPreferences 사용을 위한 디펜던시 추가
     val core_version = "1.13.1"
     implementation ("androidx.core:core-ktx:${core_version}}")
+
     // google map api dependency
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.0"))
     implementation("com.google.android.libraries.places:places:3.5.0")
+
+
+    // Splash Screen
+    implementation ("androidx.core:core-splashscreen:1.0.0-rc01")
+
 }
