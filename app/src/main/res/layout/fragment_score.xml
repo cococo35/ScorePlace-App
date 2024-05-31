@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scoreFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.ScoreFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_score_back"
+                android:layout_width="15dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/ic_back_8x12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_score_bookmark"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ic_bookmark_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_score_title"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="더 현대 서울, 6/2(일) 11:00"
+                android:textSize="18sp"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@id/iv_score_bookmark"
+                app:layout_constraintStart_toEndOf="@id/iv_score_back"
+                app:layout_constraintTop_toTopOf="@id/iv_score_back" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_score_icon"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_score_title"
+                app:layout_constraintStart_toStartOf="@id/tv_score_title"
+                app:layout_constraintEnd_toEndOf="@id/tv_score_title"
+                android:background="@drawable/smile_icon"
+                android:layout_marginTop="40dp" />
+            
+            <TextView
+                android:id="@+id/tv_score_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/iv_score_icon"
+                app:layout_constraintStart_toStartOf="@id/iv_score_icon"
+                app:layout_constraintEnd_toEndOf="@id/iv_score_icon"
+                android:text="77점"
+                android:textSize="60sp"
+                android:textStyle="bold" />
+            
+            <TextView
+                android:id="@+id/tv_score_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_score_score"
+                app:layout_constraintStart_toStartOf="@id/tv_score_score"
+                app:layout_constraintEnd_toEndOf="@id/tv_score_score"
+                android:text="놀러 가기 적당해요!"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cd_score_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="1dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_score_description"
+                app:cardBackgroundColor="@color/darkblue" >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/tv_score_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="상세 점수 보러가기"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:textColor="@color/white" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_score_weather"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cd_score_detail"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/ic_weather_rain" />
+
+            <TextView
+                android:id="@+id/tv_score_weather_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/iv_score_weather"
+                app:layout_constraintTop_toTopOf="@id/iv_score_weather"
+                app:layout_constraintBottom_toBottomOf="@id/iv_score_weather"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="오후에 비가 올 수 있어요."
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_score_weather_description2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_score_weather_description"
+                app:layout_constraintStart_toStartOf="@id/tv_score_weather_description"
+                android:text="우산을 준비하세요!"
+                android:textColor="@color/darkblue"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+            
+            <LinearLayout
+                android:id="@+id/ln_score_category"
+                android:layout_width="180dp"
+                android:layout_height="30dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="@id/iv_score_weather"
+                app:layout_constraintTop_toBottomOf="@id/iv_score_weather"
+                android:layout_marginTop="25dp" >
+
+                <Spinner
+                    android:id="@+id/sp_score_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/spinner_option"
+                    android:dropDownWidth="match_parent"
+                    android:popupBackground="@color/darkblue"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+<!--            android:spinnerMode="dropDown"-->
+<!--            android:spinnerMode="dialog"-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_score_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                tools:listitem="@layout/recyclerview_score_category_item"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ln_score_category" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

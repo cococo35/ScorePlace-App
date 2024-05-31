@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setNavigation()
-        initTest()
+//        initTest()
 
 //        각 메뉴 탭의 id를 setOf 안에 작성
 //        val appBarConfiguration = AppBarConfiguration(setOf(..., R.id.navigation_settings))
