@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-            android:name=".ui.SignupActivity"
+            android:name=".ui.SignUpActivity"
             android:exported="false">
         </activity>
         <activity
