@@ -14,7 +14,7 @@ import com.android.hanple.R
 import com.android.hanple.databinding.ActivitySignUpBinding
 import com.android.hanple.utils.ConvertUtils
 
-class SignUpActivity : AppCompatActivity() {
+class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
 
@@ -87,7 +87,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun eventFail() {
         Toast.makeText(
-            this@SignUpActivity, getString(R.string.ts_signup_error), Toast.LENGTH_SHORT
+            this@SignupActivity, getString(R.string.ts_signup_error), Toast.LENGTH_SHORT
         ).show()
     }
 

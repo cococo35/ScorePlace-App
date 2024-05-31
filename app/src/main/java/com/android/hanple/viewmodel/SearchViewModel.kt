@@ -15,6 +15,8 @@ import com.android.hanple.network.AddressRetrofit
 import com.android.hanple.network.CongestionRetrofit
 import com.android.hanple.network.DustRetrofit
 import com.android.hanple.network.WeatherRetrofit
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.PlacesClient
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
@@ -83,8 +85,8 @@ class SearchViewModel(
                     5,
                     "POI002"
                 )
-                list.add(response!!.SeoulRtd_citydata_ppltn?.get(0)!!.areaCongestLv!!)
-                response.SeoulRtd_citydata_ppltn!!.forEach {
+                list.add(response!!.seoulRtdCitydataPpltn?.get(0)!!.areaCongestLv!!)
+                response.seoulRtdCitydataPpltn!!.forEach {
                     val data = it.fcstPpltn
                     data!!.forEach { item ->
                         list.add(item?.fcstCongestLv!!)
@@ -137,6 +139,7 @@ class SearchViewModel(
             }
         }
     }
+
 
     private fun getCongestionScore(): Int {
         var score: Int = 0
@@ -200,6 +203,7 @@ class SearchViewModel(
         Log.d("총 점수", "여행 점수는 총 ${totalScore}점 입니다")
     }
 
+
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
@@ -216,6 +220,6 @@ class SearchViewModelFactory : ViewModelProvider.Factory {
         addressRepository,
         dustRepository,
         congestionRepository,
-        weatherRepository
+        weatherRepository,
     ) as T
 }
