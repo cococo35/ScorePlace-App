@@ -38,11 +38,6 @@
             android:name=".ui.SignUpActivity"
             android:exported="false">
         </activity>
-        
-        <activity
-            android:name=".ui.search.SearchActivity"
-            android:exported="false">
-        </activity>
 
         <activity
             android:name=".ui.ArchiveActivity"
