@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.databinding.RecyclerviewRecommendItemBinding
+import com.android.hanple.databinding.RecyclerviewStorageItemBinding
 
-class PlaceListAdapter(
+class PlaceStorageListAdapter(
     private val onItemClicked: (Place) -> Unit,
     private val listData: List<Place>
-) : ListAdapter<Place, PlaceListAdapter.PlaceViewHolder>(diffCallback) {
+) : ListAdapter<Place, PlaceStorageListAdapter.PlaceViewHolder>(diffCallback) {
 
     class PlaceViewHolder(
-        private val binding: RecyclerviewRecommendItemBinding,
+        private val binding: RecyclerviewStorageItemBinding,
         private val onItemClicked: (Place) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(place: Place) = with(binding) {
@@ -28,7 +29,7 @@ class PlaceListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
-        val view = RecyclerviewRecommendItemBinding.inflate(
+        val view = RecyclerviewStorageItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
