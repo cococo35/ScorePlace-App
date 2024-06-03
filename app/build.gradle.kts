@@ -3,6 +3,10 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
+    //Firebase SDK 사용을 위한 사전 작업 2
+    id("com.android.application")
+    id("com.google.gms.google-services") //Google services Gradle plugin 추가
 }
 
 android {
@@ -104,4 +108,10 @@ dependencies {
     //google map sdk
     implementation("com.google.android.gms:play-services-maps:18.2.0")
 
+    //Firebase SDK 사용을 위한 사전 작업 2
+    //firebase BoM(Bill of Materials)의 역할: 항상 호환되는 Firebase 라이브러리 버전을 사용하게 해 줍니다.
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0")) //firebase BoM 임포트
+    implementation("com.google.firebase:firebase-analytics") //firebase 임포트
+
+    //firebase에서 다른 기능을 더 가져오고 싶다면, https://firebase.google.com/docs/android/setup#available-libraries를 참고하세요.
 }
