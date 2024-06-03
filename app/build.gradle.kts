@@ -5,7 +5,6 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 
     //Firebase SDK 사용을 위한 사전 작업 2
-    id("com.android.application")
     id("com.google.gms.google-services") //Google services Gradle plugin 추가
 }
 
