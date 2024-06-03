@@ -10,15 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivitySignUpBinding
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 
 class SignUpActivity : AppCompatActivity() {
 
 
     //firebase auth 테스트. https://firebase.google.com/docs/auth/android/start#kotlin+ktx
-    private lateinit var auth: FirebaseAuth
+    //private lateinit var auth: FirebaseAuth
 
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
@@ -63,7 +60,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         //firebase auth
-        auth = Firebase.auth //onCreate에서 초기화
+        //auth = Firebase.auth //onCreate에서 초기화
     }
 
 //    override fun onStart() {
