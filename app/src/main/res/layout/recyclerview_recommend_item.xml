@@ -16,18 +16,6 @@
         android:textSize="25sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tv_item_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        app:layout_constraintStart_toEndOf="@id/tv_item_address"
-        app:layout_constraintTop_toTopOf="@id/tv_item_address"
-        app:layout_constraintBottom_toBottomOf="@id/tv_item_address"
-        android:text="score"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
     <ImageView
         android:id="@+id/iv_item_line"
         android:layout_width="match_parent"
@@ -38,14 +26,16 @@
         app:layout_constraintTop_toBottomOf="@id/tv_item_address"
         android:background="@color/gray" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_item_favorite"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="40dp"
-        app:layout_constraintStart_toEndOf="@id/tv_item_score"
-        app:layout_constraintTop_toTopOf="@id/tv_item_score"
-        app:layout_constraintBottom_toBottomOf="@id/tv_item_score"
-        android:background="@drawable/ic_recommend_black_24dp" />
+    <TextView
+        android:id="@+id/tv_item_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="25dp"
+        android:text=">"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
