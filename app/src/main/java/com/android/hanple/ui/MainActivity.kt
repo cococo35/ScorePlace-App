@@ -1,5 +1,6 @@
 package com.android.hanple.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setNavigation()
-//        initTest()
+        initTest()
 
 //        각 메뉴 탭의 id를 setOf 안에 작성
 //        val appBarConfiguration = AppBarConfiguration(setOf(..., R.id.navigation_settings))
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             item.onNavDestinationSelected(navController)
         }
     }
+    @SuppressLint("SuspiciousIndentation")
     private fun initTest(){
         // Define a variable to hold the Places API key.
         //secret에서 정의한 API KEY가 안불러와져서 그냥 때려 박았습니다
