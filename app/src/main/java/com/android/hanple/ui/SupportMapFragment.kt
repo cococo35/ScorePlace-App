@@ -1,14 +1,18 @@
-package com.android.hanple.ui
+package com.example.mapdemo
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android.hanple.R
-import com.google.android.gms.maps.OnMapReadyCallback
 
-class SupportMapFragment : Fragment(R.layout.fragment_support_map), OnMapReadyCallback {
+class SupportMapFragmet : Fragment() {
 
-    val mapFragment = SupportMapFragment.newInstance() {
-    supportFragmentManager
-    .beginTransaction()
-    .add(R.id.my_container, mapFragment)
-    .commit()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_support_map, container, false)
+    }
 }
