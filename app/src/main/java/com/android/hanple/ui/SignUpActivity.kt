@@ -66,13 +66,13 @@ class SignUpActivity : AppCompatActivity() {
         auth = Firebase.auth //onCreate에서 초기화
     }
 
-    override fun onStart() {
-        super.onStart()
-        val currentUser = auth.currentUser //
-        if (currentUser != null) {
-            reload()
-        }
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        val currentUser = auth.currentUser //
+//        if (currentUser != null) {
+//            reload()
+//        }
+//    }
 
     private fun handleSignup(editor: SharedPreferences.Editor, sharedPreference: SharedPreferences) {
         // 회원가입 버튼 누를 시 id, pw 칸 정보 저장
@@ -103,7 +103,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun eventFail() {
         Toast.makeText(
-            this@SignupActivity, getString(R.string.ts_signup_error), Toast.LENGTH_SHORT
+            this@SignUpActivity, getString(R.string.ts_signup_error), Toast.LENGTH_SHORT
         ).show()
     }
 
