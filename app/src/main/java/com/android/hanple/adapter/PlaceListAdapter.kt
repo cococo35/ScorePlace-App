@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.hanple.databinding.RecyclerviewItemBinding
+import com.android.hanple.databinding.RecyclerviewRecommendItemBinding
 
 class PlaceListAdapter(
     private val onItemClicked: (Place) -> Unit,
@@ -13,7 +13,7 @@ class PlaceListAdapter(
 ) : ListAdapter<Place, PlaceListAdapter.PlaceViewHolder>(diffCallback) {
 
     class PlaceViewHolder(
-        private val binding: RecyclerviewItemBinding,
+        private val binding: RecyclerviewRecommendItemBinding,
         private val onItemClicked: (Place) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(place: Place) = with(binding) {
@@ -28,7 +28,7 @@ class PlaceListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
-        val view = RecyclerviewItemBinding.inflate(
+        val view = RecyclerviewRecommendItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
