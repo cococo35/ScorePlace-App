@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "420908790294",
+    "project_id": "hanple",
+    "storage_bucket": "hanple.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420908790294:android:a4d0b49ef63c6f942dbb37",
+        "android_client_info": {
+          "package_name": "com.android.hanple"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-wPQ2JRSaRQsT48JyVKmPc-qB1w8Ns50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
