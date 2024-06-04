@@ -11,7 +11,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Observer
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityLoginBinding
-import com.android.hanple.ui.LogInViewModel
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.utils.SharedPreferencesUtils
 
