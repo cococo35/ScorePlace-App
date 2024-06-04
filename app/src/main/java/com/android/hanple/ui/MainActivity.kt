@@ -3,27 +3,19 @@ package com.android.hanple.ui
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupWithNavController
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.ui.search.SearchFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
-import com.android.volley.BuildConfig
-import com.google.android.gms.maps.model.Circle
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.CircularBounds
-import com.google.android.libraries.places.api.model.LocationRestriction
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.SearchNearbyRequest
-import java.util.Arrays
+import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,12 +30,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initFragment()
-        initTest()
+        setNavigation()
+//        initTest()
 
 //        각 메뉴 탭의 id를 setOf 안에 작성
 //        val appBarConfiguration = AppBarConfiguration(setOf(..., R.id.navigation_settings))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
+    }
+
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private fun initFragment() {
@@ -52,6 +53,41 @@ class MainActivity : AppCompatActivity() {
             setReorderingAllowed(true)
             addToBackStack(null)
         }
+    }
+
+    private fun setNavigation() {
+
+        val navView : NavigationView = binding.navView
+
+       navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_account -> {
+                    // 액티비티 이동
+                }
+
+                R.id.nav_view -> {
+                    // 액티비티 이동
+                }
+
+                R.id.nav_bookmark -> {
+                    // 액티비티 이동
+                }
+            }
+           binding.drawerLayout.closeDrawer(GravityCompat.START)
+           true
+        }
+
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
+            override fun onDrawerOpened(drawerView: View) {
+//                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+            override fun onDrawerClosed(drawerView: View) {
+                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            }
+            override fun onDrawerStateChanged(newState: Int) {}
+        })
     }
 
     @SuppressLint("SuspiciousIndentation")

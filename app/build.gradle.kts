@@ -107,4 +107,8 @@ dependencies {
     //glide
     implementation ("com.github.bumptech.glide:glide:4.14.2")
 
+    //navigation drawer
+    implementation ("androidx.drawerlayout:drawerlayout:1.2.0")
+    implementation ("com.google.android.material:material:1.12.0")
+
 }
