@@ -105,7 +105,7 @@ class SignUpActivity : AppCompatActivity() {
                         etId.id -> SignUpViewModel.Field.ID
                         etPassword.id -> SignUpViewModel.Field.PASSWORD
                         etNumber.id -> {
-                            if (phoneNumberRegex.containsMatchIn(editable.toString())) SignUpViewModel.Field.PHONE else null
+                            if (ConvertUtils.phoneNumberRegex.containsMatchIn(editable.toString())) SignUpViewModel.Field.PHONE else null //Unix 시간 변환, Regex 변환과 같은 단순 변환 코드는 ConvertUtils에 모아 두었어요!
                         }
                         else -> null
                     }
@@ -115,9 +115,5 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    companion object {
-        private val phoneNumberRegex = "^\\+?\\d{1,4}[- ]?\\d{4,}(?:[- ]?\\d{4,})?\$".toRegex()
     }
 }

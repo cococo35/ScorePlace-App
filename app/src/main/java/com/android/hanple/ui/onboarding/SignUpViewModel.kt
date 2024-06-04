@@ -1,6 +1,5 @@
 package com.android.hanple.ui.onboarding
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,25 +8,6 @@ import com.android.hanple.repository.UserSampleData
 import com.android.hanple.utils.ConvertUtils
 
 class SignUpViewModel : ViewModel() {
-    companion object {
-        const val TAG = "SignUpActivity, SharedPreference"
-    }
-    private fun isEmailNew(email: String): Boolean = true
-    private fun isPasswordValid(
-        sharedPreferences: SharedPreferences,
-        email: String,
-        password: String
-    ) = true
-    private fun saveAuthSharedPreference(
-        sharedPreferences: SharedPreferences,
-        email: String,
-        password: String
-    ) {
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString("VALID_EMAIL", email)
-        editor.putString("VALID_PASSWORD", password)
-        editor.apply() //SharedPreference에 이메일, 비밀번호 저장
-    }
 
     private val _signupData = MutableLiveData(SignupData())
     val signupData: LiveData<SignupData> = _signupData

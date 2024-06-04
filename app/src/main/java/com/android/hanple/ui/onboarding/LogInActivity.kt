@@ -1,6 +1,8 @@
 package com.android.hanple.ui.onboarding
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -11,17 +13,25 @@ import com.android.hanple.R
 import com.android.hanple.databinding.ActivityLoginBinding
 import com.android.hanple.ui.LoginViewModel
 import com.android.hanple.ui.MainActivity
+import com.android.hanple.utils.SharedPreferencesUtils
 
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding // 뷰 바인딩 객체를 늦은 초기화로 선언
     private val loginViewModel: LoginViewModel by viewModels() // ViewModel 객체를 by viewModels()로 초기화
+    private val spf : SharedPreferences = getSharedPreferences("remember_me", Context.MODE_PRIVATE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //화면 SplashScreen 적용 및 바인딩
         installSplashScreen()
         binding = ActivityLoginBinding.inflate(layoutInflater)
+
+        //만약 SharedPreferences에 이메일 정보가 저장이 되어 있다면,
+        val spfEmail = SharedPreferencesUtils.loadRememberMe(spf) //없다면 "" 출력할 것으로 보임.
+        binding.etId.setText(spfEmail) //정보가 저장되어 있다면 자동으로 작성됨.
+
         setContentView(binding.root)
 
         // 로그인 버튼 클릭 리스너 설정
@@ -29,6 +39,13 @@ class LogInActivity : AppCompatActivity() {
             // 입력된 사용자 아이디와 비밀번호를 가져옴
             val userId = binding.etId.text.toString()
             val password = binding.etPassword.text.toString()
+
+            //요 SharedPreferences도 결국엔 data layer에 저장된다면, SharedPref 관련 코드는 다 ViewModel로 가는 것이 맞을까? 헷갈린다.
+            SharedPreferencesUtils.rememberMe(spf, userId) //userId에 이메일 값 작성. 이 코드가 정상 실행된다면 앱을 껐다 켰을 때 로그인 성공한 값이 etId 텍스트 창에 떠 있어야 합니다.
+            // 기획 의논이 필요: Email + Password 사용이 제일 예시가 많아서 우선 적용했어요. 얼마든지 다른 방식의 로그인도 추가 가능한 것으로 알고 있습니다. (google, facebook, 심지어는 github 계정 연동 등)
+            // 휴대폰 인증이나 앱 자체에서 ID 관리하는 경우(UID와 다름)에는 조금 다룰 것이 많아지는 것 같습니다. 기능상으로 필요해 보인다면 더 알아볼게요!
+
+
 
             // ViewModel을 통해 사용자 유효성 검사 수행
             loginViewModel.validateUser(userId, password)

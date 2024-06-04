@@ -12,8 +12,9 @@ object SharedPreferencesUtils { //우선은 Singleton으로 선언해 어디에�
         editor.putString("remember_me", email).apply()
     }
     //앱 실행 전에 SharedPreferences에 저장된 이메일 정보가 있다 = 로컬에 저장됨 = 자동 로그인.
-    fun loadRememberMe(spf: SharedPreferences) =
-        spf.getString("remember_me", "") //초기값 null 아닌 ""
+    fun loadRememberMe(spf: SharedPreferences): String =
+        spf.getString("remember_me", "").toString() //초기값 null 아닌 "" 일 것으로 예상 중.
+    //defValue를 지정하는데도. spf.getStirng 타입이 String? 이라서 좀 놀랐어요.
 
     fun deleteRememberMe(spf: SharedPreferences) {
         val editor = spf.edit()
