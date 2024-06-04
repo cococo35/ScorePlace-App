@@ -106,5 +106,8 @@ dependencies {
 
     //glide
     implementation ("com.github.bumptech.glide:glide:4.14.2")
-
+    
+    //firebase
+        implementation(platform("com.google.firebase:firebase-bom:32.3.1")) //여러 Firebase 기능 버전 입력 안해도, BoM이 자동으로 찾아줌.
+        implementation("com.google.firebase:firebase-auth") //firebase auth 추가
 }
