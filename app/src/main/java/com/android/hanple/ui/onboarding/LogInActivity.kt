@@ -24,8 +24,6 @@ class LogInActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val sharedPreference = getSharedPreferences("AUTH_LOCAL_SAVE", MODE_PRIVATE)
-
         // 로그인 버튼 클릭 리스너 설정
         binding.btnLogin.setOnClickListener {
             // 입력된 사용자 아이디와 비밀번호를 가져옴
@@ -39,11 +37,10 @@ class LogInActivity : AppCompatActivity() {
         // ViewModel의 로그인 결과를 관찰하여 처리
         loginViewModel.loginSuccess.observe(this, Observer { success ->
             if (success) {
-                // 로그인 성공 시, 메인 액티비티로 이동
                 Toast.makeText(this, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("userID", binding.etId.text.toString())
-                startActivity(intent)
+                startActivity(intent) // 로그인 성공 시, 메인 액티비티로 이동
             } else {
                 // 로그인 실패 시, 오류 메시지 표시
                 Toast.makeText(this, R.string.ts_login_id, Toast.LENGTH_SHORT).show()
