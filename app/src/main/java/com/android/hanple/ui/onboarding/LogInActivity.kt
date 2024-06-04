@@ -11,14 +11,14 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Observer
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityLoginBinding
-import com.android.hanple.ui.LoginViewModel
+import com.android.hanple.ui.LogInViewModel
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.utils.SharedPreferencesUtils
 
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding // 뷰 바인딩 객체를 늦은 초기화로 선언
-    private val loginViewModel: LoginViewModel by viewModels() // ViewModel 객체를 by viewModels()로 초기화
+    private val loginViewModel: LogInViewModel by viewModels() // ViewModel 객체를 by viewModels()로 초기화
     private val spf : SharedPreferences = getSharedPreferences("remember_me", Context.MODE_PRIVATE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
