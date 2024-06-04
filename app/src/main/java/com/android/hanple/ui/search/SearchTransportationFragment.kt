@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
-import com.android.hanple.databinding.FragmentSearchBinding
 import com.android.hanple.databinding.FragmentSearchTimeBinding
+import com.android.hanple.databinding.FragmentSearchTransportationBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 
-class SearchTimeFragment : Fragment() {
-    private var _binding : FragmentSearchTimeBinding? = null
+class SearchTransportationFragment : Fragment() {
+    private var _binding : FragmentSearchTransportationBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy{
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
@@ -22,47 +22,36 @@ class SearchTimeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSearchTimeBinding.inflate(layoutInflater)
+        _binding = FragmentSearchTransportationBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        putViewModelData()
+        getScore()
     }
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
     private fun initView(){
-        val fromStart : String?
-        val toStart: String?
-        fromStart = binding.edSearchTimeFrom.text.toString()
-        toStart = binding.edSearchTimeTo.text.toString()
-        if(fromStart != null && toStart != null){
-            viewModel.getTimeStamp(fromStart, toStart)
+        binding.tvSearchTransportationCar.setOnClickListener {
+            viewModel.getParkingData()
         }
-        binding.tvSearchTimeSkip.setOnClickListener {
-            val searchTransportationFragment = SearchTransportationFragment()
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.add(R.id.fr_main, searchTransportationFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+        binding.tvSearchTransportationPublic.setOnClickListener {
+            viewModel.usePublic()
         }
-        binding.tvSearchTimeNext.setOnClickListener {
-            val searchTransportationFragment = SearchTransportationFragment()
+        binding.tvSearchTransportationNext.setOnClickListener {
+            val searchPeopleFragment = SearchPeopleFragment()
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.add(R.id.fr_main, searchTransportationFragment)
+            transaction.add(R.id.fr_main, searchPeopleFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }
     }
-    private fun putViewModelData(){
-        viewModel.getDustData()
-        viewModel.getWeatherData()
+    private fun getScore(){
+        viewModel.getDustScore()
+        viewModel.getWeatherScore()
     }
-
 }

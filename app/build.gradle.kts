@@ -93,7 +93,7 @@ dependencies {
     val core_version = "1.13.1"
     implementation ("androidx.core:core-ktx:${core_version}}")
 
-    // google map api dependency
+    // google place api dependency
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.0"))
     implementation("com.google.android.libraries.places:places:3.5.0")
     implementation ("com.google.android.gms:play-services-maps:18.1.0")
@@ -102,5 +102,8 @@ dependencies {
 
     // Splash Screen
     implementation ("androidx.core:core-splashscreen:1.0.0-rc01")
+
+    //google map sdk
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
 }

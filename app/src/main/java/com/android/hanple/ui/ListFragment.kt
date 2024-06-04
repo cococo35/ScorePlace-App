@@ -3,14 +3,13 @@ package com.android.hanple.ui
 
 import android.location.Address
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.ex11_googlemap.AddressAdapter
+import com.android.hanple.adapter.AddressAdapter
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentListViewBinding
 import com.example.mapdemo.MapFragment

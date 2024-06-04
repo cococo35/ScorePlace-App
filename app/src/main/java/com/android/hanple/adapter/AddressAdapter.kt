@@ -1,5 +1,5 @@
 // AddressAdapter.kt
-package com.android.ex11_googlemap
+package com.android.hanple.adapter
 
 import android.location.Address
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ class AddressAdapter(
 
     interface OnItemClickListener {
         fun onItemClick(address: Address)
-        fun onAddressClick(address: Address) // 텍스트뷰 클릭 인터페이스 추가
+        fun onAddressClick(address: Address) 
     }
 
     inner class AddressViewHolder(private val binding: RecyclerviewItemBinding) :
@@ -24,7 +24,7 @@ class AddressAdapter(
             binding.root.setOnClickListener {
                 listener.onItemClick(address)
             }
-            binding.tvItemAddress.setOnClickListener { // 텍스트뷰 클릭 리스너 설정
+            binding.tvItemAddress.setOnClickListener {
                 listener.onAddressClick(address)
             }
         }

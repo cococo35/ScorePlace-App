@@ -46,6 +46,6 @@
         app:layout_constraintStart_toEndOf="@id/tv_item_score"
         app:layout_constraintTop_toTopOf="@id/tv_item_score"
         app:layout_constraintBottom_toBottomOf="@id/tv_item_score"
-        android:background="@drawable/ic_recommend_black_24dp" />
+        android:background="@drawable/ic_star_18dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
