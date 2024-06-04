@@ -6,12 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.hanple.databinding.RecyclerviewRecommendItemBinding
 import com.android.hanple.databinding.RecyclerviewScoreCategoryItemBinding
-import com.bumptech.glide.Glide
-import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.FetchPhotoRequest
 
 interface OnDataClick {
     fun onItemClick(data: Place)
