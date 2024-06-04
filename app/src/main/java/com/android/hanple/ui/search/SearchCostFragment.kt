@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
-import com.android.hanple.databinding.FragmentSearchBinding
 import com.android.hanple.databinding.FragmentSearchCostBinding
-import com.android.hanple.databinding.FragmentSearchTimeBinding
-import com.android.hanple.ui.ScoreFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 

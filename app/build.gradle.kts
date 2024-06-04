@@ -104,4 +104,7 @@ dependencies {
     //google map sdk
     implementation("com.google.android.gms:play-services-maps:18.2.0")
 
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
+
 }
