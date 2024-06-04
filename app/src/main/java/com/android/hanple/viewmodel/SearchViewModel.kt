@@ -42,7 +42,8 @@ class SearchViewModel(
     private val weatherDescription = MutableLiveData<List<String>>()
     private val dustAqi = MutableLiveData<List<String>>()
     private val congestionDescription = MutableLiveData<List<String>>()
-
+    private val _nearByPlace = MutableLiveData<MutableList<Place>>()
+    val nearByPlace : LiveData<MutableList<Place>> get() = _nearByPlace
 
     private val congestScore = MutableLiveData<Int>()
     private val weatherScore = MutableLiveData<Int>()
@@ -143,8 +144,8 @@ class SearchViewModel(
         var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
         var circle = CircularBounds.newInstance(latLng, 500.0)
         val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
-            .setIncludedTypes(includeType) // 이것도 includeType 확인 해주세요
-            .setMaxResultCount(10) // 말 그대로 결괏값의 max를 Int로 지정
+            .setIncludedTypes(includeType)
+            .setMaxResultCount(10)
             .build()
         placeClient.value!!.searchNearby(searchNearbyRequest)
             .addOnSuccessListener { response ->
@@ -158,6 +159,24 @@ class SearchViewModel(
         notDrivingCar.value = true
     }
 
+    fun getNearByPlace(type: String) {
+        notDrivingCar.value = false
+        var placeField: List<Place.Field> = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.RATING, Place.Field.OPENING_HOURS, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS)
+        var includeType = listOf(type)
+        var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
+        var circle = CircularBounds.newInstance(latLng, 500.0)
+        val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
+            .setIncludedTypes(includeType)
+            .setMaxResultCount(10)
+            .build()
+        placeClient.value!!.searchNearby(searchNearbyRequest)
+            .addOnSuccessListener { response ->
+                _nearByPlace.postValue(response.places)
+            }
+            .addOnFailureListener { e ->
+                Log.d("근처 장소 정보 불러오기 실패", e.toString())
+            }
+    }
 
      fun getCongestionScore(type: Int) : Int{
         var score: Int = 0

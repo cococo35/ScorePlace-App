@@ -10,9 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchLoadingBinding
-import com.android.hanple.databinding.FragmentSearchTimeBinding
-import com.android.hanple.databinding.FragmentSearchTransportationBinding
-import com.android.hanple.ui.ScoreFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import kotlinx.coroutines.delay
