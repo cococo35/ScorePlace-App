@@ -1,4 +1,4 @@
-package com.android.hanple.ui
+package com.android.hanple.ui.onboarding
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,20 +9,22 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Observer
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityLoginBinding
+import com.android.hanple.ui.LoginViewModel
+import com.android.hanple.ui.MainActivity
 
 class LogInActivity : AppCompatActivity() {
 
-    // 뷰 바인딩 객체를 늦은 초기화로 선언
-    private lateinit var binding: ActivityLoginBinding
-
-    // ViewModel 객체를 by viewModels()로 초기화
-    private val loginViewModel: LoginViewModel by viewModels()
+    private lateinit var binding: ActivityLoginBinding // 뷰 바인딩 객체를 늦은 초기화로 선언
+    private val loginViewModel: LoginViewModel by viewModels() // ViewModel 객체를 by viewModels()로 초기화
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         installSplashScreen()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val sharedPreference = getSharedPreferences("AUTH_LOCAL_SAVE", MODE_PRIVATE)
 
         // 로그인 버튼 클릭 리스너 설정
         binding.btnLogin.setOnClickListener {

@@ -29,30 +29,23 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <activity
-            android:name=".ui.LogInActivity"
+            android:name=".ui.onboarding.LogInActivity"
             android:theme="@style/Theme.App.Starting"
             android:exported="true" >
-        </activity>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity
-            android:name=".ui.SignUpActivity"
-            android:exported="false">
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
             android:name=".ui.ArchiveActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.OnboardingActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 </manifest>

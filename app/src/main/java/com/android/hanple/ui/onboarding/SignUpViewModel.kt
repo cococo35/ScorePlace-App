@@ -1,10 +1,11 @@
-package com.android.hanple.ui
+package com.android.hanple.ui.onboarding
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.hanple.data.User
 import com.android.hanple.repository.UserRepository
+import com.android.hanple.utils.ConvertUtils
 
 class SignUpViewModel : ViewModel() {
     private val _signupData = MutableLiveData(SignupData())
@@ -19,7 +20,7 @@ class SignUpViewModel : ViewModel() {
             Field.NAME -> currentData.copy(name = value)
             Field.ID -> currentData.copy(id = value)
             Field.PASSWORD -> currentData.copy(password = value)
-            Field.PHONE -> if (phoneNumberRegex.containsMatchIn(value)) currentData.copy(phoneNumber = value) else currentData.copy(phoneNumber = null)
+            Field.PHONE -> if (ConvertUtils.phoneNumberRegex.containsMatchIn(value)) currentData.copy(phoneNumber = value) else currentData.copy(phoneNumber = null)
         }
         _signupData.value = updatedData
     }
@@ -38,9 +39,6 @@ class SignUpViewModel : ViewModel() {
         }
     }
 
-    companion object {
-        private val phoneNumberRegex = "^\\+?\\d{1,4}[- ]?\\d{4,}(?:[- ]?\\d{4,})?\$".toRegex()
-    }
 
     enum class Field {
         NAME, ID, PASSWORD, PHONE

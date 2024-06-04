@@ -1,4 +1,4 @@
-package com.android.hanple.ui
+package com.android.hanple.ui.onboarding
 
 import android.content.Intent
 import android.content.SharedPreferences
