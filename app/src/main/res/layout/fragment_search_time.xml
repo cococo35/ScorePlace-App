@@ -8,39 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchTimeFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cd_search_time_enter_destination"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/darkmint"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="15dp"
+    <TextView
+        android:id="@+id/tv_search_time_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="활동 시간대를 입력해주세요"
+        android:textSize="25sp"
+        android:textStyle="bold"
         android:layout_marginTop="25dp"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_search_time_enter_destination"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/please_enter_activity_time"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/ed_search_time_from"
@@ -49,7 +27,7 @@
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cd_search_time_enter_destination"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_time_title"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
         android:layout_marginStart="25dp"
@@ -96,16 +74,17 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_time_skip"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:cardBackgroundColor="@color/darkmint"
+        app:cardBackgroundColor="@color/gray"
+        app:strokeColor="@color/black"
         app:cardCornerRadius="15dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cd_search_time_next">
+        app:layout_constraintTop_toBottomOf="@id/cd_search_time_next">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -129,9 +108,10 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_time_next"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/darkmint"
+        app:strokeColor="@color/black"
         app:cardCornerRadius="15dp"
         android:layout_marginBottom="155dp"
         android:layout_marginStart="25dp"
