@@ -35,11 +35,11 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         // SharedPreferences 초기화
-        val sharedPreference = getSharedPreferences("userInfo", MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreference.edit()
+//        val sharedPreference = getSharedPreferences("userInfo", MODE_PRIVATE)
+//        val editor: SharedPreferences.Editor = sharedPreference.edit()
 
         binding.btnSignup.setOnClickListener {
-            handleSignup(editor, sharedPreference)
+//            handleSignup(editor, sharedPreference)
         }
 
         watchEditText()
