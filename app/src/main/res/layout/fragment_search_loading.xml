@@ -8,38 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchLoadingFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cd_search_time_enter_destination"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/darkmint"
-        app:cardCornerRadius="15dp"
+    <TextView
+        android:id="@+id/tv_search_cost_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="여행지 점수 계산 중..."
+        android:textSize="25sp"
+        android:textStyle="bold"
         android:layout_marginTop="25dp"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_search_time_enter_destination"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/loading"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progress_circular"

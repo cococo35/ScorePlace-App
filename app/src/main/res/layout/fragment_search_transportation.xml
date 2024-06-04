@@ -8,45 +8,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchTransportationFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cd_search_transportation_how"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/darkmint"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="15dp"
+    <TextView
+        android:id="@+id/tv_search_transportation_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="어떻게 가시나요?"
+        android:textSize="25sp"
+        android:textStyle="bold"
         android:layout_marginTop="25dp"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_search_transportation_how"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="어떻게 가시나요?"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_transportation_next"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/darkmint"
+        app:strokeColor="@color/black"
         app:cardCornerRadius="15dp"
         android:layout_marginBottom="155dp"
         android:layout_marginStart="25dp"
@@ -77,69 +56,86 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_transportation_public"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         app:cardBackgroundColor="@color/white"
-        app:cardElevation="2dp"
+        android:elevation="2dp"
         app:cardCornerRadius="3dp"
-        app:layout_constraintStart_toStartOf="@id/cd_search_transportation_how"
-        app:layout_constraintEnd_toEndOf="@id/cd_search_transportation_how"
-        app:layout_constraintTop_toBottomOf="@id/cd_search_transportation_how"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="45dp" >
+        app:strokeColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_transportation_title"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="35dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/tv_search_transportation_public"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_search_transportation_public"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_bus_24dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="걸어가거나, 대중교통을 이용해요!"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:padding="10dp" />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_transportation_car"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         app:cardBackgroundColor="@color/white"
-        app:cardElevation="2dp"
+        android:elevation="2dp"
         app:cardCornerRadius="3dp"
-        app:layout_constraintStart_toStartOf="@id/cd_search_transportation_public"
-        app:layout_constraintEnd_toEndOf="@id/cd_search_transportation_public"
-        app:layout_constraintTop_toBottomOf="@id/cd_search_transportation_public"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="25dp" >
+        app:strokeColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_transportation_title"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="35dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/tv_search_transportation_car"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_search_transportation_car"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_car_24dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="차를 가지고 갈거에요!"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:padding="10dp" />
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tv_search_transportation_public"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="@id/cd_search_transportation_public"
+        app:layout_constraintTop_toBottomOf="@id/cd_search_transportation_public"
+        app:layout_constraintEnd_toEndOf="@id/cd_search_transportation_public"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:text="걸어가거나, 대중교통을 이용해요!" />
+
+    <TextView
+        android:id="@+id/tv_search_transportation_car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="@id/cd_search_transportation_car"
+        app:layout_constraintTop_toBottomOf="@id/cd_search_transportation_car"
+        app:layout_constraintEnd_toEndOf="@id/cd_search_transportation_car"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:text="차를 가지고 갈거에요!" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
