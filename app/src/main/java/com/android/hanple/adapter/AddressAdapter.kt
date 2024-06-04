@@ -5,7 +5,7 @@ import android.location.Address
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.hanple.databinding.RecyclerviewItemBinding
+import com.android.hanple.databinding.RecyclerviewStorageItemBinding
 
 class AddressAdapter(
     private val addressList: List<Address>,
@@ -14,10 +14,10 @@ class AddressAdapter(
 
     interface OnItemClickListener {
         fun onItemClick(address: Address)
-        fun onAddressClick(address: Address) 
+        fun onAddressClick(address: Address)
     }
 
-    inner class AddressViewHolder(private val binding: RecyclerviewItemBinding) :
+    inner class AddressViewHolder(private val binding: RecyclerviewStorageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(address: Address) {
             binding.tvItemAddress.text = address.getAddressLine(0)
@@ -31,7 +31,7 @@ class AddressAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
-        val binding = RecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RecyclerviewStorageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AddressViewHolder(binding)
     }
 
