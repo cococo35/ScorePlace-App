@@ -1,5 +1,7 @@
 package com.android.hanple.ui.search
 
+import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -7,9 +9,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,6 +48,7 @@ class ScoreFragment : Fragment() {
         initView()
         getScoreDescription()
         getWeatherDescription()
+        initDetailDialog()
     }
 
 
@@ -127,6 +132,42 @@ class ScoreFragment : Fragment() {
                 binding.tvScoreWeatherDescription2.text = ""
                 binding.ivScoreWeather.setBackgroundResource(R.drawable.iv_weather_sun)
             }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun initDetailDialog(){
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.fragment_detail_score_dialog)
+        dialog!!.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT)
+        val dialogCloseButton = dialog.findViewById<TextView>(R.id.tv_detail_dialog_dismiss)
+        val scoreCost = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_cost)
+        val scoreDust = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_dust)
+        val scoreTraffic = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic)
+        val scoreCongestion = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion)
+        val scoreWeather = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather)
+        viewModel.readCostScore.observe(viewLifecycleOwner){
+            scoreCost.text = "비용 점수 : ${it}점"
+        }
+        viewModel.readDustScore.observe(viewLifecycleOwner){
+            scoreDust.text = "미세먼지 점수 : ${it}점"
+        }
+        viewModel.readTransportScore.observe(viewLifecycleOwner){
+            scoreTraffic.text = "교통 점수 : ${it}점"
+        }
+        viewModel.readCongestScore.observe(viewLifecycleOwner){
+            scoreCongestion.text = "여행 성향 점수 : ${it}점"
+        }
+        viewModel.readWeatherScore.observe(viewLifecycleOwner){
+            scoreWeather.text = "날씨 점수 : ${it}점"
+        }
+        dialogCloseButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        binding.tvScoreDetail.setOnClickListener {
+            dialog.show()
         }
     }
 }
