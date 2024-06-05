@@ -78,6 +78,18 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_dialog_score_congestion" />
 
     <TextView
+        android:id="@+id/tv_detail_dialog_score_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:text="안내"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_dialog_score_cost" />
+
+    <TextView
         android:id="@+id/tv_detail_dialog_dismiss"
         android:layout_width="250dp"
         android:layout_height="60dp"

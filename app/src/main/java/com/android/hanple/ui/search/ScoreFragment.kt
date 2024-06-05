@@ -148,6 +148,8 @@ class ScoreFragment : Fragment() {
         val scoreTraffic = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic)
         val scoreCongestion = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion)
         val scoreWeather = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather)
+        val scoreInfo = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_info)
+        scoreInfo.text = "※각 상세 점수는 사용자가 입력한 정보에 따라 \n 20점 만점으로 환산된 점수 입니다"
         viewModel.readCostScore.observe(viewLifecycleOwner){
             scoreCost.text = "비용 점수 : ${it}점"
         }
