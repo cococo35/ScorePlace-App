@@ -90,8 +90,8 @@ class ScoreFragment : Fragment() {
         }
         binding.spScoreCategory.onItemSelectedListener = itemSelectedListener
         val localDateTime: LocalDateTime = LocalDateTime.now()
-        viewModel.selectPlace.observe(viewLifecycleOwner){
-            binding.tvScoreTitle.text = "${it.name}, ${localDateTime.toString()} "
+        viewModel.selectPlace?.observe(viewLifecycleOwner){
+            binding.tvScoreTitle.text = "${it?.name}, ${localDateTime.toString()} "
         }
         viewModel.totalScore.observe(viewLifecycleOwner){
             binding.tvScoreScore.text = "${it.toString()}점"

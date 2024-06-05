@@ -51,13 +51,15 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAutoComplete()
+        nextButtonActivated()
         initView()
     }
 
 
 
-    @SuppressLint("CommitTransaction")
+
     private fun initView(){
+        binding.btnSearchNext.visibility = View.GONE
         binding.btnSearchNext.setOnClickListener {
             val searchTimeFragment = SearchTimeFragment()
             val transaction = parentFragmentManager.beginTransaction()
@@ -90,5 +92,14 @@ class SearchFragment : Fragment() {
             }
         })
     }
-
+    private fun nextButtonActivated(){
+        viewModel.selectPlace.observe(viewLifecycleOwner){
+            if(it?.id != null){
+                binding.btnSearchNext.visibility = View.VISIBLE
+            }
+            else {
+                binding.btnSearchNext.visibility = View.GONE
+            }
+        }
+    }
 }
