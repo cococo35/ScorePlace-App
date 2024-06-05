@@ -1,7 +1,18 @@
 package com.android.hanple.adapter
 
-data class Place(
-    val address: String,
-    val score: Int,
-    val isFavorite: Boolean
-)
+import android.graphics.Bitmap
+import com.google.android.libraries.places.api.model.OpeningHours
+
+class CategoryPlace(
+    val address: String?,
+    val score: Double?,
+    var img: Bitmap?,
+    val id: String?,
+    val name: String?,
+    val isFavorite: Boolean,
+    val openingHours: OpeningHours?,
+) {
+    fun setImgBitmap(bitmap: Bitmap){
+        this.img = bitmap
+    }
+}

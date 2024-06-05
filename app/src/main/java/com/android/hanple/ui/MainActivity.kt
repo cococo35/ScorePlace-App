@@ -2,9 +2,13 @@ package com.android.hanple.ui
 
 import MapFragment
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
@@ -17,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
@@ -31,11 +36,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
 
         initFragment()
+        setNavigation()
         initTest()
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
-                replace(R.id.fr_main, MapFragment())
+                replace(R.id.mapView, MapFragment())
             }
         }
 
@@ -45,12 +51,57 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 //        navView.setupWithNavController(navController)
     }
 
+    override fun onBackPressed() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun initFragment() {
         supportFragmentManager.commit {
             replace(R.id.fr_main, SearchFragment())
             setReorderingAllowed(true)
             addToBackStack(null)
         }
+    }
+
+    private fun setNavigation() {
+
+        val navView : NavigationView = binding.navView
+
+       navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_account -> {
+                    // 액티비티 이동
+                    val intent = Intent(this, ArchiveActivity::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.nav_view -> {
+                    // 액티비티 이동
+                }
+
+                R.id.nav_bookmark -> {
+                    // 액티비티 이동
+                }
+            }
+           binding.drawerLayout.closeDrawer(GravityCompat.START)
+           true
+        }
+
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
+            override fun onDrawerOpened(drawerView: View) {
+//                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+            override fun onDrawerClosed(drawerView: View) {
+                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            }
+            override fun onDrawerStateChanged(newState: Int) {}
+        })
     }
 
     @SuppressLint("SuspiciousIndentation")

@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityArchiveBinding
-import com.android.hanple.databinding.ActivityOnboardingBinding
 import com.android.hanple.databinding.FragmentSettingsBinding
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place

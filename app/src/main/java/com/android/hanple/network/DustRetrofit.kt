@@ -15,9 +15,9 @@ object DustRetrofit {
         val interceptor = HttpLoggingInterceptor()
 
         return OkHttpClient.Builder()
-            .connectTimeout(20, TimeUnit.SECONDS)
-            .readTimeout(20, TimeUnit.SECONDS)
-            .writeTimeout(20, TimeUnit.SECONDS)
+            .connectTimeout(150, TimeUnit.SECONDS)
+            .readTimeout(150, TimeUnit.SECONDS)
+            .writeTimeout(150, TimeUnit.SECONDS)
             .addInterceptor(interceptor)
             .build()
     }

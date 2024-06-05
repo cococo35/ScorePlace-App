@@ -2,7 +2,7 @@ package com.android.hanple.repository
 
 import com.android.hanple.data.User
 
-object UserRepository {
+object UserSampleData {
     private val users = mutableListOf<User>()
 
     init {
