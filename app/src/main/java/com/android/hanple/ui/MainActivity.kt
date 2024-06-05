@@ -1,6 +1,7 @@
 package com.android.hanple.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ui.setupWithNavController
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.ui.search.SearchFragment
@@ -63,6 +65,8 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_account -> {
                     // 액티비티 이동
+                    val intent = Intent(this, ArchiveActivity::class.java)
+                    startActivity(intent)
                 }
 
                 R.id.nav_view -> {
