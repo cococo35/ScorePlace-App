@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
         android:name="android.permission.ACCESS_FINE_LOCATION"
@@ -9,6 +10,7 @@
     <uses-permission
         android:name="android.permission.ACCESS_COARSE_LOCATION"
         tools:node="remove" />
+
 
     <application
         android:allowBackup="true"
@@ -22,9 +24,10 @@
         android:theme="@style/Theme.Hanple"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCdjyOxbTIwn_f13N9XhrLnKtFJ2kpsG7M" />
+            android:value="AIzaSyDEM3dahe3QwR-NgZn4FDWAg472eNRHj8g" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

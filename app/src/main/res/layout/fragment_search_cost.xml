@@ -8,38 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchCostFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cd_search_cost_how_much"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/darkmint"
-        app:cardCornerRadius="15dp"
+    <TextView
+        android:id="@+id/tv_search_cost_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="하루동안 얼만큼 쓸건가요?"
+        android:textSize="25sp"
+        android:textStyle="bold"
         android:layout_marginTop="25dp"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_search_cost_how_much"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="하루동안 얼만큼 쓸건가요?"
-                android:textSize="25sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/ed_search_cost_input_cost"
@@ -50,7 +29,7 @@
         android:layout_marginEnd="55dp"
         android:gravity="end"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cd_search_cost_how_much"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_cost_title"
         android:hint="100000" />
 
     <TextView
@@ -79,11 +58,12 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_cost_next"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/darkmint"
         app:cardCornerRadius="15dp"
         android:layout_marginBottom="155dp"
+        app:strokeColor="@color/black"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         app:layout_constraintStart_toStartOf="parent"
