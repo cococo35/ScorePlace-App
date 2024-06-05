@@ -76,7 +76,7 @@ class SearchFragment : Fragment() {
     private fun initAutoComplete(){
         val autocompleteFragment = childFragmentManager.findFragmentById(R.id.start_autocomplete) as? AutocompleteSupportFragment
 
-        autocompleteFragment?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.PRICE_LEVEL))
+        autocompleteFragment?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.PRICE_LEVEL, Place.Field.PHOTO_METADATAS))
         autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 Log.d("선택 장소", "Place: ${place.name}, ${place.id},${place.latLng}, ${place.priceLevel}")
