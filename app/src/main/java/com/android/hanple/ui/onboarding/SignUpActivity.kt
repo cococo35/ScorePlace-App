@@ -13,10 +13,13 @@ import androidx.core.widget.addTextChangedListener
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivitySignUpBinding
 import com.android.hanple.utils.ConvertUtils
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
+    private lateinit var auth: FirebaseAuth //FirebaseAuth를 가져옴
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,6 +117,43 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun signUp() {
+        var email: String = binding.etId.text.toString()
+        var password: String = binding.etPassword.text.toString()
+        auth = FirebaseAuth.getInstance()
+        //firebase-auth-ktx가 deprecated되어서, firebase-auth를 디펜던시에 추가했습니다.
+        //firebase-auth에서는 java 코드처럼 getInstance()로 값을 가져오면 된다고 하네요.
+        //https://firebase.google.com/docs/auth/android/start?hl=ko#java_1
+        //위 공식 문서의 Kotlin+KTX 메소드가 먹히지 않으면 java 코드를 참고해 보세요.
+        auth.createUserWithEmailAndPassword(email, password) //email, password 정보를 firebase에 넘기고
+            .addOnCompleteListener(this@SignUpActivity) { task -> //task 자리에 값을 넘겨받음
+                if (task.isSuccessful) { //파이어베이스 로그인 성공
+                    val user = this.auth.currentUser
+                    updateUI(user)
+                } else { //로그인 실패
+                    val exception = task.exception!!.toString()
+                    if (exception.contains("FirebaseAuthUserCollisionException")) { //이미 등록된 이메일
+                        updateUI(null)
+                    }
+                }
+
+            }
+    }
+
+//    companion object {
+//        val firebaseLoginSuccess: Toast = Toast.makeText(this@SignUpActivity, "파이어베이스 로그인 성공", Toast.LENGTH_SHORT)
+//        val intentMain = Intent(this@SignUpActivity, MainActivity::class.java)
+//    }
+
+    private fun updateUI(user: FirebaseUser?) {
+        if (user == null) {
+
+        }
+        else {
+
         }
     }
 }
