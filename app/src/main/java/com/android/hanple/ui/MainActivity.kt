@@ -16,14 +16,10 @@ import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.ui.search.SearchFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel by lazy {
@@ -39,16 +35,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         setNavigation()
         initPlaceSDK()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                replace(R.id.mapView, MapFragment())
-            }
-        }
-
-//        각 메뉴 탭의 id를 setOf 안에 작성
-//        val appBarConfiguration = AppBarConfiguration(setOf(..., R.id.navigation_settings))
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+        //맵 테스트 용
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.commit {
+//                replace(R.id.mapView, MapFragment())
+//            }
+//        }
     }
 
     override fun onBackPressed() {
@@ -69,9 +61,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setNavigation() {
 
-        val navView : NavigationView = binding.navView
+        val navView: NavigationView = binding.navView
 
-       navView.setNavigationItemSelectedListener { item ->
+        navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_account -> {
                     // 액티비티 이동
@@ -87,8 +79,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     // 액티비티 이동
                 }
             }
-           binding.drawerLayout.closeDrawer(GravityCompat.START)
-           true
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
         }
 
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -97,15 +89,16 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onDrawerOpened(drawerView: View) {
 //                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
+
             override fun onDrawerClosed(drawerView: View) {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
+
             override fun onDrawerStateChanged(newState: Int) {}
         })
     }
 
-  @SuppressLint("SuspiciousIndentation")
-    private fun initPlaceSDK(){
+    private fun initPlaceSDK() {
         // Define a variable to hold the Places API key.
         //secret에서 정의한 API KEY가 안불러와져서 그냥 때려 박았습니다
         val apiKey = "AIzaSyCdjyOxbTIwn_f13N9XhrLnKtFJ2kpsG7M"
@@ -121,14 +114,15 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         Places.initializeWithNewPlacesApiEnabled(applicationContext, apiKey)
         val placesClient = Places.createClient(this)
         viewModel.setPlacesAPIClient(placesClient)
-
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(LatLng(0.0, 0.0))
-                .title("Marker")
-        )
-    }
+    //맵 테스트 용
+//    override fun onMapReady(googleMap: GoogleMap) {
+//        googleMap.addMarker(
+//            MarkerOptions()
+//                .position(LatLng(0.0, 0.0))
+//                .title("Marker")
+//        )
+//    }
 }
+
