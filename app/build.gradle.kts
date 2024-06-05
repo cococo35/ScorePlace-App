@@ -78,6 +78,8 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     //retrofit etc..
     implementation ("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation ("com.google.android.gms:play-services-maps:17.0.0")
+    implementation ("com.google.android.gms:play-services-location:17.0.0")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("io.coil-kt:coil:2.6.0")
@@ -96,6 +98,8 @@ dependencies {
     // google place api dependency
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.0"))
     implementation("com.google.android.libraries.places:places:3.5.0")
+    implementation ("com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
 
 
     // Splash Screen

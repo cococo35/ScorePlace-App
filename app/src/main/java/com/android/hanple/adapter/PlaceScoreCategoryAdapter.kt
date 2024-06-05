@@ -11,13 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.hanple.databinding.RecyclerviewRecommendItemBinding
 import com.android.hanple.databinding.RecyclerviewScoreCategoryItemBinding
-import com.android.hanple.viewmodel.SearchViewModel
-import com.bumptech.glide.Glide
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.FetchPhotoRequest
+
 
 interface OnDataClick {
     fun onItemClick(data: CategoryPlace)

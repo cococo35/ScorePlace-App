@@ -1,5 +1,6 @@
 package com.android.hanple.ui
 
+import MapFragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +11,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.ui.setupWithNavController
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.ui.search.SearchFragment
@@ -18,7 +18,6 @@ import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -31,9 +30,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         initFragment()
         setNavigation()
         initPlaceSDK()
+
+        //맵 테스트 용
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.commit {
+//                replace(R.id.mapView, MapFragment())
+//            }
+//        }
     }
 
     override fun onBackPressed() {
@@ -54,9 +61,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setNavigation() {
 
-        val navView : NavigationView = binding.navView
+        val navView: NavigationView = binding.navView
 
-       navView.setNavigationItemSelectedListener { item ->
+        navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_account -> {
                     // 액티비티 이동
@@ -72,8 +79,8 @@ class MainActivity : AppCompatActivity() {
                     // 액티비티 이동
                 }
             }
-           binding.drawerLayout.closeDrawer(GravityCompat.START)
-           true
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
         }
 
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
@@ -82,15 +89,16 @@ class MainActivity : AppCompatActivity() {
             override fun onDrawerOpened(drawerView: View) {
 //                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
+
             override fun onDrawerClosed(drawerView: View) {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
+
             override fun onDrawerStateChanged(newState: Int) {}
         })
     }
 
-    @SuppressLint("SuspiciousIndentation")
-    private fun initPlaceSDK(){
+    private fun initPlaceSDK() {
         // Define a variable to hold the Places API key.
         //secret에서 정의한 API KEY가 안불러와져서 그냥 때려 박았습니다
         val apiKey = "AIzaSyCdjyOxbTIwn_f13N9XhrLnKtFJ2kpsG7M"
@@ -106,7 +114,15 @@ class MainActivity : AppCompatActivity() {
         Places.initializeWithNewPlacesApiEnabled(applicationContext, apiKey)
         val placesClient = Places.createClient(this)
         viewModel.setPlacesAPIClient(placesClient)
-
     }
+
+    //맵 테스트 용
+//    override fun onMapReady(googleMap: GoogleMap) {
+//        googleMap.addMarker(
+//            MarkerOptions()
+//                .position(LatLng(0.0, 0.0))
+//                .title("Marker")
+//        )
+//    }
 }
 
