@@ -1,5 +1,7 @@
 package com.android.hanple.viewmodel
 
+import android.content.ContentValues.TAG
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,14 +12,19 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.android.hanple.Address.AddressRemoteImpl
 import com.android.hanple.Dust.DustRemoteImpl
 import com.android.hanple.Weather.WeatherRemoteImpl
+import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.data.congestion.remote.CongestionRemoteImpl
 import com.android.hanple.network.AddressRetrofit
 import com.android.hanple.network.CongestionRetrofit
 import com.android.hanple.network.DustRetrofit
 import com.android.hanple.network.WeatherRetrofit
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.CircularBounds
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPhotoRequest
+import com.google.android.libraries.places.api.net.FetchPhotoResponse
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.api.net.SearchNearbyRequest
 import kotlinx.coroutines.launch
@@ -40,10 +47,12 @@ class SearchViewModel(
 
     private val parkingList = MutableLiveData<List<Place>>()
     private val weatherDescription = MutableLiveData<List<String>>()
+    val readWeatherDescription : LiveData<List<String>> get() = weatherDescription
     private val dustAqi = MutableLiveData<List<String>>()
     private val congestionDescription = MutableLiveData<List<String>>()
-    private val _nearByPlace = MutableLiveData<MutableList<Place>>()
-    val nearByPlace : LiveData<MutableList<Place>> get() = _nearByPlace
+    private val _nearByPlace = MutableLiveData<MutableList<CategoryPlace>>()
+    val nearByPlace : LiveData<MutableList<CategoryPlace>> get() = _nearByPlace
+
 
     private val congestScore = MutableLiveData<Int>()
     private val weatherScore = MutableLiveData<Int>()
@@ -89,7 +98,7 @@ class SearchViewModel(
                     }
                 }
                 Log.d("리스트 보기", list.toString())
-                congestionDescription.postValue(list)
+                congestionDescription.value = list
             }.onFailure { e ->
                 Log.d("인구 데이터 갱신 실패", e.toString())
             }
@@ -108,7 +117,7 @@ class SearchViewModel(
                 response.list!!.forEach {
                     list.add(it.main!!.aqi!!)
                 }
-                dustAqi.postValue(list)
+                dustAqi.value = list
             }.onFailure { e ->
                 Log.d("미세먼지 데이터 갱신 실패", e.toString())
             }
@@ -130,7 +139,8 @@ class SearchViewModel(
                         list.add(it.main!!)
                     }
                 }
-                weatherDescription.postValue(list)
+                weatherDescription.value = list
+                Log.d("날씨 데이터", "${weatherDescription.value.toString()}")
             }.onFailure { e ->
                 Log.d("날씨 데이터 갱신 실패", e.toString())
             }
@@ -160,18 +170,40 @@ class SearchViewModel(
     }
 
     fun getNearByPlace(type: String) {
-        notDrivingCar.value = false
-        var placeField: List<Place.Field> = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.RATING, Place.Field.OPENING_HOURS, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS)
+        val categoryPlaceList = mutableListOf<CategoryPlace>()
+        var placeField: List<Place.Field> = Arrays.asList(
+            Place.Field.ID,
+            Place.Field.NAME,
+            Place.Field.RATING,
+            Place.Field.OPENING_HOURS,
+            Place.Field.ADDRESS,
+            Place.Field.PHOTO_METADATAS
+        )
         var includeType = listOf(type)
         var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
         var circle = CircularBounds.newInstance(latLng, 500.0)
+        var buffer = mutableListOf<Place>()
+        var bitMapBuffer = mutableListOf<Bitmap>()
         val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
             .setIncludedTypes(includeType)
             .setMaxResultCount(10)
             .build()
         placeClient.value!!.searchNearby(searchNearbyRequest)
             .addOnSuccessListener { response ->
-                _nearByPlace.postValue(response.places)
+                buffer = response.places
+                response.places.forEach { it ->
+                        val data = CategoryPlace(
+                            it.address,
+                            it.rating,
+                            null,
+                            it.id,
+                            it.name,
+                            false,
+                            it.openingHours
+                        )
+                        categoryPlaceList.add(data)
+                }
+                _nearByPlace.postValue(categoryPlaceList)
             }
             .addOnFailureListener { e ->
                 Log.d("근처 장소 정보 불러오기 실패", e.toString())
@@ -331,8 +363,14 @@ class SearchViewModel(
     }
 
     fun getCostScore(data: String)  {
-        val price = data.toInt()
+        Log.d("비용 인풋", "${data}")
+        Log.d("가격 수준", "${selectPlace.value?.priceLevel.toString()}")
         var score: Int = 0
+        if(data == null){
+            score = 5
+        }
+        else {
+        val price = data.toInt()
         if(selectPlace.value?.priceLevel == null){
             costScore.postValue(10)
         }
@@ -359,8 +397,8 @@ class SearchViewModel(
                     else -> score = 20
                 }
             }
-            Log.d("비용 점수", score.toString())
             costScore.postValue(score)
+        }
         }
     }
     fun getTransportScore(){

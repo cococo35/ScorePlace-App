@@ -36,10 +36,10 @@ class SearchTransportationFragment : Fragment() {
         _binding = null
     }
     private fun initView(){
-        binding.tvSearchTransportationCar.setOnClickListener {
+        binding.cdSearchTransportationCar.setOnClickListener {
             viewModel.getParkingData()
         }
-        binding.tvSearchTransportationPublic.setOnClickListener {
+        binding.cdSearchTransportationPublic.setOnClickListener {
             viewModel.usePublic()
         }
         binding.tvSearchTransportationNext.setOnClickListener {

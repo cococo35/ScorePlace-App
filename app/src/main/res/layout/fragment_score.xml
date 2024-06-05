@@ -166,10 +166,20 @@
                     android:spinnerMode="dropdown" />
 
             </LinearLayout>
-
-<!--            android:spinnerMode="dropDown"-->
-<!--            android:spinnerMode="dialog"-->
-
+            <TextView
+                android:id="@+id/tv_notFound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="근처에 해당 카테고리 장소가 없습니다"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/ln_score_category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_score_category"
                 android:layout_width="match_parent"
