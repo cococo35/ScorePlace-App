@@ -11,15 +11,14 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityMainBinding
-import com.android.hanple.ui.search.SearchFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
 
@@ -35,22 +34,29 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initFragment()
         setNavigation()
         initTest()
 
+        // 맵 프래그먼트를 초기화하고 설정하는 부분
         if (savedInstanceState == null) {
+            val mapFragment = SupportMapFragment.newInstance()
             supportFragmentManager.commit {
-                replace(R.id.mapView, MapFragment())
+                replace(R.id.mapView, mapFragment)
             }
+            mapFragment.getMapAsync(this)
         }
-
-//        각 메뉴 탭의 id를 setOf 안에 작성
-//        val appBarConfiguration = AppBarConfiguration(setOf(..., R.id.navigation_settings))
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
     }
 
+    // 맵이 준비되면 호출되는 메서드
+    override fun onMapReady(googleMap: GoogleMap) {
+        googleMap.addMarker(
+            com.google.android.gms.maps.model.MarkerOptions()
+                .position(com.google.android.gms.maps.model.LatLng(0.0, 0.0))
+                .title("Marker")
+        )
+    }
+
+    // 뒤로가기 버튼 처리
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -59,19 +65,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun initFragment() {
-        supportFragmentManager.commit {
-            replace(R.id.fr_main, SearchFragment())
-            setReorderingAllowed(true)
-            addToBackStack(null)
-        }
-    }
-
+    // 네비게이션 설정
     private fun setNavigation() {
-
         val navView : NavigationView = binding.navView
 
-       navView.setNavigationItemSelectedListener { item ->
+        navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_account -> {
                     // 액티비티 이동
@@ -87,16 +85,14 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     // 액티비티 이동
                 }
             }
-           binding.drawerLayout.closeDrawer(GravityCompat.START)
-           true
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
         }
 
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
-            override fun onDrawerOpened(drawerView: View) {
-//                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            }
+            override fun onDrawerOpened(drawerView: View) {}
             override fun onDrawerClosed(drawerView: View) {
                 binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             }
@@ -146,13 +142,5 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 //                place = response.places // place에 해당 결괏값 대입
 //                Log.d("데이터 확인", place.toString())
 //            }
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(LatLng(0.0, 0.0))
-                .title("Marker")
-        )
     }
 }
