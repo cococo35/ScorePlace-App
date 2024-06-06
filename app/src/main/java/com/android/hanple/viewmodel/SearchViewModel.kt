@@ -62,6 +62,7 @@ class SearchViewModel(
     private val costScore = MutableLiveData<Int>()
     private val _totalScore = MutableLiveData<Int>()
     val totalScore: LiveData<Int> get() = _totalScore
+    private var additionalCount = 0
 
     //선택지 좌표 넣기
     fun getSelectPlaceLatLng(data: LatLng){
@@ -232,6 +233,12 @@ class SearchViewModel(
                else -> score = getCongestionScoreType5()
            }
              congestScore.postValue(score)
+             if (score >= 11) {
+               additionalCount++
+             }
+             else if (score <= 9) {
+                 additionalCount--
+             }
              Log.d("혼잡도 점수", score.toString())
              return score
          }
@@ -344,6 +351,12 @@ class SearchViewModel(
         score = score * importance
         Log.d("날씨 점수", score.toString())
         weatherScore.postValue(score)
+        if (score >= 11) {
+            additionalCount++
+        }
+        else if (score <= 9) {
+            additionalCount--
+        }
     }
 
     fun getDustScore() {
@@ -365,6 +378,12 @@ class SearchViewModel(
             score = 6
         Log.d("미세먼지 점수", score.toString())
         dustScore.postValue(score)
+        if (score >= 11) {
+            additionalCount++
+        }
+        else if (score <= 9) {
+            additionalCount--
+        }
     }
 
     fun getCostScore(data: String)  {
@@ -403,6 +422,12 @@ class SearchViewModel(
                 }
             }
             costScore.postValue(score)
+            if (score >= 11) {
+                additionalCount++
+            }
+            else if (score <= 9) {
+                additionalCount--
+            }
         }
         }
     }
@@ -427,11 +452,20 @@ class SearchViewModel(
            }
             Log.d("교통 점수", inputScore.toString())
            transportScore.postValue(inputScore)
+            if (inputScore >= 11) {
+                additionalCount++
+            }
+            else if (inputScore <= 9) {
+                additionalCount--
+            }
         }
     }
 
     fun getToTalScore() {
-        _totalScore.postValue(weatherScore.value!! + dustScore.value!! + transportScore.value!! + costScore.value!! + congestScore.value!!)
+        val score = weatherScore.value!! + dustScore.value!! + transportScore.value!! + costScore.value!! + congestScore.value!!
+        val totalScore = (score * 0.46 + 27) + (additionalCount * 5.4 - 27)     // 계산식 주석 달기
+        // additionalCount * additionalCount 값 이용하기 but if문 이용해서 additionalCount 음수일 때도 적용되게
+        _totalScore.postValue(totalScore.toInt())
     }
 
 
