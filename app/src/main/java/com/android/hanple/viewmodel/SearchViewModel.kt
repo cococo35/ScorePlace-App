@@ -21,6 +21,7 @@ import com.android.hanple.network.WeatherRetrofit
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.CircularBounds
+import com.google.android.libraries.places.api.model.PhotoMetadata
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FetchPhotoRequest
 import com.google.android.libraries.places.api.net.FetchPhotoResponse
@@ -56,11 +57,20 @@ class SearchViewModel(
 
 
     private val congestScore = MutableLiveData<Int>()
+    val readCongestScore : LiveData<Int> get() = congestScore
     private val weatherScore = MutableLiveData<Int>()
+    val readWeatherScore : LiveData<Int> get() = weatherScore
     private val dustScore = MutableLiveData<Int>()
+    val readDustScore : LiveData<Int> get() = dustScore
     private val transportScore = MutableLiveData<Int>()
+    val readTransportScore : LiveData<Int> get() = transportScore
+
     private val costScore = MutableLiveData<Int>()
+
+    val readCostScore : LiveData<Int> get() = costScore
+
     private val _totalScore = MutableLiveData<Int>()
+
     val totalScore: LiveData<Int> get() = _totalScore
 
     //선택지 좌표 넣기
@@ -187,7 +197,7 @@ class SearchViewModel(
         var includeType = listOf(type)
         var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
         var circle = CircularBounds.newInstance(latLng, 500.0)
-        var buffer = mutableListOf<Place>()
+        var buffer: MutableList<Place>? = null
         var bitMapBuffer = mutableListOf<Bitmap>()
         val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
             .setIncludedTypes(includeType)
@@ -195,31 +205,40 @@ class SearchViewModel(
             .build()
         placeClient.value!!.searchNearby(searchNearbyRequest)
             .addOnSuccessListener { response ->
-                buffer = response.places
-                response.places.forEach { it ->
-                        val data = CategoryPlace(
-                            it.address,
-                            it.rating,
-                            null,
-                            it.id,
-                            it.name,
-                            false,
-                            it.openingHours
-                        )
-                        categoryPlaceList.add(data)
+                response.places.forEach {
+                    buffer?.add(it)
                 }
-                _nearByPlace.postValue(categoryPlaceList)
+                response.places.forEach { it ->
+                    val data = CategoryPlace(
+                        it.address,
+                        it.rating,
+                        null,
+                        it.id,
+                        it.name,
+                        false,
+                        it.openingHours
+                    )
+                    categoryPlaceList.add(data)
+                }
+                _nearByPlace.value = categoryPlaceList
             }
             .addOnFailureListener { e ->
                 Log.d("근처 장소 정보 불러오기 실패", e.toString())
             }
+        if(buffer != null){
+            Log.d("버퍼","버퍼 안에 데이터 있습니다")
+        }
+        else{
+            Log.d("버퍼","버퍼 안에 데이터 없습니다")
+        }
     }
+
 
      fun getCongestionScore(type: Int) : Int{
         var score: Int = 0
         val list = congestionDescription.value
          if(list == null){
-             congestScore.postValue(10)
+             congestScore.value = 10
              Log.d("혼잡도 점수", score.toString())
              return 0
          }
@@ -231,7 +250,7 @@ class SearchViewModel(
                4 -> score = getCongestionScoreType4()
                else -> score = getCongestionScoreType5()
            }
-             congestScore.postValue(score)
+             congestScore.value = score
              Log.d("혼잡도 점수", score.toString())
              return score
          }
@@ -333,8 +352,9 @@ class SearchViewModel(
         val list = weatherDescription.value
         list?.forEach {
             when (it) {
-                "Clear" -> count += 1
-                else -> count += 0
+                "Clear" -> count += 2
+                "Clouds" -> count += 1
+                else -> count = 0
             }
         }
         if(count >= 10){
@@ -343,7 +363,7 @@ class SearchViewModel(
         var importance = count / 10
         score = score * importance
         Log.d("날씨 점수", score.toString())
-        weatherScore.postValue(score)
+        weatherScore.value = score
     }
 
     fun getDustScore() {
@@ -364,7 +384,7 @@ class SearchViewModel(
         } else
             score = 6
         Log.d("미세먼지 점수", score.toString())
-        dustScore.postValue(score)
+        dustScore.value = score
     }
 
     fun getCostScore(data: String)  {
@@ -377,7 +397,7 @@ class SearchViewModel(
         else {
         val price = data.toInt()
         if(_selectPlace?.value?.priceLevel == null){
-            costScore.postValue(10)
+            costScore.value = 10
         }
         else {
             if (price <= 50000) {
@@ -402,7 +422,7 @@ class SearchViewModel(
                     else -> score = 20
                 }
             }
-            costScore.postValue(score)
+            costScore.value = score
         }
         }
     }
@@ -411,7 +431,7 @@ class SearchViewModel(
         if(notDrivingCar.value == true){
             val score = (weatherScore.value!! + dustScore.value!!) / 4
             Log.d("교통 점수", score.toString())
-            transportScore.postValue(score)
+            transportScore.value = score
         }
         else{
            if(parkingList.value == null){
@@ -426,7 +446,7 @@ class SearchViewModel(
                }
            }
             Log.d("교통 점수", inputScore.toString())
-           transportScore.postValue(inputScore)
+           transportScore.value = inputScore
         }
     }
 
