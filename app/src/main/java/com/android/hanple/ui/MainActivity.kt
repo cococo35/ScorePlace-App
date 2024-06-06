@@ -43,6 +43,14 @@ class MainActivity : AppCompatActivity() {
 //        }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.btnMainMenu.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    }
+
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -67,8 +75,8 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_account -> {
                     // 액티비티 이동
-                    val intent = Intent(this, ArchiveActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(this, ArchiveActivity::class.java)
+//                    startActivity(intent)
                 }
 
                 R.id.nav_view -> {
@@ -82,20 +90,6 @@ class MainActivity : AppCompatActivity() {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
-
-        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
-            override fun onDrawerOpened(drawerView: View) {
-//                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            }
-
-            override fun onDrawerClosed(drawerView: View) {
-                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            }
-
-            override fun onDrawerStateChanged(newState: Int) {}
-        })
     }
 
     private fun initPlaceSDK() {
