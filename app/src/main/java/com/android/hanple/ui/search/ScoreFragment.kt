@@ -67,6 +67,7 @@ class ScoreFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView(){
         val spinnerList = listOf(
@@ -111,7 +112,13 @@ class ScoreFragment : Fragment() {
         binding.spScoreCategory.onItemSelectedListener = itemSelectedListener
         val localDateTime: LocalDateTime = LocalDateTime.now()
         viewModel.selectPlace?.observe(viewLifecycleOwner){
-            binding.tvScoreTitle.text = "${it?.name}, ${localDateTime.toString()} "
+            binding.tvScoreTitle.text =
+                "${it?.name}, " +
+                        localDateTime.toString().substring(5, 7) +
+                        "월 " +
+                        localDateTime.toString().substring(8, 10) +
+                        "일 " +
+                        localDateTime.toString().substring(11, 16)
         }
         viewModel.totalScore.observe(viewLifecycleOwner){
             binding.tvScoreScore.text = "${it.toString()}점"
@@ -163,22 +170,20 @@ class ScoreFragment : Fragment() {
         val scoreTraffic = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic)
         val scoreCongestion = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion)
         val scoreWeather = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather)
-        val scoreInfo = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_info)
-        scoreInfo.text = "※각 상세 점수는 사용자가 입력한 정보에 따라 \n 20점 만점으로 환산된 점수 입니다"
         viewModel.readCostScore.observe(viewLifecycleOwner){
-            scoreCost.text = "비용 점수 : ${it}점"
+            scoreCost.text = "비용 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
         }
         viewModel.readDustScore.observe(viewLifecycleOwner){
-            scoreDust.text = "미세먼지 점수 : ${it}점"
+            scoreDust.text = "미세먼지 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
         }
         viewModel.readTransportScore.observe(viewLifecycleOwner){
-            scoreTraffic.text = "교통 점수 : ${it}점"
+            scoreTraffic.text = "교통 점수 : ${"%.0f".format(it.toDouble() / 20 * 100)}점"
         }
         viewModel.readCongestScore.observe(viewLifecycleOwner){
-            scoreCongestion.text = "여행 성향 점수 : ${it}점"
+            scoreCongestion.text = "여행 성향 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
         }
         viewModel.readWeatherScore.observe(viewLifecycleOwner){
-            scoreWeather.text = "날씨 점수 : ${it}점"
+            scoreWeather.text = "날씨 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
         }
         dialogCloseButton.setOnClickListener {
             dialog.dismiss()

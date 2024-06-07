@@ -23,7 +23,6 @@ class SearchLoadingFragment : Fragment() {
     private val viewModel by lazy{
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
-//    private val drawerLayout = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)git 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,18 +35,6 @@ class SearchLoadingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
     }
-
-//    override fun onResume() {
-//        super.onResume()
-//        // NavigationDrawer 비활성화
-//        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        // NavigationDrawer 활성화
-//        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-//    }
 
     override fun onDestroy() {
         super.onDestroy()
