@@ -16,7 +16,6 @@ class AuthViewModel:ViewModel() {
     //get 사용하므로 _authState 값 바뀔 때마다 authState가 갱신됨.
 
     private val auth: FirebaseAuth = Firebase.auth //firebase auth 가져오기.
-    //앱 실행 전체에서 1번만 선언해도 되므로, LogIn + SignUp ViewModel을 한 곳에 합치기.
 
     fun logIn(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
