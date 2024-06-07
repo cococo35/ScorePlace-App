@@ -3,7 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -127,5 +128,10 @@ dependencies {
     // optional - Test helpers
     testImplementation ("androidx.room:room-testing:2.6.1")
     kapt ("androidx.room:room-compiler:2.6.1")
+
+    //firebase firestore
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-auth-ktx") //firebase auth
 
 }
