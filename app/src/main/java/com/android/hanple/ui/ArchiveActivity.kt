@@ -1,20 +1,9 @@
 package com.android.hanple.ui
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.android.hanple.R
 import com.android.hanple.databinding.ActivityArchiveBinding
-import com.android.hanple.databinding.FragmentSettingsBinding
-import com.google.android.gms.common.api.Status
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 
 class ArchiveActivity : AppCompatActivity() { //검색 기록 또는 보관함을 보여줍니다.
     //검색 기록 및 보관함을 하단 탭으로 옮기고, 로그아웃 또는 탈퇴를 멀리 빼는 것은 어떨지...
