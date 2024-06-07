@@ -67,6 +67,7 @@ class ScoreFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView(){
         val spinnerList = listOf(
@@ -111,7 +112,13 @@ class ScoreFragment : Fragment() {
         binding.spScoreCategory.onItemSelectedListener = itemSelectedListener
         val localDateTime: LocalDateTime = LocalDateTime.now()
         viewModel.selectPlace?.observe(viewLifecycleOwner){
-            binding.tvScoreTitle.text = "${it?.name}, ${localDateTime.toString()} "
+            binding.tvScoreTitle.text =
+                "${it?.name}, " +
+                        localDateTime.toString().substring(5, 7) +
+                        "월 " +
+                        localDateTime.toString().substring(8, 10) +
+                        "일 " +
+                        localDateTime.toString().substring(11, 16)
         }
         viewModel.totalScore.observe(viewLifecycleOwner){
             binding.tvScoreScore.text = "${it.toString()}점"
