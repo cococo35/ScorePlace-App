@@ -1,7 +1,10 @@
 package com.android.hanple.ui.search
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +17,9 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.hanple.R
@@ -34,7 +39,7 @@ class ScoreFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
-
+    private lateinit var callback : OnBackPressedCallback
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,8 +54,18 @@ class ScoreFragment : Fragment() {
         getScoreDescription()
         getWeatherDescription()
         initDetailDialog()
+        onBackPressButton()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                clearBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView(){
@@ -171,5 +186,32 @@ class ScoreFragment : Fragment() {
         binding.tvScoreDetail.setOnClickListener {
             dialog.show()
         }
+    }
+
+    private fun onBackPressButton(){
+        binding.ivScoreBack.setOnClickListener {
+            clearBackStack()
+        }
+    }
+    private fun clearBackStack() {
+        AlertDialog.Builder(requireContext())
+            .setMessage("처음 화면으로 돌아가시겠습니까?")
+            .setPositiveButton("YES", object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    val fragmentManager: FragmentManager = parentFragmentManager
+                    val searchFragment = SearchFragment()
+                    viewModel.resetPlaceData()
+                    fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.add(R.id.fr_main, searchFragment)
+                    transaction.commit()
+                }
+            })
+            .setNegativeButton("No", object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                }
+            })
+            .create()
+            .show()
     }
 }

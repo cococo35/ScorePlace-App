@@ -48,14 +48,14 @@ class SearchTimeFragment : Fragment() {
         binding.tvSearchTimeSkip.setOnClickListener {
             val searchTransportationFragment = SearchTransportationFragment()
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.add(R.id.fr_main, searchTransportationFragment)
+            transaction.replace(R.id.fr_main, searchTransportationFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }
         binding.tvSearchTimeNext.setOnClickListener {
             val searchTransportationFragment = SearchTransportationFragment()
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.add(R.id.fr_main, searchTransportationFragment)
+            transaction.replace(R.id.fr_main, searchTransportationFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }

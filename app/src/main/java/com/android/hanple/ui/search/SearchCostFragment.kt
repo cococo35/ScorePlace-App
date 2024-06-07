@@ -41,7 +41,7 @@ class SearchCostFragment : Fragment() {
             viewModel.getCostScore(price)
             val searchLoadingFragment = SearchLoadingFragment()
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.add(R.id.fr_main, searchLoadingFragment)
+            transaction.replace(R.id.fr_main, searchLoadingFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }
