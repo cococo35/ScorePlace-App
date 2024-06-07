@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -26,25 +27,22 @@ import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.adapter.OnDataClick
 import com.android.hanple.adapter.PlaceScoreCategoryAdapter
 import com.android.hanple.databinding.FragmentScoreBinding
-import com.android.hanple.ui.ListViewFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
-import com.google.android.libraries.places.api.model.Place
 import java.time.LocalDateTime
 
 class ScoreFragment : Fragment() {
-    private var _binding: FragmentScoreBinding? = null
-    private val binding get() = _binding!!
+    private val binding by lazy {
+        FragmentScoreBinding.inflate(layoutInflater)
+    }
     private val viewModel by lazy {
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
-    private lateinit var callback: OnBackPressedCallback
-
+    private lateinit var callback : OnBackPressedCallback
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentScoreBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -60,7 +58,7 @@ class ScoreFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        callback = object : OnBackPressedCallback(true) {
+        callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
                 clearBackStack()
             }
@@ -68,8 +66,9 @@ class ScoreFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun initView() {
+    private fun initView(){
         val spinnerList = listOf(
             "음식점", "카페", "주차장", "영화관", "쇼핑몰", "지하철역", "버스정류장", "공원"
         )
@@ -77,18 +76,18 @@ class ScoreFragment : Fragment() {
             "restaurant", "cafe", "parking", "movie_theater", "shopping_mall", "subway_station", "bus_station", "park"
         )
         viewModel.getNearByPlace(typeList[0])
-        binding.recyclerviewScoreCategory.adapter = PlaceScoreCategoryAdapter(object : OnDataClick {
+        binding.recyclerviewScoreCategory.adapter = PlaceScoreCategoryAdapter(object : OnDataClick{
             override fun onItemClick(data: CategoryPlace) {
                 data.name?.let { Log.d("event", it.toString()) }
             }
         })
-        binding.recyclerviewScoreCategory.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        viewModel.nearByPlace.observe(viewLifecycleOwner) {
-            if (it.size == 0) {
+        binding.recyclerviewScoreCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        viewModel.nearByPlace.observe(viewLifecycleOwner){
+            if(it.size == 0){
                 binding.recyclerviewScoreCategory.visibility = View.GONE
                 binding.tvNotFound.visibility = View.VISIBLE
-            } else {
+            }
+            else {
                 binding.recyclerviewScoreCategory.visibility = View.VISIBLE
                 binding.tvNotFound.visibility = View.GONE
                 (binding.recyclerviewScoreCategory.adapter as PlaceScoreCategoryAdapter).submitList(it)
@@ -97,7 +96,7 @@ class ScoreFragment : Fragment() {
         val spinnerAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, spinnerList)
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spScoreCategory.adapter = spinnerAdapter
-        val itemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        val itemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -106,63 +105,50 @@ class ScoreFragment : Fragment() {
             ) {
                 viewModel.getNearByPlace(typeList[position])
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
         binding.spScoreCategory.onItemSelectedListener = itemSelectedListener
         val localDateTime: LocalDateTime = LocalDateTime.now()
-        viewModel.selectPlace?.observe(viewLifecycleOwner) {
-            binding.tvScoreTitle.text = "${it?.name}, ${localDateTime.toString()} "
+        viewModel.selectPlace?.observe(viewLifecycleOwner){
+            binding.tvScoreTitle.text =
+                "${it?.name}, " +
+                        localDateTime.toString().substring(5, 7) +
+                        "월 " +
+                        localDateTime.toString().substring(8, 10) +
+                        "일 " +
+                        localDateTime.toString().substring(11, 16)
         }
-        viewModel.totalScore.observe(viewLifecycleOwner) {
+        viewModel.totalScore.observe(viewLifecycleOwner){
             binding.tvScoreScore.text = "${it.toString()}점"
         }
-
-        // iv_score_bookmark 클릭 리스너 추가
-        binding.ivScoreBookmark.setOnClickListener {
-            val address = binding.tvScoreTitle.text.toString()
-            val scoreText = binding.tvScoreScore.text.toString()
-            val score = scoreText.replace(Regex("[^0-9.]"), "").toDoubleOrNull() ?: 0.0
-
-            val bundle = Bundle().apply {
-                putString("address", address)
-                putDouble("score", score)
-            }
-
-            parentFragmentManager.setFragmentResult("bookmarkRequestKey", bundle)
-
-            val listViewFragment = ListViewFragment.newInstance(address, score)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fr_main, listViewFragment)
-                .addToBackStack(null)
-                .commit()
-        }
     }
-
-    private fun getScoreDescription() {
-        viewModel.totalScore.observe(viewLifecycleOwner) {
-            if (it < 50) {
+    private fun getScoreDescription(){
+        viewModel.totalScore.observe(viewLifecycleOwner){
+            if(it < 50){
                 binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
-            } else if (it >= 50 && it < 75) {
+            }
+            else if(it >= 50 && it < 75){
                 binding.tvScoreDescription.text = "놀러 가기 적당해요~"
-            } else {
+            }
+            else {
                 binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
             }
         }
     }
-
-    private fun getWeatherDescription() {
-        viewModel.readWeatherDescription.observe(viewLifecycleOwner) {
-            if (it.contains("Rain")) {
+    private fun getWeatherDescription(){
+        viewModel.readWeatherDescription.observe(viewLifecycleOwner){
+            if(it.contains("Rain")){
                 binding.tvScoreWeatherDescription.text = "비가 올 수 있어요"
                 binding.tvScoreWeatherDescription2.text = "우산을 준비하세요"
                 binding.ivScoreWeather.setBackgroundResource(R.drawable.ic_weather_rain)
-            } else if (it.contains("Rain") == false && it.count { it.contains("Clouds") } >= 3) {
+            }
+            else if(it.contains("Rain") == false && it.count { it.contains("Clouds") } >= 3){
                 binding.tvScoreWeatherDescription.text = "전반적으로 날씨가 흐려요"
                 binding.tvScoreWeatherDescription2.text = ""
                 binding.ivScoreWeather.setBackgroundResource(R.drawable.iv_weather_cloud)
-            } else {
+            }
+            else {
                 binding.tvScoreWeatherDescription.text = "맑은 날씨에요"
                 binding.tvScoreWeatherDescription2.text = ""
                 binding.ivScoreWeather.setBackgroundResource(R.drawable.iv_weather_sun)
@@ -171,35 +157,32 @@ class ScoreFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun initDetailDialog() {
+    private fun initDetailDialog(){
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.fragment_detail_score_dialog)
-        dialog.window!!.setLayout(
+        dialog!!.window!!.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.MATCH_PARENT
-        )
+            WindowManager.LayoutParams.MATCH_PARENT)
         val dialogCloseButton = dialog.findViewById<TextView>(R.id.tv_detail_dialog_dismiss)
         val scoreCost = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_cost)
         val scoreDust = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_dust)
         val scoreTraffic = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic)
         val scoreCongestion = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion)
         val scoreWeather = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather)
-        val scoreInfo = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_info)
-        scoreInfo.text = "※각 상세 점수는 사용자가 입력한 정보에 따라 \n 20점 만점으로 환산된 점수 입니다"
-        viewModel.readCostScore.observe(viewLifecycleOwner) {
-            scoreCost.text = "비용 점수 : ${it}점"
+        viewModel.readCostScore.observe(viewLifecycleOwner){
+            scoreCost.text = "비용 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
         }
-        viewModel.readDustScore.observe(viewLifecycleOwner) {
-            scoreDust.text = "미세먼지 점수 : ${it}점"
+        viewModel.readDustScore.observe(viewLifecycleOwner){
+            scoreDust.text = "미세먼지 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
         }
-        viewModel.readTransportScore.observe(viewLifecycleOwner) {
-            scoreTraffic.text = "교통 점수 : ${it}점"
+        viewModel.readTransportScore.observe(viewLifecycleOwner){
+            scoreTraffic.text = "교통 점수 : ${"%.0f".format(it.toDouble() / 20 * 100)}점"
         }
-        viewModel.readCongestScore.observe(viewLifecycleOwner) {
-            scoreCongestion.text = "여행 성향 점수 : ${it}점"
+        viewModel.readCongestScore.observe(viewLifecycleOwner){
+            scoreCongestion.text = "여행 성향 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
         }
-        viewModel.readWeatherScore.observe(viewLifecycleOwner) {
-            scoreWeather.text = "날씨 점수 : ${it}점"
+        viewModel.readWeatherScore.observe(viewLifecycleOwner){
+            scoreWeather.text = "날씨 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
         }
         dialogCloseButton.setOnClickListener {
             dialog.dismiss()
@@ -209,16 +192,15 @@ class ScoreFragment : Fragment() {
         }
     }
 
-    private fun onBackPressButton() {
+    private fun onBackPressButton(){
         binding.ivScoreBack.setOnClickListener {
             clearBackStack()
         }
     }
-
     private fun clearBackStack() {
         AlertDialog.Builder(requireContext())
             .setMessage("처음 화면으로 돌아가시겠습니까?")
-            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+            .setPositiveButton("YES", object : DialogInterface.OnClickListener{
                 override fun onClick(dialog: DialogInterface?, which: Int) {
                     val fragmentManager: FragmentManager = parentFragmentManager
                     val searchFragment = SearchFragment()
@@ -229,16 +211,11 @@ class ScoreFragment : Fragment() {
                     transaction.commit()
                 }
             })
-            .setNegativeButton("No", object : DialogInterface.OnClickListener {
+            .setNegativeButton("No", object : DialogInterface.OnClickListener{
                 override fun onClick(dialog: DialogInterface?, which: Int) {
                 }
             })
             .create()
             .show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
