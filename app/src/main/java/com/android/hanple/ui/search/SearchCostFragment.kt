@@ -54,10 +54,13 @@ class SearchCostFragment : Fragment() {
         _binding = null
     }
 
-    private fun initView() {
+
+
+    private fun initView(){
+
         binding.edSearchCostInputCost.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                val price: Int = binding.edSearchCostInputCost.text.toString().toInt()
+                val price : Int = binding.edSearchCostInputCost.text.toString().toInt()
                 viewModel.getCostScore(price)
                 val searchLoadingFragment = SearchLoadingFragment()
                 val transaction = parentFragmentManager.beginTransaction()
@@ -88,3 +91,5 @@ class SearchCostFragment : Fragment() {
         keyBoard.hideSoftInputFromWindow(activity.window.decorView.applicationWindowToken, 0)
     }
 }
+
+

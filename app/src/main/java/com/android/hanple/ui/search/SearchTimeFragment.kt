@@ -12,19 +12,19 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
-import com.android.hanple.databinding.FragmentSearchBinding
 import com.android.hanple.databinding.FragmentSearchTimeBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 
 class SearchTimeFragment : Fragment() {
-    private var _binding : FragmentSearchTimeBinding? = null
+    private var _binding: FragmentSearchTimeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by lazy{
+    private val viewModel by lazy {
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
 
     private lateinit var callback : OnBackPressedCallback
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,12 +51,15 @@ class SearchTimeFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this@SearchTimeFragment, callback)
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
-    private fun initView(){
+
+
+    private fun initView() {
 
         binding.tvSearchTimeSkip.setOnClickListener {
             val searchTransportationFragment = SearchTransportationFragment()
@@ -65,7 +68,9 @@ class SearchTimeFragment : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
+
         binding.tvSearchTimeNext.setOnClickListener {
+
             val fromStart: String?
             val toStart: String?
             fromStart = binding.edSearchTimeFrom.text.toString()
@@ -106,13 +111,15 @@ class SearchTimeFragment : Fragment() {
             false
         })
         }
+
+
     private fun hideKeyBoard(activity: Activity) {
         val keyBoard = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         keyBoard.hideSoftInputFromWindow(activity.window.decorView.applicationWindowToken, 0)
     }
-    private fun putViewModelData(){
+
+    private fun putViewModelData() {
         viewModel.getDustData()
         viewModel.getWeatherData()
     }
-
 }

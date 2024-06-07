@@ -63,9 +63,15 @@ class SearchPeopleFragment : Fragment() {
             binding.btnSearchPeopleButton5,
         )
 
-        for(i in 0..<typeList.size){
-            typeList[i].setOnClickListener {
-                preferType = i+1
+        for(i in typeList.indices){
+            typeList[i].apply {
+                this.setOnClickListener {
+                    for(j in 0..<typeList.size){
+                        typeList[j].setImageResource(R.drawable.ic_check_blank_20dp)
+                    }
+                    this.setImageResource(R.drawable.ic_check_fill_20dp)
+                    preferType = i+1
+                }
             }
         }
         binding.tvSearchPeopleNext.setOnClickListener {

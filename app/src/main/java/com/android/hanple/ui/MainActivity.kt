@@ -155,10 +155,18 @@ class MainActivity : AppCompatActivity() {
         }
         return list
     }
+<<<<<<< HEAD
 
     private fun setRecommendPlace(){
         val list = randomNumberPlace()
         viewModel.getRecommendPlace(list, recommendDAO)
     }
 }
+=======
+>>>>>>> 83f1aa3332e72f481a17f1ea2a1bd6fff1e03ce0
 
+    private fun setRecommendPlace(){
+        val list = randomNumberPlace()
+        viewModel.getRecommendPlace(list, recommendDAO)
+    }
+}

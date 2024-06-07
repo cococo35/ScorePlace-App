@@ -1,6 +1,7 @@
 package com.android.hanple.viewmodel
 
 import android.net.Uri
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -40,63 +41,66 @@ class SearchViewModel(
     private val _Lat = MutableLiveData<String>()
     private val _Lng = MutableLiveData<String>()
     private val _selectPlace = MutableLiveData<Place?>()
-    val selectPlace : LiveData<Place?> get() = _selectPlace
+    val selectPlace: LiveData<Place?> get() = _selectPlace
     private val timeStamp = MutableLiveData<List<String>>()
     private val placeClient = MutableLiveData<PlacesClient>()
     private val notDrivingCar = MutableLiveData<Boolean>()
 
     private val parkingList = MutableLiveData<List<Place>>()
     private val weatherDescription = MutableLiveData<List<String>>()
-    val readWeatherDescription : LiveData<List<String>> get() = weatherDescription
+    val readWeatherDescription: LiveData<List<String>> get() = weatherDescription
     private val dustAqi = MutableLiveData<List<String>>()
     private val congestionDescription = MutableLiveData<List<String>>()
     private val _nearByPlace = MutableLiveData<MutableList<CategoryPlace>>()
-    val nearByPlace : LiveData<MutableList<CategoryPlace>> get() = _nearByPlace
+    val nearByPlace: LiveData<MutableList<CategoryPlace>> get() = _nearByPlace
 
     private val nearByPlaceBuffer = MutableLiveData<List<Place>>()
 
     private val congestScore = MutableLiveData<Int>()
-    val readCongestScore : LiveData<Int> get() = congestScore
+    val readCongestScore: LiveData<Int> get() = congestScore
     private val weatherScore = MutableLiveData<Int>()
-    val readWeatherScore : LiveData<Int> get() = weatherScore
+    val readWeatherScore: LiveData<Int> get() = weatherScore
     private val dustScore = MutableLiveData<Int>()
-    val readDustScore : LiveData<Int> get() = dustScore
+    val readDustScore: LiveData<Int> get() = dustScore
     private val transportScore = MutableLiveData<Int>()
-    val readTransportScore : LiveData<Int> get() = transportScore
+    val readTransportScore: LiveData<Int> get() = transportScore
 
     private val costScore = MutableLiveData<Int>()
 
-    val readCostScore : LiveData<Int> get() = costScore
+    val readCostScore: LiveData<Int> get() = costScore
 
     private val _totalScore = MutableLiveData<Int>()
 
     val totalScore: LiveData<Int> get() = _totalScore
-
     private var additionalCount = 0
-
 
     val _recommandPlace = MutableLiveData<List<CategoryPlace>>()
     val recommendPlace : LiveData<List<CategoryPlace>> get() = _recommandPlace
     //선택지 좌표 넣기
-    fun getSelectPlaceLatLng(data: LatLng){
+    fun getSelectPlaceLatLng(data: LatLng) {
         _Lat.postValue(data.latitude.toString())
         _Lng.postValue(data.longitude.toString())
     }
-    fun getPlacedata(data: Place){
+
+    fun getPlacedata(data: Place) {
         _selectPlace.value = data
     }
-    fun resetPlaceData(){
-        val empty : Place? = null
+
+    fun resetPlaceData() {
+        val empty: Place? = null
         _selectPlace.value = empty
     }
+
     //구글 클라이언트 설정
-    fun setPlacesAPIClient(placesClient: PlacesClient){
+    fun setPlacesAPIClient(placesClient: PlacesClient) {
         placeClient.postValue(placesClient)
     }
-    fun getTimeStamp(str1: String, str2: String){
+
+    fun getTimeStamp(str1: String, str2: String) {
         val list = listOf(str1, str2)
         timeStamp.postValue(list)
     }
+
     fun getCongestionData(query: String) {
         viewModelScope.launch {
             val list = mutableListOf<String>()
@@ -109,11 +113,11 @@ class SearchViewModel(
                     5,
                     query
                 )
-                list.add(response!!.seoulRtdCitydataPpltn?.get(0)!!.areaCongestLv!!)
-                response.seoulRtdCitydataPpltn!!.forEach {
+                list.add(response.seoulRtdCitydataPpltn?.get(0)!!.areaCongestLv!!)
+                response.seoulRtdCitydataPpltn.forEach {
                     val data = it.fcstPpltn
                     data!!.forEach { item ->
-                        list.add(item?.fcstCongestLv!!)
+                        list.add(item.fcstCongestLv!!)
                     }
                 }
                 Log.d("리스트 보기", list.toString())
@@ -133,7 +137,7 @@ class SearchViewModel(
                     _Lng.value!!,
                     "48b0c79a814c79a5a38bb17b9109a288"
                 )
-                response.list!!.forEach {
+                response.list.forEach {
                     list.add(it.main!!.aqi!!)
                 }
                 dustAqi.value = list
@@ -159,19 +163,20 @@ class SearchViewModel(
                     }
                 }
                 weatherDescription.value = list
-                Log.d("날씨 데이터", "${weatherDescription.value.toString()}")
+                Log.d("날씨 데이터", weatherDescription.value.toString())
             }.onFailure { e ->
                 Log.d("날씨 데이터 갱신 실패", e.toString())
             }
         }
     }
 
+    // radius 500 -> 1000
     fun getParkingData() {
         notDrivingCar.value = false
-        var placeField: List<Place.Field> = Arrays.asList(Place.Field.ID, Place.Field.NAME)
-        var includeType = listOf("parking")
-        var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
-        var circle = CircularBounds.newInstance(latLng, 500.0)
+        val placeField: List<Place.Field> = Arrays.asList(Place.Field.ID, Place.Field.NAME)
+        val includeType = listOf("parking")
+        val latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
+        val circle = CircularBounds.newInstance(latLng, 1000.0)
         val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
             .setIncludedTypes(includeType)
             .setMaxResultCount(10)
@@ -184,13 +189,14 @@ class SearchViewModel(
                 Log.d("주차장 정보 불러오기 실패", e.toString())
             }
     }
-    fun usePublic(){
+
+    fun usePublic() {
         notDrivingCar.value = true
     }
 
     fun getNearByPlace(type: String) {
         val categoryPlaceList = mutableListOf<CategoryPlace>()
-        var placeField: List<Place.Field> = Arrays.asList(
+        val placeField: List<Place.Field> = Arrays.asList(
             Place.Field.ID,
             Place.Field.NAME,
             Place.Field.RATING,
@@ -208,7 +214,7 @@ class SearchViewModel(
         placeClient.value!!.searchNearby(searchNearbyRequest)
             .addOnSuccessListener { response ->
                 nearByPlaceBuffer.value = response.places
-                response.places.forEach { it ->
+                response.places.forEach {
                     val data = CategoryPlace(
                         it.address,
                         it.rating,
@@ -227,7 +233,6 @@ class SearchViewModel(
                 Log.d("근처 장소 정보 불러오기 실패", e.toString())
             }
     }
-
     private fun getCategoryImage(list: MutableList<CategoryPlace>) {
         val size = list.size
         val bufferList = nearByPlaceBuffer.value
@@ -243,158 +248,204 @@ class SearchViewModel(
                 }
         }
     }
-     fun getCongestionScore(type: Int) : Int{
-        var score: Int = 0
+
+
+    // congestionScore 가중치 20 -> 30
+    // getCongestionScoreType 별 점수 계산 수정
+    fun getCongestionScore(type: Int): Int {
+        var score = 15
         val list = congestionDescription.value
-         if(list == null){
-             congestScore.value = 10
-             Log.d("혼잡도 점수", score.toString())
-             return 0
-         }
-         else {
-           when(type){
-               1 -> score = getCongestionScoreType1()
-               2 -> score = getCongestionScoreType2()
-               3 -> score = getCongestionScoreType3()
-               4 -> score = getCongestionScoreType4()
-               else -> score = getCongestionScoreType5()
-           }
-             congestScore.value = score
-             Log.d("혼잡도 점수", score.toString())
-             return score
-         }
-    }
-    private fun getCongestionScoreType1() : Int{
-        var score = 0
-        val list = congestionDescription.value
-        list?.forEach {
-            when (it) {
-                "여유" -> score += 2
-                "보통" -> score += 1
-                "약간 붐빔" -> score += 0
-                else -> score += -1
+        Log.d("혼잡도 리스트", list.toString())
+        if (list == null) {
+            congestScore.value = 15
+            return 0
+        } else {
+            score = when (type) {
+                1 -> getCongestionScoreType1()
+                2 -> getCongestionScoreType2()
+                3 -> getCongestionScoreType3()
+                4 -> getCongestionScoreType4()
+                else -> getCongestionScoreType5()
             }
-        }
-        if(score < 0){
-            score = 0
-        }
-        else if(score > 20){
-            score = 20
+            Log.d("혼잡도 점수", score.toString())
+            congestScore.postValue(score)
+            if (score >= 15) {
+                additionalCount++
+            } else {
+                additionalCount--
+            }
         }
         return score
     }
-    private fun getCongestionScoreType2() : Int{
+
+    private fun getCongestionScoreType1(): Int {
         var score = 0
         val list = congestionDescription.value
         list?.forEach {
             when (it) {
-                "약간 붐빔" -> score += 1
-                "붐빔" -> score += -1
-                else -> score += 2
+                "여유" -> score += 4
+                "보통" -> score++
+                "약간 붐빔" -> score--
+                else -> score -= 2
             }
         }
-        if(score < 0){
+        if (score < 0) {
             score = 0
-        }
-        else if(score > 20){
-            score = 20
+        } else if (score > 30) {
+            score = 30
         }
         return score
     }
-    private fun getCongestionScoreType3() : Int{
+
+    private fun getCongestionScoreType2(): Int {
         var score = 0
         val list = congestionDescription.value
         list?.forEach {
             when (it) {
+                "여유" -> score += 3
                 "보통" -> score += 2
-                "약간 붐빔" -> score += 1
-                else -> score += 0
+                "약간 붐빔" -> score += 0
+                else -> score--
             }
         }
-        if(score < 0){
+        if (score < 0) {
             score = 0
-        }
-        else if(score > 20){
-            score = 20
+        } else if (score > 30) {
+            score = 30
         }
         return score
     }
-    private fun getCongestionScoreType4() : Int{
+
+    private fun getCongestionScoreType3(): Int {
         var score = 0
         val list = congestionDescription.value
         list?.forEach {
             when (it) {
-                "약간 붐빔" -> score += 1
-                "붐빔" -> score += 2
+                "여유" -> score++
+                "보통" -> score += 2
+                "약간 붐빔" -> score++
                 else -> score += 0
             }
         }
-        if(score < 0){
+        if (score < 0) {
             score = 0
-        }
-        else if(score > 20){
-            score = 20
+        } else if (score > 30) {
+            score = 30
         }
         return score
     }
-    private fun getCongestionScoreType5() : Int{
+
+    private fun getCongestionScoreType4(): Int {
         var score = 0
         val list = congestionDescription.value
         list?.forEach {
             when (it) {
-                "약간 붐빔" -> score += 1
-                "붐빔" -> score += 2
-                else -> score += -1
+                "보통" -> score++
+                "약간 붐빔" -> score += 3
+                "붐빔" -> score += 4
+                else -> score += 0
             }
         }
-        if(score < 0){
+        if (score < 0) {
             score = 0
-        }
-        else if(score > 20){
-            score = 20
+        } else if (score > 30) {
+            score = 30
         }
         return score
     }
+
+    private fun getCongestionScoreType5(): Int {
+        var score = 0
+        val list = congestionDescription.value
+        list?.forEach {
+            when (it) {
+                "약간 붐빔" -> score += 2
+                "붐빔" -> score += 4
+                else -> score--
+            }
+        }
+        if (score < 0) {
+            score = 0
+        } else if (score > 30) {
+            score = 30
+        }
+        return score
+    }
+
+    // weatherScore 가중치 20 -> 30
+    // score 계산 방식 변경
     fun getWeatherScore() {
-        var score: Int = 20
+        val score: Int
         var count = 0
         val list = weatherDescription.value
         list?.forEach {
             when (it) {
-                "Clear" -> count += 2
-                "Clouds" -> count += 1
+                "Clear" -> count += 4
+                "Clouds" -> count += 2
+                "Rain" -> count -= 4
                 else -> count = 0
             }
         }
-        if(count >= 10){
-            count = 10
+
+        score = if (count >= 60) {
+            30
+        } else if (count >= 50) {
+            25
+        } else if (count >= 40) {
+            20
+        } else if (count >= 30) {
+            15
+        } else if (count >= 20) {
+            10
+        } else if (count >= 10) {
+            5
+        } else {
+            0
         }
-        var importance = count / 10
-        score = score * importance
+
         Log.d("날씨 점수", score.toString())
-        weatherScore.value = score
+        weatherScore.postValue(score)
+
+        if (score >= 15) {
+            additionalCount++
+        } else {
+            additionalCount--
+        }
     }
 
+    // dustScore 가중치 20 -> 10
     fun getDustScore() {
-        var score: Int = 0
-        var sum: Int = 0
-        var average: Int
+        var sum = 0
+        val score: Int
+        val average: Int
         val list = dustAqi.value
+
         list?.forEach {
             sum += it.toInt()
         }
+
         average = sum / list!!.size
-        if (average <= 2) {
-            score = 20
-        } else if (average > 2 && average <= 3) {
-            score = 16
-        } else if (average > 3 && average <= 4) {
-            score = 12
-        } else
-            score = 6
+        score = if (average <= 2) {
+            10
+        } else if (average <= 3) {
+            8
+        } else if (average <= 4) {
+            6
+        } else {
+            3
+        }
         Log.d("미세먼지 점수", score.toString())
-        dustScore.value = score
+        dustScore.postValue(score)
+
+        if (score >= 6) {
+            additionalCount++
+        } else {
+            additionalCount--
+        }
     }
+
+
+    // costScore 가중치 20 -> 10
 
     fun getCostScore(price: Int) {
         Log.d("비용 인풋", price.toString())
@@ -434,32 +485,42 @@ class SearchViewModel(
             additionalCount--
         }
     }
-    fun getTransportScore(){
-        var inputScore: Int = 0
-        if(notDrivingCar.value == true){
+
+    fun getTransportScore() {
+        var inputScore = 10
+        if (notDrivingCar.value == true) {
             val score = (weatherScore.value!! + dustScore.value!!) / 4
             Log.d("교통 점수", score.toString())
             transportScore.value = score
-        }
-        else{
-           if(parkingList.value == null){
-               inputScore = 0
-           }
-           else{
-               if(parkingList.value!!.size >= 1 && parkingList.value!!.size < 3){
-                   inputScore = 10
-               }
-               else if(parkingList.value!!.size >= 3){
-                   inputScore = 20
-               }
-           }
+        } else {
+            if (parkingList.value == null) {
+                inputScore = 0
+            } else {
+                if (parkingList.value!!.size in 1..2) {
+                    inputScore = 10
+                } else if (parkingList.value!!.size >= 3) {
+                    inputScore = 20
+                }
+            }
             Log.d("교통 점수", inputScore.toString())
-           transportScore.value = inputScore
+            transportScore.postValue(inputScore)
+        }
+        if (inputScore >= 10) {
+            additionalCount++
+        } else {
+            additionalCount--
         }
     }
 
     fun getToTalScore() {
-        _totalScore.postValue(weatherScore.value!! + dustScore.value!! + transportScore.value!! + costScore.value!! + congestScore.value!!)
+        val score =
+            weatherScore.value!! + dustScore.value!! + transportScore.value!! + costScore.value!! + congestScore.value!!
+        val addScore: Double = if (additionalCount >= 0) {
+            (score * 0.5 + 25) + (additionalCount * additionalCount)          // 0 ~ 100 까지인 score 의 범위를 25 ~ 75 로 바꾸는 식 + additionalCount 제곱
+        } else {
+            (score * 0.5 + 25) - (additionalCount * additionalCount)          // additionalCount 가 양수일 때, 음수일 때 if문으로 나눠 계산
+        }
+        _totalScore.postValue(addScore.toInt())
     }
     fun resetScore(){
         weatherScore.value = 0
@@ -468,6 +529,7 @@ class SearchViewModel(
         congestScore.value = 0
         congestScore.value = 0
         _totalScore.value = 0
+        additionalCount = 0
     }
 
     fun getRecommendPlace(list: List<Int>, dao: RecommendDAO){
