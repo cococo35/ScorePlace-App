@@ -195,57 +195,65 @@ class SearchViewModel(
     }
 
     fun getNearByPlace(type: String) {
-        val categoryPlaceList = mutableListOf<CategoryPlace>()
-        val placeField: List<Place.Field> = Arrays.asList(
-            Place.Field.ID,
-            Place.Field.NAME,
-            Place.Field.RATING,
-            Place.Field.OPENING_HOURS,
-            Place.Field.ADDRESS,
-            Place.Field.PHOTO_METADATAS
-        )
-        var includeType = listOf(type)
-        var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
-        var circle = CircularBounds.newInstance(latLng, 500.0)
-        val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
-            .setIncludedTypes(includeType)
-            .setMaxResultCount(10)
-            .build()
-        placeClient.value!!.searchNearby(searchNearbyRequest)
-            .addOnSuccessListener { response ->
-                nearByPlaceBuffer.value = response.places
-                response.places.forEach {
-                    val data = CategoryPlace(
-                        it.address,
-                        it.rating,
-                        null,
-                        it.id,
-                        it.name,
-                        false,
-                        it.openingHours
-                    )
-                    categoryPlaceList.add(data)
+        viewModelScope.launch {
+            val categoryPlaceList = mutableListOf<CategoryPlace>()
+            val placeField: List<Place.Field> = Arrays.asList(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.RATING,
+                Place.Field.OPENING_HOURS,
+                Place.Field.ADDRESS,
+                Place.Field.PHOTO_METADATAS
+            )
+            var includeType = listOf(type)
+            var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
+            var circle = CircularBounds.newInstance(latLng, 500.0)
+            val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
+                .setIncludedTypes(includeType)
+                .setMaxResultCount(10)
+                .build()
+            placeClient.value!!.searchNearby(searchNearbyRequest)
+                .addOnSuccessListener { response ->
+                    nearByPlaceBuffer.value = response.places
+                    response.places.forEach {
+                        val data = CategoryPlace(
+                            it.address,
+                            it.rating,
+                            null,
+                            it.id,
+                            it.name,
+                            false,
+                            it.openingHours
+                        )
+                        categoryPlaceList.add(data)
+                        getCategoryImage(categoryPlaceList)
+                        _nearByPlace.value = categoryPlaceList
+                    }
+
                 }
-                getCategoryImage(categoryPlaceList)
-                _nearByPlace.value = categoryPlaceList
-            }
-            .addOnFailureListener { e ->
-                Log.d("근처 장소 정보 불러오기 실패", e.toString())
-            }
+                .addOnFailureListener { e ->
+                    Log.d("근처 장소 정보 불러오기 실패", e.toString())
+                }
+
+        }
     }
-    private fun getCategoryImage(list: MutableList<CategoryPlace>) {
+    fun getCategoryImage(list: MutableList<CategoryPlace>) {
         val size = list.size
         val bufferList = nearByPlaceBuffer.value
-        for (i in 0..size - 1) {
-            val meta = bufferList?.get(i)?.photoMetadatas?.get(0)
-            val request = FetchResolvedPhotoUriRequest.builder(meta)
-                .setMaxWidth(500)
-                .setMaxHeight(300)
-                .build()
-            placeClient.value!!.fetchResolvedPhotoUri(request)
-                .addOnSuccessListener { it ->
-                    list[i].setImgUri(it.uri)
+        viewModelScope.launch {
+            for (i in 0..size - 1) {
+                val meta = bufferList?.get(i)?.photoMetadatas?.get(0)
+                if(meta != null) {
+                    val request = FetchResolvedPhotoUriRequest.builder(meta)
+                        .setMaxWidth(500)
+                        .setMaxHeight(300)
+                        .build()
+                    placeClient.value!!.fetchResolvedPhotoUri(request)
+                        .addOnSuccessListener { it ->
+                            list[i].setImgUri(it.uri)
+                        }
                 }
+            }
         }
     }
 
