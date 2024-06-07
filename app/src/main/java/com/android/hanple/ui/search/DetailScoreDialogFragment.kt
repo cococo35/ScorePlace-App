@@ -1,16 +1,13 @@
 package com.android.hanple.ui.search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.android.hanple.R
 import com.android.hanple.databinding.FragmentDetailScoreDialogBinding
-import com.android.hanple.databinding.FragmentSearchBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 
@@ -40,19 +37,19 @@ class DetailScoreDialogFragment : DialogFragment() {
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT)
         viewModel.readDustScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreDust.text = "미세먼지 점수 : ${it}점"
+            binding.tvDetailDialogScoreDust.text = "미세먼지 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
         }
         viewModel.readWeatherScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreWeather.text = "날씨 점수 : ${it}점"
+            binding.tvDetailDialogScoreWeather.text = "날씨 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
         }
         viewModel.readCongestScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreCongestion.text = "여행 성향 점수 : ${it}점"
+            binding.tvDetailDialogScoreCongestion.text = "여행 성향 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
         }
         viewModel.readCostScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreCost.text = "비용 점수 : ${it}점"
+            binding.tvDetailDialogScoreCost.text = "비용 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
         }
         viewModel.readTransportScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreTraffic.text = "교통 점수 : ${it}점"
+            binding.tvDetailDialogScoreTraffic.text = "교통 점수 : ${"%.0f".format(it.toDouble() / 20 * 100)}점"
         }
     }
 }
