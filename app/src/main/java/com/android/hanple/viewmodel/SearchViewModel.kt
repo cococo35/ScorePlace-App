@@ -254,9 +254,9 @@ class SearchViewModel(
             Log.d("혼잡도 점수", score.toString())
             congestScore.postValue(score)
 
-            if (score >= 16) {
+            if (score >= 15) {
                 additionalCount++
-            } else if (score <= 14) {
+            } else {
                 additionalCount--
             }
             return score
@@ -391,9 +391,9 @@ class SearchViewModel(
         Log.d("날씨 점수", score.toString())
         weatherScore.postValue(score)
 
-        if (score >= 16) {
+        if (score >= 15) {
             additionalCount++
-        } else if (score <= 14) {
+        } else {
             additionalCount--
         }
     }
@@ -462,9 +462,9 @@ class SearchViewModel(
             }
             costScore.postValue(score)
         }
-        if (score >= 6) {
+        if (score >= 5) {
             additionalCount++
-        } else if (score <= 4) {
+        } else {
             additionalCount--
         }
     }
@@ -488,9 +488,9 @@ class SearchViewModel(
             Log.d("교통 점수", inputScore.toString())
             transportScore.postValue(inputScore)
         }
-        if (inputScore >= 11) {
+        if (inputScore >= 10) {
             additionalCount++
-        } else if (inputScore <= 9) {
+        } else {
             additionalCount--
         }
     }
