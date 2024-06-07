@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchCostBinding
@@ -16,11 +17,12 @@ import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 
 class SearchCostFragment : Fragment() {
-    private var _binding : FragmentSearchCostBinding? = null
+    private var _binding: FragmentSearchCostBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by lazy{
+    private val viewModel by lazy {
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
+    private lateinit var callback: OnBackPressedCallback
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,10 +35,26 @@ class SearchCostFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val searchPeopleFragment = SearchPeopleFragment()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.fr_main, searchPeopleFragment)
+                transaction.commit()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this@SearchCostFragment, callback)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
+
 
     private fun initView(){
 
@@ -73,3 +91,5 @@ class SearchCostFragment : Fragment() {
         keyBoard.hideSoftInputFromWindow(activity.window.decorView.applicationWindowToken, 0)
     }
 }
+
+

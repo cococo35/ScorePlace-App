@@ -11,22 +11,14 @@ import com.android.hanple.databinding.RecyclerviewStorageItemBinding
 import com.google.android.libraries.places.api.model.Place
 
 class PlaceStorageListAdapter(
-    private val onItemClicked: (Place) -> Unit,
-    private val listData: List<Place>
-) : ListAdapter<Place, PlaceStorageListAdapter.PlaceViewHolder>(diffCallback) {
+) : ListAdapter<CategoryPlace, PlaceStorageListAdapter.PlaceViewHolder>(diffCallback) {
 
     class PlaceViewHolder(
         private val binding: RecyclerviewStorageItemBinding,
-        private val onItemClicked: (Place) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(place: Place) = with(binding) {
-
-            // 데이터 바인딩 설정
-            // tvItemAddress.text = place.address
-
-            binding.root.setOnClickListener {
-                onItemClicked(place)
-            }
+        fun bind(place: CategoryPlace) = with(binding) {
+            binding.tvItemAddress.text = place.name
+            binding.tvItemScore.text = place.score.toString()
         }
     }
 
@@ -36,22 +28,22 @@ class PlaceStorageListAdapter(
             parent,
             false
         )
-        return PlaceViewHolder(view, onItemClicked)
+        return PlaceViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
-        val currentItem = listData[position]
+        val currentItem = getItem(position)
         holder.bind(currentItem)
     }
 
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<Place>() {
-            override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean {
-                return oldItem.address == newItem.address
+        val diffCallback = object : DiffUtil.ItemCallback<CategoryPlace>() {
+            override fun areItemsTheSame(oldItem: CategoryPlace, newItem: CategoryPlace): Boolean {
+                return oldItem.id == newItem.id
             }
 
             @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean {
+            override fun areContentsTheSame(oldItem: CategoryPlace, newItem: CategoryPlace): Boolean {
                 return oldItem == newItem
             }
         }

@@ -1,6 +1,6 @@
 package com.android.hanple.ui
 
-import MapFragment
+
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.setPlacesAPIClient(placesClient)
     }
 
-    private fun setBackPressFeature(){
+    private fun setBackPressFeature() {
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -140,15 +140,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        onBackPressedDispatcher.addCallback(this,callback)
+        onBackPressedDispatcher.addCallback(this, callback)
     }
-    private fun randomNumberPlace() : List<Int> {
+
+    private fun randomNumberPlace(): List<Int> {
         val edge = recommendPlaceGoogleID.size
         val list = mutableListOf<Int>()
-        var number : Int = 0
-        while(list.size < 5){
+        var number: Int = 0
+        while (list.size < 5) {
             number = Random.nextInt(edge) + 1
-            if(list.contains(number))
+            if (list.contains(number))
                 continue
             else
                 list.add(number)
@@ -156,7 +157,7 @@ class MainActivity : AppCompatActivity() {
         return list
     }
 
-    private fun setRecommendPlace(){
+    private fun setRecommendPlace() {
         val list = randomNumberPlace()
         viewModel.getRecommendPlace(list, recommendDAO)
     }
