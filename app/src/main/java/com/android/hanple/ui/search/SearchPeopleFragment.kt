@@ -58,7 +58,7 @@ class SearchPeopleFragment : Fragment() {
             viewModel.getCongestionScore(preferType)
             val searchCostFragment = SearchCostFragment()
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.add(R.id.fr_main, searchCostFragment)
+            transaction.replace(R.id.fr_main, searchCostFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }

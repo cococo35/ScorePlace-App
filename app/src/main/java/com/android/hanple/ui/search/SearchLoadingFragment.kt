@@ -65,7 +65,7 @@ class SearchLoadingFragment : Fragment() {
                         time = 0
                         val scoreFragment = ScoreFragment()
                         val transaction = parentFragmentManager.beginTransaction()
-                        transaction.add(R.id.fr_main, scoreFragment)
+                        transaction.replace(R.id.fr_main, scoreFragment)
                         transaction.addToBackStack(null)
                         transaction.commit()
                         break
