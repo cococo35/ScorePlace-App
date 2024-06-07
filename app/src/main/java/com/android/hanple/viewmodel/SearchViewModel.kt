@@ -104,11 +104,11 @@ class SearchViewModel(
                     5,
                     query
                 )
-                list.add(response!!.seoulRtdCitydataPpltn?.get(0)!!.areaCongestLv!!)
-                response.seoulRtdCitydataPpltn!!.forEach {
+                list.add(response.seoulRtdCitydataPpltn?.get(0)!!.areaCongestLv!!)
+                response.seoulRtdCitydataPpltn.forEach {
                     val data = it.fcstPpltn
                     data!!.forEach { item ->
-                        list.add(item?.fcstCongestLv!!)
+                        list.add(item.fcstCongestLv!!)
                     }
                 }
                 Log.d("리스트 보기", list.toString())
@@ -128,7 +128,7 @@ class SearchViewModel(
                     _Lng.value!!,
                     "48b0c79a814c79a5a38bb17b9109a288"
                 )
-                response.list!!.forEach {
+                response.list.forEach {
                     list.add(it.main!!.aqi!!)
                 }
                 dustAqi.value = list
@@ -154,19 +154,20 @@ class SearchViewModel(
                     }
                 }
                 weatherDescription.value = list
-                Log.d("날씨 데이터", "${weatherDescription.value.toString()}")
+                Log.d("날씨 데이터", weatherDescription.value.toString())
             }.onFailure { e ->
                 Log.d("날씨 데이터 갱신 실패", e.toString())
             }
         }
     }
 
+    // radius 500 -> 1000
     fun getParkingData() {
         notDrivingCar.value = false
-        var placeField: List<Place.Field> = Arrays.asList(Place.Field.ID, Place.Field.NAME)
-        var includeType = listOf("parking")
-        var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
-        var circle = CircularBounds.newInstance(latLng, 500.0)
+        val placeField: List<Place.Field> = Arrays.asList(Place.Field.ID, Place.Field.NAME)
+        val includeType = listOf("parking")
+        val latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
+        val circle = CircularBounds.newInstance(latLng, 1000.0)
         val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
             .setIncludedTypes(includeType)
             .setMaxResultCount(10)
@@ -186,7 +187,7 @@ class SearchViewModel(
 
     fun getNearByPlace(type: String) {
         val categoryPlaceList = mutableListOf<CategoryPlace>()
-        var placeField: List<Place.Field> = Arrays.asList(
+        val placeField: List<Place.Field> = Arrays.asList(
             Place.Field.ID,
             Place.Field.NAME,
             Place.Field.RATING,
@@ -194,10 +195,10 @@ class SearchViewModel(
             Place.Field.ADDRESS,
             Place.Field.PHOTO_METADATAS
         )
-        var includeType = listOf(type)
-        var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
-        var circle = CircularBounds.newInstance(latLng, 500.0)
-        var buffer: MutableList<Place>? = null
+        val includeType = listOf(type)
+        val latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
+        val circle = CircularBounds.newInstance(latLng, 500.0)
+        val buffer: MutableList<Place>? = null
         var bitMapBuffer = mutableListOf<Bitmap>()
         val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
             .setIncludedTypes(includeType)
@@ -208,7 +209,7 @@ class SearchViewModel(
                 response.places.forEach {
                     buffer?.add(it)
                 }
-                response.places.forEach { it ->
+                response.places.forEach {
                     val data = CategoryPlace(
                         it.address,
                         it.rating,
@@ -232,29 +233,32 @@ class SearchViewModel(
         }
     }
 
-
+    // congestionScore 가중치 20 -> 30
+    // getCongestionScoreType 별 점수 계산 수정
     fun getCongestionScore(type: Int): Int {
-        var score: Int = 0
+        var score = 15
         val list = congestionDescription.value
+        Log.d("혼잡도 리스트", list.toString())
         if (list == null) {
-            congestScore.value = 10
+            congestScore.value = 15
             Log.d("혼잡도 점수", score.toString())
             return 0
         } else {
-            when (type) {
-                1 -> score = getCongestionScoreType1()
-                2 -> score = getCongestionScoreType2()
-                3 -> score = getCongestionScoreType3()
-                4 -> score = getCongestionScoreType4()
-                else -> score = getCongestionScoreType5()
-            }
-            congestScore.postValue(score)
-            if (score >= 11) {
-                additionalCount++
-            } else if (score <= 9) {
-                additionalCount--
+            score = when (type) {
+                1 -> getCongestionScoreType1()
+                2 -> getCongestionScoreType2()
+                3 -> getCongestionScoreType3()
+                4 -> getCongestionScoreType4()
+                else -> getCongestionScoreType5()
             }
             Log.d("혼잡도 점수", score.toString())
+            congestScore.postValue(score)
+
+            if (score >= 16) {
+                additionalCount++
+            } else if (score <= 14) {
+                additionalCount--
+            }
             return score
         }
     }
@@ -264,16 +268,16 @@ class SearchViewModel(
         val list = congestionDescription.value
         list?.forEach {
             when (it) {
-                "여유" -> score += 2
-                "보통" -> score += 1
-                "약간 붐빔" -> score += 0
-                else -> score += -1
+                "여유" -> score += 4
+                "보통" -> score++
+                "약간 붐빔" -> score--
+                else -> score -= 2
             }
         }
         if (score < 0) {
             score = 0
-        } else if (score > 20) {
-            score = 20
+        } else if (score > 30) {
+            score = 30
         }
         return score
     }
@@ -283,15 +287,16 @@ class SearchViewModel(
         val list = congestionDescription.value
         list?.forEach {
             when (it) {
-                "약간 붐빔" -> score += 1
-                "붐빔" -> score += -1
-                else -> score += 2
+                "여유" -> score += 3
+                "보통" -> score += 2
+                "약간 붐빔" -> score += 0
+                else -> score--
             }
         }
         if (score < 0) {
             score = 0
-        } else if (score > 20) {
-            score = 20
+        } else if (score > 30) {
+            score = 30
         }
         return score
     }
@@ -301,15 +306,16 @@ class SearchViewModel(
         val list = congestionDescription.value
         list?.forEach {
             when (it) {
+                "여유" -> score++
                 "보통" -> score += 2
-                "약간 붐빔" -> score += 1
+                "약간 붐빔" -> score++
                 else -> score += 0
             }
         }
         if (score < 0) {
             score = 0
-        } else if (score > 20) {
-            score = 20
+        } else if (score > 30) {
+            score = 30
         }
         return score
     }
@@ -319,15 +325,16 @@ class SearchViewModel(
         val list = congestionDescription.value
         list?.forEach {
             when (it) {
-                "약간 붐빔" -> score += 1
-                "붐빔" -> score += 2
+                "보통" -> score++
+                "약간 붐빔" -> score += 3
+                "붐빔" -> score += 4
                 else -> score += 0
             }
         }
         if (score < 0) {
             score = 0
-        } else if (score > 20) {
-            score = 20
+        } else if (score > 30) {
+            score = 30
         }
         return score
     }
@@ -337,115 +344,133 @@ class SearchViewModel(
         val list = congestionDescription.value
         list?.forEach {
             when (it) {
-                "약간 붐빔" -> score += 1
-                "붐빔" -> score += 2
-                else -> score += -1
+                "약간 붐빔" -> score += 2
+                "붐빔" -> score += 4
+                else -> score--
             }
         }
         if (score < 0) {
             score = 0
-        } else if (score > 20) {
-            score = 20
+        } else if (score > 30) {
+            score = 30
         }
         return score
     }
 
+    // weatherScore 가중치 20 -> 30
+    // score 계산 방식 변경
     fun getWeatherScore() {
-        var score: Int = 20
+        val score: Int
         var count = 0
         val list = weatherDescription.value
         list?.forEach {
             when (it) {
-                "Clear" -> count += 2
-                "Clouds" -> count += 1
+                "Clear" -> count += 4
+                "Clouds" -> count += 2
+                "Rain" -> count -= 4
                 else -> count = 0
             }
         }
-        if (count >= 10) {
-            count = 10
+
+        score = if (count >= 60) {
+            30
+        } else if (count >= 50) {
+            25
+        } else if (count >= 40) {
+            20
+        } else if (count >= 30) {
+            15
+        } else if (count >= 20) {
+            10
+        } else if (count >= 10) {
+            5
+        } else {
+            0
         }
-        var importance = count / 10
-        score = score * importance
+
         Log.d("날씨 점수", score.toString())
         weatherScore.postValue(score)
-        if (score >= 11) {
+
+        if (score >= 16) {
             additionalCount++
-        } else if (score <= 9) {
+        } else if (score <= 14) {
             additionalCount--
         }
     }
 
+    // dustScore 가중치 20 -> 10
     fun getDustScore() {
-        var score: Int = 0
-        var sum: Int = 0
-        var average: Int
+        var sum = 0
+        val score: Int
+        val average: Int
         val list = dustAqi.value
+
         list?.forEach {
             sum += it.toInt()
         }
+
         average = sum / list!!.size
-        if (average <= 2) {
-            score = 20
-        } else if (average > 2 && average <= 3) {
-            score = 16
-        } else if (average > 3 && average <= 4) {
-            score = 12
-        } else
-            score = 6
+        score = if (average <= 2) {
+            10
+        } else if (average <= 3) {
+            8
+        } else if (average <= 4) {
+            6
+        } else {
+            3
+        }
         Log.d("미세먼지 점수", score.toString())
         dustScore.postValue(score)
-        if (score >= 11) {
+
+        if (score >= 6) {
             additionalCount++
-        } else if (score <= 9) {
+        } else {
             additionalCount--
         }
     }
 
-    fun getCostScore(data: String) {
-        Log.d("비용 인풋", "${data}")
-        Log.d("가격 수준", "${_selectPlace?.value?.priceLevel.toString()}")
-        var score: Int = 0
-        if (data == null) {
-            score = 5
+    // costScore 가중치 20 -> 10
+    fun getCostScore(price: Int) {
+        Log.d("비용 인풋", price.toString())
+        Log.d("가격 수준", _selectPlace.value?.priceLevel.toString())
+        var score = 5
+        if (_selectPlace.value?.priceLevel == null) {
+            costScore.value = 5
         } else {
-            val price = data.toInt()
-            if (_selectPlace?.value?.priceLevel == null) {
-                costScore.value = 10
-            } else {
-                if (price <= 50000) {
-                    when (_selectPlace?.value?.priceLevel) {
-                        0 -> score = 10
-                        1 -> score = 20
-                        2 -> score = 15
-                        else -> score = 0
-                    }
-                }
-                if (price > 50000 && price <= 150000) {
-                    when (_selectPlace.value?.priceLevel) {
-                        3 -> score = 15
-                        4 -> score = 10
-                        5 -> score = 0
-                        else -> score = 20
-                    }
-                }
-                if (price > 150000) {
-                    when (_selectPlace.value?.priceLevel) {
-                        5 -> score = 10
-                        else -> score = 20
-                    }
-                }
-                costScore.postValue(score)
-                if (score >= 11) {
-                    additionalCount++
-                } else if (score <= 9) {
-                    additionalCount--
+            if (price <= 50000) {
+                score = when (_selectPlace.value?.priceLevel) {
+                    0 -> 6
+                    1 -> 10
+                    2 -> 8
+                    else -> 0
                 }
             }
+            if (price in 50001..150000) {
+                score = when (_selectPlace.value?.priceLevel) {
+                    3 -> 10
+                    4 -> 9
+                    5 -> 1
+                    else -> 8
+                }
+            }
+            if (price > 150000) {
+                score = when (_selectPlace.value?.priceLevel) {
+                    4 -> 9
+                    5 -> 10
+                    else -> 8
+                }
+            }
+            costScore.postValue(score)
+        }
+        if (score >= 6) {
+            additionalCount++
+        } else if (score <= 4) {
+            additionalCount--
         }
     }
 
     fun getTransportScore() {
-        var inputScore: Int = 0
+        var inputScore = 10
         if (notDrivingCar.value == true) {
             val score = (weatherScore.value!! + dustScore.value!!) / 4
             Log.d("교통 점수", score.toString())
@@ -454,7 +479,7 @@ class SearchViewModel(
             if (parkingList.value == null) {
                 inputScore = 0
             } else {
-                if (parkingList.value!!.size >= 1 && parkingList.value!!.size < 3) {
+                if (parkingList.value!!.size in 1..2) {
                     inputScore = 10
                 } else if (parkingList.value!!.size >= 3) {
                     inputScore = 20
@@ -462,20 +487,23 @@ class SearchViewModel(
             }
             Log.d("교통 점수", inputScore.toString())
             transportScore.postValue(inputScore)
-            if (inputScore >= 11) {
-                additionalCount++
-            } else if (inputScore <= 9) {
-                additionalCount--
-            }
+        }
+        if (inputScore >= 11) {
+            additionalCount++
+        } else if (inputScore <= 9) {
+            additionalCount--
         }
     }
 
     fun getToTalScore() {
         val score =
             weatherScore.value!! + dustScore.value!! + transportScore.value!! + costScore.value!! + congestScore.value!!
-        val totalScore = (score * 0.46 + 27) + (additionalCount * 5.4 - 27)     // 계산식 주석 달기
-        // additionalCount * additionalCount 값 이용하기 but if문 이용해서 additionalCount 음수일 때도 적용되게
-        _totalScore.postValue(totalScore.toInt())
+        val addScore: Double = if (additionalCount >= 0) {
+            (score * 0.5 + 25) + (additionalCount * additionalCount)          // 0 ~ 100 까지인 score 의 범위를 25 ~ 75 로 바꾸는 식 + additionalCount 제곱
+        } else {
+            (score * 0.5 + 25) - (additionalCount * additionalCount)          // additionalCount 가 양수일 때, 음수일 때 if문으로 나눠 계산
+        }
+        _totalScore.postValue(addScore.toInt())
     }
 
 

@@ -36,8 +36,8 @@ class SearchCostFragment : Fragment() {
 
     private fun initView(){
         binding.tvSearchCostNext.setOnClickListener {
-            var price : String? = null
-                price = binding.edSearchCostInputCost.text.toString()
+            var price : Int = 0
+                price = binding.edSearchCostInputCost.text.toString().toInt()
             viewModel.getCostScore(price)
             val searchLoadingFragment = SearchLoadingFragment()
             val transaction = parentFragmentManager.beginTransaction()

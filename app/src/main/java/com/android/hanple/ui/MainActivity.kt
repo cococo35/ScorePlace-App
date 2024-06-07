@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         initFragment()
         setNavigation()
-//        initPlaceSDK()
+        initPlaceSDK()
 
         //맵 테스트 용
 //        if (savedInstanceState == null) {
