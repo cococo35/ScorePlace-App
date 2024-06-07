@@ -123,6 +123,13 @@ class ScoreFragment : Fragment() {
         val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         viewModel.selectPlace?.observe(viewLifecycleOwner){
             binding.tvScoreTitle.text = "${it?.name}, ${dateFormat.toString()} "
+            binding.tvScoreTitle.text =
+                "${it?.name}, " +
+                        localDateTime.toString().substring(5, 7) +
+                        "월 " +
+                        localDateTime.toString().substring(8, 10) +
+                        "일 " +
+                        localDateTime.toString().substring(11, 16)
         }
         viewModel.totalScore.observe(viewLifecycleOwner){
             binding.tvScoreScore.text = "${it.toString()}점"

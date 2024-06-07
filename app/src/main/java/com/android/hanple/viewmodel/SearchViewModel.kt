@@ -72,6 +72,8 @@ class SearchViewModel(
 
     val totalScore: LiveData<Int> get() = _totalScore
 
+    private var additionalCount = 0
+
 
     val _recommandPlace = MutableLiveData<List<CategoryPlace>>()
     val recommendPlace : LiveData<List<CategoryPlace>> get() = _recommandPlace
@@ -394,43 +396,42 @@ class SearchViewModel(
         dustScore.value = score
     }
 
-    fun getCostScore(data: String)  {
-        Log.d("비용 인풋", "${data}")
-        Log.d("가격 수준", "${_selectPlace?.value?.priceLevel.toString()}")
-        var score: Int = 0
-        if(data == null){
-            score = 5
-        }
-        else {
-        val price = data.toInt()
-        if(_selectPlace?.value?.priceLevel == null){
-            costScore.value = 10
-        }
-        else {
+    fun getCostScore(price: Int) {
+        Log.d("비용 인풋", price.toString())
+        Log.d("가격 수준", _selectPlace.value?.priceLevel.toString())
+        var score = 5
+        if (_selectPlace.value?.priceLevel == null) {
+            costScore.value = 5
+        } else {
             if (price <= 50000) {
-                when (_selectPlace?.value?.priceLevel) {
-                    0 -> score = 10
-                    1 -> score = 20
-                    2 -> score = 15
-                    else -> score = 0
+                score = when (_selectPlace.value?.priceLevel) {
+                    0 -> 6
+                    1 -> 10
+                    2 -> 8
+                    else -> 0
                 }
             }
-            if (price > 50000 && price <= 150000) {
-                when (_selectPlace.value?.priceLevel) {
-                    3 -> score = 15
-                    4 -> score = 10
-                    5 -> score = 0
-                    else -> score = 20
+            if (price in 50001..150000) {
+                score = when (_selectPlace.value?.priceLevel) {
+                    3 -> 10
+                    4 -> 9
+                    5 -> 1
+                    else -> 8
                 }
             }
             if (price > 150000) {
-                when (_selectPlace.value?.priceLevel) {
-                    5 -> score = 10
-                    else -> score = 20
+                score = when (_selectPlace.value?.priceLevel) {
+                    4 -> 9
+                    5 -> 10
+                    else -> 8
                 }
             }
-            costScore.value = score
+            costScore.postValue(score)
         }
+        if (score >= 5) {
+            additionalCount++
+        } else {
+            additionalCount--
         }
     }
     fun getTransportScore(){
