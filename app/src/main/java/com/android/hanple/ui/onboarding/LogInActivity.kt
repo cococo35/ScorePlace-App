@@ -59,6 +59,7 @@ class LogInActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("userID", binding.etId.text.toString())
                 startActivity(intent) // 로그인 성공 시, 메인 액티비티로 이동
+                finish()
             } else {
                 // 로그인 실패 시, 오류 메시지 표시
                 Toast.makeText(this, R.string.ts_login_id, Toast.LENGTH_SHORT).show()

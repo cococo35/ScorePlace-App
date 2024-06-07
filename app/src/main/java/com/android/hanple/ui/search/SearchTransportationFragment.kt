@@ -45,7 +45,7 @@ class SearchTransportationFragment : Fragment() {
         binding.tvSearchTransportationNext.setOnClickListener {
             val searchPeopleFragment = SearchPeopleFragment()
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.add(R.id.fr_main, searchPeopleFragment)
+            transaction.replace(R.id.fr_main, searchPeopleFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }

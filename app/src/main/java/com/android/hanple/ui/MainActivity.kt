@@ -1,10 +1,13 @@
 package com.android.hanple.ui
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,6 +15,7 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityMainBinding
+import com.android.hanple.ui.search.SearchFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.gms.maps.GoogleMap
@@ -28,42 +32,80 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         ViewModelProvider(this, SearchViewModelFactory())[SearchViewModel::class.java]
     }
 
+    private lateinit var callback: OnBackPressedCallback
+    private var backPressedTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        initFragment()
+        initFragment()
         setNavigation()
         initTest()
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                replace(R.id.fr_main, MapFragment())
-            }
-        }
+//
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.commit {
+//                replace(R.id.fr_main, MapFragment())
+//            }
+//        }
 
 //        각 메뉴 탭의 id를 setOf 안에 작성
 //        val appBarConfiguration = AppBarConfiguration(setOf(..., R.id.navigation_settings))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
 //        navView.setupWithNavController(navController)
+
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    if (System.currentTimeMillis() - backPressedTime >= 2000) {
+                        backPressedTime = System.currentTimeMillis()
+                        Toast.makeText(this@MainActivity, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT)
+                            .show()
+                    } else if (System.currentTimeMillis() - backPressedTime < 2000) {
+                        AlertDialog.Builder(this@MainActivity)
+                            .setTitle("종료")
+                            .setMessage("앱을 종료하시겠습니까?")
+                            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+                                override fun onClick(dialog: DialogInterface?, which: Int) {
+                                    this@MainActivity.finish()
+                                }
+                            })
+                            .setNegativeButton("NO", object : DialogInterface.OnClickListener {
+                                override fun onClick(dialog: DialogInterface?, which: Int) {
+                                }
+                            })
+                            .create().show()
+                    }
+                }
+            }
+        }
+        onBackPressedDispatcher.addCallback(this,callback)
+        //맵 테스트 용
+//        if (savedInstanceState == null) {
+//            supportFragmentManager.commit {
+//                replace(R.id.mapView, MapFragment())
+//            }
+//        }
     }
 
-    override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
+    override fun onResume() {
+        super.onResume()
+        binding.btnMainMenu.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+    }
+
+    private fun initFragment() {
+        supportFragmentManager.commit {
+            replace(R.id.fr_main, SearchFragment())
+            setReorderingAllowed(true)
+            addToBackStack(null)
         }
     }
 
-//    private fun initFragment() {
-//        supportFragmentManager.commit {
-//            replace(R.id.fr_main, SearchFragment())
-//            setReorderingAllowed(true)
-//            addToBackStack(null)
-//        }
-//    }
 
     private fun setNavigation() {
 
@@ -73,8 +115,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             when (item.itemId) {
                 R.id.nav_account -> {
                     // 액티비티 이동
-                    val intent = Intent(this, ArchiveActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(this, ArchiveActivity::class.java)
+//                    startActivity(intent)
                 }
 
                 R.id.nav_search_log -> {
@@ -92,20 +134,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
-
-        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
-            override fun onDrawerOpened(drawerView: View) {
-//                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            }
-
-            override fun onDrawerClosed(drawerView: View) {
-                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            }
-
-            override fun onDrawerStateChanged(newState: Int) {}
-        })
     }
 
     @SuppressLint("SuspiciousIndentation")
