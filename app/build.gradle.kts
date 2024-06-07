@@ -115,4 +115,7 @@ dependencies {
     implementation ("androidx.drawerlayout:drawerlayout:1.2.0")
     implementation ("com.google.android.material:material:1.12.0")
 
+    //gif drawable로 가져오기
+    implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
+
 }
