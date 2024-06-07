@@ -40,7 +40,8 @@ class SearchViewModel(
 
     private val _Lat = MutableLiveData<String>()
     private val _Lng = MutableLiveData<String>()
-    val selectPlace = MutableLiveData<Place>()
+    private val _selectPlace = MutableLiveData<Place?>()
+    val selectPlace : LiveData<Place?> get() = _selectPlace
     private val timeStamp = MutableLiveData<List<String>>()
     private val placeClient = MutableLiveData<PlacesClient>()
     private val notDrivingCar = MutableLiveData<Boolean>()
@@ -68,7 +69,11 @@ class SearchViewModel(
         _Lng.postValue(data.longitude.toString())
     }
     fun getPlacedata(data: Place){
-        selectPlace.postValue(data)
+        _selectPlace.value = data
+    }
+    fun resetPlaceData(){
+        val empty : Place? = null
+        _selectPlace.value = empty
     }
     //구글 클라이언트 설정
     fun setPlacesAPIClient(placesClient: PlacesClient){
@@ -364,19 +369,19 @@ class SearchViewModel(
 
     fun getCostScore(data: String)  {
         Log.d("비용 인풋", "${data}")
-        Log.d("가격 수준", "${selectPlace.value?.priceLevel.toString()}")
+        Log.d("가격 수준", "${_selectPlace?.value?.priceLevel.toString()}")
         var score: Int = 0
         if(data == null){
             score = 5
         }
         else {
         val price = data.toInt()
-        if(selectPlace.value?.priceLevel == null){
+        if(_selectPlace?.value?.priceLevel == null){
             costScore.postValue(10)
         }
         else {
             if (price <= 50000) {
-                when (selectPlace.value?.priceLevel) {
+                when (_selectPlace?.value?.priceLevel) {
                     0 -> score = 10
                     1 -> score = 20
                     2 -> score = 15
@@ -384,7 +389,7 @@ class SearchViewModel(
                 }
             }
             if (price > 50000 && price <= 150000) {
-                when (selectPlace.value?.priceLevel) {
+                when (_selectPlace.value?.priceLevel) {
                     3 -> score = 15
                     4 -> score = 10
                     5 -> score = 0
@@ -392,7 +397,7 @@ class SearchViewModel(
                 }
             }
             if (price > 150000) {
-                when (selectPlace.value?.priceLevel) {
+                when (_selectPlace.value?.priceLevel) {
                     5 -> score = 10
                     else -> score = 20
                 }
