@@ -35,6 +35,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <ImageView
+                        android:id="@+id/ic_backbtn"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        app:srcCompat="@drawable/ic_back_8x12dp" />
+
                     <TextView
                         android:id="@+id/tv_list_view_title"
                         android:layout_width="match_parent"

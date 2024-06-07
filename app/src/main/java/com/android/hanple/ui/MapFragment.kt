@@ -1,26 +1,29 @@
 package com.android.hanple.ui
 
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.databinding.FragmentMapBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import java.io.IOException
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     companion object {
         const val TAG = "MapFragment"
-        private const val ARG_ADDRESS = "address"
+        private const val ARG_PLACES = "places"
 
-        fun newInstance(address: String): MapFragment {
+        fun newInstance(places: List<CategoryPlace>): MapFragment {
             val fragment = MapFragment()
             val args = Bundle()
-            args.putString(ARG_ADDRESS, address)
+            args.putParcelableArrayList(ARG_PLACES, ArrayList(places))
             fragment.arguments = args
             return fragment
         }
@@ -32,12 +35,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
     private var currentMarker: Marker? = null
-    private var address: String? = null
+    private var places: List<CategoryPlace>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            address = it.getString(ARG_ADDRESS)
+            places = it.getParcelableArrayList(ARG_PLACES)
         }
     }
 
@@ -60,9 +63,29 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
 
-        val latLng = LatLng(37.5562, 126.9724) // 서울역 위치
-        currentMarker = setupMarker(latLng, address ?: "Unknown Location")
-        currentMarker?.showInfoWindow()
+        places?.forEach { place ->
+            val latLng = getLatLngFromAddress(place.address ?: "")
+            if (latLng != null) {
+                setupMarker(latLng, place.address ?: "")
+            }
+        }
+    }
+
+    private fun getLatLngFromAddress(address: String): LatLng? {
+        val context = context ?: return null // context가 null인지 확인
+        val geocoder = Geocoder(context)
+        return try {
+            val addresses = geocoder.getFromLocationName(address, 1)
+            if (addresses?.isNotEmpty() == true) {
+                val location = addresses?.get(0)
+                location?.let { LatLng(it.latitude, location.longitude) }
+            } else {
+                null
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
     }
 
     private fun setupMarker(positionLatLng: LatLng, title: String): Marker? {
