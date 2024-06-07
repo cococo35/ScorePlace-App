@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -118,4 +119,8 @@ dependencies {
     //gif drawable로 가져오기
     implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
 
+    //firebase firestore
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-auth-ktx") //firebase auth
 }
