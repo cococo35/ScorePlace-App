@@ -23,6 +23,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.hanple.R
+import com.android.hanple.Room.RecommendDataBase
+import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.adapter.OnDataClick
 import com.android.hanple.adapter.PlaceScoreCategoryAdapter
@@ -30,7 +32,10 @@ import com.android.hanple.databinding.FragmentScoreBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.libraries.places.api.model.Place
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import kotlin.random.Random
 
 class ScoreFragment : Fragment() {
     private val binding by lazy {
@@ -40,6 +45,9 @@ class ScoreFragment : Fragment() {
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
     private lateinit var callback : OnBackPressedCallback
+    private val recommendDAO by lazy {
+        RecommendDataBase.getMyRecommendPlaceDataBase(requireContext()).getMyRecommendPlaceDAO()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +63,7 @@ class ScoreFragment : Fragment() {
         getWeatherDescription()
         initDetailDialog()
         onBackPressButton()
+        setRecommendPlace()
     }
 
     override fun onAttach(context: Context) {
@@ -67,6 +76,7 @@ class ScoreFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView(){
         val spinnerList = listOf(
@@ -110,8 +120,9 @@ class ScoreFragment : Fragment() {
         }
         binding.spScoreCategory.onItemSelectedListener = itemSelectedListener
         val localDateTime: LocalDateTime = LocalDateTime.now()
+        val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         viewModel.selectPlace?.observe(viewLifecycleOwner){
-            binding.tvScoreTitle.text = "${it?.name}, ${localDateTime.toString()} "
+            binding.tvScoreTitle.text = "${it?.name}, ${dateFormat.toString()} "
         }
         viewModel.totalScore.observe(viewLifecycleOwner){
             binding.tvScoreScore.text = "${it.toString()}점"
@@ -201,9 +212,10 @@ class ScoreFragment : Fragment() {
                     val fragmentManager: FragmentManager = parentFragmentManager
                     val searchFragment = SearchFragment()
                     viewModel.resetPlaceData()
+                    viewModel.resetScore()
                     fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     val transaction = parentFragmentManager.beginTransaction()
-                    transaction.add(R.id.fr_main, searchFragment)
+                    transaction.replace(R.id.fr_main, searchFragment)
                     transaction.commit()
                 }
             })
@@ -214,4 +226,23 @@ class ScoreFragment : Fragment() {
             .create()
             .show()
     }
+    private fun randomNumberPlace() : List<Int> {
+        val edge = recommendPlaceGoogleID.size
+        val list = mutableListOf<Int>()
+        var number : Int = 0
+        while(list.size < 5){
+            number = Random.nextInt(edge) + 1
+            if(list.contains(number))
+                continue
+            else
+                list.add(number)
+        }
+        return list
+    }
+
+    private fun setRecommendPlace(){
+        val list = randomNumberPlace()
+        viewModel.getRecommendPlace(list, recommendDAO)
+    }
+
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.databinding.RecyclerviewScoreCategoryItemBinding
+import com.bumptech.glide.Glide
 
 
 interface OnDataClick {
@@ -34,7 +35,7 @@ class PlaceScoreCategoryAdapter(
                 onDataClick.onItemClick(place)
             }
             if(place.img != null) {
-                binding.ivItemThumbnail.setImageBitmap(place.img)
+                Glide.with(itemView).load(place.img).into(binding.ivItemThumbnail)
             }
         }
     }

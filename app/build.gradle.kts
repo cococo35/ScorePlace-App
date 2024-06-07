@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-parcelize")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -117,5 +118,14 @@ dependencies {
 
     //gif drawable로 가져오기
     implementation ("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
+
+    //room
+    implementation ("androidx.room:room-runtime:2.6.1")
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation ("androidx.room:room-ktx:2.6.1")
+    // optional - Test helpers
+    testImplementation ("androidx.room:room-testing:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
 
 }

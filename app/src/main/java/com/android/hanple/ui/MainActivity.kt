@@ -16,12 +16,19 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
+import com.android.hanple.Room.RecommendDAO
+import com.android.hanple.Room.RecommendDataBase
+import com.android.hanple.Room.RecommendPlace
+import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.ActivityMainBinding
+import com.android.hanple.ui.search.InitLoadFragment
 import com.android.hanple.ui.search.SearchFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.runBlocking
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -29,7 +36,9 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by lazy {
         ViewModelProvider(this, SearchViewModelFactory())[SearchViewModel::class.java]
     }
-
+    private val recommendDAO by lazy {
+        RecommendDataBase.getMyRecommendPlaceDataBase(this).getMyRecommendPlaceDAO()
+    }
     private lateinit var callback: OnBackPressedCallback
     private var backPressedTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,41 +49,8 @@ class MainActivity : AppCompatActivity() {
         initFragment()
         setNavigation()
         initPlaceSDK()
-
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                } else {
-                    if (System.currentTimeMillis() - backPressedTime >= 2000) {
-                        backPressedTime = System.currentTimeMillis()
-                        Toast.makeText(this@MainActivity, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT)
-                            .show()
-                    } else if (System.currentTimeMillis() - backPressedTime < 2000) {
-                        AlertDialog.Builder(this@MainActivity)
-                            .setTitle("종료")
-                            .setMessage("앱을 종료하시겠습니까?")
-                            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
-                                override fun onClick(dialog: DialogInterface?, which: Int) {
-                                    this@MainActivity.finish()
-                                }
-                            })
-                            .setNegativeButton("NO", object : DialogInterface.OnClickListener {
-                                override fun onClick(dialog: DialogInterface?, which: Int) {
-                                }
-                            })
-                            .create().show()
-                    }
-                }
-            }
-        }
-        onBackPressedDispatcher.addCallback(this,callback)
-        //맵 테스트 용
-//        if (savedInstanceState == null) {
-//            supportFragmentManager.commit {
-//                replace(R.id.mapView, MapFragment())
-//            }
-//        }
+        setBackPressFeature()
+        setRecommendPlace()
     }
 
     override fun onResume() {
@@ -88,9 +64,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFragment() {
         supportFragmentManager.commit {
-            replace(R.id.fr_main, SearchFragment())
+            replace(R.id.fr_main, InitLoadFragment())
             setReorderingAllowed(true)
-            addToBackStack(null)
         }
     }
 
@@ -137,13 +112,53 @@ class MainActivity : AppCompatActivity() {
         viewModel.setPlacesAPIClient(placesClient)
     }
 
-    //맵 테스트 용
-//    override fun onMapReady(googleMap: GoogleMap) {
-//        googleMap.addMarker(
-//            MarkerOptions()
-//                .position(LatLng(0.0, 0.0))
-//                .title("Marker")
-//        )
-//    }
+    private fun setBackPressFeature(){
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    if (System.currentTimeMillis() - backPressedTime >= 2000) {
+                        backPressedTime = System.currentTimeMillis()
+                        Toast.makeText(this@MainActivity, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT)
+                            .show()
+                    } else if (System.currentTimeMillis() - backPressedTime < 2000) {
+                        AlertDialog.Builder(this@MainActivity)
+                            .setTitle("종료")
+                            .setMessage("앱을 종료하시겠습니까?")
+                            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+                                override fun onClick(dialog: DialogInterface?, which: Int) {
+                                    this@MainActivity.finish()
+                                }
+                            })
+                            .setNegativeButton("NO", object : DialogInterface.OnClickListener {
+                                override fun onClick(dialog: DialogInterface?, which: Int) {
+                                }
+                            })
+                            .create().show()
+                    }
+                }
+            }
+        }
+        onBackPressedDispatcher.addCallback(this,callback)
+    }
+    private fun randomNumberPlace() : List<Int> {
+        val edge = recommendPlaceGoogleID.size
+        val list = mutableListOf<Int>()
+        var number : Int = 0
+        while(list.size < 5){
+            number = Random.nextInt(edge) + 1
+            if(list.contains(number))
+                continue
+            else
+                list.add(number)
+        }
+        return list
+    }
+
+    private fun setRecommendPlace(){
+        val list = randomNumberPlace()
+        viewModel.getRecommendPlace(list, recommendDAO)
+    }
 }
 
