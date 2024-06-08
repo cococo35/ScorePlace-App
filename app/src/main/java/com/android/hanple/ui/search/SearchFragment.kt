@@ -20,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.android.hanple.R
@@ -38,6 +39,7 @@ import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -64,6 +66,7 @@ class SearchFragment : Fragment() {
         initAutoComplete()
         nextButtonActivated()
         initView()
+        renewalData()
     }
 
 
@@ -117,6 +120,18 @@ class SearchFragment : Fragment() {
             }
             else {
                 binding.btnSearchNext.visibility = View.GONE
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun renewalData(){
+        lifecycleScope.launch {
+            whenStarted {
+                while(true) {
+                    delay(1000)
+                    (binding.recyclerviewSearchRecommend.adapter as PlaceScoreCategoryAdapter).notifyDataSetChanged()
+                }
             }
         }
     }

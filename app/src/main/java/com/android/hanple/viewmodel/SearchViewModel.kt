@@ -76,6 +76,8 @@ class SearchViewModel(
 
     val _recommandPlace = MutableLiveData<List<CategoryPlace>>()
     val recommendPlace : LiveData<List<CategoryPlace>> get() = _recommandPlace
+
+    private val placeBuffer = MutableLiveData<Place>()
     //선택지 좌표 넣기
     fun getSelectPlaceLatLng(data: LatLng) {
         _Lat.postValue(data.latitude.toString())
@@ -542,44 +544,51 @@ class SearchViewModel(
 
     fun getRecommendPlace(list: List<Int>, dao: RecommendDAO){
         val recommendListBuffer = mutableListOf<CategoryPlace>()
-        viewModelScope.launch {
+        var uri : Uri? = null
+        var data : CategoryPlace? = null
+
+            viewModelScope.launch {
             list.forEach { it ->
                 val recommendID = dao.getRecommendPlaceById(it).name
                 val placeFields =
                     Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.RATING, Place.Field.OPENING_HOURS, Place.Field.PHOTO_METADATAS)
                 val request = FetchPlaceRequest.newInstance(recommendID, placeFields)
+
                 val placeTask : Task<FetchPlaceResponse> = placeClient.value!!.fetchPlace(request)
-                placeTask.addOnSuccessListener { reponse ->
-//                    val uri = getImage(reponse.place)
-                    val data = CategoryPlace(
-                        reponse.place.address,
-                        reponse.place.rating,
+                placeTask.addOnSuccessListener { response ->
+                    placeBuffer.value = response.place
+                    data = CategoryPlace(
+                        placeBuffer.value?.address,
+                        placeBuffer.value?.rating,
                         null,
-                        reponse.place.id,
-                        reponse.place.name,
+                        placeBuffer.value?.id,
+                        placeBuffer.value?.name,
                         false,
-                        reponse.place.openingHours
+                        placeBuffer.value?.openingHours
                     )
-//                    data.setImgUri(uri!!)
-                    recommendListBuffer.add(data)
+                    getImage(data!!)
+                    recommendListBuffer.add(data!!)
                 }
             }
             _recommandPlace.value = recommendListBuffer
         }
     }
-//    private fun getImage(data: Place) : Uri? {
-//            val meta = data.photoMetadatas?.get(0)
-//            var uri : Uri? = null
-//            val request = FetchResolvedPhotoUriRequest.builder(meta)
-//                .setMaxWidth(500)
-//                .setMaxHeight(300)
-//                .build()
-//            placeClient.value!!.fetchResolvedPhotoUri(request)
-//                .addOnSuccessListener { it ->
-//                    uri = it.uri
-//                }
-//        return uri
-//    }
+    private fun getImage(data: CategoryPlace){
+        viewModelScope.launch {
+            val meta = placeBuffer.value?.photoMetadatas?.get(0)
+            Log.d("meta", meta.toString())
+            if(meta != null) {
+                val request = FetchResolvedPhotoUriRequest.builder(meta)
+                    .setMaxWidth(500)
+                    .setMaxHeight(300)
+                    .build()
+                placeClient.value!!.fetchResolvedPhotoUri(request)
+                    .addOnSuccessListener { it ->
+                        data.setImgUri(it.uri)
+                    }
+            }
+        }
+    }
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
