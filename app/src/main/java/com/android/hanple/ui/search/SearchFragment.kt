@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -13,12 +14,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.android.hanple.R
+import com.android.hanple.Room.RecommendDataBase
+import com.android.hanple.Room.recommendPlaceGoogleID
+import com.android.hanple.adapter.CategoryPlace
+import com.android.hanple.adapter.OnDataClick
+import com.android.hanple.adapter.PlaceScoreCategoryAdapter
 import com.android.hanple.databinding.FragmentSearchBinding
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
@@ -30,6 +39,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class SearchFragment : Fragment() {
     private var _binding : FragmentSearchBinding? = null
@@ -39,6 +49,7 @@ class SearchFragment : Fragment() {
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
     private var inputOk : Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,10 +67,16 @@ class SearchFragment : Fragment() {
     }
 
 
-
-
     private fun initView(){
         binding.btnSearchNext.visibility = View.GONE
+        binding.recyclerviewSearchRecommend.adapter = PlaceScoreCategoryAdapter(object : OnDataClick{
+            override fun onItemClick(data: CategoryPlace) {
+            }
+        })
+        binding.recyclerviewSearchRecommend.layoutManager = LinearLayoutManager(this.context)
+        viewModel.recommendPlace.observe(viewLifecycleOwner){
+            (binding.recyclerviewSearchRecommend.adapter as PlaceScoreCategoryAdapter).submitList(it)
+        }
         binding.btnSearchNext.setOnClickListener {
             val searchTimeFragment = SearchTimeFragment()
             val transaction = parentFragmentManager.beginTransaction()
@@ -67,6 +84,7 @@ class SearchFragment : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
+
     }
 
     override fun onDestroy() {

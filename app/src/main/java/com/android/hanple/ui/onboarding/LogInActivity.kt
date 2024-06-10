@@ -1,16 +1,27 @@
 package com.android.hanple.ui.onboarding
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
+import com.android.hanple.Room.RecommendDataBase
+import com.android.hanple.Room.RecommendPlace
+import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.ActivityLoginBinding
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.utils.SharedPreferencesUtils
+import com.android.hanple.viewmodel.SearchViewModel
+import com.android.hanple.viewmodel.SearchViewModelFactory
+import com.google.android.libraries.places.api.Places
+import kotlinx.coroutines.runBlocking
+import kotlin.random.Random
 
 class LogInActivity : AppCompatActivity() {
 
@@ -20,7 +31,12 @@ class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding // 뷰 바인딩 객체를 늦은 초기화로 선언
     private val loginViewModel: LogInViewModel by viewModels() // ViewModel 객체를 by viewModels()로 초기화
-
+    private val recommendDAO by lazy {
+        RecommendDataBase.getMyRecommendPlaceDataBase(this).getMyRecommendPlaceDAO()
+    }
+    private val searchViewModel by lazy {
+        ViewModelProvider(this, SearchViewModelFactory())[SearchViewModel::class.java]
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         preferences = SharedPreferencesUtils(applicationContext) //다른 액티비티에서도 사용해야 하므로 context도 보내주기.
         super.onCreate(savedInstanceState)
@@ -32,7 +48,7 @@ class LogInActivity : AppCompatActivity() {
         //만약 SharedPreferences에 이메일 정보가 저장이 되어 있다면,
         val spfEmail = preferences.loadRememberMe() //없다면 "" 출력할 것으로 보임.
         binding.etId.setText(spfEmail) //정보가 저장되어 있다면 자동으로 작성됨.
-
+        initLoad()
         setContentView(binding.root)
 
         // 로그인 버튼 클릭 리스너 설정
@@ -72,4 +88,23 @@ class LogInActivity : AppCompatActivity() {
             startActivity(signupIntent)
         }
     }
+    @SuppressLint("CommitPrefEdits")
+    private fun initLoad(){
+        val pref = getSharedPreferences("pref",0)
+        if(pref.getInt("pref", 0) == 0){
+            insertRoomData()
+            val edit = pref.edit()
+            edit.putInt("pref", 1)
+            edit.apply()
+        }
+    }
+    private fun insertRoomData(){
+        runBlocking {
+            for(i in 0..recommendPlaceGoogleID.size-1){
+                recommendDAO.insertRecommendPlace(RecommendPlace(i+1, recommendPlaceGoogleID[i]))
+            }
+        }
+    }
+
+
 }

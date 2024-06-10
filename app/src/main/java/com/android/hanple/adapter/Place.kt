@@ -3,12 +3,13 @@ package com.android.hanple.adapter
 import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
+import android.net.Uri
 import com.google.android.libraries.places.api.model.OpeningHours
 
 data class CategoryPlace(
     val address: String?,
     val score: Double?,
-    var img: Bitmap?,
+    var img: Uri?,
     val id: String?,
     val name: String?,
     var isFavorite: Boolean,
@@ -48,7 +49,7 @@ data class CategoryPlace(
         }
     }
 
-    fun setImgBitmap(bitmap: Bitmap) {
-        this.img = bitmap
+    fun setImgUri(uri: Uri) {
+        this.img = uri
     }
 }

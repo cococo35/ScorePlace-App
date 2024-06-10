@@ -1,11 +1,16 @@
 package com.android.hanple.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
+import androidx.activity.OnBackPressedCallback
+
 import androidx.core.content.ContextCompat
+
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchTimeBinding
@@ -19,6 +24,7 @@ class SearchTransportationFragment : Fragment() {
     private val viewModel by lazy{
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
+    private lateinit var callback : OnBackPressedCallback
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +37,19 @@ class SearchTransportationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         getScore()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val searchTimeFragment = SearchTimeFragment()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.fr_main, searchTimeFragment)
+                transaction.commit()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this@SearchTransportationFragment, callback)
     }
     override fun onDestroy() {
         super.onDestroy()

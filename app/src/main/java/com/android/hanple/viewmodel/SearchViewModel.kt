@@ -1,5 +1,6 @@
 package com.android.hanple.viewmodel
 
+import android.net.Uri
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -10,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.android.hanple.Address.AddressRemoteImpl
 import com.android.hanple.Dust.DustRemoteImpl
+import com.android.hanple.Room.RecommendDAO
 import com.android.hanple.Weather.WeatherRemoteImpl
 import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.data.congestion.remote.CongestionRemoteImpl
@@ -18,8 +20,12 @@ import com.android.hanple.network.CongestionRetrofit
 import com.android.hanple.network.DustRetrofit
 import com.android.hanple.network.WeatherRetrofit
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.api.model.CircularBounds
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
+import com.google.android.libraries.places.api.net.FetchPlaceResponse
+import com.google.android.libraries.places.api.net.FetchResolvedPhotoUriRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.api.net.SearchNearbyRequest
 import kotlinx.coroutines.launch
@@ -48,6 +54,7 @@ class SearchViewModel(
     private val _nearByPlace = MutableLiveData<MutableList<CategoryPlace>>()
     val nearByPlace: LiveData<MutableList<CategoryPlace>> get() = _nearByPlace
 
+    private val nearByPlaceBuffer = MutableLiveData<List<Place>>()
 
     private val congestScore = MutableLiveData<Int>()
     val readCongestScore: LiveData<Int> get() = congestScore
@@ -67,6 +74,8 @@ class SearchViewModel(
     val totalScore: LiveData<Int> get() = _totalScore
     private var additionalCount = 0
 
+    val _recommandPlace = MutableLiveData<List<CategoryPlace>>()
+    val recommendPlace : LiveData<List<CategoryPlace>> get() = _recommandPlace
     //선택지 좌표 넣기
     fun getSelectPlaceLatLng(data: LatLng) {
         _Lat.postValue(data.latitude.toString())
@@ -195,20 +204,16 @@ class SearchViewModel(
             Place.Field.ADDRESS,
             Place.Field.PHOTO_METADATAS
         )
-        val includeType = listOf(type)
-        val latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
-        val circle = CircularBounds.newInstance(latLng, 500.0)
-        val buffer: MutableList<Place>? = null
-        var bitMapBuffer = mutableListOf<Bitmap>()
+        var includeType = listOf(type)
+        var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
+        var circle = CircularBounds.newInstance(latLng, 500.0)
         val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
             .setIncludedTypes(includeType)
             .setMaxResultCount(10)
             .build()
         placeClient.value!!.searchNearby(searchNearbyRequest)
             .addOnSuccessListener { response ->
-                response.places.forEach {
-                    buffer?.add(it)
-                }
+                nearByPlaceBuffer.value = response.places
                 response.places.forEach {
                     val data = CategoryPlace(
                         it.address,
@@ -221,17 +226,29 @@ class SearchViewModel(
                     )
                     categoryPlaceList.add(data)
                 }
+                getCategoryImage(categoryPlaceList)
                 _nearByPlace.value = categoryPlaceList
             }
             .addOnFailureListener { e ->
                 Log.d("근처 장소 정보 불러오기 실패", e.toString())
             }
-        if (buffer != null) {
-            Log.d("버퍼", "버퍼 안에 데이터 있습니다")
-        } else {
-            Log.d("버퍼", "버퍼 안에 데이터 없습니다")
+    }
+    private fun getCategoryImage(list: MutableList<CategoryPlace>) {
+        val size = list.size
+        val bufferList = nearByPlaceBuffer.value
+        for (i in 0..size - 1) {
+            val meta = bufferList?.get(i)?.photoMetadatas?.get(0)
+            val request = FetchResolvedPhotoUriRequest.builder(meta)
+                .setMaxWidth(500)
+                .setMaxHeight(300)
+                .build()
+            placeClient.value!!.fetchResolvedPhotoUri(request)
+                .addOnSuccessListener { it ->
+                    list[i].setImgUri(it.uri)
+                }
         }
     }
+
 
     // congestionScore 가중치 20 -> 30
     // getCongestionScoreType 별 점수 계산 수정
@@ -241,7 +258,6 @@ class SearchViewModel(
         Log.d("혼잡도 리스트", list.toString())
         if (list == null) {
             congestScore.value = 15
-            Log.d("혼잡도 점수", score.toString())
             return 0
         } else {
             score = when (type) {
@@ -253,14 +269,13 @@ class SearchViewModel(
             }
             Log.d("혼잡도 점수", score.toString())
             congestScore.postValue(score)
-
             if (score >= 15) {
                 additionalCount++
             } else {
                 additionalCount--
             }
-            return score
         }
+        return score
     }
 
     private fun getCongestionScoreType1(): Int {
@@ -429,7 +444,9 @@ class SearchViewModel(
         }
     }
 
+
     // costScore 가중치 20 -> 10
+
     fun getCostScore(price: Int) {
         Log.d("비용 인풋", price.toString())
         Log.d("가격 수준", _selectPlace.value?.priceLevel.toString())
@@ -505,8 +522,56 @@ class SearchViewModel(
         }
         _totalScore.postValue(addScore.toInt())
     }
+    fun resetScore(){
+        weatherScore.value = 0
+        dustScore.value = 0
+        transportScore.value = 0
+        congestScore.value = 0
+        congestScore.value = 0
+        _totalScore.value = 0
+        additionalCount = 0
+    }
 
-
+    fun getRecommendPlace(list: List<Int>, dao: RecommendDAO){
+        val recommendListBuffer = mutableListOf<CategoryPlace>()
+        viewModelScope.launch {
+            list.forEach { it ->
+                val recommendID = dao.getRecommendPlaceById(it).name
+                val placeFields =
+                    Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.RATING, Place.Field.OPENING_HOURS, Place.Field.PHOTO_METADATAS)
+                val request = FetchPlaceRequest.newInstance(recommendID, placeFields)
+                val placeTask : Task<FetchPlaceResponse> = placeClient.value!!.fetchPlace(request)
+                placeTask.addOnSuccessListener { reponse ->
+//                    val uri = getImage(reponse.place)
+                    val data = CategoryPlace(
+                        reponse.place.address,
+                        reponse.place.rating,
+                        null,
+                        reponse.place.id,
+                        reponse.place.name,
+                        false,
+                        reponse.place.openingHours
+                    )
+//                    data.setImgUri(uri!!)
+                    recommendListBuffer.add(data)
+                }
+            }
+            _recommandPlace.value = recommendListBuffer
+        }
+    }
+//    private fun getImage(data: Place) : Uri? {
+//            val meta = data.photoMetadatas?.get(0)
+//            var uri : Uri? = null
+//            val request = FetchResolvedPhotoUriRequest.builder(meta)
+//                .setMaxWidth(500)
+//                .setMaxHeight(300)
+//                .build()
+//            placeClient.value!!.fetchResolvedPhotoUri(request)
+//                .addOnSuccessListener { it ->
+//                    uri = it.uri
+//                }
+//        return uri
+//    }
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
