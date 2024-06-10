@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class AuthViewModel:ViewModel() {
+class AuthViewModel : ViewModel() {
 
     // (mutable, immutable) LiveData 선언해 주기.
     private val _authState = MutableLiveData<AuthState>()
@@ -22,11 +22,10 @@ class AuthViewModel:ViewModel() {
         else if (password == null || password == "") return 2
         else {
             auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener{ login ->
-                    if(login.isSuccessful) {
+                .addOnCompleteListener { login ->
+                    if (login.isSuccessful) {
                         _authState.value = AuthState.Success(auth.currentUser) //로그인 성공(현재 유저 정보)
-                    }
-                    else {
+                    } else {
                         _authState.value = AuthState.Failure(login.exception) //로그인 실패(예외 String)
                     }
                 }
@@ -41,8 +40,8 @@ class AuthViewModel:ViewModel() {
     fun getCurrentUser() = auth.currentUser
 
     sealed class AuthState {
-        data class Success(val user: FirebaseUser?): AuthState()
-        data class Failure(val exception: Exception?): AuthState()
+        data class Success(val user: FirebaseUser?) : AuthState()
+        data class Failure(val exception: Exception?) : AuthState()
 
     }
 
