@@ -8,12 +8,40 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+data class LocalUser(
+    var email: String?,
+    var password: String?,
+    var name: String?,
+)
 class SignUpViewModel : ViewModel() {
 
     private val auth: FirebaseAuth = Firebase.auth //firebase auth 가져오기.
 
     private val _signUpState = MutableLiveData<SignUpState>()
     val signUpState: LiveData<SignUpState> get() = _signUpState
+
+    private val _localUserState = MutableLiveData<LocalUser>()
+    val localUserState: LiveData<LocalUser> get() = _localUserState
+
+    fun update() {
+        _localUserState.value?.email = ""
+        _localUserState.value?.name = ""
+        _localUserState.value?.password = ""
+    }
+
+// fun updateSignupData(field: Field, value: String) { //UI update. input이 들어올 때마다 갱신
+//        val currentData = _signupData.value ?: SignupData()
+//        val updatedData = when (field) {
+//            Field.NAME -> currentData.copy(name = value)
+//            Field.ID -> currentData.copy(id = value)
+//            Field.PASSWORD -> currentData.copy(password = value)
+//            Field.PHONE -> if (ConvertUtils.phoneNumberRegex.containsMatchIn(value)) currentData.copy(
+//                phoneNumber = value
+//            ) else currentData.copy(phoneNumber = null)
+//        }
+//        _signupData.value = updatedData
+//    }
+//
 
     fun signUp(email: String?, password: String?): Int {
         if (email == null || email == "") return 1
@@ -34,7 +62,6 @@ class SignUpViewModel : ViewModel() {
     sealed class SignUpState {
         data class Success(val user: FirebaseUser?) : SignUpState()
         data class Failure(val exception: Exception?) : SignUpState()
-
     }
 //
 //    private val _signupSuccess = MutableLiveData<Boolean>()
