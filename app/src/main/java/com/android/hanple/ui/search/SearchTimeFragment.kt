@@ -95,6 +95,11 @@ class SearchTimeFragment : Fragment() {
 
             if (fromStart == "" && toStart == "") {
                 Toast.makeText(requireContext(), "입력되지 않은 정보가 있습니다", Toast.LENGTH_SHORT).show()
+            } else if (
+                (binding.edSearchTimeFrom.text.toString() + binding.edSearchTimeFrom2.text.toString()).toInt() >=
+                (binding.edSearchTimeTo.text.toString() + binding.edSearchTimeTo2.text.toString()).toInt()
+                ) {
+                Toast.makeText(requireContext(), "잘못 입력된 정보가 있습니다", Toast.LENGTH_SHORT).show()
             } else {
                 if (
                     binding.edSearchTimeFrom.text.toString().toInt() in 0..23 &&
