@@ -3,8 +3,8 @@ package com.android.hanple.ui.onboarding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.hanple.data.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -15,16 +15,14 @@ class SignUpViewModel : ViewModel() {
     private val _signUpState = MutableLiveData<SignUpState>()
     val signUpState: LiveData<SignUpState> get() = _signUpState
 
-    fun signUp(localUser: User): Int {
-        val email = localUser.email
-        val password = localUser.password
+    fun signUp(email: String?, password: String?): Int {
         if (email == null || email == "") return 1
         else if (password == null || password == "") return 2
         else {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { signup ->
                     if(signup.isSuccessful) {
-                        _signUpState.value = SignUpState.Success(localUser)
+                        _signUpState.value = SignUpState.Success(auth.currentUser)
                     } else {
                         _signUpState.value = SignUpState.Failure(signup.exception)
                     }
@@ -34,7 +32,7 @@ class SignUpViewModel : ViewModel() {
     }
 
     sealed class SignUpState {
-        data class Success(val localUser: User) : SignUpState()
+        data class Success(val user: FirebaseUser?) : SignUpState()
         data class Failure(val exception: Exception?) : SignUpState()
 
     }
