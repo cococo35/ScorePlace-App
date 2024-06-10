@@ -17,16 +17,21 @@ class AuthViewModel:ViewModel() {
 
     private val auth: FirebaseAuth = Firebase.auth //firebase auth 가져오기.
 
-    fun logIn(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener{ login ->
-                if(login.isSuccessful) {
-                    _authState.value = AuthState.Success(auth.currentUser) //로그인 성공(현재 유저 정보)
+    fun logIn(email: String?, password: String?): Int {
+        if (email == null || email == "") return 1
+        else if (password == null || password == "") return 2
+        else {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener{ login ->
+                    if(login.isSuccessful) {
+                        _authState.value = AuthState.Success(auth.currentUser) //로그인 성공(현재 유저 정보)
+                    }
+                    else {
+                        _authState.value = AuthState.Failure(login.exception) //로그인 실패(예외 String)
+                    }
                 }
-                else {
-                    _authState.value = AuthState.Failure(login.exception) //로그인 실패(예외 String)
-                }
-            }
+            return 0
+        }
     }
 
     fun signUp(email: String, password: String) {
