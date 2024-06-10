@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -82,14 +83,31 @@ class SearchCostFragment : Fragment() {
             false
         })
 
-        binding.tvSearchCostNext.setOnClickListener {
-            val price: Int = binding.edSearchCostInputCost.text.toString().toInt() * 10000
-            viewModel.getCostScore(price)
-            val searchLoadingFragment = SearchLoadingFragment()
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fr_main, searchLoadingFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+        binding.apply {
+            tvSearchCostNext.setOnClickListener {
+
+                if (binding.edSearchCostInputCost.text.toString().isEmpty()) {
+                    Toast.makeText(requireContext(), "금액을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val price: Int = binding.edSearchCostInputCost.text.toString().toInt() * 10000
+                    viewModel.getCostScore(price)
+                    val searchLoadingFragment = SearchLoadingFragment()
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fr_main, searchLoadingFragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+            }
+
+            tvSearchCostSkip.setOnClickListener {
+                val price = 0
+                viewModel.getCostScore(price)
+                val searchLoadingFragment = SearchLoadingFragment()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.fr_main, searchLoadingFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.android.hanple.databinding.ActivityLogInBinding
+import com.android.hanple.R
 import com.android.hanple.ui.MainActivity
 
 class LogInActivity : AppCompatActivity() {
@@ -15,6 +16,7 @@ class LogInActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLogInBinding
     private val authViewModel: AuthViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Hanple)
         super.onCreate(savedInstanceState)
         binding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
