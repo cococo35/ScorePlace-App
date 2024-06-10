@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -17,6 +18,8 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -37,6 +40,8 @@ import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class ScoreFragment : Fragment() {
     private val binding by lazy {
@@ -49,6 +54,8 @@ class ScoreFragment : Fragment() {
     private val recommendDAO by lazy {
         RecommendDataBase.getMyRecommendPlaceDataBase(requireContext()).getMyRecommendPlaceDAO()
     }
+    private lateinit var sharedPreferences: SharedPreferences
+    private val gson = Gson()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,6 +67,7 @@ class ScoreFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
         initView()
         getScoreDescription()
         getWeatherDescription()
@@ -69,7 +77,7 @@ class ScoreFragment : Fragment() {
         loadImage()
 
         binding.ivScoreBookmark.setOnClickListener {
-            addBookmarkAndNavigate()
+            addBookmark()
         }
     }
 
@@ -77,7 +85,12 @@ class ScoreFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                clearBackStack()
+                val mainDrawer = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
+                if (mainDrawer.isDrawerOpen(GravityCompat.START)) {
+                    mainDrawer.closeDrawer(GravityCompat.START)
+                } else {
+                    clearBackStack()
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
@@ -265,11 +278,28 @@ class ScoreFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun addBookmarkAndNavigate() {
+    private fun addBookmark() {
         val address = binding.tvScoreTitle.text.toString() // tv_score_title의 정보를 가져옴
         val score = binding.tvScoreScore.text.toString().replace("점", "").toDoubleOrNull() ?: 0.0 // tv_score_score의 정보를 가져옴
 
-        val listViewFragment = ListViewFragment.newInstance(address, score)
+        val newPlace = CategoryPlace(address, score, null, null, null, true, null)
+
+        val existingPlacesJson = sharedPreferences.getString("favorite_places", null)
+        val existingPlaces = if (existingPlacesJson != null) {
+            gson.fromJson<List<CategoryPlace>>(existingPlacesJson, object : TypeToken<List<CategoryPlace>>() {}.type)
+        } else {
+            mutableListOf()
+        }.toMutableList()
+
+        if (existingPlaces.none { it.address == newPlace.address }) {
+            existingPlaces.add(newPlace)
+            sharedPreferences.edit().putString("favorite_places", gson.toJson(existingPlaces)).apply()
+        }
+        navigateToListViewFragment()
+    }
+
+    private fun navigateToListViewFragment() {
+        val listViewFragment = ListViewFragment()
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fr_main, listViewFragment)
             .addToBackStack(null)
