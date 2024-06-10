@@ -1,6 +1,7 @@
 package com.android.hanple.ui.onboarding
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.android.hanple.databinding.ActivitySignUpBinding
@@ -17,7 +18,11 @@ class SignUpActivity : AppCompatActivity() {
         binding.btnSignup.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
-            viewModel.signUp(email, password)
+            val signUpChecker: Int = viewModel.signUp(email, password)
+            when(signUpChecker) {
+                1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
+                2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()
+            }
             finish()
         }
 
