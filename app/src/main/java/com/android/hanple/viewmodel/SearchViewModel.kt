@@ -201,6 +201,7 @@ class SearchViewModel(
         notDrivingCar.value = true
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun getNearByPlace(type: String) {
         viewModelScope.launch {
             val categoryPlaceList = mutableListOf<CategoryPlace>()

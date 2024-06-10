@@ -28,10 +28,6 @@ class PlaceStorageListAdapter(
                 onItemClick(place)
             }
 
-            tvItemAddress.setOnClickListener {
-                removePlace(place)
-            }
-
             ivItemFavorite.setOnClickListener {
                 onFavoriteClick?.invoke(place)
             }
@@ -55,9 +51,11 @@ class PlaceStorageListAdapter(
     override fun getItemCount(): Int = places.size
 
     fun addPlace(newPlace: CategoryPlace) {
-        places.add(newPlace)
-        savePreferences()
-        notifyDataSetChanged()
+        if (places.none { it.address == newPlace.address }) {
+            places.add(newPlace)
+            savePreferences()
+            notifyDataSetChanged()
+        }
     }
 
     fun removePlace(place: CategoryPlace) {
@@ -68,19 +66,27 @@ class PlaceStorageListAdapter(
 
     private fun savePreferences() {
         val editor = sharedPreferences.edit()
-        val set = places.map { it.address }.toSet()
-        editor.putStringSet("bookmarkedPlaces", set)
+        places.forEachIndexed { index, place ->
+            editor.putString("place_$index", place.address)
+            place.score?.let { editor.putFloat("score_$index", it.toFloat()) }
+        }
+        editor.putInt("place_count", places.size)
         editor.apply()
     }
 
     fun loadPreferences() {
-        val set = sharedPreferences.getStringSet("bookmarkedPlaces", setOf()) ?: setOf()
+        val placeCount = sharedPreferences.getInt("place_count", 0)
         places.clear()
-        places.addAll(set.map { CategoryPlace(it, 0.0, null, null, null, true, null) })
+        for (i in 0 until placeCount) {
+            val address = sharedPreferences.getString("place_$i", null)
+            val score = sharedPreferences.getFloat("score_$i", 0f)
+            if (address != null) {
+                places.add(CategoryPlace(address, score.toDouble(), null, null, null, true, null))
+            }
+        }
         notifyDataSetChanged()
     }
 
-    // currentList 속성 추가
     val currentList: List<CategoryPlace>
         get() = places.toList()
 }

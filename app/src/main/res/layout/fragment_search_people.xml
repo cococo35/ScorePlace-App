@@ -12,11 +12,11 @@
         android:id="@+id/tv_search_people_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="여행 성향을 알려주세요"
-        android:textSize="25sp"
-        android:textStyle="bold"
         android:layout_marginTop="25dp"
-        android:layout_marginStart="25dp"
+        android:text="여행 성향을 알려주세요"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,29 +24,33 @@
         android:id="@+id/iv_search_people_line"
         android:layout_width="match_parent"
         android:layout_height="21dp"
-        app:cardBackgroundColor="@color/white"
-        app:strokeColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/tv_search_people_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="65dp"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="24dp" />
-    
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="100dp"
+        app:cardBackgroundColor="@color/neomint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/darkmint" />
+
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_search_people_button1"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_search_people_line"
-        app:layout_constraintBottom_toBottomOf="@id/iv_search_people_line"
+        android:layout_width="19dp"
+        android:layout_height="18dp"
         android:layout_marginStart="25dp"
-        android:background="@drawable/ic_check_blank_20dp" />
+        android:background="@drawable/ic_check_blank_20dp"
+        android:backgroundTint="@color/darkmint"
+        app:layout_constraintBottom_toBottomOf="@id/iv_search_people_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_search_people_line" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_search_people_button2"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:backgroundTint="@color/darkmint"
         app:layout_constraintStart_toEndOf="@id/btn_search_people_button1"
         app:layout_constraintEnd_toStartOf="@id/btn_search_people_button3"
         app:layout_constraintTop_toTopOf="@id/iv_search_people_line"
@@ -55,18 +59,20 @@
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_search_people_button3"
-        android:layout_width="20dp"
+        android:layout_width="17dp"
         android:layout_height="20dp"
-        app:layout_constraintStart_toEndOf="@id/btn_search_people_button1"
-        app:layout_constraintEnd_toStartOf="@id/btn_search_people_button5"
+        android:background="@drawable/ic_check_blank_20dp"
+        android:backgroundTint="@color/darkmint"
         app:layout_constraintBottom_toBottomOf="@id/iv_search_people_line"
-        app:layout_constraintTop_toTopOf="@id/iv_search_people_line"
-        android:background="@drawable/ic_check_blank_20dp" />
+        app:layout_constraintEnd_toStartOf="@id/btn_search_people_button5"
+        app:layout_constraintStart_toEndOf="@id/btn_search_people_button1"
+        app:layout_constraintTop_toTopOf="@id/iv_search_people_line" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_search_people_button4"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:backgroundTint="@color/darkmint"
         app:layout_constraintStart_toEndOf="@id/btn_search_people_button3"
         app:layout_constraintEnd_toStartOf="@id/btn_search_people_button5"
         app:layout_constraintTop_toTopOf="@id/iv_search_people_line"
@@ -78,6 +84,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/darkmint"
         app:layout_constraintTop_toTopOf="@id/iv_search_people_line"
         app:layout_constraintBottom_toBottomOf="@id/iv_search_people_line"
         android:layout_marginEnd="25dp"
@@ -155,22 +162,32 @@
         android:id="@+id/tv_search_people_description1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/iv_search_people_line"
-        app:layout_constraintTop_toBottomOf="@id/iv_search_people_line"
-        android:layout_marginTop="25dp"
         android:text="한적한게 좋아요~!"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="22dp"
+        app:layout_constraintStart_toStartOf="@id/iv_search_people_line"
+        app:layout_constraintTop_toBottomOf="@+id/iv_search_people_line" />
 
     <TextView
         android:id="@+id/tv_search_people_description2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/iv_search_people_line"
-        app:layout_constraintTop_toBottomOf="@id/iv_search_people_line"
-        android:layout_marginTop="25dp"
         android:text="핫플이 좋아요~!"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toEndOf="@id/iv_search_people_line"
+        app:layout_constraintTop_toBottomOf="@+id/iv_search_people_line" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_star_18dp"
+        app:layout_constraintBottom_toTopOf="@+id/iv_search_people_line"
+        app:layout_constraintEnd_toEndOf="@+id/btn_search_people_button3"
+        app:layout_constraintStart_toStartOf="@+id/btn_search_people_button3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

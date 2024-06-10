@@ -10,7 +10,6 @@ import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.databinding.FragmentMapBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 
@@ -34,7 +33,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
-    private var currentMarker: Marker? = null
     private var places: List<CategoryPlace>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +57,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this@MapFragment)
 
-        // ic_backbtn 클릭 리스너 설정
         binding.icBackbtn.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -74,6 +71,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 setupMarker(latLng, place.address ?: "")
             }
         }
+
+        // 전체 위치를 보기 좋은 위치로 카메라 이동
+        if (!places.isNullOrEmpty()) {
+            val firstPlace = places!!.first()
+            val firstLatLng = getLatLngFromAddress(firstPlace.address ?: "")
+            if (firstLatLng != null) {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstLatLng, 12f))
+            }
+        }
     }
 
     private fun getLatLngFromAddress(address: String): LatLng? {
@@ -82,8 +88,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         return try {
             val addresses = geocoder.getFromLocationName(address, 1)
             if (addresses?.isNotEmpty() == true) {
-                val location = addresses?.get(0)
-                location?.let { LatLng(it.latitude, location.longitude) }
+                val location = addresses[0]
+                LatLng(location.latitude, location.longitude)
             } else {
                 null
             }
@@ -93,17 +99,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun setupMarker(positionLatLng: LatLng, title: String): Marker? {
+    private fun setupMarker(positionLatLng: LatLng, title: String) {
         val markerOption = MarkerOptions().apply {
             position(positionLatLng)
             title(title)
             snippet("위치: $title")
         }
-
-        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(positionLatLng, 15f))
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15f))
-        return googleMap.addMarker(markerOption)
+        googleMap.addMarker(markerOption)
     }
 
     override fun onStart() {
