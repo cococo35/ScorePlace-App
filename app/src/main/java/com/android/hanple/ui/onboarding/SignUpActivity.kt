@@ -1,6 +1,5 @@
 package com.android.hanple.ui.onboarding
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,19 +14,19 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 뒤로 가기 아이콘 클릭 리스너 설정
-        binding.ivBack.setOnClickListener {
-            val loginIntent = Intent(this, LogInActivity::class.java)
-            startActivity(loginIntent)
-            finish() // 현재 액티비티를 종료
-        }
-
         binding.btnSignup.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
             viewModel.signUp(email, password)
             finish()
         }
+
+//        // 뒤로 가기 아이콘 클릭 리스너 설정
+//        binding.ivBack.setOnClickListener {
+//            val loginIntent = Intent(this, LogInActivity::class.java)
+//            startActivity(loginIntent)
+//            finish() // 현재 액티비티를 종료
+//        }
 
 //        binding.btnSignup.setOnClickListener {
 ////            handleSignup(editor, sharedPreference)
