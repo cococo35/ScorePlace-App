@@ -36,17 +36,30 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/et_number"
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="4dp"
             android:background="@drawable/et_signup"
-            android:hint="@string/etnumber"
+            android:hint="E-mail"
             android:maxLines="1"
             android:minHeight="42dp"
             android:paddingHorizontal="8dp"
             android:textSize="12sp"
             android:textStyle="bold" />
+
+<!--        <EditText-->
+<!--            android:id="@+id/et_number"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginVertical="4dp"-->
+<!--            android:background="@drawable/et_signup"-->
+<!--            android:hint="@string/etnumber"-->
+<!--            android:maxLines="1"-->
+<!--            android:minHeight="42dp"-->
+<!--            android:paddingHorizontal="8dp"-->
+<!--            android:textSize="12sp"-->
+<!--            android:textStyle="bold" />-->
 
         <EditText
             android:id="@+id/et_name"
@@ -61,18 +74,18 @@
             android:paddingHorizontal="8dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/et_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="4dp"
-            android:background="@drawable/et_signup"
-            android:hint="@string/etid"
-            android:maxLines="1"
-            android:minHeight="42dp"
-            android:paddingHorizontal="8dp"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+<!--        <EditText-->
+<!--            android:id="@+id/et_id"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginVertical="4dp"-->
+<!--            android:background="@drawable/et_signup"-->
+<!--            android:hint="@string/etid"-->
+<!--            android:maxLines="1"-->
+<!--            android:minHeight="42dp"-->
+<!--            android:paddingHorizontal="8dp"-->
+<!--            android:textSize="12sp"-->
+<!--            android:textStyle="bold" />-->
 
         <EditText
             android:id="@+id/et_password"
