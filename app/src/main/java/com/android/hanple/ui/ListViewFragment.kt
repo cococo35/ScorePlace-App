@@ -1,7 +1,5 @@
 package com.android.hanple.ui
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +10,6 @@ import com.android.hanple.R
 import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.adapter.PlaceStorageListAdapter
 import com.android.hanple.databinding.FragmentListViewBinding
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.android.hanple.ui.search.ScoreFragment
 
 class ListViewFragment : Fragment() {
@@ -21,8 +17,25 @@ class ListViewFragment : Fragment() {
     private var _binding: FragmentListViewBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: PlaceStorageListAdapter
-    private lateinit var sharedPreferences: SharedPreferences
-    private val gson = Gson()
+
+    companion object {
+        private const val ARG_ADDRESS = "address"
+        private const val ARG_SCORE = "score"
+
+        fun newInstance(address: String, score: Double): ListViewFragment {
+            val fragment = ListViewFragment()
+            val bundle = Bundle().apply {
+                putString(ARG_ADDRESS, address)
+                putDouble(ARG_SCORE, score)
+            }
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +47,6 @@ class ListViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
 
         adapter = PlaceStorageListAdapter({ place ->
             // 아이템 클릭 시 처리할 로직
@@ -43,7 +55,15 @@ class ListViewFragment : Fragment() {
         binding.recyclerviewList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewList.adapter = adapter
 
-        loadFavoritePlaces()
+        arguments?.let {
+            val address = it.getString(ARG_ADDRESS)
+            val score = it.getDouble(ARG_SCORE)
+
+            if (address != null) {
+                val newPlace = CategoryPlace(address, score, null, null, null, true, null)
+                adapter.addPlace(newPlace)
+            }
+        }
 
         binding.tvListViewMap.setOnClickListener {
             if (adapter.currentList.isNotEmpty()) {
@@ -66,23 +86,8 @@ class ListViewFragment : Fragment() {
             val newList = adapter.currentList.toMutableList().apply {
                 remove(place)
             }
-            saveFavoritePlaces(newList)
             adapter.submitList(newList)
         }
-    }
-
-    private fun loadFavoritePlaces() {
-        val favoritePlacesJson = sharedPreferences.getString("favorite_places", null)
-        val favoritePlaces = if (favoritePlacesJson != null) {
-            gson.fromJson<List<CategoryPlace>>(favoritePlacesJson, object : TypeToken<List<CategoryPlace>>() {}.type)
-        } else {
-            emptyList()
-        }
-        adapter.submitList(favoritePlaces)
-    }
-
-    private fun saveFavoritePlaces(places: List<CategoryPlace>) {
-        sharedPreferences.edit().putString("favorite_places", gson.toJson(places)).apply()
     }
 
     override fun onDestroyView() {
