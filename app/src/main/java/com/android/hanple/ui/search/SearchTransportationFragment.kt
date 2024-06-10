@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
@@ -43,10 +45,15 @@ class SearchTransportationFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                val searchTimeFragment = SearchTimeFragment()
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.fr_main, searchTimeFragment)
-                transaction.commit()
+                val mainDrawer = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
+                if (mainDrawer.isDrawerOpen(GravityCompat.START)) {
+                    mainDrawer.closeDrawer(GravityCompat.START)
+                } else {
+                    val searchTimeFragment = SearchTimeFragment()
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fr_main, searchTimeFragment)
+                    transaction.commit()
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this@SearchTransportationFragment, callback)
