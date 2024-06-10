@@ -427,31 +427,34 @@ class SearchViewModel(
     // dustScore 가중치 20 -> 10
     fun getDustScore() {
         var sum = 0
-        val score: Int
-        val average: Int
+        var score: Int = 0
+        var average: Int = 0
         val list = dustAqi.value
+        viewModelScope.launch {
+            if (list != null) {
+                list?.forEach {
+                    sum += it.toInt()
+                }
 
-        list?.forEach {
-            sum += it.toInt()
-        }
+                average = sum / list!!.size
+                score = if (average <= 2) {
+                    10
+                } else if (average <= 3) {
+                    8
+                } else if (average <= 4) {
+                    6
+                } else {
+                    3
+                }
+                Log.d("미세먼지 점수", score.toString())
+                dustScore.postValue(score)
 
-        average = sum / list!!.size
-        score = if (average <= 2) {
-            10
-        } else if (average <= 3) {
-            8
-        } else if (average <= 4) {
-            6
-        } else {
-            3
-        }
-        Log.d("미세먼지 점수", score.toString())
-        dustScore.postValue(score)
-
-        if (score >= 6) {
-            additionalCount++
-        } else {
-            additionalCount--
+                if (score >= 6) {
+                    additionalCount++
+                } else {
+                    additionalCount--
+                }
+            }
         }
     }
 
