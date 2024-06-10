@@ -2,6 +2,7 @@ package com.android.hanple.ui.onboarding
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +19,7 @@ class LogInActivity : AppCompatActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnLogin.setOnClickListener {
+        binding.btnLogin.setOnClickListener {//앱 자체 null 체크
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
             val loginChecker: Int = authViewModel.logIn(email, password)
@@ -34,7 +35,7 @@ class LogInActivity : AppCompatActivity() {
             startActivity(signupIntent)
         }
 
-        authViewModel.authState.observe(this, Observer { authState ->
+        authViewModel.authState.observe(this, Observer { authState -> //firebase auth 계정 체크
             when (authState) {
                 is AuthViewModel.AuthState.Success -> {
                     Toast.makeText(this, "Firebase Auth 인증 성공!", Toast.LENGTH_SHORT).show()
@@ -43,7 +44,15 @@ class LogInActivity : AppCompatActivity() {
                     finish()  // 현재 Activity를 종료하여 뒤로가기 시 로그인 화면이 보이지 않도록 함
                 }
                 is AuthViewModel.AuthState.Failure -> {
-                    Toast.makeText(this, "Firebase Auth 인증 실패: ${authState.exception?.message}", Toast.LENGTH_SHORT).show()
+                    val exception: String = "${authState.exception?.message}"
+                    var toastMessage: String = "알 수 없는 이유로 로그인에 실패했어요."
+                    Log.d("Firebase Auth Failed", exception)
+                    when (exception) {
+                        "The supplied auth credential is incorrect, malformed or has expired." -> toastMessage = "아이디나 비밀번호를 확인해 주세요."
+                        "The email address is badly formatted." -> toastMessage = "올바른 이메일 형식이 아닙니다."
+                    }
+                    Log.d("Firebase Auth Failed", exception)
+                    Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })
