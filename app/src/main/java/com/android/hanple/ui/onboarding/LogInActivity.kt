@@ -45,13 +45,12 @@ class LogInActivity : AppCompatActivity() {
                 }
                 is AuthViewModel.AuthState.Failure -> {
                     val exception: String = "${authState.exception?.message}"
-                    var toastMessage: String = "알 수 없는 이유로 로그인에 실패했어요."
+                    var toastMessage: String = ""
                     Log.d("Firebase Auth Failed", exception)
                     when (exception) {
                         "The supplied auth credential is incorrect, malformed or has expired." -> toastMessage = "아이디나 비밀번호를 확인해 주세요."
                         "The email address is badly formatted." -> toastMessage = "올바른 이메일 형식이 아닙니다."
                     }
-                    Log.d("Firebase Auth Failed", exception)
                     Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
                 }
             }
