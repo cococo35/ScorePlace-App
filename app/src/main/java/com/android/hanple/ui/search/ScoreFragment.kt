@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -267,10 +266,10 @@ class ScoreFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun addBookmarkAndNavigate() {
-        val address = viewModel.selectPlace?.value?.name ?: ""
-        val score = viewModel.totalScore.value ?: 0
+        val address = binding.tvScoreTitle.text.toString() // tv_score_title의 정보를 가져옴
+        val score = binding.tvScoreScore.text.toString().replace("점", "").toDoubleOrNull() ?: 0.0 // tv_score_score의 정보를 가져옴
 
-        val listViewFragment = ListViewFragment.newInstance(address, score.toDouble())
+        val listViewFragment = ListViewFragment.newInstance(address, score)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fr_main, listViewFragment)
             .addToBackStack(null)
