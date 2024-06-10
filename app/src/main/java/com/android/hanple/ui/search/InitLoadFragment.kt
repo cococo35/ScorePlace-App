@@ -53,7 +53,6 @@ class InitLoadFragment : Fragment() {
     private fun initView(){
         lifecycleScope.launch {
             whenStarted{
-                setRecommendPlace()
                 while (true){
                     delay(1000)
                     time += 1
@@ -69,22 +68,5 @@ class InitLoadFragment : Fragment() {
             }
         }
     }
-    private fun randomNumberPlace(): List<Int> {
-        val edge = recommendPlaceGoogleID.size
-        val list = mutableListOf<Int>()
-        var number: Int = 0
-        while (list.size < 5) {
-            number = Random.nextInt(edge) + 1
-            if (list.contains(number))
-                continue
-            else
-                list.add(number)
-        }
-        return list
-    }
 
-    private fun setRecommendPlace() {
-        val list = randomNumberPlace()
-        viewModel.getRecommendPlace(list, recommendDAO)
-    }
 }
