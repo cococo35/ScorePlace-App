@@ -100,8 +100,8 @@ class SearchCostFragment : Fragment() {
             }
 
             tvSearchCostSkip.setOnClickListener {
-//                val price = 0
-//                viewModel.getCostScore(price)
+                val price = 0
+                viewModel.getCostScore(price)
                 val searchLoadingFragment = SearchLoadingFragment()
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.replace(R.id.fr_main, searchLoadingFragment)
