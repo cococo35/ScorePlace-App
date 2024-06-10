@@ -48,12 +48,13 @@ class ListViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = PlaceStorageListAdapter({ place ->
+        adapter = PlaceStorageListAdapter(requireContext(), { place ->
             // 아이템 클릭 시 처리할 로직
         }, mutableListOf())
 
         binding.recyclerviewList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewList.adapter = adapter
+        adapter.loadPreferences()
 
         arguments?.let {
             val address = it.getString(ARG_ADDRESS)
@@ -83,10 +84,7 @@ class ListViewFragment : Fragment() {
         }
 
         adapter.onFavoriteClick = { place ->
-            val newList = adapter.currentList.toMutableList().apply {
-                remove(place)
-            }
-            adapter.submitList(newList)
+            adapter.removePlace(place)
         }
     }
 
