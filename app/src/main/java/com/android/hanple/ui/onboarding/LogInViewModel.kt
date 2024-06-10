@@ -10,6 +10,14 @@ import com.google.firebase.ktx.Firebase
 
 class LogInViewModel : ViewModel() {
 
+    private val _isRememberMeChecked = MutableLiveData<Boolean>()
+    private val isRememberMeChecked: LiveData<Boolean> get() = _isRememberMeChecked
+
+    init {
+        _isRememberMeChecked.value = false //나중에 spf랑 연결
+    }
+    
+
     // (mutable, immutable) LiveData 선언해 주기.
     private val _authState = MutableLiveData<AuthState>()
     val authState: LiveData<AuthState> get() = _authState

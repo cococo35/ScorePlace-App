@@ -2,31 +2,51 @@ package com.android.hanple.ui.onboarding
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.android.hanple.databinding.ActivitySignUpBinding
 import com.android.hanple.utils.SharedPreferencesUtils
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
-
+    private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val user = hashMapOf(
+            "email" to "hello@naver.com",
+            "uid" to 0,
+            "nickname" to "별명",
+        )
+
+
         binding.btnSignUp.setOnClickListener {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
             val signUpChecker: Int = viewModel.signUp(email, password) //여기서 회원가입!
-            when(signUpChecker) {
+            when (signUpChecker) {
                 1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
                 2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()
 
                 0 -> {
                     SharedPreferencesUtils(applicationContext).rememberMe(email) //회원 가입하면 SharedPref에 자동 저장
+                    db.collection("userinfo")
+                        .add(user)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(
+                                "firestore",
+                                "DocumentSnapshot added with ID: ${documentReference.id}"
+                            )
+                        }.addOnFailureListener { e ->
+                            Log.w("firestore", "Error adding document", e)
+                        }
                 }
             }
             finish() //로그인 위에 사인업이 띄워져있으니 액티비티 끝내면 다시 로그인 페이지로 돌아간다.
