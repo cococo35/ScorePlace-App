@@ -31,6 +31,7 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.api.net.SearchNearbyRequest
 import kotlinx.coroutines.launch
 import java.util.Arrays
+import java.util.Date
 
 class SearchViewModel(
     private val addressRemoteImpl: AddressRemoteImpl,
@@ -150,7 +151,7 @@ class SearchViewModel(
         }
     }
 
-    fun getWeatherData() {
+    fun getWeatherData(today: String) {
         viewModelScope.launch {
             val list = mutableListOf<String>()
             runCatching {
@@ -160,9 +161,12 @@ class SearchViewModel(
                     "48b0c79a814c79a5a38bb17b9109a288"
                 )
                 response.list?.forEach { item ->
-                    val data = item.weather
-                    data.forEach {
-                        list.add(it.main!!)
+                    if(item.dt_txt!!.contains(today)) {
+                        Log.d("날씨", item.dt_txt.toString())
+                        val data = item.weather
+                        data.forEach {
+                            list.add(it.main!!)
+                        }
                     }
                 }
                 weatherDescription.value = list

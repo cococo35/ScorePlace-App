@@ -1,6 +1,5 @@
 package com.android.hanple.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -21,14 +20,14 @@ class PlaceStorageListAdapter(
         private val onFavoriteClick: ((CategoryPlace) -> Unit)?
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(place: CategoryPlace) = with(binding) {
-            binding.tvItemAddress.text = place.address
-            binding.tvItemScore.text = place.score.toString()
+            tvItemAddress.text = place.address
+            tvItemScore.text = place.score.toString()
 
-            binding.root.setOnClickListener {
+            root.setOnClickListener {
                 onItemClick(place)
             }
 
-            binding.ivItemFavorite.setOnClickListener {
+            ivItemFavorite.setOnClickListener {
                 onFavoriteClick?.invoke(place)
             }
         }
@@ -54,10 +53,17 @@ class PlaceStorageListAdapter(
                 return oldItem.id == newItem.id
             }
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: CategoryPlace, newItem: CategoryPlace): Boolean {
                 return oldItem == newItem
             }
+        }
+    }
+
+    // 새로운 데이터를 추가하고 업데이트하는 메서드 추가
+    fun addPlace(newPlace: CategoryPlace) {
+        if (places.none { it.address == newPlace.address }) {
+            places.add(newPlace)
+            submitList(places.toList())
         }
     }
 }

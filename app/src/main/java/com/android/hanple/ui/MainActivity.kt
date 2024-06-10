@@ -13,7 +13,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.android.hanple.R
 import com.android.hanple.Room.RecommendDataBase
 import com.android.hanple.Room.RecommendPlace
@@ -27,11 +26,8 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import java.lang.String.join
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {

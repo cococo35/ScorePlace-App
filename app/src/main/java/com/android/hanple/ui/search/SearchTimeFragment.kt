@@ -2,6 +2,7 @@ package com.android.hanple.ui.search
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -10,11 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchTimeBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class SearchTimeFragment : Fragment() {
     private var _binding: FragmentSearchTimeBinding? = null
@@ -24,7 +28,7 @@ class SearchTimeFragment : Fragment() {
     }
 
     private lateinit var callback : OnBackPressedCallback
-
+    private lateinit var localDateTime : String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,8 +37,10 @@ class SearchTimeFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getLocalDateTime()
         initView()
         putViewModelData()
     }
@@ -144,6 +150,13 @@ class SearchTimeFragment : Fragment() {
 
     private fun putViewModelData() {
         viewModel.getDustData()
-        viewModel.getWeatherData()
+        viewModel.getWeatherData(localDateTime)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getLocalDateTime(){
+        val time: LocalDateTime = LocalDateTime.now()
+        val dateFormat = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        localDateTime = dateFormat
     }
 }

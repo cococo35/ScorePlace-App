@@ -20,13 +20,14 @@
         android:id="@+id/tv_item_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        app:layout_constraintStart_toEndOf="@id/tv_item_address"
-        app:layout_constraintTop_toTopOf="@id/tv_item_address"
-        app:layout_constraintBottom_toBottomOf="@id/tv_item_address"
+        android:layout_marginStart="92dp"
         android:text="score"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/tv_item_address"
+        app:layout_constraintStart_toEndOf="@id/tv_item_address"
+        app:layout_constraintTop_toTopOf="@id/tv_item_address"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/iv_item_line"
