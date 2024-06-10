@@ -7,19 +7,26 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.android.hanple.databinding.ActivityLogInBinding
 import com.android.hanple.R
+import com.android.hanple.databinding.ActivityLogInBinding
 import com.android.hanple.ui.MainActivity
+import com.android.hanple.utils.SharedPreferencesUtils
 
 class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLogInBinding
     private val authViewModel: AuthViewModel by viewModels()
+
+    private fun initView(){
+        binding.etEmail.setText(SharedPreferencesUtils(applicationContext).loadRememberMe())
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Hanple)
         super.onCreate(savedInstanceState)
         binding = ActivityLogInBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
+        initView()
 
         binding.btnLogin.setOnClickListener {//앱 자체 null 체크
             val email = binding.etEmail.text.toString()
