@@ -1,23 +1,46 @@
 package com.android.hanple.ui.onboarding
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.hanple.data.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class SignUpViewModel : ViewModel() {
+
     private val auth: FirebaseAuth = Firebase.auth //firebase auth 가져오기.
-    fun signUp(email: String?, password: String?): Int {
+
+    private val _signUpState = MutableLiveData<SignUpState>()
+    val signUpState: LiveData<SignUpState> get() = _signUpState
+
+    fun signUp(localUser: User): Int {
+        val email = localUser.email
+        val password = localUser.password
         if (email == null || email == "") return 1
         else if (password == null || password == "") return 2
         else {
+            Log.d("SignUpViewModel", email)
+            Log.d("SignUpViewModel", password)
             auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { signup ->
+                    if(signup.isSuccessful) {
+                        _signUpState.value = SignUpState.Success(localUser)
+                    } else {
+                        _signUpState.value = SignUpState.Failure(signup.exception)
+                    }
+                }
             return 0
         }
     }
 
-//    private val _signupData = MutableLiveData(SignupData())
-//    val signupData: LiveData<SignupData> = _signupData
+    sealed class SignUpState {
+        data class Success(val localUser: User) : SignUpState()
+        data class Failure(val exception: Exception?) : SignUpState()
+
+    }
 //
 //    private val _signupSuccess = MutableLiveData<Boolean>()
 //    val signupSuccess: LiveData<Boolean> = _signupSuccess

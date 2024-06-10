@@ -61,20 +61,7 @@
 <!--            android:textSize="12sp"-->
 <!--            android:textStyle="bold" />-->
 
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="4dp"
-            android:background="@drawable/et_signup"
-            android:hint="@string/etname"
-            android:textSize="12sp"
-            android:maxLines="1"
-            android:minHeight="42dp"
-            android:paddingHorizontal="8dp"
-            android:textStyle="bold" />
-
-<!--        <EditText-->
+        <!--        <EditText-->
 <!--            android:id="@+id/et_id"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
@@ -86,6 +73,19 @@
 <!--            android:paddingHorizontal="8dp"-->
 <!--            android:textSize="12sp"-->
 <!--            android:textStyle="bold" />-->
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:background="@drawable/et_signup"
+            android:hint="@string/etname"
+            android:maxLines="1"
+            android:minHeight="42dp"
+            android:paddingHorizontal="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/et_password"
@@ -102,18 +102,26 @@
             android:inputType="textPassword"/>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_signup"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/btn_signup"
-        android:enabled="false"
-        android:text="@string/btn_signup_confirm"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/edit_texts_li" />
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/btn_sign_up"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="38dp"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:background="@drawable/btn_signup"-->
+<!--        android:enabled="false"-->
+<!--        android:text="@string/btn_signup_confirm"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textAllCaps="false"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/edit_texts_li" />-->
+
+    <Button
+        android:id="@+id/btn_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ImageView
         android:id="@+id/imageView2"

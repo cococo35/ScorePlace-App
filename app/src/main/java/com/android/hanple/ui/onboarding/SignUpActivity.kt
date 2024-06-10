@@ -1,7 +1,6 @@
 package com.android.hanple.ui.onboarding
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.android.hanple.databinding.ActivitySignUpBinding
@@ -10,21 +9,26 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnSignup.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
-            val signUpChecker: Int = viewModel.signUp(email, password)
-            when(signUpChecker) {
-                1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
-                2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()
-            }
-            finish()
+        binding.btnSignUp.setOnClickListener {
+
         }
+//            lateinit var localUser: User
+//            localUser.email = binding.etEmail.text.toString()
+//            localUser.password = binding.etPassword.text.toString()
+//            localUser.name  = binding.etName.text.toString()
+//            //val signUpChecker: Int = viewModel.signUp(localUser)
+//            Toast.makeText(this, localUser.email, Toast.LENGTH_SHORT).show()
+////            when(signUpChecker) {
+////                1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
+////                2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()
+////            }
+//        }
 
 //        // 뒤로 가기 아이콘 클릭 리스너 설정
 //        binding.ivBack.setOnClickListener {
