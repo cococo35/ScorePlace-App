@@ -1,12 +1,10 @@
 package com.android.hanple.ui
 
 
-import android.annotation.SuppressLint
+
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -16,18 +14,14 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
-import com.android.hanple.Room.RecommendDAO
 import com.android.hanple.Room.RecommendDataBase
-import com.android.hanple.Room.RecommendPlace
 import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.ui.search.InitLoadFragment
-import com.android.hanple.ui.search.SearchFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {

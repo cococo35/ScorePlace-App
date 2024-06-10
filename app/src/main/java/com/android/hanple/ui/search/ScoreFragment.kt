@@ -33,10 +33,8 @@ import com.android.hanple.adapter.PlaceScoreCategoryAdapter
 import com.android.hanple.databinding.FragmentScoreBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
-import com.google.android.libraries.places.api.model.Place
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
