@@ -28,7 +28,8 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="80dp"
         android:gravity="end"
-        android:inputType="text"
+        android:inputType="number"
+        android:maxLength="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_cost_title"
         android:hint="10" />
