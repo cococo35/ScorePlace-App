@@ -8,11 +8,11 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-data class LocalUser(
-    var email: String?,
-    var password: String?,
-    var name: String?,
-)
+//data class LocalUser(
+//    var email: String?,
+//    var password: String?,
+//    var name: String?,
+//)
 class SignUpViewModel : ViewModel() {
 
     private val auth: FirebaseAuth = Firebase.auth //firebase auth 가져오기.
@@ -20,14 +20,14 @@ class SignUpViewModel : ViewModel() {
     private val _signUpState = MutableLiveData<SignUpState>()
     val signUpState: LiveData<SignUpState> get() = _signUpState
 
-    private val _localUserState = MutableLiveData<LocalUser>()
-    val localUserState: LiveData<LocalUser> get() = _localUserState
-
-    fun update() {
-        _localUserState.value?.email = ""
-        _localUserState.value?.name = ""
-        _localUserState.value?.password = ""
-    }
+//    private val _localUserState = MutableLiveData<LocalUser>()
+//    val localUserState: LiveData<LocalUser> get() = _localUserState
+//
+//    fun update() {
+//        _localUserState.value?.email = ""
+//        _localUserState.value?.name = ""
+//        _localUserState.value?.password = ""
+//    }
 
 // fun updateSignupData(field: Field, value: String) { //UI update. input이 들어올 때마다 갱신
 //        val currentData = _signupData.value ?: SignupData()
