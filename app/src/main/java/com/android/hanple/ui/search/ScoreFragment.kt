@@ -21,6 +21,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.hanple.R
 import com.android.hanple.Room.RecommendDataBase
@@ -31,8 +33,8 @@ import com.android.hanple.adapter.PlaceScoreCategoryAdapter
 import com.android.hanple.databinding.FragmentScoreBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
-
-
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
@@ -64,6 +66,7 @@ class ScoreFragment : Fragment() {
         initDetailDialog()
         onBackPressButton()
         setRecommendPlace()
+        loadImage()
     }
 
     override fun onAttach(context: Context) {
@@ -249,4 +252,14 @@ class ScoreFragment : Fragment() {
         viewModel.getRecommendPlace(list, recommendDAO)
     }
 
+    private fun loadImage(){
+        lifecycleScope.launch {
+            whenStarted {
+                while (true){
+                    delay(1000)
+                    (binding.recyclerviewScoreCategory.adapter as PlaceScoreCategoryAdapter).notifyDataSetChanged()
+                }
+            }
+        }
+    }
 }

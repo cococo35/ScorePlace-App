@@ -14,7 +14,8 @@ data class CategoryPlace(
     val name: String?,
     var isFavorite: Boolean,
     val openingHours: OpeningHours?,
-) : Parcelable {
+
+    ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readValue(Double::class.java.classLoader) as? Double,
@@ -49,7 +50,7 @@ data class CategoryPlace(
         }
     }
 
-    fun setImgUri(uri: Uri) {
+    fun setImgUri(uri: Uri?){
         this.img = uri
     }
 }
