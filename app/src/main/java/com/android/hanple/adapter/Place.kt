@@ -13,7 +13,7 @@ class CategoryPlace(
     val isFavorite: Boolean = false,
     val openingHours: OpeningHours?,
 ) {
-    fun setImgUri(uri: Uri){
+    fun setImgUri(uri: Uri?){
         this.img = uri
     }
 }

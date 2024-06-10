@@ -15,4 +15,7 @@ interface RecommendDAO {
     @Query("SELECT * FROM recommend_table WHERE recommend_id = :id")
     suspend fun getRecommendPlaceById(id: Int): RecommendPlace
 
+    @Query("SELECT * FROM recommend_table")
+    suspend fun getTotalRecommendPlaceById(): List<RecommendPlace>
+
 }
