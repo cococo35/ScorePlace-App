@@ -1,10 +1,12 @@
 package com.android.hanple.ui.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.android.hanple.databinding.ActivitySignUpBinding
+import com.android.hanple.utils.SharedPreferencesUtils
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -22,6 +24,10 @@ class SignUpActivity : AppCompatActivity() {
             when(signUpChecker) {
                 1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
                 2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()
+
+                0 -> {
+                    SharedPreferencesUtils(applicationContext).rememberMe(email) //회원 가입하면 SharedPref에 자동 저장
+                }
             }
             finish() //로그인 위에 사인업이 띄워져있으니 액티비티 끝내면 다시 로그인 페이지로 돌아간다.
         }
@@ -37,12 +43,12 @@ class SignUpActivity : AppCompatActivity() {
 ////            }
 //        }
 
-//        // 뒤로 가기 아이콘 클릭 리스너 설정
-//        binding.ivBack.setOnClickListener {
-//            val loginIntent = Intent(this, LogInActivity::class.java)
-//            startActivity(loginIntent)
-//            finish() // 현재 액티비티를 종료
-//        }
+        // 뒤로 가기 아이콘 클릭 리스너 설정
+        binding.ivBack.setOnClickListener {
+            val loginIntent = Intent(this, LogInActivity::class.java)
+            startActivity(loginIntent)
+            finish() // 현재 액티비티를 종료
+        }
 
 //        binding.btnSignup.setOnClickListener {
 ////            handleSignup(editor, sharedPreference)

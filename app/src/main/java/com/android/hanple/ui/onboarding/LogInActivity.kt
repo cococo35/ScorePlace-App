@@ -18,7 +18,12 @@ class LogInActivity : AppCompatActivity() {
     private val authViewModel: AuthViewModel by viewModels()
 
     private fun initView(){
-        binding.etEmail.setText(SharedPreferencesUtils(applicationContext).loadRememberMe())
+        if (binding.cbAutoLogin.isChecked) {
+            Toast.makeText(this, "자동 로그인 되었습니다.\n환영해요, (닉네임) 님!", Toast.LENGTH_SHORT).show()
+        }
+        else if ( binding.cbAutoLogin.isChecked) {
+            binding.etEmail.setText(SharedPreferencesUtils(applicationContext).loadRememberMe())
+        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Hanple)
@@ -35,6 +40,8 @@ class LogInActivity : AppCompatActivity() {
             when(logInChecker) {
                 1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
                 2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()
+
+                0 -> SharedPreferencesUtils(applicationContext).rememberMe(email) //로그인 시 이메일 자동 저장
             }
         }
 
