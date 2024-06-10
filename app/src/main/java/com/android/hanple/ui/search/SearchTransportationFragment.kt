@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import androidx.activity.OnBackPressedCallback
 
@@ -64,28 +65,45 @@ class SearchTransportationFragment : Fragment() {
     }
 
     private fun initView(){
+        var isSelected = false
         binding.apply {
             cdSearchTransportationCar.setOnClickListener {
                 viewModel.getParkingData()
                 binding.cdSearchTransportationCar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.neomint))
                 binding.cdSearchTransportationPublic.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+                isSelected = true
             }
             btnSearchTransportationCar.setOnClickListener {
                 viewModel.getParkingData()
                 binding.cdSearchTransportationCar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.neomint))
                 binding.cdSearchTransportationPublic.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+                isSelected = true
             }
             cdSearchTransportationPublic.setOnClickListener {
                 viewModel.usePublic()
                 binding.cdSearchTransportationPublic.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.neomint))
                 binding.cdSearchTransportationCar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+                isSelected = true
             }
             btnSearchTransportationPublic.setOnClickListener {
                 viewModel.usePublic()
                 binding.cdSearchTransportationPublic.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.neomint))
                 binding.cdSearchTransportationCar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+                isSelected = true
             }
             tvSearchTransportationNext.setOnClickListener {
+                if (isSelected) {
+                    val searchPeopleFragment = SearchPeopleFragment()
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fr_main, searchPeopleFragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                } else {
+                    Toast.makeText(requireContext(), "이동 수단을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            tvSearchTransportationSkip.setOnClickListener {
+                viewModel.usePublic()
                 val searchPeopleFragment = SearchPeopleFragment()
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.replace(R.id.fr_main, searchPeopleFragment)
