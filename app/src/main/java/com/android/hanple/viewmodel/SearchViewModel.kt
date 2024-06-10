@@ -1,5 +1,6 @@
 package com.android.hanple.viewmodel
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.graphics.Bitmap
 import android.util.Log
@@ -542,6 +543,7 @@ class SearchViewModel(
         additionalCount = 0
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun getRecommendPlace(list: List<Int>, dao: RecommendDAO){
         val recommendListBuffer = mutableListOf<CategoryPlace>()
         var uri : Uri? = null

@@ -35,15 +35,11 @@ class LogInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding // 뷰 바인딩 객체를 늦은 초기화로 선언
     private val loginViewModel: LogInViewModel by viewModels() // ViewModel 객체를 by viewModels()로 초기화
-    private val recommendDAO by lazy {
-        RecommendDataBase.getMyRecommendPlaceDataBase(this).getMyRecommendPlaceDAO()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         preferences =
             SharedPreferencesUtils(applicationContext) //다른 액티비티에서도 사용해야 하므로 context도 보내주기.
         super.onCreate(savedInstanceState)
-        insertRoomData()
         //화면 SplashScreen 적용 및 바인딩
         installSplashScreen()
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -90,17 +86,4 @@ class LogInActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun insertRoomData() {
-        runBlocking {
-            for (i in 0..recommendPlaceGoogleID.size - 1) {
-                recommendDAO.insertRecommendPlace(
-                    RecommendPlace(
-                        i + 1,
-                        recommendPlaceGoogleID[i]
-                    )
-                )
-            }
-        }
-    }
 }
