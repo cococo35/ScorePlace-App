@@ -7,16 +7,16 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.android.hanple.databinding.ActivityOnboardingBinding
+import com.android.hanple.databinding.ActivityLogInBinding
 import com.android.hanple.ui.MainActivity
 
 class LogInActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityOnboardingBinding
+    private lateinit var binding: ActivityLogInBinding
     private val authViewModel: AuthViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        binding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.btnLogin.setOnClickListener {//앱 자체 null 체크
