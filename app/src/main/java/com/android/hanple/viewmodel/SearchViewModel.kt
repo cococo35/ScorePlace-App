@@ -395,9 +395,9 @@ class SearchViewModel(
         val list = weatherDescription.value
         list?.forEach {
             when (it) {
-                "Clear" -> count += 4
-                "Clouds" -> count += 2
-                "Rain" -> count -= 4
+                "Clear" -> count += 15
+                "Clouds" -> count += 5
+                "Rain" -> count -= 20
                 else -> count = 0
             }
         }
