@@ -12,6 +12,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.databinding.RecyclerviewScoreCategoryItemBinding
+import com.bumptech.glide.Glide
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.suspendCoroutine
 
 
 interface OnDataClick {
@@ -26,17 +32,22 @@ class PlaceScoreCategoryAdapter(
         private val binding: RecyclerviewScoreCategoryItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(place: CategoryPlace) = with(binding) {
-
             binding.tvItemAddress.text = place.name
             binding.tvItemGrade.text = place.score.toString()
             binding.tvItemTime.text = place.openingHours?.hoursType?.name
             binding.root.setOnClickListener {
                 onDataClick.onItemClick(place)
             }
-            if(place.img != null) {
-                binding.ivItemThumbnail.setImageBitmap(place.img)
+                if (place.img != null) {
+                    binding.ivItemThumbnail.visibility = View.VISIBLE
+                    binding.tvItemNullImage.visibility = View.GONE
+                    Glide.with(itemView).load(place.img).into(binding.ivItemThumbnail)
+                } else {
+                    binding.ivItemThumbnail.visibility = View.INVISIBLE
+                    binding.tvItemNullImage.visibility = View.VISIBLE
+                }
             }
-        }
+        
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {

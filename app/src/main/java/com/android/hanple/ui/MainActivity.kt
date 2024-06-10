@@ -1,82 +1,88 @@
 package com.android.hanple.ui
 
-import MapFragment
-import android.annotation.SuppressLint
-import android.content.Intent
+
+
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.android.hanple.R
+import com.android.hanple.Room.RecommendDataBase
+import com.android.hanple.Room.RecommendPlace
+import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.ActivityMainBinding
-import com.android.hanple.ui.search.SearchFragment
+import com.android.hanple.ui.search.InitLoadFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import java.lang.String.join
+import kotlin.random.Random
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel by lazy {
         ViewModelProvider(this, SearchViewModelFactory())[SearchViewModel::class.java]
     }
-
+    private val recommendDAO by lazy {
+        RecommendDataBase.getMyRecommendPlaceDataBase(this).getMyRecommendPlaceDAO()
+    }
+    private lateinit var callback: OnBackPressedCallback
+    private var backPressedTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        insertRoomData()
         initFragment()
         setNavigation()
         initPlaceSDK()
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                replace(R.id.mapView, MapFragment())
-            }
-        }
-
-//        각 메뉴 탭의 id를 setOf 안에 작성
-//        val appBarConfiguration = AppBarConfiguration(setOf(..., R.id.navigation_settings))
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
+        setBackPressFeature()
+//        deleteItem()
     }
 
-    override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
+    override fun onResume() {
+        super.onResume()
+        binding.btnMainMenu.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
         }
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
+
 
     private fun initFragment() {
         supportFragmentManager.commit {
-            replace(R.id.fr_main, SearchFragment())
+            replace(R.id.fr_main, InitLoadFragment())
             setReorderingAllowed(true)
-            addToBackStack(null)
         }
     }
 
     private fun setNavigation() {
 
-        val navView : NavigationView = binding.navView
+        val navView: NavigationView = binding.navView
 
-       navView.setNavigationItemSelectedListener { item ->
+        navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_account -> {
                     // 액티비티 이동
-                    val intent = Intent(this, ArchiveActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(this, ArchiveActivity::class.java)
+//                    startActivity(intent)
                 }
 
                 R.id.nav_view -> {
@@ -87,25 +93,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                     // 액티비티 이동
                 }
             }
-           binding.drawerLayout.closeDrawer(GravityCompat.START)
-           true
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
         }
-
-        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        binding.drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
-            override fun onDrawerOpened(drawerView: View) {
-//                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-            }
-            override fun onDrawerClosed(drawerView: View) {
-                binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            }
-            override fun onDrawerStateChanged(newState: Int) {}
-        })
     }
 
-  @SuppressLint("SuspiciousIndentation")
-    private fun initPlaceSDK(){
+    private fun initPlaceSDK() {
         // Define a variable to hold the Places API key.
         //secret에서 정의한 API KEY가 안불러와져서 그냥 때려 박았습니다
         val apiKey = "AIzaSyCdjyOxbTIwn_f13N9XhrLnKtFJ2kpsG7M"
@@ -121,14 +114,80 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         Places.initializeWithNewPlacesApiEnabled(applicationContext, apiKey)
         val placesClient = Places.createClient(this)
         viewModel.setPlacesAPIClient(placesClient)
-
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.addMarker(
-            MarkerOptions()
-                .position(LatLng(0.0, 0.0))
-                .title("Marker")
-        )
+    private fun setBackPressFeature() {
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    if (System.currentTimeMillis() - backPressedTime >= 2000) {
+                        backPressedTime = System.currentTimeMillis()
+                        Toast.makeText(this@MainActivity, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT)
+                            .show()
+                    } else if (System.currentTimeMillis() - backPressedTime < 2000) {
+                        AlertDialog.Builder(this@MainActivity)
+                            .setTitle("종료")
+                            .setMessage("앱을 종료하시겠습니까?")
+                            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+                                override fun onClick(dialog: DialogInterface?, which: Int) {
+                                    this@MainActivity.finish()
+                                }
+                            })
+                            .setNegativeButton("NO", object : DialogInterface.OnClickListener {
+                                override fun onClick(dialog: DialogInterface?, which: Int) {
+                                }
+                            })
+                            .create().show()
+                    }
+                }
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+
+
+    private fun deleteItem(){
+        Log.d("데이터 삭제 성공", "")
+        runBlocking {
+            recommendDAO.deleteItem()
+        }
+    }
+
+
+    private fun insertRoomData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val job = launch {
+                Log.d("데이터 삽입", "")
+                for (i in 0..recommendPlaceGoogleID.size - 1) {
+                    recommendDAO.insertRecommendPlace(
+                        RecommendPlace(
+                            i + 1,
+                            recommendPlaceGoogleID[i]
+                        )
+                    )
+                }
+            }
+            job.join()
+            delay(1000)
+            val list = randomNumberPlace()
+            Log.d("데이터 출력", "")
+            viewModel.getRecommendPlace(list, recommendDAO)
+        }
+    }
+    private fun randomNumberPlace(): List<Int> {
+        val edge = recommendPlaceGoogleID.size
+        val list = mutableListOf<Int>()
+        var number: Int = 0
+        while (list.size < 5) {
+            number = Random.nextInt(edge) + 1
+            if (list.contains(number))
+                continue
+            else
+                list.add(number)
+        }
+        return list
     }
 }

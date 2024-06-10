@@ -1,10 +1,12 @@
 package com.android.hanple.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchBinding
@@ -20,7 +22,7 @@ class SearchPeopleFragment : Fragment() {
     private val viewModel by lazy{
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
-
+    private lateinit var callback : OnBackPressedCallback
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +35,18 @@ class SearchPeopleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         getScore()
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val searchTransportationFragment = SearchTransportationFragment()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.fr_main, searchTransportationFragment)
+                transaction.commit()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this@SearchPeopleFragment, callback)
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -49,16 +63,22 @@ class SearchPeopleFragment : Fragment() {
             binding.btnSearchPeopleButton5,
         )
 
-        for(i in 0..<typeList.size){
-            typeList[i].setOnClickListener {
-                preferType = i+1
+        for(i in typeList.indices){
+            typeList[i].apply {
+                this.setOnClickListener {
+                    for(j in 0..<typeList.size){
+                        typeList[j].setImageResource(R.drawable.ic_check_blank_20dp)
+                    }
+                    this.setImageResource(R.drawable.ic_check_fill_20dp)
+                    preferType = i+1
+                }
             }
         }
         binding.tvSearchPeopleNext.setOnClickListener {
             viewModel.getCongestionScore(preferType)
             val searchCostFragment = SearchCostFragment()
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.add(R.id.fr_main, searchCostFragment)
+            transaction.replace(R.id.fr_main, searchCostFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }

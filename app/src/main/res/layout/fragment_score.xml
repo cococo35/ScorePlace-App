@@ -31,14 +31,14 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="60dp"
                 android:background="@drawable/ic_bookmark_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_score_title"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:text="더 현대 서울, 6/2(일) 11:00"
                 android:textSize="18sp"
@@ -47,16 +47,27 @@
                 app:layout_constraintStart_toEndOf="@id/iv_score_back"
                 app:layout_constraintTop_toTopOf="@id/iv_score_back" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <!--            <androidx.appcompat.widget.AppCompatImageView-->
+            <!--                android:id="@+id/iv_score_icon"-->
+            <!--                android:layout_width="170dp"-->
+            <!--                android:layout_height="170dp"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/tv_score_title"-->
+            <!--                app:layout_constraintStart_toStartOf="@id/tv_score_title"-->
+            <!--                app:layout_constraintEnd_toEndOf="@id/tv_score_title"-->
+            <!--                android:background="@drawable/smile_icon"-->
+            <!--                android:layout_marginTop="40dp" />-->
+
+            <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/iv_score_icon"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
                 app:layout_constraintTop_toBottomOf="@id/tv_score_title"
                 app:layout_constraintStart_toStartOf="@id/tv_score_title"
                 app:layout_constraintEnd_toEndOf="@id/tv_score_title"
-                android:background="@drawable/smile_icon"
-                android:layout_marginTop="40dp" />
-            
+                android:background="@drawable/smile_icon_animation"
+                android:layout_marginTop="40dp"
+                />
+
             <TextView
                 android:id="@+id/tv_score_score"
                 android:layout_width="wrap_content"
@@ -67,7 +78,7 @@
                 android:text="77점"
                 android:textSize="60sp"
                 android:textStyle="bold" />
-            
+
             <TextView
                 android:id="@+id/tv_score_description"
                 android:layout_width="wrap_content"
@@ -78,7 +89,7 @@
                 android:text="놀러 가기 적당해요!"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-            
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cd_score_detail"
                 android:layout_width="match_parent"
@@ -145,7 +156,7 @@
                 android:textColor="@color/darkblue"
                 android:textStyle="bold"
                 android:textSize="16sp" />
-            
+
             <LinearLayout
                 android:id="@+id/ln_score_category"
                 android:layout_width="180dp"

@@ -1,18 +1,32 @@
+package com.android.hanple.ui
+
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.databinding.FragmentMapBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import java.io.IOException
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     companion object {
         const val TAG = "MapFragment"
+        private const val ARG_PLACES = "places"
+
+        fun newInstance(places: List<CategoryPlace>): MapFragment {
+            val fragment = MapFragment()
+            val args = Bundle()
+            args.putParcelableArrayList(ARG_PLACES, ArrayList(places))
+            fragment.arguments = args
+            return fragment
+        }
     }
 
     private var _binding: FragmentMapBinding? = null
@@ -21,6 +35,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
     private var currentMarker: Marker? = null
+    private var places: List<CategoryPlace>? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            places = it.getParcelableArrayList(ARG_PLACES)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,21 +63,41 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
 
-        currentMarker = setupMarker(LatLngEntity(37.5562, 126.9724))  // default 서울역
-        currentMarker?.showInfoWindow()
+        places?.forEach { place ->
+            val latLng = getLatLngFromAddress(place.address ?: "")
+            if (latLng != null) {
+                setupMarker(latLng, place.address ?: "")
+            }
+        }
     }
 
-    private fun setupMarker(locationLatLngEntity: LatLngEntity): Marker? {
-        val positionLatLng = LatLng(locationLatLngEntity.latitude!!, locationLatLngEntity.longitude!!)
+    private fun getLatLngFromAddress(address: String): LatLng? {
+        val context = context ?: return null // context가 null인지 확인
+        val geocoder = Geocoder(context)
+        return try {
+            val addresses = geocoder.getFromLocationName(address, 1)
+            if (addresses?.isNotEmpty() == true) {
+                val location = addresses?.get(0)
+                location?.let { LatLng(it.latitude, location.longitude) }
+            } else {
+                null
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    private fun setupMarker(positionLatLng: LatLng, title: String): Marker? {
         val markerOption = MarkerOptions().apply {
             position(positionLatLng)
-            title("위치")
-            snippet("서울역 위치")
+            title(title)
+            snippet("위치: $title")
         }
 
-        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL  // 지도 유형 설정
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(positionLatLng, 15f))  // 카메라 이동
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15f))  // 줌의 정도 - 1 일 경우 세계지도 수준, 숫자가 커질 수록 상세지도가 표시됨
+        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(positionLatLng, 15f))
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15f))
         return googleMap.addMarker(markerOption)
     }
 
@@ -89,9 +131,4 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         super.onDestroyView()
         _binding = null
     }
-
-    data class LatLngEntity(
-        var latitude: Double?,
-        var longitude: Double?
-    )
 }

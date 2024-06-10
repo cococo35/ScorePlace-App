@@ -6,52 +6,56 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.android.hanple.databinding.RecyclerviewRecommendItemBinding
 import com.android.hanple.databinding.RecyclerviewStorageItemBinding
-import com.google.android.libraries.places.api.model.Place
 
 class PlaceStorageListAdapter(
-    private val onItemClicked: (Place) -> Unit,
-    private val listData: List<Place>
-) : ListAdapter<Place, PlaceStorageListAdapter.PlaceViewHolder>(diffCallback) {
+    private val onItemClick: (CategoryPlace) -> Unit,
+    private val places: MutableList<CategoryPlace>
+) : ListAdapter<CategoryPlace, PlaceStorageListAdapter.PlaceViewHolder>(diffCallback) {
+
+    var onFavoriteClick: ((CategoryPlace) -> Unit)? = null
 
     class PlaceViewHolder(
         private val binding: RecyclerviewStorageItemBinding,
-        private val onItemClicked: (Place) -> Unit
+        private val onItemClick: (CategoryPlace) -> Unit,
+        private val onFavoriteClick: ((CategoryPlace) -> Unit)?
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(place: Place) = with(binding) {
-
-            // 데이터 바인딩 설정
-            // tvItemAddress.text = place.address
+        fun bind(place: CategoryPlace) = with(binding) {
+            binding.tvItemAddress.text = place.address
+            binding.tvItemScore.text = place.score.toString()
 
             binding.root.setOnClickListener {
-                onItemClicked(place)
+                onItemClick(place)
+            }
+
+            binding.ivItemFavorite.setOnClickListener {
+                onFavoriteClick?.invoke(place)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
-        val view = RecyclerviewStorageItemBinding.inflate(
+        val binding = RecyclerviewStorageItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return PlaceViewHolder(view, onItemClicked)
+        return PlaceViewHolder(binding, onItemClick, onFavoriteClick)
     }
 
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
-        val currentItem = listData[position]
+        val currentItem = getItem(position)
         holder.bind(currentItem)
     }
 
     companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<Place>() {
-            override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean {
-                return oldItem.address == newItem.address
+        val diffCallback = object : DiffUtil.ItemCallback<CategoryPlace>() {
+            override fun areItemsTheSame(oldItem: CategoryPlace, newItem: CategoryPlace): Boolean {
+                return oldItem.id == newItem.id
             }
 
             @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean {
+            override fun areContentsTheSame(oldItem: CategoryPlace, newItem: CategoryPlace): Boolean {
                 return oldItem == newItem
             }
         }
