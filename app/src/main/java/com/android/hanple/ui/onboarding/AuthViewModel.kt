@@ -33,11 +33,9 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun signUp(email: String, password: String) {
-
+    fun getUid(): String {
+        return auth.currentUser?.uid.toString()
     }
-
-    fun getCurrentUser() = auth.currentUser
 
     sealed class AuthState {
         data class Success(val user: FirebaseUser?) : AuthState()

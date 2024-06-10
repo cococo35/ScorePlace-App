@@ -7,25 +7,25 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.android.hanple.databinding.ActivityLogInBinding
 import com.android.hanple.R
-import com.android.hanple.databinding.ActivityOnboardingBinding
 import com.android.hanple.ui.MainActivity
 
 class LogInActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityOnboardingBinding
+    private lateinit var binding: ActivityLogInBinding
     private val authViewModel: AuthViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Hanple)
         super.onCreate(savedInstanceState)
-        binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        binding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.btnLogin.setOnClickListener {//앱 자체 null 체크
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
-            val loginChecker: Int = authViewModel.logIn(email, password)
-            when(loginChecker) {
+            val logInChecker: Int = authViewModel.logIn(email, password) //여기서 로그인!
+            when(logInChecker) {
                 1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
                 2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()
             }
