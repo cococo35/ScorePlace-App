@@ -221,22 +221,27 @@ class SearchViewModel(
                 .build()
             placeClient.value!!.searchNearby(searchNearbyRequest)
                 .addOnSuccessListener { response ->
-                    nearByPlaceBuffer.value = response.places
-                    response.places.forEach {
-                        val data = CategoryPlace(
-                            it.address,
-                            it.rating,
-                            null,
-                            it.id,
-                            it.name,
-                            false,
-                            it.openingHours
-                        )
-                        categoryPlaceList.add(data)
-                        getCategoryImage(categoryPlaceList)
-                        _nearByPlace.value = categoryPlaceList
+                    Log.d("주변 장소 응답 확인", response.places.toString())
+                    if(response.places.isEmpty()){
+                        _nearByPlace.value = emptyList<CategoryPlace>().toMutableList()
                     }
-
+                    else {
+                    nearByPlaceBuffer.value = response.places
+                        response.places.forEach {
+                            val data = CategoryPlace(
+                                it.address,
+                                it.rating,
+                                null,
+                                it.id,
+                                it.name,
+                                false,
+                                it.openingHours
+                            )
+                            categoryPlaceList.add(data)
+                            getCategoryImage(categoryPlaceList)
+                            _nearByPlace.value = categoryPlaceList
+                        }
+                    }
                 }
                 .addOnFailureListener { e ->
                     Log.d("근처 장소 정보 불러오기 실패", e.toString())

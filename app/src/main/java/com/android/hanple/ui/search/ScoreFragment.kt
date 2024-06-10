@@ -24,21 +24,30 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.R
 import com.android.hanple.Room.RecommendDataBase
 import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.adapter.OnDataClick
 import com.android.hanple.adapter.PlaceScoreCategoryAdapter
+import com.android.hanple.adapter.ScoreCategoryListAdapter
 import com.android.hanple.databinding.FragmentScoreBinding
 import com.android.hanple.ui.ListViewFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
+
+
+
+
 
 class ScoreFragment : Fragment() {
     private val binding by lazy {
@@ -51,6 +60,13 @@ class ScoreFragment : Fragment() {
     private val recommendDAO by lazy {
         RecommendDataBase.getMyRecommendPlaceDataBase(requireContext()).getMyRecommendPlaceDAO()
     }
+    val typeList = listOf(
+        "restaurant", "cafe", "parking", "movie_theater", "shopping_mall", "subway_station", "bus_station", "park"
+    )
+
+    val spinnerList = listOf(
+        "음식점", "카페", "주차장", "영화관", "쇼핑몰", "지하철역", "버스정류장", "공원"
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,7 +85,7 @@ class ScoreFragment : Fragment() {
         onBackPressButton()
         setRecommendPlace()
         loadImage()
-
+        createBottomView()
         binding.ivScoreBookmark.setOnClickListener {
             addBookmarkAndNavigate()
         }
@@ -93,12 +109,7 @@ class ScoreFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
-        val spinnerList = listOf(
-            "음식점", "카페", "주차장", "영화관", "쇼핑몰", "지하철역", "버스정류장", "공원"
-        )
-        val typeList = listOf(
-            "restaurant", "cafe", "parking", "movie_theater", "shopping_mall", "subway_station", "bus_station", "park"
-        )
+
         viewModel.getNearByPlace(typeList[0])
         binding.recyclerviewScoreCategory.adapter = PlaceScoreCategoryAdapter(object : OnDataClick {
             override fun onItemClick(data: CategoryPlace) {
@@ -116,23 +127,8 @@ class ScoreFragment : Fragment() {
                 (binding.recyclerviewScoreCategory.adapter as PlaceScoreCategoryAdapter).submitList(it)
             }
         }
-        val spinnerAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, spinnerList)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.spScoreCategory.adapter = spinnerAdapter
-        val itemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                viewModel.getNearByPlace(typeList[position])
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-        }
-        binding.spScoreCategory.onItemSelectedListener = itemSelectedListener
+
         val localDateTime: LocalDateTime = LocalDateTime.now()
         val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         viewModel.selectPlace?.observe(viewLifecycleOwner) {
@@ -281,5 +277,30 @@ class ScoreFragment : Fragment() {
             .replace(R.id.fr_main, listViewFragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    @SuppressLint("InflateParams", "NotifyDataSetChanged")
+    private fun createBottomView(){
+        val scoreCategoryBottomSheet = layoutInflater.inflate(R.layout.fragment_score_category_bottom, null)
+        val scoreCategoryBottomSheetView = BottomSheetDialog(requireContext())
+        scoreCategoryBottomSheetView.setContentView(scoreCategoryBottomSheet)
+        val bottomSheetList = scoreCategoryBottomSheet.findViewById<RecyclerView>(R.id.bottom_score_category_list)
+        val bottomButton = scoreCategoryBottomSheet.findViewById<TextView>(R.id.tv_score_category_button)
+        bottomSheetList.adapter = ScoreCategoryListAdapter(spinnerList, object : ScoreCategoryListAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                viewModel.getNearByPlace(typeList[position])
+                Log.d("뷰모델 관찰", viewModel.nearByPlace.value.toString())
+                Log.d("클릭 인덱스", position.toString())
+            }
+        })
+        scoreCategoryBottomSheetView.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        bottomSheetList.layoutManager = LinearLayoutManager(requireContext())
+        bottomButton.setOnClickListener {
+            scoreCategoryBottomSheetView.dismiss()
+
+        }
+        binding.btnCategoryViewOpen.setOnClickListener {
+            scoreCategoryBottomSheetView.show()
+        }
     }
 }
