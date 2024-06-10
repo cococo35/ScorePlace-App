@@ -10,12 +10,12 @@ import com.android.hanple.R
 import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.adapter.PlaceStorageListAdapter
 import com.android.hanple.databinding.FragmentListViewBinding
+import com.android.hanple.ui.search.ScoreFragment
 
 class ListViewFragment : Fragment() {
 
     private var _binding: FragmentListViewBinding? = null
     private val binding get() = _binding!!
-    private val favoritePlaces = mutableListOf<CategoryPlace>()
     private lateinit var adapter: PlaceStorageListAdapter
 
     companion object {
@@ -35,16 +35,6 @@ class ListViewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        parentFragmentManager.setFragmentResultListener("bookmarkRequestKey", this) { _, bundle ->
-            val address = bundle.getString("address")
-            val score = bundle.getDouble("score")
-
-            if (address != null) {
-                val newPlace = CategoryPlace(address, score, null, null, null, true, null)
-                favoritePlaces.add(newPlace)
-                adapter.notifyDataSetChanged()
-            }
-        }
     }
 
     override fun onCreateView(
@@ -60,7 +50,7 @@ class ListViewFragment : Fragment() {
 
         adapter = PlaceStorageListAdapter({ place ->
             // 아이템 클릭 시 처리할 로직
-        }, favoritePlaces)
+        }, mutableListOf())
 
         binding.recyclerviewList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewList.adapter = adapter
@@ -71,14 +61,13 @@ class ListViewFragment : Fragment() {
 
             if (address != null) {
                 val newPlace = CategoryPlace(address, score, null, null, null, true, null)
-                favoritePlaces.add(newPlace)
-                adapter.notifyDataSetChanged()
+                adapter.addPlace(newPlace)
             }
         }
 
         binding.tvListViewMap.setOnClickListener {
-            if (favoritePlaces.isNotEmpty()) {
-                val mapFragment = MapFragment.newInstance(favoritePlaces)
+            if (adapter.currentList.isNotEmpty()) {
+                val mapFragment = MapFragment.newInstance(adapter.currentList)
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.fr_main, mapFragment)
                     .addToBackStack(null)
@@ -86,9 +75,18 @@ class ListViewFragment : Fragment() {
             }
         }
 
+        binding.icBackbtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fr_main, ScoreFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         adapter.onFavoriteClick = { place ->
-            favoritePlaces.remove(place)
-            adapter.notifyDataSetChanged()
+            val newList = adapter.currentList.toMutableList().apply {
+                remove(place)
+            }
+            adapter.submitList(newList)
         }
     }
 

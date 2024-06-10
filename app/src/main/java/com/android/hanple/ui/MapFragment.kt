@@ -58,6 +58,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this@MapFragment)
+
+        // ic_backbtn 클릭 리스너 설정
+        binding.icBackbtn.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
