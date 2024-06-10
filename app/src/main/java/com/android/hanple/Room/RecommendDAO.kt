@@ -17,5 +17,7 @@ interface RecommendDAO {
 
     @Query("SELECT * FROM recommend_table")
     suspend fun getTotalRecommendPlaceById(): List<RecommendPlace>
+    @Query("DELETE FROM recommend_table")
+    suspend fun deleteItem()
 
 }
