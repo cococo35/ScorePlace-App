@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -60,7 +61,7 @@ class SearchPeopleFragment : Fragment() {
         _binding = null
     }
     private fun initView(){
-        var preferType: Int = 0
+        var preferType = 0
 
         val typeList = listOf(
             binding.btnSearchPeopleButton1,
@@ -81,13 +82,30 @@ class SearchPeopleFragment : Fragment() {
                 }
             }
         }
-        binding.tvSearchPeopleNext.setOnClickListener {
-            viewModel.getCongestionScore(preferType)
-            val searchCostFragment = SearchCostFragment()
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fr_main, searchCostFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+
+        binding.apply {
+            tvSearchPeopleNext.setOnClickListener {
+
+                if (preferType == 0) {
+                    Toast.makeText(requireContext(), "여행 성향을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.getCongestionScore(preferType)
+                    val searchCostFragment = SearchCostFragment()
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fr_main, searchCostFragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+            }
+
+            tvSearchPeopleSkip.setOnClickListener {
+                viewModel.getCongestionScore(3)
+                val searchCostFragment = SearchCostFragment()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.fr_main, searchCostFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
     }
     private fun getScore(){

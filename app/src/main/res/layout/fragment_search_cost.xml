@@ -26,12 +26,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="55dp"
+        android:layout_marginEnd="80dp"
         android:gravity="end"
-        android:inputType="text"
+        android:inputType="number"
+        android:maxLength="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_cost_title"
-        android:hint="100000" />
+        android:hint="10" />
 
     <TextView
         android:id="@+id/tv_search_cost_won"
@@ -40,7 +41,7 @@
         app:layout_constraintStart_toEndOf="@id/ed_search_cost_input_cost"
         app:layout_constraintTop_toTopOf="@id/ed_search_cost_input_cost"
         app:layout_constraintBottom_toBottomOf="@id/ed_search_cost_input_cost"
-        android:text="원"
+        android:text="만 원"
         android:layout_marginStart="10dp"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -80,6 +81,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/next"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cd_search_cost_skip"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardBackgroundColor="@color/gray"
+        app:strokeColor="@color/black"
+        app:cardCornerRadius="15dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cd_search_cost_next">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_search_cost_skip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/skip"
                 android:textSize="25sp"
                 android:gravity="center"
                 android:textStyle="bold"
