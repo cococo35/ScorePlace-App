@@ -76,7 +76,7 @@ class SearchFragment : Fragment() {
             override fun onItemClick(data: CategoryPlace) {
             }
         })
-        binding.recyclerviewSearchRecommend.layoutManager = LinearLayoutManager(this.context)
+        binding.recyclerviewSearchRecommend.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         viewModel.recommendPlace.observe(viewLifecycleOwner){
             (binding.recyclerviewSearchRecommend.adapter as PlaceScoreCategoryAdapter).submitList(it)
         }

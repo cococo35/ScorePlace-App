@@ -24,7 +24,14 @@ import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import java.lang.String.join
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -47,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         setNavigation()
         initPlaceSDK()
         setBackPressFeature()
+//        deleteItem()
     }
 
     override fun onResume() {
@@ -147,16 +155,39 @@ class MainActivity : AppCompatActivity() {
             recommendDAO.deleteItem()
         }
     }
+
+
     private fun insertRoomData() {
-        lifecycleScope.launchWhenStarted{
-            for (i in 0..recommendPlaceGoogleID.size - 1) {
-                recommendDAO.insertRecommendPlace(
-                    RecommendPlace(
-                        i + 1,
-                        recommendPlaceGoogleID[i]
+        CoroutineScope(Dispatchers.IO).launch {
+            val job = launch {
+                Log.d("데이터 삽입", "")
+                for (i in 0..recommendPlaceGoogleID.size - 1) {
+                    recommendDAO.insertRecommendPlace(
+                        RecommendPlace(
+                            i + 1,
+                            recommendPlaceGoogleID[i]
+                        )
                     )
-                )
+                }
             }
+            job.join()
+            delay(1000)
+            val list = randomNumberPlace()
+            Log.d("데이터 출력", "")
+            viewModel.getRecommendPlace(list, recommendDAO)
         }
+    }
+    private fun randomNumberPlace(): List<Int> {
+        val edge = recommendPlaceGoogleID.size
+        val list = mutableListOf<Int>()
+        var number: Int = 0
+        while (list.size < 5) {
+            number = Random.nextInt(edge) + 1
+            if (list.contains(number))
+                continue
+            else
+                list.add(number)
+        }
+        return list
     }
 }
