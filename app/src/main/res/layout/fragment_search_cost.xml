@@ -26,12 +26,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:layout_marginStart="25dp"
-        android:layout_marginEnd="55dp"
+        android:layout_marginEnd="80dp"
         android:gravity="end"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_cost_title"
-        android:hint="100000" />
+        android:hint="10" />
 
     <TextView
         android:id="@+id/tv_search_cost_won"
@@ -40,7 +40,7 @@
         app:layout_constraintStart_toEndOf="@id/ed_search_cost_input_cost"
         app:layout_constraintTop_toTopOf="@id/ed_search_cost_input_cost"
         app:layout_constraintBottom_toBottomOf="@id/ed_search_cost_input_cost"
-        android:text="원"
+        android:text="만 원"
         android:layout_marginStart="10dp"
         android:textSize="22sp"
         android:textStyle="bold"

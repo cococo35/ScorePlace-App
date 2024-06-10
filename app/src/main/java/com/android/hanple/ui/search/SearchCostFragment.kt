@@ -60,7 +60,7 @@ class SearchCostFragment : Fragment() {
 
         binding.edSearchCostInputCost.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                val price : Int = binding.edSearchCostInputCost.text.toString().toInt()
+                val price : Int = binding.edSearchCostInputCost.text.toString().toInt() * 10000
                 viewModel.getCostScore(price)
                 val searchLoadingFragment = SearchLoadingFragment()
                 val transaction = parentFragmentManager.beginTransaction()
@@ -76,7 +76,7 @@ class SearchCostFragment : Fragment() {
         })
 
         binding.tvSearchCostNext.setOnClickListener {
-            val price: Int = binding.edSearchCostInputCost.text.toString().toInt()
+            val price: Int = binding.edSearchCostInputCost.text.toString().toInt() * 10000
             viewModel.getCostScore(price)
             val searchLoadingFragment = SearchLoadingFragment()
             val transaction = parentFragmentManager.beginTransaction()
