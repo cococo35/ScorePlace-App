@@ -33,9 +33,7 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun signUp(email: String, password: String) {
 
-    }
 
     fun getCurrentUser() = auth.currentUser
 

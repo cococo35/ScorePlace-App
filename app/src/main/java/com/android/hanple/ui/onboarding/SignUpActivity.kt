@@ -23,6 +23,10 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         binding.btnSignup.setOnClickListener {
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            viewModel.signUp(email, password)
+            finish()
         }
 
 //        binding.btnSignup.setOnClickListener {

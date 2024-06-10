@@ -22,7 +22,7 @@ class LogInActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {//앱 자체 null 체크
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
-            val loginChecker: Int = authViewModel.logIn(email, password)
+            val loginChecker: Int = authViewModel.logIn(email, password) //여기서 로그인!
             when(loginChecker) {
                 1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
                 2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()

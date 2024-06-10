@@ -1,8 +1,20 @@
 package com.android.hanple.ui.onboarding
 
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class SignUpViewModel : ViewModel() {
+    private val auth: FirebaseAuth = Firebase.auth //firebase auth 가져오기.
+    fun signUp(email: String?, password: String?): Int {
+        if (email == null || email == "") return 1
+        else if (password == null || password == "") return 2
+        else {
+            auth.createUserWithEmailAndPassword(email, password)
+            return 0
+        }
+    }
 
 //    private val _signupData = MutableLiveData(SignupData())
 //    val signupData: LiveData<SignupData> = _signupData
