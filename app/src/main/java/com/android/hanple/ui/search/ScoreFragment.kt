@@ -17,6 +17,8 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -77,7 +79,12 @@ class ScoreFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                clearBackStack()
+                val mainDrawer = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
+                if (mainDrawer.isDrawerOpen(GravityCompat.START)) {
+                    mainDrawer.closeDrawer(GravityCompat.START)
+                } else {
+                    clearBackStack()
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)

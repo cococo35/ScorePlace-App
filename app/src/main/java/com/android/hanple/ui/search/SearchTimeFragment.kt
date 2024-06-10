@@ -10,8 +10,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchTimeBinding
@@ -29,6 +32,7 @@ class SearchTimeFragment : Fragment() {
 
     private lateinit var callback : OnBackPressedCallback
     private lateinit var localDateTime : String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,10 +53,15 @@ class SearchTimeFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                val searchFragment = SearchFragment()
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.fr_main, searchFragment)
-                transaction.commit()
+                val mainDrawer = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
+                if (mainDrawer.isDrawerOpen(GravityCompat.START)) {
+                    mainDrawer.closeDrawer(GravityCompat.START)
+                } else {
+                    val searchFragment = SearchFragment()
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fr_main, searchFragment)
+                    transaction.commit()
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this@SearchTimeFragment, callback)
@@ -79,44 +88,89 @@ class SearchTimeFragment : Fragment() {
 
             val fromStart: String?
             val toStart: String?
-            fromStart = binding.edSearchTimeFrom.text.toString()
-            toStart = binding.edSearchTimeTo.text.toString()
-            if (fromStart != "" && toStart != "") {
-                viewModel.getTimeStamp(fromStart, toStart)
-            }
+            fromStart =
+                binding.edSearchTimeFrom.text.toString() + binding.edSearchTimeFrom2.text.toString()
+            toStart =
+                binding.edSearchTimeTo.text.toString() + binding.edSearchTimeTo2.text.toString()
 
-            val searchTransportationFragment = SearchTransportationFragment()
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fr_main, searchTransportationFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            if (fromStart == "" && toStart == "") {
+                Toast.makeText(requireContext(), "입력되지 않은 정보가 있습니다", Toast.LENGTH_SHORT).show()
+            } else {
+                if (
+                    binding.edSearchTimeFrom.text.toString().toInt() in 0..23 &&
+                    binding.edSearchTimeFrom2.text.toString().toInt() in 0..59 &&
+                    binding.edSearchTimeTo.text.toString().toInt() in 0..23 &&
+                    binding.edSearchTimeTo2.text.toString().toInt() in 0..59
+                ) {
+                    viewModel.getTimeStamp(fromStart, toStart)
+                    val searchTransportationFragment = SearchTransportationFragment()
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fr_main, searchTransportationFragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                } else {
+                    Toast.makeText(requireContext(), "잘못 입력된 정보가 있습니다", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
-        binding.edSearchTimeFrom.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+        binding.apply {
+            edSearchTimeFrom.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
 
-                activity?.let { hideKeyBoard(it) }
+                    activity?.let { hideKeyBoard(it) }
 
-                return@OnKeyListener true
-            }
-            false
-        })
+                    return@OnKeyListener true
+                }
+                false
+            })
 
-        binding.edSearchTimeTo.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                val searchTransportationFragment = SearchTransportationFragment()
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.fr_main, searchTransportationFragment)
-                transaction.addToBackStack(null)
-                transaction.commit()
+            edSearchTimeFrom2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
 
-                activity?.let { hideKeyBoard(it) }
+                    activity?.let { hideKeyBoard(it) }
 
-                return@OnKeyListener true
-            }
-            false
-        })
+                    return@OnKeyListener true
+                }
+                false
+            })
+
+            edSearchTimeTo.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+
+                    activity?.let { hideKeyBoard(it) }
+
+                    return@OnKeyListener true
+                }
+                false
+            })
+
+            edSearchTimeTo2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+
+                    activity?.let { hideKeyBoard(it) }
+
+                    return@OnKeyListener true
+                }
+                false
+            })
+
+//            edSearchTimeTo2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+//                    val searchTransportationFragment = SearchTransportationFragment()
+//                    val transaction = parentFragmentManager.beginTransaction()
+//                    transaction.replace(R.id.fr_main, searchTransportationFragment)
+//                    transaction.addToBackStack(null)
+//                    transaction.commit()
+//
+//                    activity?.let { hideKeyBoard(it) }
+//
+//                    return@OnKeyListener true
+//                }
+//                false
+//            })
         }
+    }
 
 
     private fun hideKeyBoard(activity: Activity) {
