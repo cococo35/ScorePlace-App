@@ -13,8 +13,10 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.android.hanple.R
 import com.android.hanple.Room.RecommendDataBase
+import com.android.hanple.Room.RecommendPlace
 import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.ui.search.InitLoadFragment
@@ -22,6 +24,7 @@ import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -39,12 +42,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        insertRoomData()
         initFragment()
         setNavigation()
         initPlaceSDK()
         setBackPressFeature()
-        setRecommendPlace()
     }
 
     override fun onResume() {
@@ -137,22 +139,24 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    private fun randomNumberPlace(): List<Int> {
-        val edge = recommendPlaceGoogleID.size
-        val list = mutableListOf<Int>()
-        var number: Int = 0
-        while (list.size < 5) {
-            number = Random.nextInt(edge) + 1
-            if (list.contains(number))
-                continue
-            else
-                list.add(number)
-        }
-        return list
-    }
 
-    private fun setRecommendPlace() {
-        val list = randomNumberPlace()
-        viewModel.getRecommendPlace(list, recommendDAO)
+
+    private fun deleteItem(){
+        Log.d("데이터 삭제 성공", "")
+        runBlocking {
+            recommendDAO.deleteItem()
+        }
+    }
+    private fun insertRoomData() {
+        lifecycleScope.launchWhenStarted{
+            for (i in 0..recommendPlaceGoogleID.size - 1) {
+                recommendDAO.insertRecommendPlace(
+                    RecommendPlace(
+                        i + 1,
+                        recommendPlaceGoogleID[i]
+                    )
+                )
+            }
+        }
     }
 }
