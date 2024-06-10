@@ -10,6 +10,7 @@ import com.android.hanple.R
 import com.android.hanple.adapter.CategoryPlace
 import com.android.hanple.adapter.PlaceStorageListAdapter
 import com.android.hanple.databinding.FragmentListViewBinding
+import com.android.hanple.ui.search.ScoreFragment
 
 class ListViewFragment : Fragment() {
 
@@ -35,14 +36,13 @@ class ListViewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        parentFragmentManager.setFragmentResultListener("bookmarkRequestKey", this) { _, bundle ->
-            val address = bundle.getString("address")
-            val score = bundle.getDouble("score")
+        arguments?.let {
+            val address = it.getString(ARG_ADDRESS)
+            val score = it.getDouble(ARG_SCORE)
 
             if (address != null) {
                 val newPlace = CategoryPlace(address, score, null, null, null, true, null)
-                favoritePlaces.add(newPlace)
-                adapter.notifyDataSetChanged()
+                addPlaceIfNotExists(newPlace)
             }
         }
     }
@@ -65,17 +65,6 @@ class ListViewFragment : Fragment() {
         binding.recyclerviewList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewList.adapter = adapter
 
-        arguments?.let {
-            val address = it.getString(ARG_ADDRESS)
-            val score = it.getDouble(ARG_SCORE)
-
-            if (address != null) {
-                val newPlace = CategoryPlace(address, score, null, null, null, true, null)
-                favoritePlaces.add(newPlace)
-                adapter.notifyDataSetChanged()
-            }
-        }
-
         binding.tvListViewMap.setOnClickListener {
             if (favoritePlaces.isNotEmpty()) {
                 val mapFragment = MapFragment.newInstance(favoritePlaces)
@@ -86,8 +75,22 @@ class ListViewFragment : Fragment() {
             }
         }
 
+        binding.icBackbtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fr_main, ScoreFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
         adapter.onFavoriteClick = { place ->
             favoritePlaces.remove(place)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun addPlaceIfNotExists(newPlace: CategoryPlace) {
+        if (favoritePlaces.none { it.address == newPlace.address }) {
+            favoritePlaces.add(newPlace)
             adapter.notifyDataSetChanged()
         }
     }

@@ -18,7 +18,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -270,11 +269,6 @@ class ScoreFragment : Fragment() {
     private fun addBookmarkAndNavigate() {
         val address = viewModel.selectPlace?.value?.name ?: ""
         val score = viewModel.totalScore.value ?: 0
-
-        val bundle = Bundle().apply {
-            putString("address", address)
-            putInt("score", score)
-        }
 
         val listViewFragment = ListViewFragment.newInstance(address, score.toDouble())
         requireActivity().supportFragmentManager.beginTransaction()

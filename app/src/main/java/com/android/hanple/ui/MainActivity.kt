@@ -15,7 +15,6 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.android.hanple.R
-import com.android.hanple.Room.RecommendDataBase
 import com.android.hanple.Room.RecommendPlace
 import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.ActivityMainBinding
@@ -25,7 +24,7 @@ import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.runBlocking
-import kotlin.random.Random
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
