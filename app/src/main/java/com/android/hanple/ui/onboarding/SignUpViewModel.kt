@@ -1,6 +1,5 @@
 package com.android.hanple.ui.onboarding
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,8 +21,6 @@ class SignUpViewModel : ViewModel() {
         if (email == null || email == "") return 1
         else if (password == null || password == "") return 2
         else {
-            Log.d("SignUpViewModel", email)
-            Log.d("SignUpViewModel", password)
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { signup ->
                     if(signup.isSuccessful) {
