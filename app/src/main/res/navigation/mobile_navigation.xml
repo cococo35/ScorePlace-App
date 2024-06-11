@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.android.hanple.ui.settings.SettingsFragment"
+        android:name="com.android.hanple.ui.settings.SettingFragment"
         app:route="settings_route"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/navigation_recommend"
         android:name="com.android.hanple.ui.ListFragment"
