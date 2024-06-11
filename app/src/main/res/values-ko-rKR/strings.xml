@@ -27,4 +27,13 @@
     <string name="menu_bookmarks">보관함</string>
     <string name="menu_logout">로그아웃</string>
     <string name="menu_sign_off">탈퇴하기</string>
+
+    <string name="onboarding_log_in_btn">로그인</string>
+    <string name="onboarding_sign_up_btn">회원가입</string>
+    <string name="onboarding_to_sign_up">회원가입</string>
+    <string name="onboarding_email_hint">이메일</string>
+    <string name="onboarding_password_hint">비밀번호</string>
+    <string name="onboarding_username_hint">별명</string>
+
+    <string name="welcome">Hanple로 나들이 추천 받기</string>
 </resources>

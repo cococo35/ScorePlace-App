@@ -6,4 +6,6 @@
     <color name="darkmint">#59C1BD</color>
     <color name="darkblue">#0D4C92</color>
     <color name="gray">#DDDDDD</color>
+    <color name="lightgray">#F6F6F6</color>
+    <color name="darkgray">#9C9C9C</color>
 </resources>
