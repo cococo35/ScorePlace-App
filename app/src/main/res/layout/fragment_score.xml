@@ -166,15 +166,37 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_score_weather"
                 android:layout_marginTop="25dp" >
 
-                <Spinner
-                    android:id="@+id/sp_score_category"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cons_score_category_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:background="@drawable/spinner_option"
-                    android:dropDownWidth="match_parent"
-                    android:popupBackground="@color/darkblue"
-                    android:spinnerMode="dropdown" />
+                    android:layout_height="wrap_content"
+                    >
+                    <TextView
+                        android:id="@+id/tv_category_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="주변"
+                        android:textSize="18sp"
+                    />
+                    <TextView
+                        android:id="@+id/btn_category_view_open"
+                        android:layout_width="80dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/rounded_background"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/tv_category_text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:text="음식점"
+                        android:textSize="24sp"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
             <TextView
