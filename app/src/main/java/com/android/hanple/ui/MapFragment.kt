@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.android.hanple.adapter.CategoryPlace
+import com.android.hanple.data.CategoryPlace
 import com.android.hanple.databinding.FragmentMapBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng

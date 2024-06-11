@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.android.hanple.data.CategoryPlace
 import com.android.hanple.databinding.RecyclerviewStorageItemBinding
 
 class PlaceStorageListAdapter(
@@ -81,7 +82,7 @@ class PlaceStorageListAdapter(
             val address = sharedPreferences.getString("place_$i", null)
             val score = sharedPreferences.getFloat("score_$i", 0f)
             if (address != null) {
-                places.add(CategoryPlace(address, score.toDouble(), null, null, null, true, null))
+                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, true, null))
             }
         }
         notifyDataSetChanged()

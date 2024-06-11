@@ -1,5 +1,6 @@
 package com.android.hanple.adapter
 
+import android.graphics.Color
 import android.location.Address
 import android.view.LayoutInflater
 import android.view.ViewGroup

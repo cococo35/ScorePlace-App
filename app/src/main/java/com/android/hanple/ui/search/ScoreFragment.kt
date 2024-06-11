@@ -12,11 +12,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.R
 import com.android.hanple.Room.RecommendDataBase
 import com.android.hanple.Room.recommendPlaceGoogleID
-import com.android.hanple.adapter.CategoryPlace
+import com.android.hanple.data.CategoryPlace
 import com.android.hanple.adapter.OnDataClick
 import com.android.hanple.adapter.PlaceScoreCategoryAdapter
 import com.android.hanple.adapter.ScoreCategoryListAdapter
@@ -36,9 +36,9 @@ import com.android.hanple.databinding.FragmentScoreBinding
 import com.android.hanple.ui.ListViewFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -113,9 +113,11 @@ class ScoreFragment : Fragment() {
         viewModel.getNearByPlace(typeList[0])
         binding.recyclerviewScoreCategory.adapter = PlaceScoreCategoryAdapter(object : OnDataClick {
             override fun onItemClick(data: CategoryPlace) {
-                data.name?.let { Log.d("event", it.toString()) }
+                onSelectItemClick(data)
+                initSelectPlaceDetailDialog()
             }
         })
+
         binding.recyclerviewScoreCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         viewModel.nearByPlace.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
@@ -301,5 +303,69 @@ class ScoreFragment : Fragment() {
         binding.btnCategoryViewOpen.setOnClickListener {
             scoreCategoryBottomSheetView.show()
         }
+    }
+
+    private fun onSelectItemClick(data: CategoryPlace){
+        viewModel.setSelectPlaceImg(data.img)
+        data.name?.let { viewModel.setSelectPlaceName(it) }
+        data.address?.let { viewModel.setSelectPlaceAddress(it) }
+        data.description?.let { viewModel.setSelectPlaceSummary(it) }
+        data.openingHours?.let { viewModel.setSelectPlaceOpeningHour(it) }
+    }
+    private fun initSelectPlaceDetailDialog(){
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.fragment_detail_category_info_dialog)
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT
+        )
+        val img = dialog.findViewById<AppCompatImageView>(R.id.tv_detail_category_info_img)
+        val nullImg = dialog.findViewById<ImageView>(R.id.tv_detail_category_info_null_img)
+        val name = dialog.findViewById<TextView>(R.id.tv_detail_category_info_title)
+        val address = dialog.findViewById<TextView>(R.id.tv_detail_category_info_address)
+        val summary = dialog.findViewById<TextView>(R.id.tv_detail_category_info_summary)
+        val openingHour = dialog.findViewById<TextView>(R.id.tv_detail_category_info_openhour)
+        val closeButton = dialog.findViewById<TextView>(R.id.tv_detail_category_info_dismiss)
+        viewModel.selectCategoryPlaceImg.observe(viewLifecycleOwner){
+            if(it == null){
+                img.visibility = View.INVISIBLE
+                nullImg.visibility = View.VISIBLE
+            }
+            else {
+                Glide.with(requireContext()).load(it).into(img)
+            }
+        }
+        viewModel.selectCategoryPlaceName.observe(viewLifecycleOwner){
+            name.text = it
+        }
+        viewModel.selectCategoryPlaceAddress.observe(viewLifecycleOwner){
+            if(it != null){
+                address.text = it
+            }
+            else {
+                address.text = ""
+            }
+        }
+        viewModel.selectCategoryPlaceSummary.observe(viewLifecycleOwner){
+            if(it != null){
+                summary.text = it
+            }
+            else {
+                summary.text = ""
+            }
+        }
+        viewModel.selectCategoryPlaceOpeningHour.observe(viewLifecycleOwner){
+            if(it != null){
+                openingHour.text = it.hoursType?.toString()
+            }
+            else {
+                openingHour.text = ""
+            }
+        }
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 }

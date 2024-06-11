@@ -39,6 +39,9 @@ class ScoreCategoryBottomFragment : BottomSheetDialogFragment() {
     }
 
 
+    // * 만들다보니 xml만 활용하게 되어 이 파일은 사용하지 않습니다!!
+
+
 //    private fun initView(){
 //        val spinnerList = listOf(
 //            "음식점", "카페", "주차장", "영화관", "쇼핑몰", "지하철역", "버스정류장", "공원"
