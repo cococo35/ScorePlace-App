@@ -45,10 +45,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
 
-
-
-
-
 class ScoreFragment : Fragment() {
     private val binding by lazy {
         FragmentScoreBinding.inflate(layoutInflater)
@@ -87,7 +83,7 @@ class ScoreFragment : Fragment() {
         loadImage()
         createBottomView()
         binding.ivScoreBookmark.setOnClickListener {
-            addBookmarkAndNavigate()
+            toggleBookmarkIcon()
         }
     }
 
@@ -134,7 +130,7 @@ class ScoreFragment : Fragment() {
         viewModel.selectPlace?.observe(viewLifecycleOwner) {
             binding.tvScoreTitle.text = "${it?.name}"
             binding.tvScoreTitle2.text =
-                        localDateTime.toString().substring(5, 7) +
+                localDateTime.toString().substring(5, 7) +
                         "월 " +
                         localDateTime.toString().substring(8, 10) +
                         "일 " +
@@ -267,16 +263,15 @@ class ScoreFragment : Fragment() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun addBookmarkAndNavigate() {
-        val address = binding.tvScoreTitle.text.toString() // tv_score_title의 정보를 가져옴
-        val score = binding.tvScoreScore.text.toString().replace("점", "").toDoubleOrNull() ?: 0.0 // tv_score_score의 정보를 가져옴
-
-        val listViewFragment = ListViewFragment.newInstance(address, score)
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fr_main, listViewFragment)
-            .addToBackStack(null)
-            .commit()
+    private fun toggleBookmarkIcon() {
+        val isBookmarked = binding.ivScoreBookmark.tag == "bookmarked"
+        if (isBookmarked) {
+            binding.ivScoreBookmark.setImageResource(R.drawable.ic_bookmark_24dp) // 아이콘을 변경합니다.
+            binding.ivScoreBookmark.tag = "not_bookmarked" // 태그를 변경합니다.
+        } else {
+            binding.ivScoreBookmark.setImageResource(R.drawable.ic_bookmark_filed) // 아이콘을 변경합니다.
+            binding.ivScoreBookmark.tag = "bookmarked" // 태그를 변경합니다.
+        }
     }
 
     @SuppressLint("InflateParams", "NotifyDataSetChanged")

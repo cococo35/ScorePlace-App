@@ -189,6 +189,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:text="주변"
+                        android:textStyle="bold"
                         android:textSize="18sp"
                     />
                     <TextView
@@ -196,14 +197,15 @@
                         android:layout_width="80dp"
                         android:layout_height="50dp"
                         android:background="@drawable/rounded_background"
+                        android:elevation="2dp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         app:layout_constraintStart_toEndOf="@+id/tv_category_text"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:text="음식점"
-                        android:textSize="24sp"
-                        android:layout_marginStart="16dp"
+                        android:textSize="20sp"
+                        android:layout_marginStart="8dp"
                         android:gravity="center"
                         />
                 </androidx.constraintlayout.widget.ConstraintLayout>

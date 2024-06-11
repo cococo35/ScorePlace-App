@@ -401,22 +401,22 @@ class SearchViewModel(
         val list = weatherDescription.value
         list?.forEach {
             when (it) {
-                "Clear" -> count += 15
-                "Clouds" -> count += 5
-                "Rain" -> count -= 20
+                "Clear" -> count += 6
+                "Clouds" -> count += 3
+                "Rain" -> count -= 4
                 else -> count = 0
             }
         }
 
-        score = if (count >= 60) {
+        score = if (count >= 40) {
             30
-        } else if (count >= 50) {
+        } else if (count >= 34) {
             25
-        } else if (count >= 40) {
+        } else if (count >= 28) {
             20
-        } else if (count >= 30) {
+        } else if (count >= 22) {
             15
-        } else if (count >= 20) {
+        } else if (count >= 16) {
             10
         } else if (count >= 10) {
             5
