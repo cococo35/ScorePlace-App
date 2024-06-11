@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/navigation_recommend"
-        android:icon="@drawable/ic_recommend_black_24dp"
+        android:icon="@drawable/ic_notification_black_24dp"
         android:title="Recommend" />
 
     <item
