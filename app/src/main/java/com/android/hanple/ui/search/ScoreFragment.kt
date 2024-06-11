@@ -289,8 +289,7 @@ class ScoreFragment : Fragment() {
         bottomSheetList.adapter = ScoreCategoryListAdapter(spinnerList, object : ScoreCategoryListAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
                 viewModel.getNearByPlace(typeList[position])
-                Log.d("뷰모델 관찰", viewModel.nearByPlace.value.toString())
-                Log.d("클릭 인덱스", position.toString())
+                binding.btnCategoryViewOpen.text = spinnerList[position]
             }
         })
         scoreCategoryBottomSheetView.behavior.state = BottomSheetBehavior.STATE_COLLAPSED

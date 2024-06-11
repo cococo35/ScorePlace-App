@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,7 +45,7 @@ class SearchTimeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getLocalDateTime()
+        getLocalTime()
         initView()
         putViewModelData()
     }
@@ -184,9 +185,9 @@ class SearchTimeFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getLocalDateTime(){
-        val time: LocalDateTime = LocalDateTime.now()
-        val dateFormat = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        localDateTime = dateFormat
+    private fun getLocalTime(){
+        val time: Long = System.currentTimeMillis() / 1000
+        localDateTime = time.toString()
+        Log.d("시간 확인", localDateTime)
     }
 }

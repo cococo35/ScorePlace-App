@@ -161,8 +161,8 @@ class SearchViewModel(
                     "48b0c79a814c79a5a38bb17b9109a288"
                 )
                 response.list?.forEach { item ->
-                    if(item.dt_txt!!.contains(today)) {
-                        Log.d("날씨", item.dt_txt.toString())
+                    if(item.dt?.toInt()!! in today.toInt() .. today.toInt() + 86400) {
+                        Log.d("날씨", item.dt.toString())
                         val data = item.weather
                         data.forEach {
                             list.add(it.main!!)
