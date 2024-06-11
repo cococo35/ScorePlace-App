@@ -214,6 +214,7 @@ class ScoreFragment : Fragment() {
         binding.tvScoreDetail.setOnClickListener {
             dialog.show()
         }
+        dialog.setCancelable(false)
     }
 
     private fun onBackPressButton() {
@@ -300,9 +301,11 @@ class ScoreFragment : Fragment() {
             scoreCategoryBottomSheetView.dismiss()
 
         }
+
         binding.btnCategoryViewOpen.setOnClickListener {
             scoreCategoryBottomSheetView.show()
         }
+        scoreCategoryBottomSheetView.setCancelable(false)
     }
 
     private fun onSelectItemClick(data: CategoryPlace){
@@ -365,7 +368,7 @@ class ScoreFragment : Fragment() {
         closeButton.setOnClickListener {
             dialog.dismiss()
         }
-
+        dialog.setCancelable(false)
         dialog.show()
     }
 }
