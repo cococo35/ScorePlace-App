@@ -41,4 +41,11 @@
     <string name="menu_bookmarks">Bookmarks</string>
     <string name="menu_logout">Logout from Hanple</string>
     <string name="menu_sign_off">Sign Off</string>
+
+    <string name="onboarding_log_in_btn">Login</string>
+    <string name="onboarding_sign_up_btn">Register</string>
+    <string name="onboarding_to_sign_up">Sign Up?</string>
+    <string name="onboarding_email_hint">E-mail</string>
+    <string name="onboarding_password_hint">Password</string>
+    <string name="onboarding_username_hint">Username</string>
 </resources>
