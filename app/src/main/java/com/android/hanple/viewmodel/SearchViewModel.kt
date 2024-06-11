@@ -507,7 +507,7 @@ class SearchViewModel(
     fun getTransportScore() {
         var inputScore = 10
         if (notDrivingCar.value == true) {
-            val score = (weatherScore.value!! + dustScore.value!!) / 4
+            val score = (weatherScore.value!! + dustScore.value!!) / 2
             Log.d("교통 점수", score.toString())
             transportScore.value = score
         } else {
