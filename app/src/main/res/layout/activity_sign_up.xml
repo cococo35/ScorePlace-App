@@ -54,11 +54,13 @@
         <EditText
             android:id="@+id/et_email"
             style="@style/etGeneral"
+            android:inputType="textEmailAddress"
             android:hint="@string/onboarding_email_hint" />
         <EditText
             android:id="@+id/et_password"
             style="@style/etGeneral"
             android:layout_marginTop="12dp"
+            android:inputType="textPassword"
             android:hint="@string/onboarding_password_hint" />
         <EditText
             android:id="@+id/et_username"
