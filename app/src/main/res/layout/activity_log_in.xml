@@ -11,11 +11,13 @@
     <ImageView
         android:id="@+id/img_profile"
         android:layout_width="wrap_content"
-        android:layout_height="340sp"
+        android:layout_height="wrap_content"
         android:padding="50dp"
-        android:src="@drawable/ic_title_test"
+        android:src="@drawable/smile_icon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="42dp" />
+
 
     <EditText
         android:id="@+id/et_email"
