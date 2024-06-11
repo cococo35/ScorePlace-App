@@ -11,16 +11,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.R
+import com.android.hanple.adapter.ScoreCategoryListAdapter
 import com.android.hanple.databinding.FragmentSearchTimeBinding
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -194,5 +201,45 @@ class SearchTimeFragment : Fragment() {
         val time: Long = System.currentTimeMillis() / 1000
         localDateTime = time.toString()
         Log.d("시간 확인", localDateTime)
+    }
+
+    //Time Picker 출력 메소드
+    private fun createTimePickerBottomView() {
+        val timePickerBottomSheet = layoutInflater.inflate(R.layout.fragment_insert_time, null)
+        val timePickerBottomSheetView = BottomSheetDialog(requireContext())
+        timePickerBottomSheetView.setContentView(timePickerBottomSheet)
+        var startTime : String = ""
+        var endTime : String = ""
+        val startTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_start)
+        val endTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_end)
+        val insertButton = timePickerBottomSheet.findViewById<TextView>(R.id.tv_time_insert_dismiss)
+
+        startTimePicker.setOnTimeChangedListener(object : TimePicker.OnTimeChangedListener{
+            override fun onTimeChanged(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                if (minute < 10) {
+                    val minuteText = "0$minute"
+                    startTime = "$hourOfDay" + minuteText
+                } else {
+                    startTime = "$hourOfDay" + "$minute"
+                }
+            }
+        })
+        endTimePicker.setOnTimeChangedListener(object : TimePicker.OnTimeChangedListener{
+            override fun onTimeChanged(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                if (minute < 10) {
+                    val minuteText = "0$minute"
+                    endTime = "$hourOfDay" + minuteText
+                } else {
+                    endTime = "$hourOfDay" + "$minute"
+                }
+            }
+        })
+
+        insertButton.setOnClickListener {
+            viewModel.getTimeStamp(startTime,endTime)
+            timePickerBottomSheetView.dismiss()
+        }
+        timePickerBottomSheetView.setCancelable(false)
+        timePickerBottomSheetView.show()
     }
 }
