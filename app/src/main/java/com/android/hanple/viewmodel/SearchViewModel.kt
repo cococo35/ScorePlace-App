@@ -401,9 +401,9 @@ class SearchViewModel(
         val list = weatherDescription.value
         list?.forEach {
             when (it) {
-                "Clear" -> count += 4
-                "Clouds" -> count += 2
-                "Rain" -> count -= 4
+                "Clear" -> count += 15
+                "Clouds" -> count += 5
+                "Rain" -> count -= 20
                 else -> count = 0
             }
         }
@@ -513,7 +513,7 @@ class SearchViewModel(
     fun getTransportScore() {
         var inputScore = 10
         if (notDrivingCar.value == true) {
-            val score = (weatherScore.value!! + dustScore.value!!) / 4
+            val score = (weatherScore.value!! + dustScore.value!!) / 2
             Log.d("교통 점수", score.toString())
             transportScore.value = score
         } else {

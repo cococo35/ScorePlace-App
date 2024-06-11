@@ -132,8 +132,8 @@ class ScoreFragment : Fragment() {
         val localDateTime: LocalDateTime = LocalDateTime.now()
         val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         viewModel.selectPlace?.observe(viewLifecycleOwner) {
-            binding.tvScoreTitle.text =
-                "${it?.name}, " +
+            binding.tvScoreTitle.text = "${it?.name}"
+            binding.tvScoreTitle2.text =
                         localDateTime.toString().substring(5, 7) +
                         "월 " +
                         localDateTime.toString().substring(8, 10) +
@@ -148,8 +148,8 @@ class ScoreFragment : Fragment() {
     private fun getScoreDescription() {
         viewModel.totalScore.observe(viewLifecycleOwner) {
             when {
-                it < 50 -> binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
-                it in 50..74 -> binding.tvScoreDescription.text = "놀러 가기 적당해요~"
+                it < 40 -> binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
+                it in 40..74 -> binding.tvScoreDescription.text = "놀러 가기 적당해요~"
                 else -> binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
             }
         }

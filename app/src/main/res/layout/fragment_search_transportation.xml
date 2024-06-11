@@ -13,10 +13,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="어떻게 가시나요?"
-        android:textSize="25sp"
+        android:textSize="32sp"
         android:textStyle="bold"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginTop="125dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/darkmint"
-        app:strokeColor="@color/black"
+        app:cardElevation="2dp"
         app:cardCornerRadius="15dp"
         android:layout_marginBottom="155dp"
         android:layout_marginStart="25dp"
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/gray"
-        app:strokeColor="@color/black"
+        app:cardElevation="2dp"
         app:cardCornerRadius="15dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
@@ -99,7 +99,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_transportation_title"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="35dp" >
+        android:layout_marginTop="55dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -129,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_transportation_title"
         android:layout_marginEnd="70dp"
-        android:layout_marginTop="35dp" >
+        android:layout_marginTop="55dp" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
