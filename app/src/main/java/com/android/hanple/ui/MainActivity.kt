@@ -86,9 +86,13 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_bookmark -> {
-                    // 액티비티 이동
+                    val listViewFragment = ListViewFragment()
+                    supportFragmentManager.commit {
+                        replace(R.id.fr_main, listViewFragment)
+                        addToBackStack(null)
                 }
             }
+        }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
