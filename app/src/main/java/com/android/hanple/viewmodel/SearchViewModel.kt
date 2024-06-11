@@ -161,8 +161,8 @@ class SearchViewModel(
                     "48b0c79a814c79a5a38bb17b9109a288"
                 )
                 response.list?.forEach { item ->
-                    if(item.dt_txt!!.contains(today)) {
-                        Log.d("날씨", item.dt_txt.toString())
+                    if(item.dt?.toInt()!! in today.toInt() .. today.toInt() + 86400) {
+                        Log.d("날씨", item.dt.toString())
                         val data = item.weather
                         data.forEach {
                             list.add(it.main!!)
@@ -201,6 +201,7 @@ class SearchViewModel(
         notDrivingCar.value = true
     }
 
+    @SuppressLint("SuspiciousIndentation")
     fun getNearByPlace(type: String) {
         viewModelScope.launch {
             val categoryPlaceList = mutableListOf<CategoryPlace>()
@@ -221,22 +222,27 @@ class SearchViewModel(
                 .build()
             placeClient.value!!.searchNearby(searchNearbyRequest)
                 .addOnSuccessListener { response ->
-                    nearByPlaceBuffer.value = response.places
-                    response.places.forEach {
-                        val data = CategoryPlace(
-                            it.address,
-                            it.rating,
-                            null,
-                            it.id,
-                            it.name,
-                            false,
-                            it.openingHours
-                        )
-                        categoryPlaceList.add(data)
-                        getCategoryImage(categoryPlaceList)
-                        _nearByPlace.value = categoryPlaceList
+                    Log.d("주변 장소 응답 확인", response.places.toString())
+                    if(response.places.isEmpty()){
+                        _nearByPlace.value = emptyList<CategoryPlace>().toMutableList()
                     }
-
+                    else {
+                    nearByPlaceBuffer.value = response.places
+                        response.places.forEach {
+                            val data = CategoryPlace(
+                                it.address,
+                                it.rating,
+                                null,
+                                it.id,
+                                it.name,
+                                false,
+                                it.openingHours
+                            )
+                            categoryPlaceList.add(data)
+                            getCategoryImage(categoryPlaceList)
+                            _nearByPlace.value = categoryPlaceList
+                        }
+                    }
                 }
                 .addOnFailureListener { e ->
                     Log.d("근처 장소 정보 불러오기 실패", e.toString())
