@@ -56,15 +56,13 @@ class ListViewFragment : Fragment() {
 
         adapter.loadPreferences()
 
-        arguments?.let {
-            val address = it.getString(ARG_ADDRESS)
-            val score = it.getDouble(ARG_SCORE)
+        val address = sharedPreferences.getString("address", null)
+        val score = sharedPreferences.getFloat("score", -1f).toDouble()
 
-            if (address != null) {
-                val newPlace = CategoryPlace(address, score, null, null, null, true, null)
-                if (adapter.currentList.none { it.address == address }) {
-                    adapter.addPlace(newPlace)
-                }
+        if (address != null && score != -1.0) {
+            val newPlace = CategoryPlace(address, score, null, null, null, true, null)
+            if (adapter.currentList.none { it.address == address }) {
+                adapter.addPlace(newPlace)
             }
         }
 

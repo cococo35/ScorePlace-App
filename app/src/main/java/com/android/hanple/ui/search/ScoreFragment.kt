@@ -84,6 +84,7 @@ class ScoreFragment : Fragment() {
         createBottomView()
         binding.ivScoreBookmark.setOnClickListener {
             toggleBookmarkIcon()
+            savePlaceToPreferences("sample_address", 100.0)
         }
     }
 
@@ -296,5 +297,14 @@ class ScoreFragment : Fragment() {
         binding.btnCategoryViewOpen.setOnClickListener {
             scoreCategoryBottomSheetView.show()
         }
+    }
+
+    // 데이터 저장 코드 추가
+    private fun savePlaceToPreferences(address: String, score: Double) {
+        val sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("address", address)
+        editor.putFloat("score", score.toFloat())
+        editor.apply()
     }
 }
