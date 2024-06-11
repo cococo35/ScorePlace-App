@@ -31,6 +31,10 @@ class PlaceStorageListAdapter(
             ivItemFavorite.setOnClickListener {
                 onFavoriteClick?.invoke(place)
             }
+
+            tvItemAddress.setOnClickListener {
+                removePlace(place)
+            }
         }
     }
 
