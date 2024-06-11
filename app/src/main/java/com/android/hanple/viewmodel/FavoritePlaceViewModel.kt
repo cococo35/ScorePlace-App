@@ -3,7 +3,7 @@ package com.android.hanple.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.hanple.adapter.CategoryPlace
+import com.android.hanple.data.CategoryPlace
 
 class FavoritePlaceViewModel : ViewModel() {
     private val _favoritePlace = MutableLiveData<MutableList<CategoryPlace>>(mutableListOf())

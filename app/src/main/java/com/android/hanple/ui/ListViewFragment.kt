@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.hanple.R
-import com.android.hanple.adapter.CategoryPlace
+import com.android.hanple.data.CategoryPlace
 import com.android.hanple.adapter.PlaceStorageListAdapter
 import com.android.hanple.databinding.FragmentListViewBinding
 
@@ -61,7 +61,7 @@ class ListViewFragment : Fragment() {
             val score = it.getDouble(ARG_SCORE)
 
             if (address != null) {
-                val newPlace = CategoryPlace(address, score, null, null, null, true, null)
+                val newPlace = CategoryPlace(address, score, null, null, null, null,true, null)
                 if (adapter.currentList.none { it.address == address }) {
                     adapter.addPlace(newPlace)
                 }

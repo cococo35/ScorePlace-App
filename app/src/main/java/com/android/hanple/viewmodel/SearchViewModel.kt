@@ -2,7 +2,6 @@ package com.android.hanple.viewmodel
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +13,7 @@ import com.android.hanple.Address.AddressRemoteImpl
 import com.android.hanple.Dust.DustRemoteImpl
 import com.android.hanple.Room.RecommendDAO
 import com.android.hanple.Weather.WeatherRemoteImpl
-import com.android.hanple.adapter.CategoryPlace
+import com.android.hanple.data.CategoryPlace
 import com.android.hanple.data.congestion.remote.CongestionRemoteImpl
 import com.android.hanple.network.AddressRetrofit
 import com.android.hanple.network.CongestionRetrofit
@@ -23,6 +22,7 @@ import com.android.hanple.network.WeatherRetrofit
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.api.model.CircularBounds
+import com.google.android.libraries.places.api.model.OpeningHours
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.FetchPlaceResponse
@@ -31,7 +31,6 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.api.net.SearchNearbyRequest
 import kotlinx.coroutines.launch
 import java.util.Arrays
-import java.util.Date
 
 class SearchViewModel(
     private val addressRemoteImpl: AddressRemoteImpl,
@@ -80,6 +79,18 @@ class SearchViewModel(
     val recommendPlace : LiveData<List<CategoryPlace>> get() = _recommandPlace
 
     private val placeBuffer = MutableLiveData<Place>()
+
+    private val _selectCategoryPlaceImg = MutableLiveData<Uri?>()
+    private val _selectCategoryPlaceAddress = MutableLiveData<String?>()
+    private val _selectCategoryPlaceName = MutableLiveData<String?>()
+    private val _selectCategoryPlaceSummary = MutableLiveData<String?>()
+    private val _selectCategoryPlaceOpeningHour = MutableLiveData<OpeningHours?>()
+
+    val selectCategoryPlaceImg : LiveData<Uri?> get() = _selectCategoryPlaceImg
+    val selectCategoryPlaceAddress : LiveData<String?> get() = _selectCategoryPlaceAddress
+    val selectCategoryPlaceName : LiveData<String?> get() = _selectCategoryPlaceName
+    val selectCategoryPlaceSummary : LiveData<String?> get() = _selectCategoryPlaceSummary
+    val selectCategoryPlaceOpeningHour : LiveData<OpeningHours?> get() = _selectCategoryPlaceOpeningHour
     //선택지 좌표 넣기
     fun getSelectPlaceLatLng(data: LatLng) {
         _Lat.postValue(data.latitude.toString())
@@ -211,7 +222,8 @@ class SearchViewModel(
                 Place.Field.RATING,
                 Place.Field.OPENING_HOURS,
                 Place.Field.ADDRESS,
-                Place.Field.PHOTO_METADATAS
+                Place.Field.PHOTO_METADATAS,
+                Place.Field.EDITORIAL_SUMMARY,
             )
             var includeType = listOf(type)
             var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
@@ -235,6 +247,7 @@ class SearchViewModel(
                                 null,
                                 it.id,
                                 it.name,
+                                it.editorialSummary,
                                 false,
                                 it.openingHours
                             )
@@ -566,7 +579,7 @@ class SearchViewModel(
             list.forEach { it ->
                 val recommendID = dao.getRecommendPlaceById(it).name
                 val placeFields =
-                    Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.RATING, Place.Field.OPENING_HOURS, Place.Field.PHOTO_METADATAS)
+                    Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.RATING, Place.Field.OPENING_HOURS, Place.Field.PHOTO_METADATAS, Place.Field.EDITORIAL_SUMMARY)
                 val request = FetchPlaceRequest.newInstance(recommendID, placeFields)
 
                 val placeTask : Task<FetchPlaceResponse> = placeClient.value!!.fetchPlace(request)
@@ -578,6 +591,7 @@ class SearchViewModel(
                         null,
                         placeBuffer.value?.id,
                         placeBuffer.value?.name,
+                        placeBuffer.value?.editorialSummary,
                         false,
                         placeBuffer.value?.openingHours
                     )
@@ -603,6 +617,22 @@ class SearchViewModel(
                     }
             }
         }
+    }
+
+    fun setSelectPlaceImg(img: Uri?) {
+        _selectCategoryPlaceImg.value = img
+    }
+    fun setSelectPlaceAddress(str: String){
+        _selectCategoryPlaceAddress.value = str
+    }
+    fun setSelectPlaceName(str: String){
+        _selectCategoryPlaceName.value = str
+    }
+    fun setSelectPlaceSummary(str: String){
+        _selectCategoryPlaceSummary.value = str
+    }
+    fun setSelectPlaceOpeningHour(data: OpeningHours){
+        _selectCategoryPlaceOpeningHour.value = data
     }
 }
 
