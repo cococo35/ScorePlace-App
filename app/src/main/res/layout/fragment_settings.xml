@@ -1,62 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.settings.SettingsFragment" >
+    android:background="@color/white"
+    tools:context=".ui.settings.SettingsFragment">
 
-    <!-- text_settings:
-    SettingsViewModel에서 value를 받아 입력하는 예시 TextView,
-    비활성화해 두어서 화면에서 보이지는 않습니다. -->
     <TextView
-        android:id="@+id/text_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"/>
-
-    <LinearLayout
-        android:id="@+id/ll_menu"
+        android:id="@+id/tv_settings_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_search_histoy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_search_history"
-                android:textSize="@dimen/settings_menu_text_size"/>
-            <TextView
-                android:id="@+id/tv_bookmarks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_bookmarks"
-                android:textSize="@dimen/settings_menu_text_size"/>
-            <TextView
-                android:id="@+id/tv_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_logout"
-                android:textSize="@dimen/settings_menu_text_size"/>
-            <TextView
-                android:id="@+id/tv_sign_off"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_sign_off"
-                android:textSize="@dimen/settings_menu_text_size"/>
-    </LinearLayout>
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:text="내 정보 관리"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_title"
+        android:layout_marginTop="55dp"
+        android:layout_marginStart="30dp"
+        android:text="별명"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_nickname_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_nickname"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_nickname"
+        android:text="cococo35"
+        android:textSize="18sp"
+        android:textColor="@color/darkgray" />
+
+    <ImageView
+        android:id="@+id/iv_settings_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_nickname_value"
+        android:layout_marginTop="10dp"
+        android:background="@color/lightgray" />
+
+    <TextView
+        android:id="@+id/tv_settings_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_nickname_value"
+        app:layout_constraintTop_toBottomOf="@id/iv_settings_line"
+        android:layout_marginTop="15dp"
+        android:text="이메일"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_email_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_email"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_email"
+        android:text="test123@google.com"
+        android:textSize="18sp"
+        android:textColor="@color/darkgray" />
+
+    <ImageView
+        android:id="@+id/iv_settings_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_email_value"
+        android:layout_marginTop="10dp"
+        android:background="@color/lightgray" />
+
+    <TextView
+        android:id="@+id/tv_settings_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_email_value"
+        app:layout_constraintTop_toBottomOf="@id/iv_settings_line2"
+        android:layout_marginTop="15dp"
+        android:text="비밀번호"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_password_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_password"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_password"
+        android:text="********"
+        android:textSize="18sp"
+        android:textColor="@color/darkgray" />
+
+    <ImageView
+        android:id="@+id/iv_settings_line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_password_value"
+        android:layout_marginTop="10dp"
+        android:background="@color/lightgray" />
+
+    <TextView
+        android:id="@+id/tv_settings_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_password_value"
+        app:layout_constraintTop_toBottomOf="@id/iv_settings_line3"
+        android:layout_marginTop="55dp"
+        android:text="로그아웃"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_logout"
+        android:layout_marginTop="25dp"
+        android:text="HANPLE 탈퇴"
+        android:textSize="20sp"
+        android:textColor="@color/red"
+        android:textStyle="bold" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

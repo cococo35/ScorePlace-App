@@ -18,8 +18,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_score_back"
-                android:layout_width="15dp"
-                android:layout_height="25dp"
+                android:layout_width="13dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
                 android:background="@drawable/ic_back_8x12dp"

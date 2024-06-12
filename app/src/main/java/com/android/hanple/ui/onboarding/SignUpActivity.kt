@@ -1,5 +1,6 @@
 package com.android.hanple.ui.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -10,7 +11,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
 
-
+//github 연결 테스트
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -38,12 +39,12 @@ class SignUpActivity : AppCompatActivity() {
 ////            }
 //        }
 
-//        // 뒤로 가기 아이콘 클릭 리스너 설정
-//        binding.ivBack.setOnClickListener {
-//            val loginIntent = Intent(this, LogInActivity::class.java)
-//            startActivity(loginIntent)
-//            finish() // 현재 액티비티를 종료
-//        }
+        // 뒤로 가기 아이콘 클릭 리스너 설정
+        binding.ivBack.setOnClickListener {
+            val loginIntent = Intent(this, LogInActivity::class.java)
+            startActivity(loginIntent)
+            finish() // 현재 액티비티를 종료
+        }
 
 //        binding.btnSignup.setOnClickListener {
 ////            handleSignup(editor, sharedPreference)

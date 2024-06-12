@@ -13,5 +13,13 @@
             android:id="@+id/nav_bookmark"
             android:icon="@drawable/ic_bookmark_24dp"
             android:title="보관함" />
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/ic_notification_black_24dp"
+            android:title="공지사항" />
+        <item
+            android:id="@+id/nav_version"
+            android:icon="@drawable/ic_version_24dp"
+            android:title="앱 버전" />
     </group>
 </menu>

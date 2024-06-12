@@ -3,6 +3,7 @@ package com.android.hanple.ui
 
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -19,6 +20,7 @@ import com.android.hanple.Room.RecommendPlace
 import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.ui.search.InitLoadFragment
+import com.android.hanple.ui.settings.SettingsActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.libraries.places.api.Places
@@ -76,9 +78,8 @@ class MainActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_account -> {
-                    // 액티비티 이동
-//                    val intent = Intent(this, ArchiveActivity::class.java)
-//                    startActivity(intent)
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
                 }
 
                 R.id.nav_view -> {
