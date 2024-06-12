@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.R
 import com.android.hanple.adapter.ScoreCategoryListAdapter
 import com.android.hanple.databinding.FragmentSearchTimeBinding
+import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -55,6 +56,7 @@ class SearchTimeFragment : Fragment() {
         getLocalTime()
         initView()
         putViewModelData()
+        createTimePickerBottomView()
     }
 
     override fun onAttach(context: Context) {
@@ -67,12 +69,15 @@ class SearchTimeFragment : Fragment() {
                 } else {
                     val searchFragment = SearchFragment()
                     val transaction = parentFragmentManager.beginTransaction()
+                    transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
                     transaction.replace(R.id.fr_main, searchFragment)
                     transaction.commit()
+                    (activity as MainActivity).visibleDrawerView()
                 }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this@SearchTimeFragment, callback)
+        (activity as MainActivity).hideDrawerView()
     }
 
     override fun onDestroy() {
@@ -84,12 +89,8 @@ class SearchTimeFragment : Fragment() {
 
     private fun initView() {
 
-        binding.tvSearchTimeSkip.setOnClickListener {
-            val searchTransportationFragment = SearchTransportationFragment()
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fr_main, searchTransportationFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+        binding.tvSearchTimeAgainInput.setOnClickListener {
+            createTimePickerBottomView()
         }
 
         binding.tvSearchTimeNext.setOnClickListener {
@@ -97,27 +98,28 @@ class SearchTimeFragment : Fragment() {
             val fromStart: String?
             val toStart: String?
             fromStart =
-                binding.edSearchTimeFrom.text.toString() + binding.edSearchTimeFrom2.text.toString()
+                binding.tvSearchTimeFromHour.text.toString() + binding.tvSearchTimeFromMinute.text.toString()
             toStart =
-                binding.edSearchTimeTo.text.toString() + binding.edSearchTimeTo2.text.toString()
+                binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()
 
             if (fromStart == "" && toStart == "") {
                 Toast.makeText(requireContext(), "입력되지 않은 정보가 있습니다", Toast.LENGTH_SHORT).show()
             } else if (
-                (binding.edSearchTimeFrom.text.toString() + binding.edSearchTimeFrom2.text.toString()).toInt() >=
-                (binding.edSearchTimeTo.text.toString() + binding.edSearchTimeTo2.text.toString()).toInt()
-                ) {
+                (binding.tvSearchTimeFromHour.text.toString() + binding.tvSearchTimeFromMinute.text.toString()).toInt() >=
+                (binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()).toInt()
+            ) {
                 Toast.makeText(requireContext(), "잘못 입력된 정보가 있습니다", Toast.LENGTH_SHORT).show()
             } else {
                 if (
-                    binding.edSearchTimeFrom.text.toString().toInt() in 0..23 &&
-                    binding.edSearchTimeFrom2.text.toString().toInt() in 0..59 &&
-                    binding.edSearchTimeTo.text.toString().toInt() in 0..23 &&
-                    binding.edSearchTimeTo2.text.toString().toInt() in 0..59
+                    binding.tvSearchTimeFromHour.text.toString().toInt() in 0..23 &&
+                    binding.tvSearchTimeFromMinute.text.toString().toInt() in 0..59 &&
+                    binding.tvSearchTimeToHour.text.toString().toInt() in 0..23 &&
+                    binding.tvSearchTimeToMinute.text.toString().toInt() in 0..59
                 ) {
-                    viewModel.getTimeStamp(fromStart, toStart)
+
                     val searchTransportationFragment = SearchTransportationFragment()
                     val transaction = parentFragmentManager.beginTransaction()
+                    transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                     transaction.replace(R.id.fr_main, searchTransportationFragment)
                     transaction.addToBackStack(null)
                     transaction.commit()
@@ -126,47 +128,49 @@ class SearchTimeFragment : Fragment() {
                 }
             }
         }
+    }
 
-        binding.apply {
-            edSearchTimeFrom.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-
-                    activity?.let { hideKeyBoard(it) }
-
-                    return@OnKeyListener true
-                }
-                false
-            })
-
-            edSearchTimeFrom2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-
-                    activity?.let { hideKeyBoard(it) }
-
-                    return@OnKeyListener true
-                }
-                false
-            })
-
-            edSearchTimeTo.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-
-                    activity?.let { hideKeyBoard(it) }
-
-                    return@OnKeyListener true
-                }
-                false
-            })
-
-            edSearchTimeTo2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-
-                    activity?.let { hideKeyBoard(it) }
-
-                    return@OnKeyListener true
-                }
-                false
-            })
+    //인풋이 Time Picker로 변하면서 필요 없어짐
+//        binding.apply {
+//            edSearchTimeFrom.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+//
+//                    activity?.let { hideKeyBoard(it) }
+//
+//                    return@OnKeyListener true
+//                }
+//                false
+//            })
+//
+//            edSearchTimeFrom2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+//
+//                    activity?.let { hideKeyBoard(it) }
+//
+//                    return@OnKeyListener true
+//                }
+//                false
+//            })
+//
+//            edSearchTimeTo.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+//
+//                    activity?.let { hideKeyBoard(it) }
+//
+//                    return@OnKeyListener true
+//                }
+//                false
+//            })
+//
+//            edSearchTimeTo2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+//
+//                    activity?.let { hideKeyBoard(it) }
+//
+//                    return@OnKeyListener true
+//                }
+//                false
+//            })
 
 //            edSearchTimeTo2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
 //                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
@@ -182,8 +186,8 @@ class SearchTimeFragment : Fragment() {
 //                }
 //                false
 //            })
-        }
-    }
+//        }
+
 
 
     private fun hideKeyBoard(activity: Activity) {
@@ -214,32 +218,36 @@ class SearchTimeFragment : Fragment() {
         val endTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_end)
         val insertButton = timePickerBottomSheet.findViewById<TextView>(R.id.tv_time_insert_dismiss)
 
-        startTimePicker.setOnTimeChangedListener(object : TimePicker.OnTimeChangedListener{
-            override fun onTimeChanged(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                if (minute < 10) {
-                    val minuteText = "0$minute"
-                    startTime = "$hourOfDay" + minuteText
-                } else {
-                    startTime = "$hourOfDay" + "$minute"
-                }
+        startTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
+            if (minute < 10) {
+                val minuteText = "0$minute"
+                startTime = "$hourOfDay" + minuteText
+                binding.tvSearchTimeFromHour.text = "$hourOfDay"
+                binding.tvSearchTimeFromMinute.text = minuteText
+            } else {
+                startTime = "$hourOfDay" + "$minute"
+                binding.tvSearchTimeFromHour.text = "$hourOfDay"
+                binding.tvSearchTimeFromMinute.text = "$minute"
             }
-        })
-        endTimePicker.setOnTimeChangedListener(object : TimePicker.OnTimeChangedListener{
-            override fun onTimeChanged(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                if (minute < 10) {
-                    val minuteText = "0$minute"
-                    endTime = "$hourOfDay" + minuteText
-                } else {
-                    endTime = "$hourOfDay" + "$minute"
-                }
+        }
+        endTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
+            if (minute < 10) {
+                val minuteText = "0$minute"
+                endTime = "$hourOfDay" + minuteText
+                binding.tvSearchTimeToHour.text = "$hourOfDay"
+                binding.tvSearchTimeToMinute.text = minuteText
+            } else {
+                endTime = "$hourOfDay" + "$minute"
+                binding.tvSearchTimeToHour.text = "$hourOfDay"
+                binding.tvSearchTimeToMinute.text = "$minute"
             }
-        })
+        }
 
         insertButton.setOnClickListener {
             viewModel.getTimeStamp(startTime,endTime)
             timePickerBottomSheetView.dismiss()
         }
-        timePickerBottomSheetView.setCancelable(false)
+//        timePickerBottomSheetView.setCancelable(false)
         timePickerBottomSheetView.show()
     }
 }

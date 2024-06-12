@@ -49,6 +49,7 @@ class SearchCostFragment : Fragment() {
                 } else {
                     val searchPeopleFragment = SearchPeopleFragment()
                     val transaction = parentFragmentManager.beginTransaction()
+                    transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
                     transaction.replace(R.id.fr_main, searchPeopleFragment)
                     transaction.commit()
                 }

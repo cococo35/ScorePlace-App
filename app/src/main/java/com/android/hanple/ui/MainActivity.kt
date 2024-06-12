@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
@@ -190,6 +191,14 @@ class MainActivity : AppCompatActivity() {
                 list.add(number)
         }
         return list
+    }
+
+    fun visibleDrawerView(){
+        binding.btnMainMenu.visibility = View.VISIBLE
+    }
+
+    fun hideDrawerView(){
+        binding.btnMainMenu.visibility = View.GONE
     }
 
 }
