@@ -85,7 +85,9 @@ class ScoreFragment : Fragment() {
         createBottomView()
         binding.ivScoreBookmark.setOnClickListener {
             toggleBookmarkIcon()
-            savePlaceToPreferences("sample_address", 100.0)
+            val address = binding.tvScoreTitle.text.toString()
+            val score = binding.tvScoreScore.text.toString().removeSuffix("점").toDoubleOrNull() ?: 0.0
+            savePlaceToPreferences(address, score)
         }
     }
 
@@ -375,8 +377,11 @@ class ScoreFragment : Fragment() {
     private fun savePlaceToPreferences(address: String, score: Double) {
         val sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putString("address", address)
-        editor.putFloat("score", score.toFloat())
+
+        val placeCount = sharedPreferences.getInt("place_count", 0)
+        editor.putString("address_$placeCount", address)
+        editor.putFloat("score_$placeCount", score.toFloat())
+        editor.putInt("place_count", placeCount + 1)
         editor.apply()
     }
 }
