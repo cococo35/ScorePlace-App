@@ -236,6 +236,8 @@ class ScoreFragment : Fragment() {
                 transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
                 transaction.replace(R.id.fr_main, searchFragment)
                 transaction.commit()
+                viewModel.resetTimeStamp()
+                viewModel.resetTime()
                 (activity as MainActivity).visibleDrawerView()
             }
             .setNegativeButton("No", null)
@@ -350,22 +352,10 @@ class ScoreFragment : Fragment() {
                 address.text = ""
             }
         }
-        viewModel.selectCategoryPlaceSummary.observe(viewLifecycleOwner){
-            if(it != null){
-                summary.text = it
-            }
-            else {
-                summary.text = ""
-            }
-        }
-        viewModel.selectCategoryPlaceOpeningHour.observe(viewLifecycleOwner){
-            if(it != null){
-                openingHour.text = it.hoursType?.toString()
-            }
-            else {
-                openingHour.text = ""
-            }
-        }
+
+        //정보를 제공하는 장소가 너무 적어서 일단 빈 텍스트로 설정
+        summary.text = ""
+        openingHour.text = ""
         closeButton.setOnClickListener {
             dialog.dismiss()
         }
