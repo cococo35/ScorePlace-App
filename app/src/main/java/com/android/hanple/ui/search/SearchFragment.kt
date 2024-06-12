@@ -66,6 +66,7 @@ class SearchFragment : Fragment() {
         binding.btnSearchNext.setOnClickListener {
             val searchTimeFragment = SearchTimeFragment()
             val transaction = parentFragmentManager.beginTransaction()
+            transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
             transaction.replace(R.id.fr_main, searchTimeFragment)
             transaction.addToBackStack(null)
             transaction.commit()

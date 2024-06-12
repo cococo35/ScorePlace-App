@@ -49,6 +49,7 @@ class SearchPeopleFragment : Fragment() {
                 } else {
                     val searchTransportationFragment = SearchTransportationFragment()
                     val transaction = parentFragmentManager.beginTransaction()
+                    transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
                     transaction.replace(R.id.fr_main, searchTransportationFragment)
                     transaction.commit()
                 }
@@ -92,6 +93,7 @@ class SearchPeopleFragment : Fragment() {
                     viewModel.getCongestionScore(preferType)
                     val searchCostFragment = SearchCostFragment()
                     val transaction = parentFragmentManager.beginTransaction()
+                    transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                     transaction.replace(R.id.fr_main, searchCostFragment)
                     transaction.addToBackStack(null)
                     transaction.commit()
@@ -102,6 +104,7 @@ class SearchPeopleFragment : Fragment() {
                 viewModel.getCongestionScore(3)
                 val searchCostFragment = SearchCostFragment()
                 val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                 transaction.replace(R.id.fr_main, searchCostFragment)
                 transaction.addToBackStack(null)
                 transaction.commit()
