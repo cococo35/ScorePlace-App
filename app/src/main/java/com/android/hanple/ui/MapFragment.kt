@@ -19,10 +19,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         const val TAG = "MapFragment"
         private const val ARG_PLACES = "places"
 
-        fun newInstance(places: List<CategoryPlace>): MapFragment {
+        fun newInstance(places: Set<CategoryPlace>): MapFragment {
             val fragment = MapFragment()
             val args = Bundle()
-            args.putParcelableArrayList(ARG_PLACES, ArrayList(places))
+            args.putSerializable(ARG_PLACES, HashSet(places))
             fragment.arguments = args
             return fragment
         }
@@ -33,12 +33,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
-    private var places: List<CategoryPlace>? = null
+    private var places: Set<CategoryPlace>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            places = it.getParcelableArrayList(ARG_PLACES)
+            @Suppress("UNCHECKED_CAST")
+            places = it.getSerializable(ARG_PLACES) as? Set<CategoryPlace>
         }
     }
 
@@ -77,7 +78,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val firstPlace = places!!.first()
             val firstLatLng = getLatLngFromAddress(firstPlace.address ?: "")
             if (firstLatLng != null) {
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstLatLng, 12f))
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstLatLng, 15f))
             }
         }
     }

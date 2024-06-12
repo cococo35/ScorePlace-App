@@ -17,6 +17,7 @@ class PlaceStorageListAdapter(
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
 
     var onFavoriteClick: ((CategoryPlace) -> Unit)? = null
+    var onAddressClick: ((CategoryPlace) -> Unit)? = null
 
     inner class PlaceViewHolder(
         private val binding: RecyclerviewStorageItemBinding
@@ -34,7 +35,7 @@ class PlaceStorageListAdapter(
             }
 
             tvItemAddress.setOnClickListener {
-                removePlace(place)
+                onAddressClick?.invoke(place)
             }
         }
     }
@@ -89,6 +90,12 @@ class PlaceStorageListAdapter(
                 places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, true, null))
             }
         }
+        notifyDataSetChanged()
+    }
+
+    fun updatePlaces(newPlaces: List<CategoryPlace>) {
+        places.clear()
+        places.addAll(newPlaces)
         notifyDataSetChanged()
     }
 
