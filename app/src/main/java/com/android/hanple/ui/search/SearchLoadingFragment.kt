@@ -1,10 +1,13 @@
 package com.android.hanple.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -41,6 +44,15 @@ class SearchLoadingFragment : Fragment() {
         _binding = null
     }
 
+    //로딩창에서 기기로 뒤로가기 누르기 막기
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this@SearchLoadingFragment, callback)
+    }
     private fun initView(){
         lifecycleScope.launch {
             whenStarted{

@@ -43,7 +43,15 @@ class SearchViewModel(
     private val _Lng = MutableLiveData<String>()
     private val _selectPlace = MutableLiveData<Place?>()
     val selectPlace: LiveData<Place?> get() = _selectPlace
+
+    private val _startTime = MutableLiveData<String>()
+    private val _endTime = MutableLiveData<String>()
+    val startTime : LiveData<String> get() = _startTime
+    val endTime : LiveData<String> get() = _endTime
+
     private val timeStamp = MutableLiveData<List<String>>()
+    val readTimeStamp : LiveData<List<String>> get() = timeStamp
+
     private val placeClient = MutableLiveData<PlacesClient>()
     private val notDrivingCar = MutableLiveData<Boolean>()
 
@@ -116,6 +124,21 @@ class SearchViewModel(
         timeStamp.postValue(list)
     }
 
+    fun resetTimeStamp(){
+        timeStamp.value = emptyList()
+    }
+
+    fun resetTime(){
+        _startTime.value = "not input"
+        _endTime.value = "not input"
+    }
+    fun getStartTime(str : String){
+        _startTime.value = str
+    }
+
+    fun getEndTime(str: String){
+        _endTime.value = str
+    }
     fun getCongestionData(query: String) {
         viewModelScope.launch {
             val list = mutableListOf<String>()
@@ -557,7 +580,13 @@ class SearchViewModel(
         } else {
             (score * 0.5 + 25) - (additionalCount * additionalCount)          // additionalCount 가 양수일 때, 음수일 때 if문으로 나눠 계산
         }
-        _totalScore.postValue(addScore.toInt())
+        _totalScore.value = addScore.toInt()
+        Log.d("날씨 점수", weatherScore.value.toString())
+        Log.d("미세먼지 점수", dustScore.value.toString())
+        Log.d("교통 점수", transportScore.value.toString())
+        Log.d("비용 점수", costScore.value.toString())
+        Log.d("혼잡도 점수", congestScore.value.toString())
+        Log.d("총 점수", _totalScore.value.toString())
     }
     fun resetScore(){
         weatherScore.value = 0
