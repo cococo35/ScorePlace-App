@@ -26,7 +26,12 @@ class PlaceScoreCategoryAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(place: CategoryPlace) = with(binding) {
             binding.tvItemAddress.text = place.name
-            binding.tvItemGrade.text = place.score.toString()
+            if(place.score == null){
+                binding.tvItemGrade.text = "점수 없음"
+            }
+            else {
+                binding.tvItemGrade.text = place.score.toString()
+            }
             binding.tvItemTime.text = place.openingHours?.hoursType?.name
             binding.root.setOnClickListener {
                 onDataClick.onItemClick(place)

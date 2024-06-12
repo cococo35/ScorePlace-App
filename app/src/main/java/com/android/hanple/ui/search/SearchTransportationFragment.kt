@@ -52,6 +52,7 @@ class SearchTransportationFragment : Fragment() {
                 } else {
                     val searchTimeFragment = SearchTimeFragment()
                     val transaction = parentFragmentManager.beginTransaction()
+                    transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
                     transaction.replace(R.id.fr_main, searchTimeFragment)
                     transaction.commit()
                 }
@@ -95,6 +96,7 @@ class SearchTransportationFragment : Fragment() {
                 if (isSelected) {
                     val searchPeopleFragment = SearchPeopleFragment()
                     val transaction = parentFragmentManager.beginTransaction()
+                    transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                     transaction.replace(R.id.fr_main, searchPeopleFragment)
                     transaction.addToBackStack(null)
                     transaction.commit()
@@ -106,6 +108,7 @@ class SearchTransportationFragment : Fragment() {
                 viewModel.usePublic()
                 val searchPeopleFragment = SearchPeopleFragment()
                 val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                 transaction.replace(R.id.fr_main, searchPeopleFragment)
                 transaction.addToBackStack(null)
                 transaction.commit()

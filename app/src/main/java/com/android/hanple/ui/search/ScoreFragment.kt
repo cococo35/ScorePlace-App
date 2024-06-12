@@ -34,6 +34,7 @@ import com.android.hanple.adapter.PlaceScoreCategoryAdapter
 import com.android.hanple.adapter.ScoreCategoryListAdapter
 import com.android.hanple.databinding.FragmentScoreBinding
 import com.android.hanple.ui.ListViewFragment
+import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.bumptech.glide.Glide
@@ -230,8 +231,10 @@ class ScoreFragment : Fragment() {
                 viewModel.resetScore()
                 fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
                 transaction.replace(R.id.fr_main, searchFragment)
                 transaction.commit()
+                (activity as MainActivity).visibleDrawerView()
             }
             .setNegativeButton("No", null)
             .create()
