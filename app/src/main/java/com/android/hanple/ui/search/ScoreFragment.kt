@@ -17,6 +17,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
@@ -179,7 +180,7 @@ class ScoreFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ResourceAsColor")
     private fun initDetailDialog() {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.fragment_detail_score_dialog)
@@ -189,24 +190,80 @@ class ScoreFragment : Fragment() {
         )
         val dialogCloseButton = dialog.findViewById<TextView>(R.id.tv_detail_dialog_dismiss)
         val scoreCost = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_cost)
+        val scoreCostDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_cost_description)
         val scoreDust = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_dust)
+        val scoreDustDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_dust_description)
         val scoreTraffic = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic)
+        val scoreTrafficDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic_description)
         val scoreCongestion = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion)
+        val scoreCongestionDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion_description)
         val scoreWeather = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather)
+        val scoreWeatherDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather_description)
+
         viewModel.readCostScore.observe(viewLifecycleOwner) {
             scoreCost.text = "비용 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
+            if (it >= 8) {
+                scoreCost.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
+                scoreCostDescription.text = "마음껏 쓸 수 있어요"
+            } else if (it >= 4) {
+                scoreCost.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreCostDescription.text = "원하는 것들을 할 수 있어요"
+            } else {
+                scoreCost.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreCostDescription.text = "할 수 있는게 많지 않아요"
+            }
         }
         viewModel.readDustScore.observe(viewLifecycleOwner) {
             scoreDust.text = "미세먼지 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
+            if (it >= 8) {
+                scoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                scoreDustDescription.text = "미세먼지 농도가 '좋음' 수준이에요"
+            } else if (it >= 4) {
+                scoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreDustDescription.text = "미세먼지 농도가 '보통' 수준이에요"
+            } else {
+                scoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreDustDescription.text = "미세먼지 농도가 '나쁨' 수준이에요"
+            }
         }
         viewModel.readTransportScore.observe(viewLifecycleOwner) {
             scoreTraffic.text = "교통 점수 : ${"%.0f".format(it.toDouble() / 20 * 100)}점"
+            if (it >= 15) {
+                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                scoreTrafficDescription.text = "막힘없이 이동할 수 있어요"
+            } else if (it >= 8) {
+                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreTrafficDescription.text = "일정에 맞게 이동할 수 있어요"
+            } else {
+                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreTrafficDescription.text = "이동에 시간이 오래 걸려요"
+            }
         }
         viewModel.readCongestScore.observe(viewLifecycleOwner) {
             scoreCongestion.text = "여행 성향 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
+            if (it >= 24) {
+                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                scoreCongestionDescription.text = "내가 원하던 장소에요"
+            } else if (it >= 12) {
+                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreCongestionDescription.text = "무난한 장소에요"
+            } else {
+                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreCongestionDescription.text = "원하던 장소가 아니에요"
+            }
         }
         viewModel.readWeatherScore.observe(viewLifecycleOwner) {
             scoreWeather.text = "날씨 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
+            if (it >= 24) {
+                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                scoreWeatherDescription.text = "맑은 날씨에요"
+            } else if (it >= 12) {
+                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreWeatherDescription.text = "전반적으로 날씨가 흐려요"
+            } else {
+                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreWeatherDescription.text = "비가 올 수 있어요"
+            }
         }
         dialogCloseButton.setOnClickListener {
             dialog.dismiss()

@@ -24,57 +24,162 @@
         android:id="@+id/tv_detail_dialog_score_dust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="55dp"
         android:text="미세 먼지 점수"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_detail_dialog_dust"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_dialog_title" />
+
+    <TextView
+        android:id="@+id/tv_detail_dialog_score_dust_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_dust"
+        app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_dust"
+        android:layout_marginTop="5dp"
+        android:text="좋은 날씨에요~"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_detail_dialog_dust"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_title"
+        android:layout_marginTop="55dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/ic_star_filled_18dp" />
+
+
     <TextView
         android:id="@+id/tv_detail_dialog_score_weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
         android:text="날씨 점수"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_detail_dialog_dust"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_dialog_score_dust" />
+
+    <TextView
+        android:id="@+id/tv_detail_dialog_score_weather_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_weather"
+        app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_weather"
+        android:layout_marginTop="5dp"
+        android:text="좋은 날씨에요~"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_detail_dialog_weather"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_dialog_dust"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/ic_star_filled_18dp" />
+
     <TextView
         android:id="@+id/tv_detail_dialog_score_traffic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
         android:text="교통 점수"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_detail_dialog_traffic"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_dialog_score_weather" />
+
+    <TextView
+        android:id="@+id/tv_detail_dialog_score_traffic_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_traffic"
+        app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_traffic"
+        android:layout_marginTop="5dp"
+        android:text="좋은 날씨에요~"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_detail_dialog_traffic"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_dialog_weather"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/ic_star_filled_18dp" />
+
     <TextView
         android:id="@+id/tv_detail_dialog_score_congestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
         android:text="여행 성향 점수"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_detail_dialog_congestion"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_dialog_score_traffic" />
+
+    <TextView
+        android:id="@+id/tv_detail_dialog_score_congestion_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_congestion"
+        app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_congestion"
+        android:layout_marginTop="5dp"
+        android:text="좋은 날씨에요~"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_detail_dialog_congestion"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_dialog_traffic"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/ic_star_filled_18dp" />
+
     <TextView
         android:id="@+id/tv_detail_dialog_score_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40dp"
         android:text="비용 점수"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_detail_dialog_congestion"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail_dialog_score_congestion" />
+
+    <TextView
+        android:id="@+id/tv_detail_dialog_score_cost_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_cost"
+        app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_cost"
+        android:layout_marginTop="5dp"
+        android:text="좋은 날씨에요~"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_detail_dialog_cost"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_dialog_congestion"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/ic_star_filled_18dp" />
 
     <TextView
         android:id="@+id/tv_detail_dialog_dismiss"
