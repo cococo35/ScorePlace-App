@@ -82,6 +82,11 @@ class SearchViewModel(
 
     val totalScore: LiveData<Int> get() = _totalScore
     private var additionalCount = 0
+    private var addtionalCountCongest = 0
+    private var addtionalCountWeather = 0
+    private var addtionalCountDust = 0
+    private var additionalCountCost = 0
+    private var additionalCountTransport = 0
 
     val _recommandPlace = MutableLiveData<List<CategoryPlace>>()
     val recommendPlace : LiveData<List<CategoryPlace>> get() = _recommandPlace
@@ -310,6 +315,7 @@ class SearchViewModel(
     // congestionScore 가중치 20 -> 30
     // getCongestionScoreType 별 점수 계산 수정
     fun getCongestionScore(type: Int): Int {
+        addtionalCountCongest = 0
         var score = 15
         val list = congestionDescription.value
         Log.d("혼잡도 리스트", list.toString())
@@ -327,9 +333,9 @@ class SearchViewModel(
             Log.d("혼잡도 점수", score.toString())
             congestScore.postValue(score)
             if (score >= 15) {
-                additionalCount++
+                addtionalCountCongest++
             } else {
-                additionalCount--
+                addtionalCountCongest--
             }
         }
         return score
@@ -432,6 +438,7 @@ class SearchViewModel(
     // weatherScore 가중치 20 -> 30
     // score 계산 방식 변경
     fun getWeatherScore() {
+        addtionalCountWeather = 0
         val score: Int
         var count = 0
         val list = weatherDescription.value
@@ -464,14 +471,15 @@ class SearchViewModel(
         weatherScore.postValue(score)
 
         if (score >= 15) {
-            additionalCount++
+            addtionalCountWeather++
         } else {
-            additionalCount--
+            addtionalCountWeather--
         }
     }
 
     // dustScore 가중치 20 -> 10
     fun getDustScore() {
+        addtionalCountDust = 0
         var sum = 0
         var score: Int = 0
         var average: Int = 0
@@ -496,9 +504,9 @@ class SearchViewModel(
                 dustScore.postValue(score)
 
                 if (score >= 6) {
-                    additionalCount++
+                    addtionalCountDust++
                 } else {
-                    additionalCount--
+                    addtionalCountDust--
                 }
             }
         }
@@ -508,6 +516,7 @@ class SearchViewModel(
     // costScore 가중치 20 -> 10
 
     fun getCostScore(price: Int) {
+        additionalCountCost = 0
         Log.d("비용 인풋", price.toString())
         Log.d("가격 수준", _selectPlace.value?.priceLevel.toString())
         var score = 5
@@ -540,13 +549,14 @@ class SearchViewModel(
             costScore.postValue(score)
         }
         if (score >= 5) {
-            additionalCount++
+            additionalCountCost++
         } else {
-            additionalCount--
+            additionalCountCost--
         }
     }
 
     fun getTransportScore() {
+        additionalCountTransport = 0
         var inputScore = 10
         if (notDrivingCar.value == true) {
             val score = (weatherScore.value!! + dustScore.value!!) / 2
@@ -566,15 +576,17 @@ class SearchViewModel(
             transportScore.postValue(inputScore)
         }
         if (inputScore >= 10) {
-            additionalCount++
+            additionalCountTransport++
         } else {
-            additionalCount--
+            additionalCountTransport--
         }
     }
 
     fun getToTalScore() {
+        additionalCount = 0
         val score =
             weatherScore.value!! + dustScore.value!! + transportScore.value!! + costScore.value!! + congestScore.value!!
+        additionalCount = additionalCountCost + additionalCountTransport + addtionalCountDust + addtionalCountCongest + addtionalCountWeather
         val addScore: Double = if (additionalCount >= 0) {
             (score * 0.5 + 25) + (additionalCount * additionalCount)          // 0 ~ 100 까지인 score 의 범위를 25 ~ 75 로 바꾸는 식 + additionalCount 제곱
         } else {
@@ -596,6 +608,11 @@ class SearchViewModel(
         congestScore.value = 0
         _totalScore.value = 0
         additionalCount = 0
+        addtionalCountDust = 0
+        addtionalCountCongest = 0
+        additionalCountCost = 0
+        additionalCountTransport = 0
+        addtionalCountWeather = 0
     }
 
     @SuppressLint("SuspiciousIndentation")
