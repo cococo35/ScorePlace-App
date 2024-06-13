@@ -41,6 +41,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import pl.droidsonroids.gif.GifDrawable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
@@ -151,17 +152,17 @@ class ScoreFragment : Fragment() {
             when {
                 it < 40 -> {
                     binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
-                    val iconUnder40 = ContextCompat.getDrawable(requireContext(), R.drawable.unamused_face_gif)
+                    val iconUnder40: GifDrawable = GifDrawable(resources, R.drawable.unamused_face_gif)
                     binding.ivScoreIcon.background = iconUnder40
                 }
                 it in 40..74 -> {
                     binding.tvScoreDescription.text = "놀러 가기 적당해요~"
-                    val iconUnder75 = ContextCompat.getDrawable(requireContext(), R.drawable.slightly_smiling_face_gif)
+                    val iconUnder75: GifDrawable = GifDrawable(resources, R.drawable.slightly_smiling_face_gif)
                     binding.ivScoreIcon.background = iconUnder75
                 }
                 else -> {
                     binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
-                    val iconUnder101 = ContextCompat.getDrawable(requireContext(), R.drawable.star_struck_gif)
+                    val iconUnder101: GifDrawable = GifDrawable(resources, R.drawable.star_struck_gif)
                     binding.ivScoreIcon.background = iconUnder101
                 }
             }
@@ -174,17 +175,17 @@ class ScoreFragment : Fragment() {
                 it.contains("Rain") -> {
                     binding.tvScoreWeatherDescription.text = "비가 올 수 있어요"
                     binding.tvScoreWeatherDescription2.text = "우산을 준비하세요"
-                    binding.ivScoreWeather.setBackgroundResource(R.drawable.ic_weather_rain)
+                    binding.ivScoreWeather.setBackgroundResource(R.drawable.umbrella_with_raindrop_png)
                 }
                 !it.contains("Rain") && it.count { it.contains("Clouds") } >= 3 -> {
                     binding.tvScoreWeatherDescription.text = "전반적으로 날씨가 흐려요"
                     binding.tvScoreWeatherDescription2.text = ""
-                    binding.ivScoreWeather.setBackgroundResource(R.drawable.iv_weather_cloud)
+                    binding.ivScoreWeather.setBackgroundResource(R.drawable.cloud_png)
                 }
                 else -> {
                     binding.tvScoreWeatherDescription.text = "맑은 날씨에요"
                     binding.tvScoreWeatherDescription2.text = ""
-                    binding.ivScoreWeather.setBackgroundResource(R.drawable.iv_weather_sun)
+                    binding.ivScoreWeather.setBackgroundResource(R.drawable.sun_png)
                 }
             }
         }
