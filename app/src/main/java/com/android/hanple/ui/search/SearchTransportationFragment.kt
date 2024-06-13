@@ -98,7 +98,6 @@ class SearchTransportationFragment : Fragment() {
                     val transaction = parentFragmentManager.beginTransaction()
                     transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                     transaction.replace(R.id.fr_main, searchPeopleFragment)
-                    transaction.addToBackStack(null)
                     transaction.commit()
                 } else {
                     Toast.makeText(requireContext(), "이동 수단을 선택해주세요.", Toast.LENGTH_SHORT).show()
@@ -110,7 +109,6 @@ class SearchTransportationFragment : Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                 transaction.replace(R.id.fr_main, searchPeopleFragment)
-                transaction.addToBackStack(null)
                 transaction.commit()
             }
         }

@@ -135,13 +135,24 @@ class ScoreFragment : Fragment() {
         val localDateTime: LocalDateTime = LocalDateTime.now()
         val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         viewModel.selectPlace?.observe(viewLifecycleOwner) {
-            binding.tvScoreTitle.text = "${it?.name}"
-            binding.tvScoreTitle2.text =
-                localDateTime.toString().substring(5, 7) +
-                        "월 " +
-                        localDateTime.toString().substring(8, 10) +
-                        "일 " +
-                        localDateTime.toString().substring(11, 16)
+            if(it == null){
+                binding.tvScoreTitle.text = "${viewModel.selectRecommendPlace.value?.name}"
+                binding.tvScoreTitle2.text =
+                    localDateTime.toString().substring(5, 7) +
+                            "월 " +
+                            localDateTime.toString().substring(8, 10) +
+                            "일 " +
+                            localDateTime.toString().substring(11, 16)
+            }
+            else {
+                binding.tvScoreTitle.text = "${it?.name}"
+                binding.tvScoreTitle2.text =
+                    localDateTime.toString().substring(5, 7) +
+                            "월 " +
+                            localDateTime.toString().substring(8, 10) +
+                            "일 " +
+                            localDateTime.toString().substring(11, 16)
+            }
         }
         viewModel.totalScore.observe(viewLifecycleOwner) {
             binding.tvScoreScore.text = "${it}점"
@@ -286,8 +297,6 @@ class ScoreFragment : Fragment() {
             .setPositiveButton("YES") { dialog, _ ->
                 val fragmentManager: FragmentManager = parentFragmentManager
                 val searchFragment = SearchFragment()
-                viewModel.resetPlaceData()
-                viewModel.resetScore()
                 fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
@@ -295,6 +304,9 @@ class ScoreFragment : Fragment() {
                 transaction.commit()
                 viewModel.resetTimeStamp()
                 viewModel.resetTime()
+                viewModel.resetPlaceData()
+                viewModel.resetRecommendPlaceData()
+                viewModel.resetScore()
                 (activity as MainActivity).visibleDrawerView()
             }
             .setNegativeButton("No", null)

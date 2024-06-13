@@ -62,7 +62,7 @@ class ListViewFragment : Fragment() {
             val score = it.getDouble(ARG_SCORE)
 
             if (address != null) {
-                val newPlace = CategoryPlace(address, score, null, null, null, null, true, null)
+                val newPlace = CategoryPlace(address, score, null, null, null, null, null, null, true, null)
                 if (adapter.currentList.none { it.address == address }) {
                     adapter.addPlace(newPlace)
                     savePlaceToPreferences(address, score)
@@ -120,7 +120,7 @@ class ListViewFragment : Fragment() {
             val address = sharedPreferences.getString("address_$i", null)
             val score = sharedPreferences.getFloat("score_$i", 0f)
             if (address != null) {
-                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, true, null))
+                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null,null,null, true, null))
             }
         }
         adapter.updatePlaces(places)

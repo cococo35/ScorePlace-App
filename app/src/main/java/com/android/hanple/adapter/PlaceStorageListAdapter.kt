@@ -87,7 +87,7 @@ class PlaceStorageListAdapter(
             val address = sharedPreferences.getString("place_$i", null)
             val score = sharedPreferences.getFloat("score_$i", 0f)
             if (address != null) {
-                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, true, null))
+                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, null,null,true, null))
             }
         }
         notifyDataSetChanged()
