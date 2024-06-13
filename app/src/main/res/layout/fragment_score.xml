@@ -75,7 +75,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_score_title2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="@drawable/writing_hand_png"
+                android:background="@drawable/emoji_writing_hand_gif"
                 android:layout_marginTop="40dp"
                 />
 
