@@ -13,6 +13,12 @@ class SharedPreferencesUtils(context: Context) { //context 매개변수를 위�
     private val spf: SharedPreferences =
         context.getSharedPreferences("remember_me", Context.MODE_PRIVATE)
 
+    fun saveGuestUid(uid: String) { // sharedPreference에 이메일 저장.
+        val editor: SharedPreferences.Editor = spf.edit()
+        editor.putString("firebase_auth_guest_uid", uid).apply()
+    }
+    fun loadGuestUid(): String = spf.getString("firebase_auth_guest_uid", "").toString()
+
     fun rememberMe(email: String) { // sharedPreference에 이메일 저장.
         val editor: SharedPreferences.Editor = spf.edit()
         editor.putString("remember_me", email).apply()
