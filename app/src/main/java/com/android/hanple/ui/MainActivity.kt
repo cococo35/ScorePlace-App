@@ -22,6 +22,7 @@ import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.ui.search.InitLoadFragment
 import com.android.hanple.ui.settings.SettingsActivity
+import com.android.hanple.ui.settings.SettingsFragment
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.libraries.places.api.Places
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         insertRoomData()
+        //initSettingsFragment()
         initFragment()
         setNavigation()
         initPlaceSDK()
@@ -64,6 +66,19 @@ class MainActivity : AppCompatActivity() {
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
+    private fun initSettingsFragment() {
+        val settingsFragment = SettingsFragment()
+        val nickname = intent.getStringExtra("nickname")
+        if (nickname != null) {
+            val bundle = Bundle()
+            bundle.putString("nickname", nickname)
+            settingsFragment.arguments = bundle
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fr_settings, settingsFragment)
+                .commit()
+        }
+    }
 
     private fun initFragment() {
         supportFragmentManager.commit {
