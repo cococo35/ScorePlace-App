@@ -1,8 +1,6 @@
 package com.android.hanple.ui.onboarding
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -17,14 +15,9 @@ import com.android.hanple.utils.SharedPreferencesUtils
 
 class AuthActivity : AppCompatActivity() {
 
-    companion object {
-        const val PREFS_NAME = "NicknamePrefs"
-        const val NICKNAME_KEY = "nickname"
-    }
-
     private lateinit var binding: ActivityLogInBinding
     private val authViewModel: AuthViewModel by viewModels()
-    
+    private val pref = SharedPreferencesUtils(applicationContext)
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Hanple)
         super.onCreate(savedInstanceState)
@@ -42,22 +35,16 @@ class AuthActivity : AppCompatActivity() {
         }
 
         binding.btnGuestLogin.setOnClickListener{
-            //만약 로컬에 저장된 계정이 없을 경우
-            val spfUid = SharedPreferencesUtils(applicationContext).loadGuestUid()
-            if (spfUid != "") { // 이전에 앱 설치 후 게스트 로그인을 한 적이 있음.
-                val username: String = GenerateNicknameUtils.generateNickname()
-                Toast.makeText(this, "게스트 로그인: ${username}님 환영합니다!", Toast.LENGTH_SHORT).show()
+            val prefGuestUid: String? = pref.loadGuestUid()
+            if (prefGuestUid == null) {
+                val guestUid = GenerateNicknameUtils.generateNickname()
+                pref.saveGuestUid(guestUid) //랜덤 생성된 별명 SharedPref에 저장됨.
+                Toast.makeText(this, "게스트 로그인: ${guestUid}님", Toast.LENGTH_SHORT).show()
             }
-            else { // 앱 설치 후 처음 게스트 로그인하는 경우
-                val uid = authViewModel.guestSignUp()
-                SharedPreferencesUtils(applicationContext).saveGuestUid(uid!!)
-                Log.d("첫 게스트 로그인: 환영합니다!", uid)
-                val nickname = GenerateNicknameUtils.generateNickname()
-                saveNicknameToLocal(nickname)
+            else {
+                val guestUid = pref.loadGuestUid()
+                Toast.makeText(this, "게스트 로그인: ${guestUid}님, 재방문을 환영해요!", Toast.LENGTH_SHORT).show()
             }
-            val mainIntent = Intent(this, MainActivity::class.java)
-            startActivity(mainIntent)
-            finish()
         }
 
         // 회원가입 텍스트뷰 클릭 리스너 설정
@@ -87,18 +74,5 @@ class AuthActivity : AppCompatActivity() {
             }
         })
 
-    }
-
-    private fun saveNicknameToLocal(nickname: String) {
-        val sharedPreferences: SharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
-            putString(NICKNAME_KEY, nickname)
-            apply()
-        }
-    }
-
-    private fun getNicknameFromLocal(): String? {
-        val sharedPreferences: SharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        return sharedPreferences.getString(NICKNAME_KEY, null)
     }
 }
