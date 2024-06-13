@@ -6,8 +6,6 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +18,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -29,12 +28,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.R
 import com.android.hanple.Room.RecommendDataBase
 import com.android.hanple.Room.recommendPlaceGoogleID
-import com.android.hanple.data.CategoryPlace
 import com.android.hanple.adapter.OnDataClick
 import com.android.hanple.adapter.PlaceScoreCategoryAdapter
 import com.android.hanple.adapter.ScoreCategoryListAdapter
+import com.android.hanple.data.CategoryPlace
 import com.android.hanple.databinding.FragmentScoreBinding
-import com.android.hanple.ui.ListViewFragment
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
@@ -151,9 +149,21 @@ class ScoreFragment : Fragment() {
     private fun getScoreDescription() {
         viewModel.totalScore.observe(viewLifecycleOwner) {
             when {
-                it < 40 -> binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
-                it in 40..74 -> binding.tvScoreDescription.text = "놀러 가기 적당해요~"
-                else -> binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
+                it < 40 -> {
+                    binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
+                    val iconUnder40 = ContextCompat.getDrawable(requireContext(), R.drawable.unamused_face_gif)
+                    binding.ivScoreIcon.background = iconUnder40
+                }
+                it in 40..74 -> {
+                    binding.tvScoreDescription.text = "놀러 가기 적당해요~"
+                    val iconUnder75 = ContextCompat.getDrawable(requireContext(), R.drawable.slightly_smiling_face_gif)
+                    binding.ivScoreIcon.background = iconUnder75
+                }
+                else -> {
+                    binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
+                    val iconUnder101 = ContextCompat.getDrawable(requireContext(), R.drawable.star_struck_gif)
+                    binding.ivScoreIcon.background = iconUnder101
+                }
             }
         }
     }
