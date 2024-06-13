@@ -42,7 +42,8 @@
     <string name="menu_logout">Logout from Hanple</string>
     <string name="menu_sign_off">Sign Off</string>
 
-    <string name="onboarding_log_in_btn">Login</string>
+    <string name="onboarding_email_log_in_btn">Login with E-mail</string>
+    <string name="onboarding_guest_log_in_btn">Start as Guest</string>
     <string name="onboarding_sign_up_btn">Register</string>
     <string name="onboarding_to_sign_up">Sign Up?</string>
     <string name="onboarding_email_hint">E-mail</string>
