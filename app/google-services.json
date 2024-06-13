@@ -1,14 +1,13 @@
 {
   "project_info": {
-    "project_number": "420908790294",
-    "firebase_url": "https://hanple-default-rtdb.firebaseio.com",
-    "project_id": "hanple",
-    "storage_bucket": "hanple.appspot.com"
+    "project_number": "796765914690",
+    "project_id": "hanple-users",
+    "storage_bucket": "hanple-users.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:420908790294:android:a4d0b49ef63c6f942dbb37",
+        "mobilesdk_app_id": "1:796765914690:android:82ffd73986499eed920fdb",
         "android_client_info": {
           "package_name": "com.android.hanple"
         }
@@ -16,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB-wPQ2JRSaRQsT48JyVKmPc-qB1w8Ns50"
+          "current_key": "AIzaSyAg2-8nYjunCy5kvKlL3NRMcjl5FhzJezU"
         }
       ],
       "services": {
