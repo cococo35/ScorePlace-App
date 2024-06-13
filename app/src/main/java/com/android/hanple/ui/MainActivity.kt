@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         val apiKey = "AIzaSyA1xkP-fgyKPmglkt5Dh3Nn_xr4MREvw0k"
 
         // Log an error if apiKey is not set.
-        if (apiKey.isEmpty() || apiKey == "DEFAULT_API_KEY") {
+        if (apiKey.isEmpty()) {
             Log.e("Places test", "No api key")
             finish()
             return
