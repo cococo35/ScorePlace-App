@@ -56,12 +56,14 @@ class SearchTimeFragment : Fragment() {
         getLocalTime()
         initView()
         putViewModelData()
-        createTimePickerBottomView()
+        if(viewModel.readTimeStamp.value == null || viewModel.readTimeStamp.value!!.isEmpty()){
+            createTimePickerBottomView()
+        }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        callback = object : OnBackPressedCallback(true){
+        callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val mainDrawer = requireActivity().findViewById<DrawerLayout>(R.id.drawer_layout)
                 if (mainDrawer.isDrawerOpen(GravityCompat.START)) {
@@ -76,6 +78,7 @@ class SearchTimeFragment : Fragment() {
                 }
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(this@SearchTimeFragment, callback)
         (activity as MainActivity).hideDrawerView()
     }
@@ -126,6 +129,26 @@ class SearchTimeFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "잘못 입력된 정보가 있습니다", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+        viewModel.startTime.observe(viewLifecycleOwner){
+            if(it == null || it == "not input"){
+                binding.tvSearchTimeFromHour.text = "00"
+                binding.tvSearchTimeFromMinute.text = "00"
+            }
+            else{
+                binding.tvSearchTimeFromHour.text = it.substring(0,2)
+                binding.tvSearchTimeFromMinute.text = it.substring(2)
+            }
+        }
+        viewModel.endTime.observe(viewLifecycleOwner){
+            if(it == null || it == "not input"){
+                binding.tvSearchTimeToHour.text = "00"
+                binding.tvSearchTimeToMinute.text = "00"
+            }
+            else{
+                binding.tvSearchTimeToHour.text = it.substring(0,2)
+                binding.tvSearchTimeToMinute.text = it.substring(2)
             }
         }
     }
@@ -217,29 +240,25 @@ class SearchTimeFragment : Fragment() {
         val startTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_start)
         val endTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_end)
         val insertButton = timePickerBottomSheet.findViewById<TextView>(R.id.tv_time_insert_dismiss)
-
+        timePickerBottomSheetView.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         startTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
             if (minute < 10) {
                 val minuteText = "0$minute"
                 startTime = "$hourOfDay" + minuteText
-                binding.tvSearchTimeFromHour.text = "$hourOfDay"
-                binding.tvSearchTimeFromMinute.text = minuteText
+                viewModel.getStartTime(startTime)
             } else {
                 startTime = "$hourOfDay" + "$minute"
-                binding.tvSearchTimeFromHour.text = "$hourOfDay"
-                binding.tvSearchTimeFromMinute.text = "$minute"
+                viewModel.getStartTime(startTime)
             }
         }
         endTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
             if (minute < 10) {
                 val minuteText = "0$minute"
                 endTime = "$hourOfDay" + minuteText
-                binding.tvSearchTimeToHour.text = "$hourOfDay"
-                binding.tvSearchTimeToMinute.text = minuteText
+                viewModel.getEndTime(endTime)
             } else {
                 endTime = "$hourOfDay" + "$minute"
-                binding.tvSearchTimeToHour.text = "$hourOfDay"
-                binding.tvSearchTimeToMinute.text = "$minute"
+                viewModel.getEndTime(endTime)
             }
         }
 
@@ -247,7 +266,7 @@ class SearchTimeFragment : Fragment() {
             viewModel.getTimeStamp(startTime,endTime)
             timePickerBottomSheetView.dismiss()
         }
-//        timePickerBottomSheetView.setCancelable(false)
+        timePickerBottomSheetView.setCancelable(false)
         timePickerBottomSheetView.show()
     }
 }
