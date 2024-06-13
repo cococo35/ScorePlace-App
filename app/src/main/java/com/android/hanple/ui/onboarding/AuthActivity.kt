@@ -1,20 +1,30 @@
 package com.android.hanple.ui.onboarding
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityLogInBinding
 import com.android.hanple.ui.MainActivity
+import com.android.hanple.utils.GenerateNicknameUtils
 import com.android.hanple.utils.SharedPreferencesUtils
 
-class LogInActivity : AppCompatActivity() {
+class AuthActivity : AppCompatActivity() {
+
+    companion object {
+        const val PREFS_NAME = "NicknamePrefs"
+        const val NICKNAME_KEY = "nickname"
+    }
 
     private lateinit var binding: ActivityLogInBinding
     private val authViewModel: AuthViewModel by viewModels()
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Hanple)
         super.onCreate(savedInstanceState)
@@ -35,13 +45,15 @@ class LogInActivity : AppCompatActivity() {
             //만약 로컬에 저장된 계정이 없을 경우
             val spfUid = SharedPreferencesUtils(applicationContext).loadGuestUid()
             if (spfUid != "") { // 이전에 앱 설치 후 게스트 로그인을 한 적이 있음.
-                val username: String = "(닉네임)"
+                val username: String = GenerateNicknameUtils.generateNickname()
                 Toast.makeText(this, "게스트 로그인: ${username}님 환영합니다!", Toast.LENGTH_SHORT).show()
             }
             else { // 앱 설치 후 처음 게스트 로그인하는 경우
                 val uid = authViewModel.guestSignUp()
                 SharedPreferencesUtils(applicationContext).saveGuestUid(uid!!)
                 Log.d("첫 게스트 로그인: 환영합니다!", uid)
+                val nickname = GenerateNicknameUtils.generateNickname()
+                saveNicknameToLocal(nickname)
             }
             val mainIntent = Intent(this, MainActivity::class.java)
             startActivity(mainIntent)
@@ -54,26 +66,39 @@ class LogInActivity : AppCompatActivity() {
             startActivity(signupIntent)
         }
 
-//        authViewModel.authState.observe(this, Observer { authState -> //firebase auth 계정 체크
-//            when (authState) {
-//                is AuthViewModel.AuthState.Success -> {
-//                    Toast.makeText(this, "Firebase Auth 인증 성공!", Toast.LENGTH_SHORT).show()
-//                    val intent = Intent(this, MainActivity::class.java)
-//                    startActivity(intent)
-//                    finish()  // 현재 Activity를 종료하여 뒤로가기 시 로그인 화면이 보이지 않도록 함
-//                }
-//                is AuthViewModel.AuthState.Failure -> {
-//                    val exception: String = "${authState.exception?.message}"
-//                    var toastMessage: String = ""
-//                    Log.d("Firebase Auth Failed", exception)
-//                    when (exception) {
-//                        "The supplied auth credential is incorrect, malformed or has expired." -> toastMessage = "아이디나 비밀번호를 확인해 주세요."
-//                        "The email address is badly formatted." -> toastMessage = "올바른 이메일 형식이 아닙니다."
-//                    }
-//                    Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        })
+        authViewModel.authState.observe(this, Observer { authState -> //firebase auth 계정 체크
+            when (authState) {
+                is AuthViewModel.AuthState.Success -> {
+                    Toast.makeText(this, "Firebase Auth 인증 성공!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()  // 현재 Activity를 종료하여 뒤로가기 시 로그인 화면이 보이지 않도록 함
+                }
+                is AuthViewModel.AuthState.Failure -> {
+                    val exception: String = "${authState.exception?.message}"
+                    var toastMessage: String = ""
+                    Log.d("Firebase Auth Failed", exception)
+                    when (exception) {
+                        "The supplied auth credential is incorrect, malformed or has expired." -> toastMessage = "아이디나 비밀번호를 확인해 주세요."
+                        "The email address is badly formatted." -> toastMessage = "올바른 이메일 형식이 아닙니다."
+                    }
+                    Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
 
+    }
+
+    private fun saveNicknameToLocal(nickname: String) {
+        val sharedPreferences: SharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putString(NICKNAME_KEY, nickname)
+            apply()
+        }
+    }
+
+    private fun getNicknameFromLocal(): String? {
+        val sharedPreferences: SharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return sharedPreferences.getString(NICKNAME_KEY, null)
     }
 }

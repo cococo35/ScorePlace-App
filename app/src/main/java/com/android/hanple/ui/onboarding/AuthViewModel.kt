@@ -35,13 +35,6 @@ class AuthViewModel : ViewModel() {
 
     fun guestSignUp(): String? {
         auth.signInAnonymously()
-            .addOnCompleteListener { login ->
-                if (login.isSuccessful) {
-                    _authState.value = AuthState.Success(auth.currentUser) //로그인 성공(현재 유저 정보)
-                } else {
-                    _authState.value = AuthState.Failure(login.exception) //로그인 실패(예외 String)
-                }
-            }
         return auth.currentUser?.uid
     }
 
