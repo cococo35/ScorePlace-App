@@ -242,24 +242,14 @@ class SearchTimeFragment : Fragment() {
         val insertButton = timePickerBottomSheet.findViewById<TextView>(R.id.tv_time_insert_dismiss)
         timePickerBottomSheetView.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         startTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-            if (minute < 10) {
-                val minuteText = "0$minute"
-                startTime = "$hourOfDay" + minuteText
-                viewModel.getStartTime(startTime)
-            } else {
-                startTime = "$hourOfDay" + "$minute"
-                viewModel.getStartTime(startTime)
-            }
+            startTime = getTimeString(hourOfDay) + getTimeString(minute)
+            Log.d("from 시간", startTime)
+            viewModel.getStartTime(startTime)
         }
         endTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-            if (minute < 10) {
-                val minuteText = "0$minute"
-                endTime = "$hourOfDay" + minuteText
-                viewModel.getEndTime(endTime)
-            } else {
-                endTime = "$hourOfDay" + "$minute"
-                viewModel.getEndTime(endTime)
-            }
+            endTime = getTimeString(hourOfDay) + getTimeString(minute)
+            Log.d("to 시간", endTime)
+            viewModel.getEndTime(endTime)
         }
 
         insertButton.setOnClickListener {
@@ -269,4 +259,16 @@ class SearchTimeFragment : Fragment() {
         timePickerBottomSheetView.setCancelable(false)
         timePickerBottomSheetView.show()
     }
+
+    private fun getTimeString(data: Int) : String {
+        var text : String = ""
+        if(data < 10){
+            text = "0$data"
+        }
+        else {
+            text = "$data"
+        }
+        return text
+    }
+
 }
