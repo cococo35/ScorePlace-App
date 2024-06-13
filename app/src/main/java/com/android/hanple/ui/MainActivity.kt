@@ -100,10 +100,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
+    //API키 수정은 여기서만
     private fun initPlaceSDK() {
         // Define a variable to hold the Places API key.
         //secret에서 정의한 API KEY가 안불러와져서 그냥 때려 박았습니다
-        val apiKey = "AIzaSyCdjyOxbTIwn_f13N9XhrLnKtFJ2kpsG7M"
+        val apiKey = "AIzaSyA1xkP-fgyKPmglkt5Dh3Nn_xr4MREvw0k"
 
         // Log an error if apiKey is not set.
         if (apiKey.isEmpty() || apiKey == "DEFAULT_API_KEY") {

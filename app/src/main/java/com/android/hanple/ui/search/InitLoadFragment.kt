@@ -1,11 +1,13 @@
 package com.android.hanple.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
@@ -50,7 +52,16 @@ class InitLoadFragment : Fragment() {
         _binding = null
     }
 
-    private fun initView(){
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this@InitLoadFragment, callback)
+    }
+
+    private fun initView(){0
         lifecycleScope.launch {
             whenStarted{
                 while (true){

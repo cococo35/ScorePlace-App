@@ -69,14 +69,18 @@ class SearchCostFragment : Fragment() {
 
         binding.edSearchCostInputCost.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                val price : Int = binding.edSearchCostInputCost.text.toString().toInt() * 10000
-                viewModel.getCostScore(price)
-                val searchLoadingFragment = SearchLoadingFragment()
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.fr_main, searchLoadingFragment)
-                transaction.addToBackStack(null)
-                transaction.commit()
-
+                if (binding.edSearchCostInputCost.text.toString().isEmpty()){
+                    Toast.makeText(requireContext(), "금액을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    val price: Int = binding.edSearchCostInputCost.text.toString().toInt() * 10000
+                    viewModel.getCostScore(price)
+                    val searchLoadingFragment = SearchLoadingFragment()
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fr_main, searchLoadingFragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
                 activity?.let { hideKeyBoard(it) }
 
                 return@OnKeyListener true
