@@ -1,11 +1,11 @@
 package com.android.hanple.ui.settings
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.android.hanple.R
+import androidx.fragment.app.Fragment
 import com.android.hanple.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
@@ -17,6 +17,10 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+
+        val nickname = arguments?.getString("nickname")
+        binding.tvSettingsNicknameValue.text = nickname
+        Log.d("nickname", "전달받은 문구: ${nickname}")
         return binding.root
     }
 
