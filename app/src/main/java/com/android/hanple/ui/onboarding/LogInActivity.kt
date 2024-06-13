@@ -53,7 +53,7 @@ class LogInActivity : AppCompatActivity() {
             Toast.makeText(this, "반가워요, $nickname 님!", Toast.LENGTH_SHORT).show()
             val mainIntent = Intent(this, MainActivity::class.java)
             mainIntent.putExtra("nickname", nickname)
-            Log.d("nickname", "$nickname 을 인텐트에 포장해 메인으로 보냄.")
+            Log.d("nickname", "닉네임: $nickname | 인텐트에 포장해 메인으로 보냄.")
             startActivity(mainIntent)
             finish()
         }

@@ -48,9 +48,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        sendLogInInfoToSettings()
         setContentView(binding.root)
         insertRoomData()
-        //initSettingsFragment()
         initFragment()
         setNavigation()
         initPlaceSDK()
@@ -66,17 +66,12 @@ class MainActivity : AppCompatActivity() {
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
-    private fun initSettingsFragment() {
-        val settingsFragment = SettingsFragment()
+    private fun sendLogInInfoToSettings() {
         val nickname = intent.getStringExtra("nickname")
         if (nickname != null) {
             val bundle = Bundle()
             bundle.putString("nickname", nickname)
-            settingsFragment.arguments = bundle
-
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fr_settings, settingsFragment)
-                .commit()
+            SettingsFragment().arguments = bundle
         }
     }
 
