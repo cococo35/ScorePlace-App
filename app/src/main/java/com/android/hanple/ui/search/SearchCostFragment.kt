@@ -78,7 +78,6 @@ class SearchCostFragment : Fragment() {
                     val searchLoadingFragment = SearchLoadingFragment()
                     val transaction = parentFragmentManager.beginTransaction()
                     transaction.replace(R.id.fr_main, searchLoadingFragment)
-                    transaction.addToBackStack(null)
                     transaction.commit()
                 }
                 activity?.let { hideKeyBoard(it) }
@@ -99,7 +98,6 @@ class SearchCostFragment : Fragment() {
                     val searchLoadingFragment = SearchLoadingFragment()
                     val transaction = parentFragmentManager.beginTransaction()
                     transaction.replace(R.id.fr_main, searchLoadingFragment)
-                    transaction.addToBackStack(null)
                     transaction.commit()
                 }
             }
@@ -110,7 +108,6 @@ class SearchCostFragment : Fragment() {
                 val searchLoadingFragment = SearchLoadingFragment()
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.replace(R.id.fr_main, searchLoadingFragment)
-                transaction.addToBackStack(null)
                 transaction.commit()
             }
         }

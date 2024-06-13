@@ -1,6 +1,7 @@
 package com.android.hanple.ui.search
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
@@ -17,6 +19,7 @@ import com.android.hanple.data.CategoryPlace
 import com.android.hanple.adapter.OnDataClick
 import com.android.hanple.adapter.PlaceScoreCategoryAdapter
 import com.android.hanple.databinding.FragmentSearchBinding
+import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.gms.common.api.Status
@@ -57,6 +60,7 @@ class SearchFragment : Fragment() {
         binding.btnSearchNext.visibility = View.GONE
         binding.recyclerviewSearchRecommend.adapter = PlaceScoreCategoryAdapter(object : OnDataClick{
             override fun onItemClick(data: CategoryPlace) {
+                clickRecommendPlace(data)
             }
         })
         binding.recyclerviewSearchRecommend.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
@@ -68,10 +72,10 @@ class SearchFragment : Fragment() {
             val transaction = parentFragmentManager.beginTransaction()
             transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
             transaction.replace(R.id.fr_main, searchTimeFragment)
-            transaction.addToBackStack(null)
             transaction.commit()
         }
-
+        viewModel.resetTimeStamp()
+        viewModel.resetTime()
     }
 
     override fun onDestroy() {
@@ -96,6 +100,7 @@ class SearchFragment : Fragment() {
                 Log.i(ContentValues.TAG, "An error occurred: $status")
             }
         })
+
     }
     private fun nextButtonActivated(){
         viewModel.selectPlace.observe(viewLifecycleOwner){
@@ -118,5 +123,23 @@ class SearchFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun clickRecommendPlace(place: CategoryPlace){
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle("${place.name}의 추천 점수를 알아볼까요?")
+            .setPositiveButton("YES") { dialog, _ ->
+                val searchTimeFragment = SearchTimeFragment()
+                viewModel.getSelectRecommendData(place)
+                viewModel.getSelectPlaceLatLng(place.latLng!!)
+                viewModel.getCongestionData(place.name!!)
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
+                transaction.replace(R.id.fr_main, searchTimeFragment)
+                transaction.commit()
+            }
+            .setNegativeButton("No", null)
+            .create()
+            .show()
     }
 }
