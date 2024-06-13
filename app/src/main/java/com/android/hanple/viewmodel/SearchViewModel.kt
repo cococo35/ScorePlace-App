@@ -248,10 +248,8 @@ class SearchViewModel(
                 Place.Field.ID,
                 Place.Field.NAME,
                 Place.Field.RATING,
-                Place.Field.OPENING_HOURS,
                 Place.Field.ADDRESS,
                 Place.Field.PHOTO_METADATAS,
-                Place.Field.EDITORIAL_SUMMARY,
             )
             var includeType = listOf(type)
             var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
@@ -620,12 +618,11 @@ class SearchViewModel(
         val recommendListBuffer = mutableListOf<CategoryPlace>()
         var uri : Uri? = null
         var data : CategoryPlace? = null
-
             viewModelScope.launch {
             list.forEach { it ->
                 val recommendID = dao.getRecommendPlaceById(it).name
                 val placeFields =
-                    Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.RATING, Place.Field.OPENING_HOURS, Place.Field.PHOTO_METADATAS, Place.Field.EDITORIAL_SUMMARY)
+                    Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.RATING, Place.Field.PHOTO_METADATAS)
                 val request = FetchPlaceRequest.newInstance(recommendID, placeFields)
 
                 val placeTask : Task<FetchPlaceResponse> = placeClient.value!!.fetchPlace(request)
