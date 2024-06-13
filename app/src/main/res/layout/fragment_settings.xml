@@ -16,7 +16,8 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:text="내 정보 관리"
-        android:textSize="32sp"
+        android:fontFamily="@font/line_seed_bold"
+        android:textSize="34sp"
         android:textStyle="bold" />
 
     <TextView
@@ -28,7 +29,8 @@
         android:layout_marginTop="55dp"
         android:layout_marginStart="30dp"
         android:text="별명"
-        android:textSize="20sp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
@@ -39,7 +41,8 @@
         app:layout_constraintStart_toStartOf="@id/tv_settings_nickname"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_nickname"
         android:text="cococo35"
-        android:textSize="18sp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp"
         android:textColor="@color/darkgray" />
 
     <ImageView
@@ -60,7 +63,8 @@
         app:layout_constraintTop_toBottomOf="@id/iv_settings_line"
         android:layout_marginTop="15dp"
         android:text="이메일"
-        android:textSize="20sp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
@@ -71,7 +75,8 @@
         app:layout_constraintStart_toStartOf="@id/tv_settings_email"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_email"
         android:text="test123@google.com"
-        android:textSize="18sp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp"
         android:textColor="@color/darkgray" />
 
     <ImageView
@@ -92,7 +97,8 @@
         app:layout_constraintTop_toBottomOf="@id/iv_settings_line2"
         android:layout_marginTop="15dp"
         android:text="비밀번호"
-        android:textSize="20sp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
@@ -103,7 +109,8 @@
         app:layout_constraintStart_toStartOf="@id/tv_settings_password"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_password"
         android:text="********"
-        android:textSize="18sp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp"
         android:textColor="@color/darkgray" />
 
     <ImageView
@@ -124,7 +131,8 @@
         app:layout_constraintTop_toBottomOf="@id/iv_settings_line3"
         android:layout_marginTop="55dp"
         android:text="로그아웃"
-        android:textSize="20sp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
@@ -135,7 +143,8 @@
         app:layout_constraintTop_toBottomOf="@id/tv_settings_logout"
         android:layout_marginTop="25dp"
         android:text="HANPLE 탈퇴"
-        android:textSize="20sp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
         android:textColor="@color/red"
         android:textStyle="bold" />
 

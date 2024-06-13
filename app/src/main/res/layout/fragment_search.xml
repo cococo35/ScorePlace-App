@@ -23,7 +23,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="어디로 가시나요?"
-                android:textSize="32sp"
+                android:fontFamily="@font/line_seed_bold"
+                android:textSize="36sp"
                 android:textStyle="bold"
                 android:layout_marginTop="25dp"
                 android:layout_marginStart="25dp"
@@ -56,7 +57,8 @@
                 android:layout_height="wrap_content"
                 android:text="점수 확인하기 >"
                 android:background="@color/white"
-                android:textSize="14sp"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
@@ -73,7 +75,8 @@
                 app:layout_constraintTop_toBottomOf="@id/autocompletecardview"
                 android:layout_marginTop="65dp"
                 android:text="이런 장소는 어떠세요?"
-                android:textSize="16sp"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
