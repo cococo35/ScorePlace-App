@@ -21,49 +21,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/view_separator1"
+        android:layout_width="250dp"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_from_minute"
+        app:layout_constraintStart_toStartOf="@+id/tv_search_time_from_hour"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_time_point" />
+
+    <View
+        android:id="@+id/view_separator2"
+        android:layout_width="250dp"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/tv_search_time_to_hour"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_time_point2"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_to_minute"
+
     <TextView
         android:id="@+id/tv_search_time_from_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_regular"
+        android:maxLength="2"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_search_time_title"
-        android:fontFamily="@font/pretendard_regular"
-        android:textSize="20sp"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="25dp"
-        android:maxLength="2"
         android:text="00"
-         />
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="193dp" />
 
     <TextView
         android:id="@+id/tv_search_time_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_search_time_from_hour"
-        app:layout_constraintTop_toTopOf="@+id/tv_search_time_from_hour"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_from_hour"
         android:text=":"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:textSize="18sp" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_from_hour"
+        app:layout_constraintTop_toTopOf="@+id/tv_search_time_from_hour"
+        tools:layout_editor_absoluteX="55dp" />
 
     <TextView
         android:id="@+id/tv_search_time_from_minute"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:clickable="false"
+        android:fontFamily="@font/pretendard_regular"
+        android:maxLength="2"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        app:layout_constraintStart_toEndOf="@id/tv_search_time_point"
-        app:layout_constraintTop_toTopOf="@id/tv_search_time_point"
-        app:layout_constraintBottom_toBottomOf="@id/tv_search_time_point"
-        android:layout_marginStart="5dp"
-        android:fontFamily="@font/pretendard_regular"
-        android:textSize="20sp"
         android:text="00"
-        android:maxLength="2"
-        android:clickable="false" />
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_search_time_point"
+        app:layout_constraintStart_toEndOf="@id/tv_search_time_point"
+        app:layout_constraintTop_toTopOf="@id/tv_search_time_point" />
 
     <TextView
         android:id="@+id/tv_search_time_from"
@@ -74,8 +88,8 @@
         android:text="@string/time_from"
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
-        android:textSize="17sp"
-        android:layout_marginTop="5dp"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="5dp" />
 
     <TextView
@@ -86,14 +100,15 @@
         android:paddingBottom="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_time_from"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="26dp"
         android:maxLength="2"
         android:clickable="false"
         android:text="00"
         android:fontFamily="@font/pretendard_regular"
-        android:textSize="20sp"
-         />
+        android:textSize="20sp" />
+
+
 
     <TextView
         android:id="@+id/tv_search_time_point2"
@@ -132,7 +147,7 @@
         android:text="@string/time_to"
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
-        android:textSize="17sp"
+        android:textSize="20sp"
         android:layout_marginTop="5dp"
         android:layout_marginStart="5dp" />
 
