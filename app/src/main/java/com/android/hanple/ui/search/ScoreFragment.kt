@@ -82,6 +82,7 @@ class ScoreFragment : Fragment() {
         onBackPressButton()
         setRecommendPlace()
         loadImage()
+        (activity as MainActivity).hideDrawerView()
         createBottomView()
         binding.ivScoreBookmark.setOnClickListener {
             toggleBookmarkIcon()
@@ -136,6 +137,7 @@ class ScoreFragment : Fragment() {
         viewModel.selectPlace?.observe(viewLifecycleOwner) {
             if(it == null){
                 binding.tvScoreTitle.text = "${viewModel.selectRecommendPlace.value?.name}"
+                binding.tvCategoryText.text = "${viewModel.selectRecommendPlace.value?.name} 주변"
                 binding.tvScoreTitle2.text =
                     localDateTime.toString().substring(5, 7) +
                             "월 " +
@@ -145,6 +147,7 @@ class ScoreFragment : Fragment() {
             }
             else {
                 binding.tvScoreTitle.text = "${it?.name}"
+                binding.tvCategoryText.text = "${it?.name} 주변"
                 binding.tvScoreTitle2.text =
                     localDateTime.toString().substring(5, 7) +
                             "월 " +
@@ -318,7 +321,6 @@ class ScoreFragment : Fragment() {
                 viewModel.resetPlaceData()
                 viewModel.resetRecommendPlaceData()
                 viewModel.resetScore()
-                (activity as MainActivity).visibleDrawerView()
             }
             .setNegativeButton("No", null)
             .create()
@@ -371,20 +373,16 @@ class ScoreFragment : Fragment() {
         val scoreCategoryBottomSheetView = BottomSheetDialog(requireContext())
         scoreCategoryBottomSheetView.setContentView(scoreCategoryBottomSheet)
         val bottomSheetList = scoreCategoryBottomSheet.findViewById<RecyclerView>(R.id.bottom_score_category_list)
-        val bottomButton = scoreCategoryBottomSheet.findViewById<TextView>(R.id.tv_score_category_button)
         bottomSheetList.adapter = ScoreCategoryListAdapter(spinnerList, object : ScoreCategoryListAdapter.OnItemClickListener{
+            @SuppressLint("SetTextI18n")
             override fun onItemClick(position: Int) {
                 viewModel.getNearByPlace(typeList[position])
-                binding.btnCategoryViewOpen.text = spinnerList[position]
+                binding.btnCategoryViewOpen.text = "${spinnerList[position]}  ∨"
+                scoreCategoryBottomSheetView.dismiss()
             }
         })
         scoreCategoryBottomSheetView.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetList.layoutManager = LinearLayoutManager(requireContext())
-        bottomButton.setOnClickListener {
-            scoreCategoryBottomSheetView.dismiss()
-
-        }
-
         binding.btnCategoryViewOpen.setOnClickListener {
             scoreCategoryBottomSheetView.show()
         }

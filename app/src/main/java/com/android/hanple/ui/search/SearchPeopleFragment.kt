@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchBinding
 import com.android.hanple.databinding.FragmentSearchPeopleBinding
+import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 
@@ -38,6 +39,7 @@ class SearchPeopleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         getScore()
+        (activity as MainActivity).hideDrawerView()
     }
     override fun onAttach(context: Context) {
         super.onAttach(context)
