@@ -50,6 +50,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAutoComplete()
+        (activity as MainActivity).visibleDrawerView()
         nextButtonActivated()
         initView()
         renewalData()
