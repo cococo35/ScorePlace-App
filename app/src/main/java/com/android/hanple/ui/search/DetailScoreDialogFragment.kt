@@ -41,7 +41,7 @@ class DetailScoreDialogFragment : DialogFragment() {
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT)
         viewModel.readDustScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreDust.text = "미세먼지 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
+            binding.tvDetailDialogScoreDust.text = "미세먼지 점수 ${"%.0f".format(it.toDouble() / 10 * 100)}점"
             if (it >= 8) {
                 binding.tvDetailDialogScoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
                 binding.tvDetailDialogScoreDustDescription.text = "미세먼지 농도가 '좋음' 수준이에요"
@@ -54,7 +54,7 @@ class DetailScoreDialogFragment : DialogFragment() {
             }
         }
         viewModel.readWeatherScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreWeather.text = "날씨 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
+            binding.tvDetailDialogScoreWeather.text = "날씨 점수 ${"%.0f".format(it.toDouble() / 30 * 100)}점"
             if (it >= 24) {
                 binding.tvDetailDialogScoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
                 binding.tvDetailDialogScoreWeatherDescription.text = "맑은 날씨에요"
@@ -67,7 +67,7 @@ class DetailScoreDialogFragment : DialogFragment() {
             }
         }
         viewModel.readCongestScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreCongestion.text = "여행 성향 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
+            binding.tvDetailDialogScoreCongestion.text = "여행 성향 점수 ${"%.0f".format(it.toDouble() / 30 * 100)}점"
             if (it >= 24) {
                 binding.tvDetailDialogScoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
                 binding.tvDetailDialogScoreCongestionDescription.text = "내가 원하던 장소에요"
@@ -80,7 +80,7 @@ class DetailScoreDialogFragment : DialogFragment() {
             }
         }
         viewModel.readCostScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreCost.text = "비용 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
+            binding.tvDetailDialogScoreCost.text = "비용 점수 ${"%.0f".format(it.toDouble() / 10 * 100)}점"
             if (it >= 8) {
                 binding.tvDetailDialogScoreCost.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
                 binding.tvDetailDialogScoreCostDescription.text = "마음껏 쓸 수 있어요"
@@ -93,7 +93,7 @@ class DetailScoreDialogFragment : DialogFragment() {
             }
         }
         viewModel.readTransportScore.observe(viewLifecycleOwner){
-            binding.tvDetailDialogScoreTraffic.text = "교통 점수 : ${"%.0f".format(it.toDouble() / 20 * 100)}점"
+            binding.tvDetailDialogScoreTraffic.text = "교통 점수 ${"%.0f".format(it.toDouble() / 20 * 100)}점"
             if (it >= 15) {
                 binding.tvDetailDialogScoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
                 binding.tvDetailDialogScoreTrafficDescription.text = "막힘없이 이동할 수 있어요"
