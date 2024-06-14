@@ -1,5 +1,6 @@
 package com.android.hanple.ui.onboarding
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,11 +14,21 @@ class AuthViewModel : ViewModel() {
     // (mutable, immutable) LiveData 선언해 주기.
     private val _authState = MutableLiveData<AuthState>()
     val authState: LiveData<AuthState> get() = _authState
-    //get 사용하므로 _authState 값 바뀔 때마다 authState가 갱신됨.
 
+    sealed class AuthState { //로 observe에서 깔끔하게
+        data class Success(val user: FirebaseUser?) : AuthState()
+        data class Failure(val exception: Exception?) : AuthState()
+    }
     private val auth: FirebaseAuth = Firebase.auth //firebase auth 가져오기.
 
-    fun logIn(email: String?, password: String?): Int {
+    fun guestLogIn() {
+        auth.signInAnonymously().addOnSuccessListener {
+            Log.d("firebase auth", "게스트 로그인 성공")
+        }
+    }
+
+    fun getUid(): String = auth.currentUser?.uid.toString()
+    fun emailLogIn(email: String?, password: String?): Int {
         if (email == null || email == "") return 1
         else if (password == null || password == "") return 2
         else {
@@ -33,15 +44,7 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    fun getUid(): String {
-        return auth.currentUser?.uid.toString()
-    }
-
-    sealed class AuthState {
-        data class Success(val user: FirebaseUser?) : AuthState()
-        data class Failure(val exception: Exception?) : AuthState()
-
-    }
-
-
 }
+
+
+

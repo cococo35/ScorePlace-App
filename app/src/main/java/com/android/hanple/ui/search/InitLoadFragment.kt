@@ -17,6 +17,7 @@ import com.android.hanple.Room.RecommendPlace
 import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.FragmentInitLoadBinding
 import com.android.hanple.databinding.FragmentSearchBinding
+import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import kotlinx.coroutines.delay
@@ -59,25 +60,28 @@ class InitLoadFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this@InitLoadFragment, callback)
+        (activity as MainActivity).hideDrawerView()
     }
 
-    private fun initView(){0
+    private fun initView(){
         lifecycleScope.launch {
+            var value = 0
             whenStarted{
-                while (true){
-                    delay(1000)
-                    time += 1
-                    if(time == 3){
-                        time = 0
-                        val searchFragment = SearchFragment()
-                        val transaction = parentFragmentManager.beginTransaction()
-                        transaction.replace(R.id.fr_main, searchFragment)
-                        transaction.commit()
-                        break
-                    }
+                while(value != 100){
+                    delay(25)
+                    value += 1
+                    binding.initLoadProgessbar.progress = value
+                    binding.initLoadProgressValue.text = "$value%"
                 }
+                delay(500)
+                val searchFragment = SearchFragment()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.fr_main, searchFragment)
+                transaction.commit()
             }
         }
     }
+
+
 
 }

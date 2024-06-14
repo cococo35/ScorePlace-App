@@ -241,12 +241,22 @@ class SearchTimeFragment : Fragment() {
     //Time Picker 출력 메소드
     @SuppressLint("InflateParams")
     private fun createTimePickerBottomView() {
-        var startTime : String = ""
-        var endTime : String = ""
+
+        var startTime : String = "1000"
+        var endTime : String = "2200"
+
+        viewModel.getStartTime(startTime)
+        viewModel.getEndTime(endTime)
         val startTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_start)
         val endTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_end)
         val insertButton = timePickerBottomSheet.findViewById<TextView>(R.id.tv_time_insert_dismiss)
         timePickerBottomSheetView.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+
+        startTimePicker.hour = 10
+        startTimePicker.minute = 0
+        endTimePicker.hour = 22
+        endTimePicker.minute = 0
+
         startTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
             startTime = getTimeString(hourOfDay) + getTimeString(minute)
             Log.d("from 시간", startTime)

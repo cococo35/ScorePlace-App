@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="하루동안 얼만큼 쓸건가요?"
-        android:textSize="32sp"
+        android:fontFamily="@font/line_seed_bold"
+        android:textSize="34sp"
         android:textStyle="bold"
         android:layout_marginTop="125dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +33,7 @@
         android:maxLength="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_cost_title"
+        android:fontFamily="@font/pretendard_regular"
         android:hint="10" />
 
     <TextView
@@ -43,7 +45,8 @@
         app:layout_constraintBottom_toBottomOf="@id/ed_search_cost_input_cost"
         android:text="만 원"
         android:layout_marginStart="10dp"
-        android:textSize="22sp"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:gravity="center" />
 
@@ -56,7 +59,8 @@
         android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:text="정도면 적당할 것 같아요!"
-        android:textSize="18sp" />
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cd_search_cost_next"
@@ -81,7 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/next"
-                android:textSize="25sp"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="27sp"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/white"
@@ -115,7 +120,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/skip"
-                android:textSize="25sp"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="27sp"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textColor="@color/white"
