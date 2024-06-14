@@ -204,7 +204,7 @@
                     />
                     <TextView
                         android:id="@+id/btn_category_view_open"
-                        android:layout_width="80dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:background="@drawable/rounded_background"
                         android:elevation="2dp"
@@ -213,6 +213,8 @@
                         app:layout_constraintStart_toEndOf="@+id/tv_category_text"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
                         android:text="음식점"
                         android:fontFamily="@font/pretendard_regular"
                         android:textSize="20sp"

@@ -162,7 +162,7 @@
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
-        android:text="걸어가거나, 대중교통을 이용해요!" />
+        android:text="대중교통을 이용해요!" />
 
     <TextView
         android:id="@+id/tv_search_transportation_car"
