@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_title"
         android:layout_marginTop="55dp"
         android:layout_marginStart="25dp"
-        android:background="@drawable/ic_star_filled_18dp" />
+        android:background="@drawable/ic_dust_sample" />
 
 
     <TextView
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_detail_dialog_dust"
         android:layout_marginTop="40dp"
         android:layout_marginStart="25dp"
-        android:background="@drawable/ic_star_filled_18dp" />
+        android:background="@drawable/ic_weather_sample" />
 
     <TextView
         android:id="@+id/tv_detail_dialog_score_traffic"
@@ -122,7 +122,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_detail_dialog_weather"
         android:layout_marginTop="40dp"
         android:layout_marginStart="25dp"
-        android:background="@drawable/ic_star_filled_18dp" />
+        android:background="@drawable/ic_traffic_sample" />
 
     <TextView
         android:id="@+id/tv_detail_dialog_score_congestion"
@@ -156,7 +156,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_detail_dialog_traffic"
         android:layout_marginTop="40dp"
         android:layout_marginStart="25dp"
-        android:background="@drawable/ic_star_filled_18dp" />
+        android:background="@drawable/ic_map_sample" />
 
     <TextView
         android:id="@+id/tv_detail_dialog_score_cost"
@@ -190,7 +190,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_detail_dialog_congestion"
         android:layout_marginTop="40dp"
         android:layout_marginStart="25dp"
-        android:background="@drawable/ic_star_filled_18dp" />
+        android:background="@drawable/ic_money_sample" />
 
     <TextView
         android:id="@+id/tv_detail_dialog_dismiss"
