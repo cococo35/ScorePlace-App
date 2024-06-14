@@ -95,7 +95,6 @@ class SearchPeopleFragment : Fragment() {
                     val transaction = parentFragmentManager.beginTransaction()
                     transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                     transaction.replace(R.id.fr_main, searchCostFragment)
-                    transaction.addToBackStack(null)
                     transaction.commit()
                 }
             }
@@ -106,7 +105,6 @@ class SearchPeopleFragment : Fragment() {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                 transaction.replace(R.id.fr_main, searchCostFragment)
-                transaction.addToBackStack(null)
                 transaction.commit()
             }
         }

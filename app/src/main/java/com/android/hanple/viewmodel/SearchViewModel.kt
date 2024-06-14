@@ -44,6 +44,9 @@ class SearchViewModel(
     private val _selectPlace = MutableLiveData<Place?>()
     val selectPlace: LiveData<Place?> get() = _selectPlace
 
+    private val _selectRecommendPlace = MutableLiveData<CategoryPlace?>()
+    val selectRecommendPlace : LiveData<CategoryPlace?> get() = _selectRecommendPlace
+
     private val _startTime = MutableLiveData<String>()
     private val _endTime = MutableLiveData<String>()
     val startTime : LiveData<String> get() = _startTime
@@ -112,6 +115,7 @@ class SearchViewModel(
 
     fun getPlacedata(data: Place) {
         _selectPlace.value = data
+        _selectRecommendPlace.value = null
     }
 
     fun resetPlaceData() {
@@ -119,6 +123,14 @@ class SearchViewModel(
         _selectPlace.value = empty
     }
 
+    fun getSelectRecommendData(data: CategoryPlace){
+        _selectRecommendPlace.value = data
+        _selectPlace.value = null
+    }
+    fun resetRecommendPlaceData(){
+        val empty: CategoryPlace? = null
+        _selectRecommendPlace.value = empty
+    }
     //구글 클라이언트 설정
     fun setPlacesAPIClient(placesClient: PlacesClient) {
         placeClient.postValue(placesClient)
@@ -248,10 +260,10 @@ class SearchViewModel(
                 Place.Field.ID,
                 Place.Field.NAME,
                 Place.Field.RATING,
-                Place.Field.OPENING_HOURS,
                 Place.Field.ADDRESS,
+                Place.Field.LAT_LNG,
+                Place.Field.PRICE_LEVEL,
                 Place.Field.PHOTO_METADATAS,
-                Place.Field.EDITORIAL_SUMMARY,
             )
             var includeType = listOf(type)
             var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
@@ -275,9 +287,11 @@ class SearchViewModel(
                                 null,
                                 it.id,
                                 it.name,
-                                it.editorialSummary,
+                                it.latLng,
+                                it.priceLevel,
+                                null,
                                 false,
-                                it.openingHours
+                                null,
                             )
                             categoryPlaceList.add(data)
                             getCategoryImage(categoryPlaceList)
@@ -518,40 +532,77 @@ class SearchViewModel(
     fun getCostScore(price: Int) {
         additionalCountCost = 0
         Log.d("비용 인풋", price.toString())
-        Log.d("가격 수준", _selectPlace.value?.priceLevel.toString())
         var score = 5
-        if (_selectPlace.value?.priceLevel == null) {
-            costScore.value = 5
-        } else {
-            if (price <= 50000) {
-                score = when (_selectPlace.value?.priceLevel) {
-                    0 -> 6
-                    1 -> 10
-                    2 -> 8
-                    else -> 0
+
+        if(_selectPlace.value != null && _selectRecommendPlace.value == null) {
+            if (_selectPlace.value?.priceLevel == null) {
+                costScore.value = 5
+            } else {
+                if (price <= 50000) {
+                    score = when (_selectPlace.value?.priceLevel) {
+                        0 -> 6
+                        1 -> 10
+                        2 -> 8
+                        else -> 0
+                    }
                 }
-            }
-            if (price in 50001..150000) {
-                score = when (_selectPlace.value?.priceLevel) {
-                    3 -> 10
-                    4 -> 9
-                    5 -> 1
-                    else -> 8
+                if (price in 50001..150000) {
+                    score = when (_selectPlace.value?.priceLevel) {
+                        3 -> 10
+                        4 -> 9
+                        5 -> 1
+                        else -> 8
+                    }
                 }
-            }
-            if (price > 150000) {
-                score = when (_selectPlace.value?.priceLevel) {
-                    4 -> 9
-                    5 -> 10
-                    else -> 8
+                if (price > 150000) {
+                    score = when (_selectPlace.value?.priceLevel) {
+                        4 -> 9
+                        5 -> 10
+                        else -> 8
+                    }
                 }
+                costScore.postValue(score)
             }
-            costScore.postValue(score)
+            if (score >= 5) {
+                additionalCountCost++
+            } else {
+                additionalCountCost--
+            }
         }
-        if (score >= 5) {
-            additionalCountCost++
-        } else {
-            additionalCountCost--
+        else if(_selectPlace.value == null && _selectRecommendPlace.value != null){
+            if (_selectRecommendPlace.value?.priceLevel == null) {
+                costScore.value = 5
+            } else {
+                if (price <= 50000) {
+                    score = when (_selectRecommendPlace.value?.priceLevel) {
+                        0 -> 6
+                        1 -> 10
+                        2 -> 8
+                        else -> 0
+                    }
+                }
+                if (price in 50001..150000) {
+                    score = when (_selectRecommendPlace.value?.priceLevel) {
+                        3 -> 10
+                        4 -> 9
+                        5 -> 1
+                        else -> 8
+                    }
+                }
+                if (price > 150000) {
+                    score = when (_selectRecommendPlace.value?.priceLevel) {
+                        4 -> 9
+                        5 -> 10
+                        else -> 8
+                    }
+                }
+                costScore.postValue(score)
+            }
+            if (score >= 5) {
+                additionalCountCost++
+            } else {
+                additionalCountCost--
+            }
         }
     }
 
@@ -620,12 +671,18 @@ class SearchViewModel(
         val recommendListBuffer = mutableListOf<CategoryPlace>()
         var uri : Uri? = null
         var data : CategoryPlace? = null
-
             viewModelScope.launch {
             list.forEach { it ->
                 val recommendID = dao.getRecommendPlaceById(it).name
                 val placeFields =
-                    Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.RATING, Place.Field.OPENING_HOURS, Place.Field.PHOTO_METADATAS, Place.Field.EDITORIAL_SUMMARY)
+                    Arrays.asList(
+                        Place.Field.ID,
+                        Place.Field.NAME,
+                        Place.Field.RATING,
+                        Place.Field.ADDRESS,
+                        Place.Field.LAT_LNG,
+                        Place.Field.PRICE_LEVEL,
+                        Place.Field.PHOTO_METADATAS,)
                 val request = FetchPlaceRequest.newInstance(recommendID, placeFields)
 
                 val placeTask : Task<FetchPlaceResponse> = placeClient.value!!.fetchPlace(request)
@@ -637,9 +694,11 @@ class SearchViewModel(
                         null,
                         placeBuffer.value?.id,
                         placeBuffer.value?.name,
-                        placeBuffer.value?.editorialSummary,
+                        placeBuffer.value?.latLng,
+                        placeBuffer.value?.priceLevel,
+                        null,
                         false,
-                        placeBuffer.value?.openingHours
+                        null,
                     )
                     getImage(data!!)
                     recommendListBuffer.add(data!!)

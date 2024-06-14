@@ -1,5 +1,6 @@
 package com.android.hanple.ui.search
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.os.Build
@@ -32,13 +33,19 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+@SuppressLint("InflateParams")
 class SearchTimeFragment : Fragment() {
     private var _binding: FragmentSearchTimeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
-
+    private val timePickerBottomSheet by lazy{
+        layoutInflater.inflate(R.layout.fragment_insert_time, null)
+    }
+    private val timePickerBottomSheetView by lazy {
+        BottomSheetDialog(requireContext())
+    }
     private lateinit var callback : OnBackPressedCallback
     private lateinit var localDateTime : String
 
@@ -56,6 +63,7 @@ class SearchTimeFragment : Fragment() {
         getLocalTime()
         initView()
         putViewModelData()
+        timePickerBottomSheetView.setContentView(timePickerBottomSheet)
         if(viewModel.readTimeStamp.value == null || viewModel.readTimeStamp.value!!.isEmpty()){
             createTimePickerBottomView()
         }
@@ -69,16 +77,17 @@ class SearchTimeFragment : Fragment() {
                 if (mainDrawer.isDrawerOpen(GravityCompat.START)) {
                     mainDrawer.closeDrawer(GravityCompat.START)
                 } else {
-                    val searchFragment = SearchFragment()
-                    val transaction = parentFragmentManager.beginTransaction()
-                    transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
-                    transaction.replace(R.id.fr_main, searchFragment)
-                    transaction.commit()
-                    (activity as MainActivity).visibleDrawerView()
+                        val searchFragment = SearchFragment()
+                        val transaction = parentFragmentManager.beginTransaction()
+                        transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
+                        transaction.replace(R.id.fr_main, searchFragment)
+                        transaction.commit()
+                        viewModel.resetPlaceData()
+                        viewModel.resetRecommendPlaceData()
+                        (activity as MainActivity).visibleDrawerView()
                 }
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(this@SearchTimeFragment, callback)
         (activity as MainActivity).hideDrawerView()
     }
@@ -124,7 +133,6 @@ class SearchTimeFragment : Fragment() {
                     val transaction = parentFragmentManager.beginTransaction()
                     transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                     transaction.replace(R.id.fr_main, searchTransportationFragment)
-                    transaction.addToBackStack(null)
                     transaction.commit()
                 } else {
                     Toast.makeText(requireContext(), "잘못 입력된 정보가 있습니다", Toast.LENGTH_SHORT).show()
@@ -231,10 +239,8 @@ class SearchTimeFragment : Fragment() {
     }
 
     //Time Picker 출력 메소드
+    @SuppressLint("InflateParams")
     private fun createTimePickerBottomView() {
-        val timePickerBottomSheet = layoutInflater.inflate(R.layout.fragment_insert_time, null)
-        val timePickerBottomSheetView = BottomSheetDialog(requireContext())
-        timePickerBottomSheetView.setContentView(timePickerBottomSheet)
         var startTime : String = ""
         var endTime : String = ""
         val startTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_start)
@@ -242,24 +248,14 @@ class SearchTimeFragment : Fragment() {
         val insertButton = timePickerBottomSheet.findViewById<TextView>(R.id.tv_time_insert_dismiss)
         timePickerBottomSheetView.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         startTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-            if (minute < 10) {
-                val minuteText = "0$minute"
-                startTime = "$hourOfDay" + minuteText
-                viewModel.getStartTime(startTime)
-            } else {
-                startTime = "$hourOfDay" + "$minute"
-                viewModel.getStartTime(startTime)
-            }
+            startTime = getTimeString(hourOfDay) + getTimeString(minute)
+            Log.d("from 시간", startTime)
+            viewModel.getStartTime(startTime)
         }
         endTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-            if (minute < 10) {
-                val minuteText = "0$minute"
-                endTime = "$hourOfDay" + minuteText
-                viewModel.getEndTime(endTime)
-            } else {
-                endTime = "$hourOfDay" + "$minute"
-                viewModel.getEndTime(endTime)
-            }
+            endTime = getTimeString(hourOfDay) + getTimeString(minute)
+            Log.d("to 시간", endTime)
+            viewModel.getEndTime(endTime)
         }
 
         insertButton.setOnClickListener {
@@ -269,4 +265,16 @@ class SearchTimeFragment : Fragment() {
         timePickerBottomSheetView.setCancelable(false)
         timePickerBottomSheetView.show()
     }
+
+    private fun getTimeString(data: Int) : String {
+        var text : String = ""
+        if(data < 10){
+            text = "0$data"
+        }
+        else {
+            text = "$data"
+        }
+        return text
+    }
+
 }

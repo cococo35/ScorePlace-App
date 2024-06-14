@@ -6,8 +6,6 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +15,10 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -28,12 +28,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.hanple.R
 import com.android.hanple.Room.RecommendDataBase
 import com.android.hanple.Room.recommendPlaceGoogleID
-import com.android.hanple.data.CategoryPlace
 import com.android.hanple.adapter.OnDataClick
 import com.android.hanple.adapter.PlaceScoreCategoryAdapter
 import com.android.hanple.adapter.ScoreCategoryListAdapter
+import com.android.hanple.data.CategoryPlace
 import com.android.hanple.databinding.FragmentScoreBinding
-import com.android.hanple.ui.ListViewFragment
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
@@ -42,6 +41,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import pl.droidsonroids.gif.GifDrawable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
@@ -134,13 +134,24 @@ class ScoreFragment : Fragment() {
         val localDateTime: LocalDateTime = LocalDateTime.now()
         val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         viewModel.selectPlace?.observe(viewLifecycleOwner) {
-            binding.tvScoreTitle.text = "${it?.name}"
-            binding.tvScoreTitle2.text =
-                localDateTime.toString().substring(5, 7) +
-                        "월 " +
-                        localDateTime.toString().substring(8, 10) +
-                        "일 " +
-                        localDateTime.toString().substring(11, 16)
+            if(it == null){
+                binding.tvScoreTitle.text = "${viewModel.selectRecommendPlace.value?.name}"
+                binding.tvScoreTitle2.text =
+                    localDateTime.toString().substring(5, 7) +
+                            "월 " +
+                            localDateTime.toString().substring(8, 10) +
+                            "일 " +
+                            localDateTime.toString().substring(11, 16)
+            }
+            else {
+                binding.tvScoreTitle.text = "${it?.name}"
+                binding.tvScoreTitle2.text =
+                    localDateTime.toString().substring(5, 7) +
+                            "월 " +
+                            localDateTime.toString().substring(8, 10) +
+                            "일 " +
+                            localDateTime.toString().substring(11, 16)
+            }
         }
         viewModel.totalScore.observe(viewLifecycleOwner) {
             binding.tvScoreScore.text = "${it}점"
@@ -150,9 +161,21 @@ class ScoreFragment : Fragment() {
     private fun getScoreDescription() {
         viewModel.totalScore.observe(viewLifecycleOwner) {
             when {
-                it < 40 -> binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
-                it in 40..74 -> binding.tvScoreDescription.text = "놀러 가기 적당해요~"
-                else -> binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
+                it < 40 -> {
+                    binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
+                    val iconUnder40: GifDrawable = GifDrawable(resources, R.drawable.emoji_unamused_face_gif)
+                    binding.ivScoreIcon.background = iconUnder40
+                }
+                it in 40..74 -> {
+                    binding.tvScoreDescription.text = "놀러 가기 적당해요~"
+                    val iconUnder75: GifDrawable = GifDrawable(resources, R.drawable.slightly_smiling_face_gif)
+                    binding.ivScoreIcon.background = iconUnder75
+                }
+                else -> {
+                    binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
+                    val iconUnder101: GifDrawable = GifDrawable(resources, R.drawable.emoji_star_struck_gif)
+                    binding.ivScoreIcon.background = iconUnder101
+                }
             }
         }
     }
@@ -163,23 +186,23 @@ class ScoreFragment : Fragment() {
                 it.contains("Rain") -> {
                     binding.tvScoreWeatherDescription.text = "비가 올 수 있어요"
                     binding.tvScoreWeatherDescription2.text = "우산을 준비하세요"
-                    binding.ivScoreWeather.setBackgroundResource(R.drawable.ic_weather_rain)
+                    binding.ivScoreWeather.setBackgroundResource(R.drawable.emoji_umbrella_with_raindrop_png)
                 }
                 !it.contains("Rain") && it.count { it.contains("Clouds") } >= 3 -> {
                     binding.tvScoreWeatherDescription.text = "전반적으로 날씨가 흐려요"
                     binding.tvScoreWeatherDescription2.text = ""
-                    binding.ivScoreWeather.setBackgroundResource(R.drawable.iv_weather_cloud)
+                    binding.ivScoreWeather.setBackgroundResource(R.drawable.emoji_cloud_png)
                 }
                 else -> {
                     binding.tvScoreWeatherDescription.text = "맑은 날씨에요"
                     binding.tvScoreWeatherDescription2.text = ""
-                    binding.ivScoreWeather.setBackgroundResource(R.drawable.iv_weather_sun)
+                    binding.ivScoreWeather.setBackgroundResource(R.drawable.emoji_sun_png)
                 }
             }
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ResourceAsColor")
     private fun initDetailDialog() {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.fragment_detail_score_dialog)
@@ -189,24 +212,80 @@ class ScoreFragment : Fragment() {
         )
         val dialogCloseButton = dialog.findViewById<TextView>(R.id.tv_detail_dialog_dismiss)
         val scoreCost = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_cost)
+        val scoreCostDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_cost_description)
         val scoreDust = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_dust)
+        val scoreDustDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_dust_description)
         val scoreTraffic = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic)
+        val scoreTrafficDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic_description)
         val scoreCongestion = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion)
+        val scoreCongestionDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion_description)
         val scoreWeather = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather)
+        val scoreWeatherDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather_description)
+
         viewModel.readCostScore.observe(viewLifecycleOwner) {
             scoreCost.text = "비용 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
+            if (it >= 8) {
+                scoreCost.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
+                scoreCostDescription.text = "마음껏 쓸 수 있어요"
+            } else if (it >= 4) {
+                scoreCost.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreCostDescription.text = "원하는 것들을 할 수 있어요"
+            } else {
+                scoreCost.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreCostDescription.text = "할 수 있는게 많지 않아요"
+            }
         }
         viewModel.readDustScore.observe(viewLifecycleOwner) {
             scoreDust.text = "미세먼지 점수 : ${"%.0f".format(it.toDouble() / 10 * 100)}점"
+            if (it >= 8) {
+                scoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                scoreDustDescription.text = "미세먼지 농도가 '좋음' 수준이에요"
+            } else if (it >= 4) {
+                scoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreDustDescription.text = "미세먼지 농도가 '보통' 수준이에요"
+            } else {
+                scoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreDustDescription.text = "미세먼지 농도가 '나쁨' 수준이에요"
+            }
         }
         viewModel.readTransportScore.observe(viewLifecycleOwner) {
             scoreTraffic.text = "교통 점수 : ${"%.0f".format(it.toDouble() / 20 * 100)}점"
+            if (it >= 15) {
+                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                scoreTrafficDescription.text = "막힘없이 이동할 수 있어요"
+            } else if (it >= 8) {
+                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreTrafficDescription.text = "일정에 맞게 이동할 수 있어요"
+            } else {
+                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreTrafficDescription.text = "이동에 시간이 오래 걸려요"
+            }
         }
         viewModel.readCongestScore.observe(viewLifecycleOwner) {
             scoreCongestion.text = "여행 성향 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
+            if (it >= 24) {
+                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                scoreCongestionDescription.text = "내가 원하던 장소에요"
+            } else if (it >= 12) {
+                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreCongestionDescription.text = "무난한 장소에요"
+            } else {
+                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreCongestionDescription.text = "원하던 장소가 아니에요"
+            }
         }
         viewModel.readWeatherScore.observe(viewLifecycleOwner) {
             scoreWeather.text = "날씨 점수 : ${"%.0f".format(it.toDouble() / 30 * 100)}점"
+            if (it >= 24) {
+                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+                scoreWeatherDescription.text = "맑은 날씨에요"
+            } else if (it >= 12) {
+                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
+                scoreWeatherDescription.text = "전반적으로 날씨가 흐려요"
+            } else {
+                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
+                scoreWeatherDescription.text = "비가 올 수 있어요"
+            }
         }
         dialogCloseButton.setOnClickListener {
             dialog.dismiss()
@@ -229,8 +308,6 @@ class ScoreFragment : Fragment() {
             .setPositiveButton("YES") { dialog, _ ->
                 val fragmentManager: FragmentManager = parentFragmentManager
                 val searchFragment = SearchFragment()
-                viewModel.resetPlaceData()
-                viewModel.resetScore()
                 fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
@@ -238,6 +315,9 @@ class ScoreFragment : Fragment() {
                 transaction.commit()
                 viewModel.resetTimeStamp()
                 viewModel.resetTime()
+                viewModel.resetPlaceData()
+                viewModel.resetRecommendPlaceData()
+                viewModel.resetScore()
                 (activity as MainActivity).visibleDrawerView()
             }
             .setNegativeButton("No", null)
