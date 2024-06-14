@@ -1,5 +1,6 @@
 package com.android.hanple.ui.search
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchLoadingBinding
+import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import kotlinx.coroutines.delay
@@ -22,7 +24,6 @@ import kotlinx.coroutines.launch
 class SearchLoadingFragment : Fragment() {
     private var _binding : FragmentSearchLoadingBinding? = null
     private val binding get() = _binding!!
-    private var time: Int = 0
     private val viewModel by lazy{
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
@@ -37,6 +38,7 @@ class SearchLoadingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        (activity as MainActivity).hideDrawerView()
     }
 
     override fun onDestroy() {
@@ -53,22 +55,23 @@ class SearchLoadingFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this@SearchLoadingFragment, callback)
     }
+    @SuppressLint("SetTextI18n")
     private fun initView(){
         lifecycleScope.launch {
+            var value = 0
             whenStarted{
                 viewModel.getToTalScore()
-                while (true){
-                    delay(1000)
-                    time += 1
-                    if(time == 2){
-                        time = 0
-                        val scoreFragment = ScoreFragment()
-                        val transaction = parentFragmentManager.beginTransaction()
-                        transaction.replace(R.id.fr_main, scoreFragment)
-                        transaction.commit()
-                        break
-                    }
+                while(value != 100){
+                    delay(25)
+                    value += 1
+                    binding.scoreLoadProgessbar.progress = value
+                    binding.scoreLoadProgressValue.text = "$value%"
                 }
+                delay(500)
+                val scoreFragment = ScoreFragment()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.fr_main, scoreFragment)
+                transaction.commit()
             }
         }
     }
