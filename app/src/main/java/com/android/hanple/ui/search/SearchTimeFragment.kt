@@ -63,6 +63,7 @@ class SearchTimeFragment : Fragment() {
         getLocalTime()
         initView()
         putViewModelData()
+        (activity as MainActivity).hideDrawerView()
         timePickerBottomSheetView.setContentView(timePickerBottomSheet)
         if(viewModel.readTimeStamp.value == null || viewModel.readTimeStamp.value!!.isEmpty()){
             createTimePickerBottomView()
@@ -89,7 +90,7 @@ class SearchTimeFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this@SearchTimeFragment, callback)
-        (activity as MainActivity).hideDrawerView()
+
     }
 
     override fun onDestroy() {
