@@ -3,7 +3,6 @@ package com.android.hanple.ui.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +12,6 @@ import com.android.hanple.databinding.ActivityLogInBinding
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.utils.GenerateNicknameUtils
 import com.android.hanple.utils.SharedPreferencesUtils
-import com.github.penfeizhou.animation.apng.APNGDrawable
-import com.github.penfeizhou.animation.loader.AssetStreamLoader
 
 class LogInActivity : AppCompatActivity() {
 
@@ -26,12 +23,6 @@ class LogInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val imageView: ImageView = findViewById<ImageView>(R.id.img_profile)
-        val assetLoader = AssetStreamLoader(applicationContext, "hourglass_not_done_apng.png")
-        val apngDrawable = APNGDrawable(assetLoader)
-        imageView.setImageDrawable(apngDrawable)
-
 
         binding.btnEmailLogin.setOnClickListener {//앱 자체 null 체크
             val email = binding.etEmail.text.toString()

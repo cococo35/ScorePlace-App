@@ -40,7 +40,7 @@ class InitLoadFragment : Fragment() {
         _binding = FragmentInitLoadBinding.inflate(layoutInflater)
         //로딩 이미지
         val imageView: ImageView = binding.initLoadImg
-        val assetLoader = AssetStreamLoader(requireContext(), "compass_apng.png")
+        val assetLoader = AssetStreamLoader(requireContext(), "animated_compass.png")
         val apngDrawable = APNGDrawable(assetLoader)
         imageView.setImageDrawable(apngDrawable)
         return binding.root
