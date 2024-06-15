@@ -35,7 +35,7 @@ class SearchLoadingFragment : Fragment() {
         _binding = FragmentSearchLoadingBinding.inflate(layoutInflater)
         //로딩 이미지
         val imageView: ImageView = binding.initLoadImg
-        val assetLoader: AssetStreamLoader = AssetStreamLoader(requireContext(), "animated_hourglass_not_done.png")
+        val assetLoader: AssetStreamLoader = AssetStreamLoader(requireContext(), "animated_writing_hand.png")
         val apngDrawable = APNGDrawable(assetLoader)
         imageView.setImageDrawable(apngDrawable)
         return binding.root
