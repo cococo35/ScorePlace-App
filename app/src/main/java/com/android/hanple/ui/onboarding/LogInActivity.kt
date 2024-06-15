@@ -3,6 +3,7 @@ package com.android.hanple.ui.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import com.android.hanple.databinding.ActivityLogInBinding
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.utils.GenerateNicknameUtils
 import com.android.hanple.utils.SharedPreferencesUtils
+import com.bumptech.glide.Glide
 
 class LogInActivity : AppCompatActivity() {
 
@@ -23,6 +25,9 @@ class LogInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val img = findViewById<ImageView>(R.id.img_profile)
+        Glide.with(this).load("https://raw.githubusercontent.com/Tarikul-Islam-Anik/Microsoft-Teams-Animated-Emojis/master/Emojis/Smilies/Cat%20with%20Tears%20of%20Joy.png").into(img)
 
         binding.btnEmailLogin.setOnClickListener {//앱 자체 null 체크
             val email = binding.etEmail.text.toString()
