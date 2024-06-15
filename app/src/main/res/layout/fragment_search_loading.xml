@@ -60,7 +60,7 @@
         android:layout_width="80dp"
         android:layout_height="60dp"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_hanple"
+        android:src="@drawable/hanple_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
