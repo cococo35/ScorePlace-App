@@ -8,16 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchLoadingFragment">
 
-<!--    <pl.droidsonroids.gif.GifImageView-->
-<!--        android:id="@+id/init_load_img"-->
-<!--        android:layout_width="128dp"-->
-<!--        android:layout_height="128dp"-->
-<!--        android:layout_marginTop="256dp"-->
-<!--        android:background="@drawable/emoji_writing_hand_gif"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <ImageView
         android:id="@+id/init_load_img"
         android:layout_width="128dp"
