@@ -13,7 +13,8 @@ import com.android.hanple.databinding.ActivityLogInBinding
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.utils.GenerateNicknameUtils
 import com.android.hanple.utils.SharedPreferencesUtils
-import com.bumptech.glide.Glide
+import com.github.penfeizhou.animation.apng.APNGDrawable
+import com.github.penfeizhou.animation.loader.AssetStreamLoader
 
 class LogInActivity : AppCompatActivity() {
 
@@ -26,8 +27,11 @@ class LogInActivity : AppCompatActivity() {
         binding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val img = findViewById<ImageView>(R.id.img_profile)
-        Glide.with(this).load("https://raw.githubusercontent.com/Tarikul-Islam-Anik/Microsoft-Teams-Animated-Emojis/master/Emojis/Smilies/Cat%20with%20Tears%20of%20Joy.png").into(img)
+        val imageView = findViewById<ImageView>(R.id.img_profile)
+        val assetLoader = AssetStreamLoader(applicationContext, "hourglass_not_done_apng.png")
+        val apngDrawable = APNGDrawable(assetLoader)
+        imageView.setImageDrawable(apngDrawable)
+
 
         binding.btnEmailLogin.setOnClickListener {//앱 자체 null 체크
             val email = binding.etEmail.text.toString()

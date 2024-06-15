@@ -135,6 +135,8 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth-ktx") //firebase auth
 
-    implementation("com.github.penfeizhou.android.animation:glide-plugin:3.0.1")
+    val penfeizhou_version = "3.0.1"
+    implementation("com.github.penfeizhou.android.animation:glide-plugin:${penfeizhou_version}")
+    implementation("com.github.penfeizhou.android.animation:apng:${penfeizhou_version}")
     //glide에 apng 확장자 지원하도록 하기. https://github.com/penfeizhou/APNG4Android
 }
