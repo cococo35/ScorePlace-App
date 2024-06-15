@@ -64,7 +64,6 @@
                 android:id="@+id/iv_score_icon"
                 android:layout_width="170dp"
                 android:layout_height="170dp"
-                android:background="@drawable/_writing_hand_png"
                 app:layout_constraintTop_toBottomOf="@id/tv_score_title"
                 app:layout_constraintStart_toStartOf="@id/tv_score_title"
                 app:layout_constraintEnd_toEndOf="@id/tv_score_title"
@@ -131,15 +130,14 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/iv_score_weather"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cd_score_detail"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/ic_weather_rain" />
+                android:layout_marginTop="25dp" />
 
             <TextView
                 android:id="@+id/tv_score_weather_description"
