@@ -3,13 +3,12 @@ package com.android.hanple.ui.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
@@ -18,6 +17,8 @@ import com.android.hanple.databinding.FragmentSearchLoadingBinding
 import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
+import com.github.penfeizhou.animation.apng.APNGDrawable
+import com.github.penfeizhou.animation.loader.AssetStreamLoader
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -32,6 +33,11 @@ class SearchLoadingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchLoadingBinding.inflate(layoutInflater)
+        //로딩 이미지
+        val imageView: ImageView = binding.initLoadImg
+        val assetLoader = AssetStreamLoader(requireContext(), "hourglass_not_done_apng.png")
+        val apngDrawable = APNGDrawable(assetLoader)
+        imageView.setImageDrawable(apngDrawable)
         return binding.root
     }
 
