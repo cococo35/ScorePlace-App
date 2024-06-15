@@ -174,15 +174,15 @@ class ScoreFragment : Fragment() {
             when {
                 it < 40 -> {
                     binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
-                    binding.ivScoreWeather.setImageDrawable(APNGDrawable(under40AssetLoader))
+                    binding.ivScoreIcon.setImageDrawable(APNGDrawable(under40AssetLoader))
                 }
                 it in 40..74 -> {
                     binding.tvScoreDescription.text = "놀러 가기 적당해요~"
-                    binding.ivScoreWeather.setImageDrawable(APNGDrawable(under75AssetLoader))
+                    binding.ivScoreIcon.setImageDrawable(APNGDrawable(under75AssetLoader))
                 }
                 else -> {
                     binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
-                    binding.ivScoreWeather.setImageDrawable(APNGDrawable(under75AssetLoader))
+                    binding.ivScoreIcon.setImageDrawable(APNGDrawable(under101AssetLoader))
                 }
             }
         }
