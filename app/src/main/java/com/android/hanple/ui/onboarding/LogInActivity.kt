@@ -27,7 +27,7 @@ class LogInActivity : AppCompatActivity() {
         binding = ActivityLogInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val imageView = findViewById<ImageView>(R.id.img_profile)
+        val imageView: ImageView = findViewById<ImageView>(R.id.img_profile)
         val assetLoader = AssetStreamLoader(applicationContext, "hourglass_not_done_apng.png")
         val apngDrawable = APNGDrawable(assetLoader)
         imageView.setImageDrawable(apngDrawable)
