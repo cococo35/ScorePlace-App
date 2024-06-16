@@ -37,11 +37,12 @@ import com.android.hanple.ui.MainActivity
 import com.android.hanple.viewmodel.SearchViewModel
 import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.bumptech.glide.Glide
+import com.github.penfeizhou.animation.apng.APNGDrawable
+import com.github.penfeizhou.animation.loader.AssetStreamLoader
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import pl.droidsonroids.gif.GifDrawable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
@@ -162,44 +163,54 @@ class ScoreFragment : Fragment() {
     }
 
     private fun getScoreDescription() {
+        val imageView: ImageView = binding.ivScoreIcon
+
+        val under40AssetLoader: AssetStreamLoader = AssetStreamLoader(activity, "animated_unamused_face.png")
+        val under75AssetLoader = AssetStreamLoader(activity, "animated_slightly_smiling_face.png")
+        val under101AssetLoader = AssetStreamLoader(activity, "animated_star_struck.png")
+
+
         viewModel.totalScore.observe(viewLifecycleOwner) {
             when {
                 it < 40 -> {
                     binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
-                    val iconUnder40: GifDrawable = GifDrawable(resources, R.drawable.emoji_unamused_face_gif)
-                    binding.ivScoreIcon.background = iconUnder40
+                    binding.ivScoreIcon.setImageDrawable(APNGDrawable(under40AssetLoader))
                 }
                 it in 40..74 -> {
                     binding.tvScoreDescription.text = "놀러 가기 적당해요~"
-                    val iconUnder75: GifDrawable = GifDrawable(resources, R.drawable.slightly_smiling_face_gif)
-                    binding.ivScoreIcon.background = iconUnder75
+                    binding.ivScoreIcon.setImageDrawable(APNGDrawable(under75AssetLoader))
                 }
                 else -> {
                     binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
-                    val iconUnder101: GifDrawable = GifDrawable(resources, R.drawable.emoji_star_struck_gif)
-                    binding.ivScoreIcon.background = iconUnder101
+                    binding.ivScoreIcon.setImageDrawable(APNGDrawable(under101AssetLoader))
                 }
             }
         }
     }
 
     private fun getWeatherDescription() {
+        val imageView: ImageView = binding.ivScoreWeather
+
+        val rainAssetLoader: AssetStreamLoader = AssetStreamLoader(activity, "animated_umbrella.png")
+        val cloudAssetLoader = AssetStreamLoader(activity, "animated_cloud.png")
+        val sunAssetLoader = AssetStreamLoader(activity, "animated_sun.png")
+
         viewModel.readWeatherDescription.observe(viewLifecycleOwner) {
             when {
                 it.contains("Rain") -> {
                     binding.tvScoreWeatherDescription.text = "비가 올 수 있어요"
                     binding.tvScoreWeatherDescription2.text = "우산을 준비하세요"
-                    binding.ivScoreWeather.setBackgroundResource(R.drawable.emoji_umbrella_with_raindrop_png)
+                    binding.ivScoreWeather.setImageDrawable(APNGDrawable(rainAssetLoader))
                 }
                 !it.contains("Rain") && it.count { it.contains("Clouds") } >= 3 -> {
                     binding.tvScoreWeatherDescription.text = "전반적으로 날씨가 흐려요"
                     binding.tvScoreWeatherDescription2.text = ""
-                    binding.ivScoreWeather.setBackgroundResource(R.drawable.emoji_cloud_png)
+                    binding.ivScoreWeather.setImageDrawable(APNGDrawable(cloudAssetLoader))
                 }
                 else -> {
                     binding.tvScoreWeatherDescription.text = "맑은 날씨에요"
                     binding.tvScoreWeatherDescription2.text = ""
-                    binding.ivScoreWeather.setBackgroundResource(R.drawable.emoji_sun_png)
+                    binding.ivScoreWeather.setImageDrawable(APNGDrawable(sunAssetLoader))
                 }
             }
         }

@@ -8,16 +8,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.onboarding.LogInActivity">
 
-    <ImageView
-        android:id="@+id/img_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="50dp"
-        android:src="@drawable/hanple_logo"
-        android:layout_marginTop="45dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:padding="50dp"
+            android:src="@drawable/hanple_logo"
+            android:layout_marginTop="45dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     <LinearLayout
