@@ -2,6 +2,7 @@ package com.android.hanple.ui.search
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +15,18 @@ import androidx.lifecycle.whenStarted
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentInitLoadBinding
 import com.android.hanple.room.RecommendDataBase
+import com.android.hanple.room.RecommendPlace
+import com.android.hanple.room.recommendPlaceGoogleID
 import com.github.penfeizhou.animation.apng.APNGDrawable
 import com.github.penfeizhou.animation.loader.AssetStreamLoader
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlin.random.Random
 
 
 class InitLoadFragment : Fragment() {
@@ -63,24 +72,8 @@ class InitLoadFragment : Fragment() {
     }
 
     private fun initView(){
-        lifecycleScope.launch {
-            var value = 0
-            whenStarted{
-                while(value != 100){
-                    delay(25)
-                    value += 1
-                    binding.initLoadProgessbar.progress = value
-                    binding.initLoadProgressValue.text = "$value%"
-                }
-                delay(500)
-                val searchFragment = SearchFragment()
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.fr_main, searchFragment)
-                transaction.commit()
-            }
-        }
-    }
 
+    }
 
 
 }

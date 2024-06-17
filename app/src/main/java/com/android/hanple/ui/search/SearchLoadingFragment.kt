@@ -3,6 +3,7 @@ package com.android.hanple.ui.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchLoadingBinding
 import com.github.penfeizhou.animation.apng.APNGDrawable
 import com.github.penfeizhou.animation.loader.AssetStreamLoader
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -60,22 +63,24 @@ class SearchLoadingFragment : Fragment() {
     }
     @SuppressLint("SetTextI18n")
     private fun initView(){
-        lifecycleScope.launch {
+        CoroutineScope(Dispatchers.IO).launch{
             var value = 0
-            whenStarted{
+            val job = launch{
                 viewModel.getToTalScore()
-                while(value != 100){
-                    delay(25)
-                    value += 1
-                    binding.scoreLoadProgessbar.progress = value
-                    binding.scoreLoadProgressValue.text = "$value%"
-                }
-                delay(500)
-                val scoreFragment = ScoreFragment()
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.fr_main, scoreFragment)
-                transaction.commit()
+                Log.d("통계 점수 산출", "")
             }
+            job.join()
+            while(value != 100){
+                delay(10)
+                value += 1
+                binding.scoreLoadProgessbar.progress = value
+                binding.scoreLoadProgressValue.text = "$value%"
+            }
+            val scoreFragment = ScoreFragment()
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fr_main, scoreFragment)
+            transaction.commit()
         }
     }
+
 }
