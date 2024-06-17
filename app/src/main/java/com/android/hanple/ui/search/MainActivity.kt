@@ -172,7 +172,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun insertRoomData() {
         CoroutineScope(Dispatchers.IO).launch {
-            val job = launch {
+            val firstJob = launch {
                 Log.d("데이터 삽입", "")
                 for (i in 0..recommendPlaceGoogleID.size - 1) {
                     recommendDAO.insertRecommendPlace(
@@ -183,13 +183,21 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
             }
-            job.join()
-            delay(1000)
-            val list = randomNumberPlace()
-            Log.d("데이터 출력", "")
-            viewModel.getRecommendPlace(list, recommendDAO)
+            firstJob.join()
+            val secondJob = launch {
+                val list = randomNumberPlace()
+                Log.d("데이터 출력", "")
+                viewModel.getRecommendPlace(list, recommendDAO)
+            }
+            secondJob.join()
+            val searchFragment = SearchFragment()
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fr_main, searchFragment)
+            transaction.commit()
+            Log.d("프래그먼트 전환", "")
         }
     }
+
     private fun randomNumberPlace(): List<Int> {
         val edge = recommendPlaceGoogleID.size
         val list = mutableListOf<Int>()
@@ -211,5 +219,4 @@ class MainActivity : AppCompatActivity() {
     fun hideDrawerView(){
         binding.btnMainMenu.visibility = View.GONE
     }
-
 }
