@@ -1,4 +1,4 @@
-package com.android.hanple.ui
+package com.android.hanple.ui.archive
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.hanple.R
-import com.android.hanple.data.CategoryPlace
 import com.android.hanple.adapter.PlaceStorageListAdapter
+import com.android.hanple.data.CategoryPlace
 import com.android.hanple.databinding.FragmentListViewBinding
 
 class ListViewFragment : Fragment() {

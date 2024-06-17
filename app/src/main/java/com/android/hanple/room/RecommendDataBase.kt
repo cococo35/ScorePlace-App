@@ -1,4 +1,4 @@
-package com.android.hanple.Room
+package com.android.hanple.room
 
 import android.content.Context
 import androidx.room.Database

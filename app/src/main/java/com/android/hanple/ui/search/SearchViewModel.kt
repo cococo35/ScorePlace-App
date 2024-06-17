@@ -1,4 +1,4 @@
-package com.android.hanple.viewmodel
+package com.android.hanple.ui.search
 
 import android.annotation.SuppressLint
 import android.net.Uri
@@ -11,10 +11,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.android.hanple.Address.AddressRemoteImpl
 import com.android.hanple.Dust.DustRemoteImpl
-import com.android.hanple.Room.RecommendDAO
+import com.android.hanple.room.RecommendDAO
 import com.android.hanple.Weather.WeatherRemoteImpl
 import com.android.hanple.data.CategoryPlace
-import com.android.hanple.data.congestion.remote.CongestionRemoteImpl
+import com.android.hanple.data.congestion.CongestionRemoteImpl
 import com.android.hanple.network.AddressRetrofit
 import com.android.hanple.network.CongestionRetrofit
 import com.android.hanple.network.DustRetrofit

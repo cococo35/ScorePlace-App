@@ -12,11 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
-import com.android.hanple.databinding.FragmentSearchBinding
 import com.android.hanple.databinding.FragmentSearchPeopleBinding
-import com.android.hanple.ui.MainActivity
-import com.android.hanple.viewmodel.SearchViewModel
-import com.android.hanple.viewmodel.SearchViewModelFactory
 
 class SearchPeopleFragment : Fragment() {
 

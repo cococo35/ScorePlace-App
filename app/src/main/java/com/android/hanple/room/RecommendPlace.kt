@@ -1,4 +1,4 @@
-package com.android.hanple.Room
+package com.android.hanple.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

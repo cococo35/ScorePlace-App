@@ -14,9 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchLoadingBinding
-import com.android.hanple.ui.MainActivity
-import com.android.hanple.viewmodel.SearchViewModel
-import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.github.penfeizhou.animation.apng.APNGDrawable
 import com.github.penfeizhou.animation.loader.AssetStreamLoader
 import kotlinx.coroutines.delay

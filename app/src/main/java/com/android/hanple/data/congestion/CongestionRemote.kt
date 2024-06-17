@@ -1,6 +1,5 @@
-package com.android.hanple.data.congestion.remote
+package com.android.hanple.data.congestion
 
-import com.android.hanple.data.congestion.model.CongestionResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -19,7 +18,7 @@ interface CongestionRemote {
 
 class CongestionRemoteImpl(
     private val congestionRemote: CongestionRemote
-) : CongestionRemote{
+) : CongestionRemote {
     override suspend fun getCongestion(
         KEY: String?,
         TYPE: String?,
