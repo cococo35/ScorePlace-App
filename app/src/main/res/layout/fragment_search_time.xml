@@ -12,7 +12,7 @@
         android:id="@+id/tv_search_time_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="활동 시간대를 입력해주세요"
+        android:text="@string/enter_activity_time"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -53,7 +53,7 @@
         android:maxLength="2"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="00"
+        android:text="@string/_00"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_time_title"
@@ -64,13 +64,13 @@
         android:id="@+id/tv_search_time_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=":"
+        android:text="@string/colon"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_from_hour"
         app:layout_constraintTop_toTopOf="@+id/tv_search_time_from_hour"
-        app:layout_constraintStart_toEndOf="@id/tv_search_time_from_hour"/>
+        app:layout_constraintStart_toEndOf="@id/tv_search_time_from_hour" />
 
     <TextView
         android:id="@+id/tv_search_time_from_minute"
@@ -82,7 +82,7 @@
         android:maxLength="2"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="00"
+        android:text="@string/_00"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_search_time_point"
         app:layout_constraintStart_toEndOf="@id/tv_search_time_point"
@@ -113,10 +113,9 @@
         android:layout_marginStart="26dp"
         android:maxLength="2"
         android:clickable="false"
-        android:text="00"
+        android:text="@string/_00"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp" />
-
 
 
     <TextView
@@ -127,7 +126,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_search_time_to_hour"
         app:layout_constraintTop_toTopOf="@+id/tv_search_time_to_hour"
         app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_to_hour"
-        android:text=":"
+        android:text="@string/colon"
         android:textStyle="bold"
         android:textSize="18sp" />
 
@@ -143,9 +142,9 @@
         android:layout_marginStart="5dp"
         android:maxLength="2"
         android:clickable="false"
-        android:text="00"
+        android:text="@string/_00"
         android:fontFamily="@font/pretendard_regular"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tv_search_time_to"
@@ -183,7 +182,7 @@
                 android:id="@+id/tv_search_time_again_input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="다시 입력하기"
+                android:text="@string/enter_again"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="27sp"
                 android:gravity="center"

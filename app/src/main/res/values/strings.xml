@@ -1,6 +1,7 @@
 <resources>
-    <!--feat/SearchFragment. app_name = ScorePlace에서 Hanple로 교체 -->
+<!--    앱 이름-->
     <string name="app_name">Hanple</string>
+
     <string name="place_you_want">가고 싶은 장소가 있으신가요?</string>
     <string name="enter_destination">도착지 입력</string>
     <string name="next">다음</string>
@@ -19,8 +20,7 @@
     <string name="tvpassword">비밀번호</string>
     <string name="ts_signup_error">오류.</string>
     <string name="etpassword">비밀번호</string>
-    <string name="tvname">이름</string>
-    <string name="etname">이름</string>
+    <string name="name">이름</string>
     <string name="ts_login_id">비밀번호가 유효하지 않습니다</string>
     <string name="ts_login_ps">아이디가 유효하지 않습니다</string>
     <string name="btn_signup_confirm">로그인</string>
@@ -29,11 +29,9 @@
     <string name="time_to">까지 주로 활동해요!</string>
     <string name="mark">점수</string>
     <string name="standard_time">HH:mm</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">(빈 프래그먼트)</string>
     <string name="loading">여행지 점수 계산 중...</string>
 
-    <!--임의로 탭에 정보 넣기 위해 추가함. 수정하셔도 됩니다.-->
     <string name="title_search">검색</string>
     <!--feat/SettingsFragment-->
     <string name="title_settings">설정</string>
@@ -84,4 +82,30 @@
     <string name="cost_ok">정도면 적당할 것 같아요!</string>
     <string name="calculate_score">점수를 계산 중이에요!</string>
     <string name="travel_tendency">여행 성향을 알려주세요</string>
+    <string name="congestion_option_1">한적한게 좋아요!</string>
+    <string name="congestion_option_2">조금은 사람이 있으면 좋겠어요!</string>
+    <string name="congestion_option_3">적당한게 좋아요!</string>
+    <string name="congestion_option_4">사람이 많이 오가면 좋겠어요!</string>
+    <string name="congestion_option_5">핫플이 좋아요!</string>
+    <string name="enter_activity_time">활동 시간대를 입력해주세요</string>
+    <string name="_00">00</string>
+    <string name="colon">:</string>
+    <string name="enter_again">다시 입력하기</string>
+    <string name="how_to_go">어떻게 가시나요?</string>
+    <string name="transportation_public">대중교통을 이용해요!</string>
+    <string name="transportation_car">차를 가지고 갈거에요!</string>
+    <string name="manage_information">내 정보 관리</string>
+    <string name="nickname">별명</string>
+    <string name="nickname_sample">cococo35</string>
+    <string name="email">이메일</string>
+    <string name="email_sample">test123@google.com</string>
+    <string name="password">비밀번호</string>
+    <string name="password_sample">********</string>
+    <string name="logout">로그아웃</string>
+    <string name="exit">HANPLE 탈퇴</string>
+    <string name="category_name">카테고리 이름</string>
+    <string name="hanple">Hanple</string>
+    <string name="_4_0">4.0</string>
+    <string name="address">address</string>
+    <string name="score">score</string>
 </resources>

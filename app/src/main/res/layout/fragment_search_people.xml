@@ -29,7 +29,7 @@
         android:layout_marginStart="25dp"
         android:background="@drawable/ic_check_blank_20dp"
         app:layout_constraintTop_toBottomOf="@id/tv_search_people_title"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_search_people_button2"
@@ -145,20 +145,20 @@
         android:id="@+id/tv_search_people_description1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="한적한게 좋아요!"
+        android:text="@string/congestion_option_1"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/btn_search_people_button1"
         app:layout_constraintTop_toTopOf="@id/btn_search_people_button1"
         app:layout_constraintBottom_toBottomOf="@id/btn_search_people_button1"
-        android:layout_marginStart="25dp"/>
+        android:layout_marginStart="25dp" />
 
     <TextView
         android:id="@+id/tv_search_people_description2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="조금은 사람이 있으면 좋겠어요!"
+        android:text="@string/congestion_option_2"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -171,7 +171,7 @@
         android:id="@+id/tv_search_people_description3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="적당한게 좋아요!"
+        android:text="@string/congestion_option_3"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -184,7 +184,7 @@
         android:id="@+id/tv_search_people_description4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="사람이 많이 오가면 좋겠어요!"
+        android:text="@string/congestion_option_4"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -197,7 +197,7 @@
         android:id="@+id/tv_search_people_description5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="핫플이 좋아요!"
+        android:text="@string/congestion_option_5"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
         android:textStyle="bold"
