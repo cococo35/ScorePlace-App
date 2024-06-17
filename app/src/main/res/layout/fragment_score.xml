@@ -10,11 +10,11 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_score_back"
@@ -40,7 +40,7 @@
                 android:id="@+id/tv_score_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="더 현대 서울"
+                android:text="@string/address_sample"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="20sp"
                 android:gravity="center"
@@ -55,7 +55,7 @@
                 app:layout_constraintStart_toStartOf="@id/tv_score_title"
                 app:layout_constraintEnd_toEndOf="@id/tv_score_title"
                 app:layout_constraintTop_toBottomOf="@id/tv_score_title"
-                android:text="6/2(일) 11:00"
+                android:text="@string/date_sample"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="18sp"
                 android:gravity="center" />
@@ -77,7 +77,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_score_icon"
                 app:layout_constraintStart_toStartOf="@id/iv_score_icon"
                 app:layout_constraintEnd_toEndOf="@id/iv_score_icon"
-                android:text="77점"
+                android:text="@string/score_sample"
                 android:fontFamily="@font/line_seed_bold"
                 android:textSize="60sp"
                 android:textStyle="bold" />
@@ -90,7 +90,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_score_score"
                 app:layout_constraintStart_toStartOf="@id/tv_score_score"
                 app:layout_constraintEnd_toEndOf="@id/tv_score_score"
-                android:text="놀러 가기 적당해요!"
+                android:text="@string/score_description_normal"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -107,11 +107,11 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_score_description" >
+                app:layout_constraintTop_toBottomOf="@id/tv_score_description">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/tv_score_detail"
@@ -120,7 +120,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:text="상세 점수 보러가기"
+                        android:text="@string/see_detail_score"
                         android:fontFamily="@font/pretendard_regular"
                         android:textSize="22sp"
                         android:gravity="center"
@@ -147,7 +147,7 @@
                 app:layout_constraintTop_toTopOf="@id/iv_score_weather"
                 app:layout_constraintBottom_toBottomOf="@id/iv_score_weather"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="오후에 비가 올 수 있어요."
+                android:text="@string/score_weather_description_rain_1"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="18sp" />
 
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_score_weather_description"
                 app:layout_constraintStart_toStartOf="@id/tv_score_weather_description"
-                android:text="우산을 준비하세요!"
+                android:text="@string/score_weather_description_rain_2"
                 android:textColor="@color/darkblue"
                 android:textStyle="bold"
                 android:fontFamily="@font/pretendard_regular"
@@ -170,13 +170,13 @@
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="@id/iv_score_weather"
                 app:layout_constraintTop_toBottomOf="@id/iv_score_weather"
-                android:layout_marginTop="25dp" >
+                android:layout_marginTop="25dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cons_score_category_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tv_category_text"
                         android:layout_width="wrap_content"
@@ -184,13 +184,13 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="주변"
+                        android:text="@string/around"
                         android:breakStrategy="simple"
                         android:layout_marginEnd="25dp"
                         android:textStyle="bold"
                         android:fontFamily="@font/pretendard_regular"
-                        android:textSize="20sp"
-                    />
+                        android:textSize="20sp" />
+
                     <TextView
                         android:id="@+id/btn_category_view_open"
                         android:layout_width="wrap_content"
@@ -204,15 +204,15 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="음식점   ∨"
+                        android:text="@string/category_food"
                         android:fontFamily="@font/pretendard_regular"
                         android:textSize="20sp"
                         android:layout_marginStart="25dp"
-                        android:gravity="center"
-                        />
+                        android:gravity="center" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_notFound"
                 android:layout_width="match_parent"
@@ -225,8 +225,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="gone"
                 android:gravity="center"
-                android:layout_marginTop="30dp"
-                />
+                android:layout_marginTop="30dp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_score_category"
                 android:layout_width="match_parent"

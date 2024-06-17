@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/white"
     android:padding="16dp"
-    app:layout_behavior="com.google.android.material.bottom sheet.BottomSheetBehavior"
-    >
+    app:layout_behavior="com.google.android.material.bottom sheet.BottomSheetBehavior">
+
     <TextView
         android:id="@+id/tv_insert_time_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="활동 시간대를 입력해주세요"
+        android:text="@string/please_enter_activity_time"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -29,8 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_insert_time_title"
-        android:layout_marginTop="16dp"
-        />
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/tv_insert_time_from"
@@ -43,7 +41,7 @@
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/time_insert_end"/>
+        app:layout_constraintBottom_toTopOf="@+id/time_insert_end" />
 
     <TimePicker
         android:id="@+id/time_insert_end"
@@ -53,8 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_insert_time_from"
-        android:layout_marginTop="4dp"
-        />
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/tv_insert_time_to"
@@ -67,8 +64,7 @@
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="17sp"
-        android:layout_marginTop="4dp"
-         />
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/tv_time_insert_dismiss"
@@ -78,7 +74,7 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:text="입력 완료"
+        android:text="@string/input_complete"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="27sp"
         android:layout_marginStart="25dp"
@@ -87,6 +83,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="30dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_insert_time_to"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

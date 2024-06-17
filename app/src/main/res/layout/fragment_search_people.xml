@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="125dp"
-        android:text="여행 성향을 알려주세요"
+        android:text="@string/travel_tendency"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="34sp"
         android:textStyle="bold"

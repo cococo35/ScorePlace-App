@@ -21,14 +21,13 @@
         android:id="@+id/init_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="위치 정보를 불러오고 있어요!"
+        android:text="@string/loading_address"
         android:textSize="18sp"
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         app:layout_constraintTop_toBottomOf="@+id/init_load_img"
         android:gravity="center"
-        android:layout_marginTop="4dp"
-        />
+        android:layout_marginTop="4dp" />
 
     <ProgressBar
         android:id="@+id/init_load_progessbar"
@@ -39,8 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:progressTint="@color/darkmint"
-        android:layout_marginTop="2dp"
-        />
+        android:layout_marginTop="2dp" />
 
     <TextView
         android:id="@+id/init_load_progress_value"
@@ -50,10 +48,9 @@
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:gravity="center"
-        android:text="퍼센트"
+        android:text="@string/persent"
         app:layout_constraintTop_toBottomOf="@+id/init_load_progessbar"
-        android:layout_marginTop="2dp"
-        />
+        android:layout_marginTop="2dp" />
 
     <ImageView
         android:id="@+id/init_icon_hanple"
