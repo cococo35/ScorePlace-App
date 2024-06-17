@@ -416,7 +416,7 @@ class ScoreFragment : Fragment() {
         val name = dialog.findViewById<TextView>(R.id.tv_detail_category_info_title)
         val address = dialog.findViewById<TextView>(R.id.tv_detail_category_info_address)
         val summary = dialog.findViewById<TextView>(R.id.tv_detail_category_info_summary)
-        val openingHour = dialog.findViewById<TextView>(R.id.tv_detail_category_info_openhour)
+        val openingHour = dialog.findViewById<TextView>(R.id.tv_detail_category_info_open_hour)
         val closeButton = dialog.findViewById<TextView>(R.id.tv_detail_category_info_dismiss)
         viewModel.selectCategoryPlaceImg.observe(viewLifecycleOwner){
             if(it == null){
