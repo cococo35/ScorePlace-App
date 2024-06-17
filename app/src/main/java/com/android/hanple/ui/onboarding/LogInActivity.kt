@@ -9,15 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityLogInBinding
-import com.android.hanple.ui.MainActivity
+import com.android.hanple.ui.search.MainActivity
 import com.android.hanple.utils.GenerateNicknameUtils
 import com.android.hanple.utils.SharedPreferencesUtils
 
 class LogInActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityLogInBinding
-    private val authViewModel: AuthViewModel by viewModels()
+    private val authViewModel: LogInViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Hanple)
         super.onCreate(savedInstanceState)
@@ -66,13 +65,13 @@ class LogInActivity : AppCompatActivity() {
 
         authViewModel.authState.observe(this, Observer { authState -> //firebase auth 계정 체크
             when (authState) {
-                is AuthViewModel.AuthState.Success -> {
+                is LogInViewModel.AuthState.Success -> {
                     Toast.makeText(this, "Firebase Auth 인증 성공!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()  // 현재 Activity를 종료하여 뒤로가기 시 로그인 화면이 보이지 않도록 함
                 }
-                is AuthViewModel.AuthState.Failure -> {
+                is LogInViewModel.AuthState.Failure -> {
                     val exception: String = "${authState.exception?.message}"
                     var toastMessage: String = ""
                     Log.d("Firebase Auth Failed", exception)

@@ -2,28 +2,22 @@ package com.android.hanple.ui.search
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
 import com.android.hanple.R
-import com.android.hanple.Room.RecommendDataBase
-import com.android.hanple.Room.RecommendPlace
-import com.android.hanple.Room.recommendPlaceGoogleID
 import com.android.hanple.databinding.FragmentInitLoadBinding
-import com.android.hanple.databinding.FragmentSearchBinding
-import com.android.hanple.ui.MainActivity
-import com.android.hanple.viewmodel.SearchViewModel
-import com.android.hanple.viewmodel.SearchViewModelFactory
+import com.android.hanple.room.RecommendDataBase
+import com.github.penfeizhou.animation.apng.APNGDrawable
+import com.github.penfeizhou.animation.loader.AssetStreamLoader
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlin.random.Random
 
 
 class InitLoadFragment : Fragment() {
@@ -41,6 +35,11 @@ class InitLoadFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentInitLoadBinding.inflate(layoutInflater)
+        //로딩 이미지
+        val imageView: ImageView = binding.initLoadImg
+        val assetLoader = AssetStreamLoader(requireContext(), "animated_compass.png")
+        val apngDrawable = APNGDrawable(assetLoader)
+        imageView.setImageDrawable(apngDrawable)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

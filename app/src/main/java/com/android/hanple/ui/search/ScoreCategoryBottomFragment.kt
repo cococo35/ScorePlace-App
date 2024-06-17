@@ -1,18 +1,11 @@
 package com.android.hanple.ui.search
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.hanple.R
-import com.android.hanple.adapter.ScoreCategoryListAdapter
 import com.android.hanple.databinding.FragmentScoreCategoryBottomBinding
-import com.android.hanple.ui.MainActivity
-import com.android.hanple.viewmodel.SearchViewModel
-import com.android.hanple.viewmodel.SearchViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 

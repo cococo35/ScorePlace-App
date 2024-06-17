@@ -11,8 +11,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentDetailScoreDialogBinding
-import com.android.hanple.viewmodel.SearchViewModel
-import com.android.hanple.viewmodel.SearchViewModelFactory
 
 
 class DetailScoreDialogFragment : DialogFragment() {

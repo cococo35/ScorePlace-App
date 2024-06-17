@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ListViewFragment">
+    tools:context=".ui.archive.ListViewFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
@@ -51,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="@string/"
+                        android:text="보관함"
                         android:textColor="@color/white"
                         android:fontFamily="@font/line_seed_bold"
                         android:textSize="27sp"
