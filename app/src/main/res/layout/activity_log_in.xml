@@ -51,7 +51,7 @@
             android:layout_marginTop="24dp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_guest_login"
-            style="@style/btnGeneral3rd"
+            style="@style/btnGeneral2nd"
             android:text="@string/onboarding_guest_log_in_btn"
             android:textSize="20sp"
             android:layout_marginTop="8dp"/>
