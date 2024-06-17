@@ -51,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="보관함"
+                        android:text="@string/"
                         android:textColor="@color/white"
                         android:fontFamily="@font/line_seed_bold"
                         android:textSize="27sp"
