@@ -19,8 +19,8 @@ data class WeatherResponse(
     @SerializedName("pop") val pop: String?,
     @SerializedName("sys") val sys: Sys?,
     @SerializedName("dt_txt") val dt_txt: String?,
-
 )
+
 data class WeatherMain(
     val temp: String?,
     val feels_like: String?,

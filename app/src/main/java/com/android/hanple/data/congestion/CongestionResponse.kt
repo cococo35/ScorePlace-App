@@ -1,4 +1,4 @@
-package com.android.hanple.data.congestion.model
+package com.android.hanple.data.congestion
 
 import com.google.gson.annotations.SerializedName
 

@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class AuthViewModel : ViewModel() {
+class LogInViewModel : ViewModel() {
 
     // (mutable, immutable) LiveData 선언해 주기.
     private val _authState = MutableLiveData<AuthState>()

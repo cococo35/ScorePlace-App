@@ -24,6 +24,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.archive.ArchiveActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="false" />
         <activity
@@ -48,10 +51,7 @@
             android:name=".ui.onboarding.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.ArchiveActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.search.MainActivity"
             android:exported="true" />
     </application>
 
