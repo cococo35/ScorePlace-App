@@ -32,7 +32,7 @@
         <EditText
             android:id="@+id/et_email"
             style="@style/etGeneral"
-            android:hint="@string/onboarding_email_hint"
+            android:hint="@string/email"
             android:textSize="18sp"
             android:text=""
             android:inputType="textEmailAddress" />
@@ -40,7 +40,7 @@
         <EditText
             android:id="@+id/et_password"
             style="@style/etGeneral"
-            android:hint="@string/onboarding_password_hint"
+            android:hint="@string/password"
             android:textSize="18sp"
             android:text=""
             android:inputType="textPassword"
@@ -80,7 +80,7 @@
         android:id="@+id/tv_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/onboarding_to_sign_up"
+        android:text="@string/sign_up"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
         android:textColor="@color/darkmint"

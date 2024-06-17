@@ -11,7 +11,7 @@
         android:id="@+id/tv_insert_time_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/please_enter_activity_time"
+        android:text="@string/enter_activity_time"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="28sp"
         android:textStyle="bold"
