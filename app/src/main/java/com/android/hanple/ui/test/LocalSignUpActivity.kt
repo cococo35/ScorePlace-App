@@ -36,7 +36,7 @@ class LocalSignUpActivity : AppCompatActivity() {
     }
 
 
-    private fun textChangeListener(editText: EditText, updateFunction: (String) -> Unit) {
+    private fun textChangeListener(editText: EditText, updateFunction: (String) -> Unit) { // updateFunction = viewModel::set어쩌고
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -48,7 +48,7 @@ class LocalSignUpActivity : AppCompatActivity() {
 
     private fun focusChangeListener(
         editText: EditText,
-        isValidFlow: StateFlow<Boolean>,
+        isValidFlow: StateFlow<Boolean>, // isValidFlow = viewModel.is어쩌고Valid
         successMessage: String,
         errorMessage: String
     ) {
