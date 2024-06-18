@@ -103,7 +103,7 @@ class SearchTransportationFragment : Fragment() {
                     transaction.replace(R.id.fr_main, searchPeopleFragment)
                     transaction.commit()
                 } else {
-                    Toast.makeText(requireContext(), "이동 수단을 선택해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.search_enter_transportation), Toast.LENGTH_SHORT).show()
                 }
             }
             tvSearchTransportationSkip.setOnClickListener {

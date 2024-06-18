@@ -23,7 +23,7 @@
         android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome"
+        android:text="@string/onboarding_welcome"
         android:layout_marginBottom="20dp"
         android:textAlignment="center"
         android:textColor="@color/darkblue"
@@ -50,7 +50,7 @@
             android:inputType="textEmailAddress"
             android:fontFamily="@font/pretendard_regular"
             android:textSize="18sp"
-            android:hint="@string/onboarding_email_hint" />
+            android:hint="@string/email" />
         <EditText
             android:id="@+id/et_password"
             style="@style/etGeneral"
@@ -58,14 +58,14 @@
             android:inputType="textPassword"
             android:fontFamily="@font/pretendard_regular"
             android:textSize="18sp"
-            android:hint="@string/onboarding_password_hint" />
+            android:hint="@string/password" />
         <EditText
             android:id="@+id/et_username"
             style="@style/etGeneral"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/pretendard_regular"
             android:textSize="18sp"
-            android:hint="@string/onboarding_username_hint" />
+            android:hint="@string/nickname" />
         <TextView
             android:id="@+id/tv_error"
             android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_sign_up"
         style="@style/btnGeneral1st"
-        android:text="@string/onboarding_sign_up_btn"
+        android:text="@string/onboarding_sign_up"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp"
         android:layout_marginTop="12dp"
