@@ -32,7 +32,6 @@ import kotlin.random.Random
 class InitLoadFragment : Fragment() {
     private var _binding : FragmentInitLoadBinding? = null
     private val binding get() = _binding!!
-    private var time: Int = 0
     private val viewModel by lazy {
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
