@@ -1,43 +1,21 @@
 package com.android.hanple.ui.archive
 
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.fragment.app.commit
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.android.hanple.R
-import com.android.hanple.databinding.ActivityArchiveBinding
 
 class ArchiveActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityArchiveBinding
-
-    private lateinit var callback: OnBackPressedCallback
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityArchiveBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setBackPressFeature()
-        initFragment()
-    }
-
-    private fun setBackPressFeature() {
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
-                } else {
-                    finish()
-                }
-            }
-        }
-        onBackPressedDispatcher.addCallback(this, callback)
-    }
-
-    private fun initFragment() {
-        supportFragmentManager.commit {
-            replace(R.id.fragment_container, ListViewFragment())
-            addToBackStack(null)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_archive)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 }

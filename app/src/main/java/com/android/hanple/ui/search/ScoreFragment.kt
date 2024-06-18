@@ -56,14 +56,7 @@ class ScoreFragment : Fragment() {
         RecommendDataBase.getMyRecommendPlaceDataBase(requireContext()).getMyRecommendPlaceDAO()
     }
     val typeList = listOf(
-        "restaurant",
-        "cafe",
-        "parking",
-        "movie_theater",
-        "shopping_mall",
-        "subway_station",
-        "bus_station",
-        "park"
+        "restaurant", "cafe", "parking", "movie_theater", "shopping_mall", "subway_station", "bus_station", "park"
     )
 
     val spinnerList = listOf(
@@ -89,6 +82,12 @@ class ScoreFragment : Fragment() {
         loadImage()
         (activity as MainActivity).hideDrawerView()
         createBottomView()
+        binding.ivScoreBookmark.setOnClickListener {
+            toggleBookmarkIcon()
+            val address = binding.tvScoreTitle.text.toString()
+            val score = binding.tvScoreScore.text.toString().removeSuffix("점").toDoubleOrNull() ?: 0.0
+            savePlaceToPreferences(address, score)
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -118,8 +117,7 @@ class ScoreFragment : Fragment() {
             }
         })
 
-        binding.recyclerviewScoreCategory.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerviewScoreCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         viewModel.nearByPlace.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 binding.recyclerviewScoreCategory.visibility = View.GONE
@@ -127,9 +125,7 @@ class ScoreFragment : Fragment() {
             } else {
                 binding.recyclerviewScoreCategory.visibility = View.VISIBLE
                 binding.tvNotFound.visibility = View.GONE
-                (binding.recyclerviewScoreCategory.adapter as PlaceScoreCategoryAdapter).submitList(
-                    it
-                )
+                (binding.recyclerviewScoreCategory.adapter as PlaceScoreCategoryAdapter).submitList(it)
             }
         }
 
@@ -137,7 +133,7 @@ class ScoreFragment : Fragment() {
         val localDateTime: LocalDateTime = LocalDateTime.now()
         val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         viewModel.selectPlace?.observe(viewLifecycleOwner) {
-            if (it == null) {
+            if(it == null){
                 binding.tvScoreTitle.text = "${viewModel.selectRecommendPlace.value?.name}"
                 binding.tvCategoryText.text = "${viewModel.selectRecommendPlace.value?.name} 주변"
                 binding.tvScoreTitle2.text =
@@ -146,7 +142,8 @@ class ScoreFragment : Fragment() {
                             localDateTime.toString().substring(8, 10) +
                             "일 " +
                             localDateTime.toString().substring(11, 16)
-            } else {
+            }
+            else {
                 binding.tvScoreTitle.text = "${it?.name}"
                 binding.tvCategoryText.text = "${it?.name} 주변"
                 binding.tvScoreTitle2.text =
@@ -165,8 +162,7 @@ class ScoreFragment : Fragment() {
     private fun getScoreDescription() {
         val imageView: ImageView = binding.ivScoreIcon
 
-        val under40AssetLoader: AssetStreamLoader =
-            AssetStreamLoader(activity, "animated_unamused_face.png")
+        val under40AssetLoader: AssetStreamLoader = AssetStreamLoader(activity, "animated_unamused_face.png")
         val under75AssetLoader = AssetStreamLoader(activity, "animated_slightly_smiling_face.png")
         val under101AssetLoader = AssetStreamLoader(activity, "animated_star_struck.png")
 
@@ -177,12 +173,10 @@ class ScoreFragment : Fragment() {
                     binding.tvScoreDescription.text = "해당 장소를 추천하지 않아요."
                     binding.ivScoreIcon.setImageDrawable(APNGDrawable(under40AssetLoader))
                 }
-
                 it in 40..74 -> {
                     binding.tvScoreDescription.text = "놀러 가기 적당해요~"
                     binding.ivScoreIcon.setImageDrawable(APNGDrawable(under75AssetLoader))
                 }
-
                 else -> {
                     binding.tvScoreDescription.text = "매우 추천합니다. 꼭 다녀오세요!"
                     binding.ivScoreIcon.setImageDrawable(APNGDrawable(under101AssetLoader))
@@ -194,8 +188,7 @@ class ScoreFragment : Fragment() {
     private fun getWeatherDescription() {
         val imageView: ImageView = binding.ivScoreWeather
 
-        val rainAssetLoader: AssetStreamLoader =
-            AssetStreamLoader(activity, "animated_umbrella.png")
+        val rainAssetLoader: AssetStreamLoader = AssetStreamLoader(activity, "animated_umbrella.png")
         val cloudAssetLoader = AssetStreamLoader(activity, "animated_cloud.png")
         val sunAssetLoader = AssetStreamLoader(activity, "animated_sun.png")
 
@@ -206,13 +199,11 @@ class ScoreFragment : Fragment() {
                     binding.tvScoreWeatherDescription2.text = "우산을 준비하세요"
                     binding.ivScoreWeather.setImageDrawable(APNGDrawable(rainAssetLoader))
                 }
-
                 !it.contains("Rain") && it.count { it.contains("Clouds") } >= 3 -> {
                     binding.tvScoreWeatherDescription.text = "전반적으로 날씨가 흐려요"
                     binding.tvScoreWeatherDescription2.text = ""
                     binding.ivScoreWeather.setImageDrawable(APNGDrawable(cloudAssetLoader))
                 }
-
                 else -> {
                     binding.tvScoreWeatherDescription.text = "맑은 날씨에요"
                     binding.tvScoreWeatherDescription2.text = ""
@@ -232,20 +223,15 @@ class ScoreFragment : Fragment() {
         )
         val dialogCloseButton = dialog.findViewById<TextView>(R.id.tv_detail_dialog_dismiss)
         val scoreCost = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_cost)
-        val scoreCostDescription =
-            dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_cost_description)
+        val scoreCostDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_cost_description)
         val scoreDust = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_dust)
-        val scoreDustDescription =
-            dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_dust_description)
+        val scoreDustDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_dust_description)
         val scoreTraffic = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic)
-        val scoreTrafficDescription =
-            dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic_description)
+        val scoreTrafficDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_traffic_description)
         val scoreCongestion = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion)
-        val scoreCongestionDescription =
-            dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion_description)
+        val scoreCongestionDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_congestion_description)
         val scoreWeather = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather)
-        val scoreWeatherDescription =
-            dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather_description)
+        val scoreWeatherDescription = dialog.findViewById<TextView>(R.id.tv_detail_dialog_score_weather_description)
 
         viewModel.readCostScore.observe(viewLifecycleOwner) {
             scoreCost.text = "비용 점수 ${"%.0f".format(it.toDouble() / 10 * 100)}점"
@@ -253,72 +239,62 @@ class ScoreFragment : Fragment() {
                 scoreCost.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
                 scoreCostDescription.text = "마음껏 쓸 수 있어요"
             } else if (it >= 4) {
-                scoreCost.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+                scoreCost.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
                 scoreCostDescription.text = "원하는 것들을 할 수 있어요"
             } else {
-                scoreCost.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                scoreCost.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
                 scoreCostDescription.text = "할 수 있는게 많지 않아요"
             }
         }
         viewModel.readDustScore.observe(viewLifecycleOwner) {
             scoreDust.text = "미세먼지 점수 ${"%.0f".format(it.toDouble() / 10 * 100)}점"
             if (it >= 8) {
-                scoreDust.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
+                scoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
                 scoreDustDescription.text = "미세먼지 농도가 '좋음' 수준이에요"
             } else if (it >= 4) {
-                scoreDust.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+                scoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
                 scoreDustDescription.text = "미세먼지 농도가 '보통' 수준이에요"
             } else {
-                scoreDust.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                scoreDust.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
                 scoreDustDescription.text = "미세먼지 농도가 '나쁨' 수준이에요"
             }
         }
         viewModel.readTransportScore.observe(viewLifecycleOwner) {
             scoreTraffic.text = "교통 점수 ${"%.0f".format(it.toDouble() / 20 * 100)}점"
             if (it >= 15) {
-                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
+                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
                 scoreTrafficDescription.text = "막힘없이 이동할 수 있어요"
             } else if (it >= 8) {
-                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
                 scoreTrafficDescription.text = "일정에 맞게 이동할 수 있어요"
             } else {
-                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                scoreTraffic.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
                 scoreTrafficDescription.text = "이동에 시간이 오래 걸려요"
             }
         }
         viewModel.readCongestScore.observe(viewLifecycleOwner) {
             scoreCongestion.text = "여행 성향 점수 ${"%.0f".format(it.toDouble() / 30 * 100)}점"
             if (it >= 24) {
-                scoreCongestion.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.green
-                    )
-                )
+                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
                 scoreCongestionDescription.text = "내가 원하던 장소에요"
             } else if (it >= 12) {
-                scoreCongestion.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.orange
-                    )
-                )
+                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
                 scoreCongestionDescription.text = "무난한 장소에요"
             } else {
-                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                scoreCongestion.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
                 scoreCongestionDescription.text = "원하던 장소가 아니에요"
             }
         }
         viewModel.readWeatherScore.observe(viewLifecycleOwner) {
             scoreWeather.text = "날씨 점수 ${"%.0f".format(it.toDouble() / 30 * 100)}점"
             if (it >= 24) {
-                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
+                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
                 scoreWeatherDescription.text = "맑은 날씨에요"
             } else if (it >= 12) {
-                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(), R.color.orange))
+                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.orange))
                 scoreWeatherDescription.text = "전반적으로 날씨가 흐려요"
             } else {
-                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                scoreWeather.setTextColor(ContextCompat.getColor(requireContext(),R.color.red))
                 scoreWeatherDescription.text = "비가 올 수 있어요"
             }
         }
@@ -388,24 +364,31 @@ class ScoreFragment : Fragment() {
         }
     }
 
+    private fun toggleBookmarkIcon() {
+        val isBookmarked = binding.ivScoreBookmark.tag == "bookmarked"
+        if (isBookmarked) {
+            binding.ivScoreBookmark.setImageResource(R.drawable.ic_bookmark_24dp) // 아이콘을 변경합니다.
+            binding.ivScoreBookmark.tag = "not_bookmarked" // 태그를 변경합니다.
+        } else {
+            binding.ivScoreBookmark.setImageResource(R.drawable.ic_bookmark_filed) // 아이콘을 변경합니다.
+            binding.ivScoreBookmark.tag = "bookmarked" // 태그를 변경합니다.
+        }
+    }
+
     @SuppressLint("InflateParams", "NotifyDataSetChanged")
-    private fun createBottomView() {
-        val scoreCategoryBottomSheet =
-            layoutInflater.inflate(R.layout.fragment_score_category_bottom, null)
+    private fun createBottomView(){
+        val scoreCategoryBottomSheet = layoutInflater.inflate(R.layout.fragment_score_category_bottom, null)
         val scoreCategoryBottomSheetView = BottomSheetDialog(requireContext())
         scoreCategoryBottomSheetView.setContentView(scoreCategoryBottomSheet)
-        val bottomSheetList =
-            scoreCategoryBottomSheet.findViewById<RecyclerView>(R.id.bottom_score_category_list)
-        bottomSheetList.adapter = ScoreCategoryListAdapter(
-            spinnerList,
-            object : ScoreCategoryListAdapter.OnItemClickListener {
-                @SuppressLint("SetTextI18n")
-                override fun onItemClick(position: Int) {
-                    viewModel.getNearByPlace(typeList[position])
-                    binding.btnCategoryViewOpen.text = "${spinnerList[position]}  ∨"
-                    scoreCategoryBottomSheetView.dismiss()
-                }
-            })
+        val bottomSheetList = scoreCategoryBottomSheet.findViewById<RecyclerView>(R.id.bottom_score_category_list)
+        bottomSheetList.adapter = ScoreCategoryListAdapter(spinnerList, object : ScoreCategoryListAdapter.OnItemClickListener{
+            @SuppressLint("SetTextI18n")
+            override fun onItemClick(position: Int) {
+                viewModel.getNearByPlace(typeList[position])
+                binding.btnCategoryViewOpen.text = "${spinnerList[position]}  ∨"
+                scoreCategoryBottomSheetView.dismiss()
+            }
+        })
         scoreCategoryBottomSheetView.behavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetList.layoutManager = LinearLayoutManager(requireContext())
         binding.btnCategoryViewOpen.setOnClickListener {
@@ -414,15 +397,14 @@ class ScoreFragment : Fragment() {
         scoreCategoryBottomSheetView.setCancelable(false)
     }
 
-    private fun onSelectItemClick(data: CategoryPlace) {
+    private fun onSelectItemClick(data: CategoryPlace){
         viewModel.setSelectPlaceImg(data.img)
         data.name?.let { viewModel.setSelectPlaceName(it) }
         data.address?.let { viewModel.setSelectPlaceAddress(it) }
         data.description?.let { viewModel.setSelectPlaceSummary(it) }
         data.openingHours?.let { viewModel.setSelectPlaceOpeningHour(it) }
     }
-
-    private fun initSelectPlaceDetailDialog() {
+    private fun initSelectPlaceDetailDialog(){
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.fragment_detail_category_info_dialog)
         dialog.window!!.setLayout(
@@ -436,21 +418,23 @@ class ScoreFragment : Fragment() {
         val summary = dialog.findViewById<TextView>(R.id.tv_detail_category_info_summary)
         val openingHour = dialog.findViewById<TextView>(R.id.tv_detail_category_info_openhour)
         val closeButton = dialog.findViewById<TextView>(R.id.tv_detail_category_info_dismiss)
-        viewModel.selectCategoryPlaceImg.observe(viewLifecycleOwner) {
-            if (it == null) {
+        viewModel.selectCategoryPlaceImg.observe(viewLifecycleOwner){
+            if(it == null){
                 img.visibility = View.INVISIBLE
                 nullImg.visibility = View.VISIBLE
-            } else {
+            }
+            else {
                 Glide.with(requireContext()).load(it).into(img)
             }
         }
-        viewModel.selectCategoryPlaceName.observe(viewLifecycleOwner) {
+        viewModel.selectCategoryPlaceName.observe(viewLifecycleOwner){
             name.text = it
         }
-        viewModel.selectCategoryPlaceAddress.observe(viewLifecycleOwner) {
-            if (it != null) {
+        viewModel.selectCategoryPlaceAddress.observe(viewLifecycleOwner){
+            if(it != null){
                 address.text = it
-            } else {
+            }
+            else {
                 address.text = ""
             }
         }
@@ -463,5 +447,17 @@ class ScoreFragment : Fragment() {
         }
         dialog.setCancelable(false)
         dialog.show()
+    }
+
+    // 데이터 저장 코드 추가
+    private fun savePlaceToPreferences(address: String, score: Double) {
+        val sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        val placeCount = sharedPreferences.getInt("place_count", 0)
+        editor.putString("address_$placeCount", address)
+        editor.putFloat("score_$placeCount", score.toFloat())
+        editor.putInt("place_count", placeCount + 1)
+        editor.apply()
     }
 }

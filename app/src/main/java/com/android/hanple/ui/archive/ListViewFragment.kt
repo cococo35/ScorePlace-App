@@ -74,7 +74,7 @@ class ListViewFragment : Fragment() {
             if (adapter.itemCount > 0) {
                 val mapFragment = MapFragment.newInstance(adapter.currentList.toSet())
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, mapFragment) // R.id.fragment_container로 수정
+                    .replace(R.id.fr_main, mapFragment)
                     .addToBackStack(null)
                     .commit()
             }
@@ -120,7 +120,7 @@ class ListViewFragment : Fragment() {
             val address = sharedPreferences.getString("address_$i", null)
             val score = sharedPreferences.getFloat("score_$i", 0f)
             if (address != null) {
-                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, null, null, true, null))
+                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null,null,null, true, null))
             }
         }
         adapter.updatePlaces(places)
