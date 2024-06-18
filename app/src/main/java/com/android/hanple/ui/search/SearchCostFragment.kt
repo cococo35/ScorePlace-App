@@ -69,7 +69,7 @@ class SearchCostFragment : Fragment() {
         binding.edSearchCostInputCost.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 if (binding.edSearchCostInputCost.text.toString().isEmpty()){
-                    Toast.makeText(requireContext(), "금액을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.search_enter_amount), Toast.LENGTH_SHORT).show()
                 }
                 else {
                     val price: Int = binding.edSearchCostInputCost.text.toString().toInt() * 10000
@@ -90,7 +90,7 @@ class SearchCostFragment : Fragment() {
             tvSearchCostNext.setOnClickListener {
 
                 if (binding.edSearchCostInputCost.text.toString().isEmpty()) {
-                    Toast.makeText(requireContext(), "금액을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.search_enter_amount), Toast.LENGTH_SHORT).show()
                 } else {
                     val price: Int = binding.edSearchCostInputCost.text.toString().toInt() * 10000
                     viewModel.getCostScore(price)

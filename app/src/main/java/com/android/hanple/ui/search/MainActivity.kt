@@ -137,18 +137,18 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     if (System.currentTimeMillis() - backPressedTime >= 2000) {
                         backPressedTime = System.currentTimeMillis()
-                        Toast.makeText(this@MainActivity, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT)
+                        Toast.makeText(this@MainActivity, getString(R.string.backpress_first), Toast.LENGTH_SHORT)
                             .show()
                     } else if (System.currentTimeMillis() - backPressedTime < 2000) {
                         AlertDialog.Builder(this@MainActivity)
-                            .setTitle("종료")
-                            .setMessage("앱을 종료하시겠습니까?")
-                            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+                            .setTitle(getString(R.string.backpress_end))
+                            .setMessage(getString(R.string.backpress_second))
+                            .setPositiveButton(getString(R.string.yes), object : DialogInterface.OnClickListener {
                                 override fun onClick(dialog: DialogInterface?, which: Int) {
                                     this@MainActivity.finish()
                                 }
                             })
-                            .setNegativeButton("NO", object : DialogInterface.OnClickListener {
+                            .setNegativeButton(getString(R.string.no), object : DialogInterface.OnClickListener {
                                 override fun onClick(dialog: DialogInterface?, which: Int) {
                                 }
                             })

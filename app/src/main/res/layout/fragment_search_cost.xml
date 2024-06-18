@@ -12,7 +12,7 @@
         android:id="@+id/tv_search_cost_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="하루동안 얼만큼 쓸건가요?"
+        android:text="@string/search_spend_per_day"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_cost_title"
         android:fontFamily="@font/pretendard_regular"
-        android:hint="10" />
+        android:hint="@string/_10" />
 
     <TextView
         android:id="@+id/tv_search_cost_won"
@@ -43,7 +43,7 @@
         app:layout_constraintStart_toEndOf="@id/ed_search_cost_input_cost"
         app:layout_constraintTop_toTopOf="@id/ed_search_cost_input_cost"
         app:layout_constraintBottom_toBottomOf="@id/ed_search_cost_input_cost"
-        android:text="만 원"
+        android:text="@string/search_won"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="24sp"
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_search_cost_won"
         android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:text="정도면 적당할 것 같아요!"
+        android:text="@string/search_cost_ok"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp" />
 

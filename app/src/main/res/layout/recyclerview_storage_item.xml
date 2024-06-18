@@ -14,7 +14,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:maxLines="1"
         android:ellipsize="end"
-        android:text="address"
+        android:text="@string/address"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -23,7 +23,7 @@
         android:id="@+id/tv_item_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="score"
+        android:text="@string/score"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"

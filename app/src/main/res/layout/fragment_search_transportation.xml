@@ -13,7 +13,7 @@
         android:id="@+id/tv_search_transportation_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="어떻게 가시나요?"
+        android:text="@string/search_how_to_go"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -34,11 +34,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_transportation_title"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="55dp" >
+        android:layout_marginTop="55dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/iv_bus"
@@ -64,7 +64,7 @@
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
-        android:text="대중교통을 이용해요!" />
+        android:text="@string/search_transportation_public" />
 
     <!-- 선택지 2: 자가용 -->
     <com.google.android.material.card.MaterialCardView
@@ -78,11 +78,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_transportation_title"
         android:layout_marginEnd="70dp"
-        android:layout_marginTop="55dp" >
+        android:layout_marginTop="55dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/iv_car"
@@ -96,6 +96,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
     <TextView
         android:id="@+id/tv_search_transportation_car"
         android:layout_width="wrap_content"
@@ -107,7 +108,7 @@
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
-        android:text="차를 가지고 갈거에요!" />
+        android:text="@string/search_transportation_car" />
 
     <!-- 하단 버튼 -->
     <LinearLayout
