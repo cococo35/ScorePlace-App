@@ -55,7 +55,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.search.MainActivity"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>
