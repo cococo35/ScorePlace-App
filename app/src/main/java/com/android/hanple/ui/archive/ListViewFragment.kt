@@ -96,10 +96,15 @@ class ListViewFragment : Fragment() {
     }
 
     private fun savePlaceToPreferences(address: String, score: Double) {
-        val editor = sharedPreferences.edit()
-        editor.putString("address", address)
-        editor.putFloat("score", score.toFloat())
-        editor.apply()
+        val placeCount = sharedPreferences.getInt("place_count", 0)
+        val existingAddresses = (0 until placeCount).mapNotNull { sharedPreferences.getString("address_$it", null) }
+        if (!existingAddresses.contains(address)) {
+            val editor = sharedPreferences.edit()
+            editor.putString("address_$placeCount", address)
+            editor.putFloat("score_$placeCount", score.toFloat())
+            editor.putInt("place_count", placeCount + 1)
+            editor.apply()
+        }
     }
 
     private fun savePlacesToPreferences() {
@@ -120,7 +125,7 @@ class ListViewFragment : Fragment() {
             val address = sharedPreferences.getString("address_$i", null)
             val score = sharedPreferences.getFloat("score_$i", 0f)
             if (address != null) {
-                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null,null,null, true, null))
+                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, null, null, true, null))
             }
         }
         adapter.updatePlaces(places)

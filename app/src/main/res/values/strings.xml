@@ -1,52 +1,192 @@
 <resources>
-    <!--feat/SearchFragment. app_name = ScorePlace에서 Hanple로 교체 -->
+    <!--    앱 이름-->
     <string name="app_name">Hanple</string>
-    <string name="place_you_want">가고 싶은 장소가 있으신가요?</string>
-    <string name="enter_destination">도착지 입력</string>
+
+
+    <!--others--><!--others--><!--others--><!--others--><!--others--><!--others--><!--others--><!--others--><!--others--><!--others--><!--others-->
+    <string name="yes">네</string>
+    <string name="no">아니오</string>
+    <string name="nickname">별명</string>
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
     <string name="next">다음</string>
-    <string name="please_enter_destination">여행지를 입력해 주세요</string>
-    <string name="enter_start_address">출발지 입력</string>
-    <string name="travel_from">에서</string>
-    <string name="travel_to">로 여행을 떠나요!</string>
-    <string name="please_enter_schedule">일정을 입력해 주세요</string>
-    <string name="please_enter_activity_time">활동 시간대를 입력해 주세요</string>
     <string name="skip">건너뛰기</string>
-    <string name="time_from">부터</string>
-    <string name="tvid" translatable="false">ID</string>
-    <string name="etid" translatable="false">ID</string>
-    <string name="etnumber" translatable="false">전화번호</string>
-    <string name="welcome">Hanple로 나들이 추천 받기</string>
-    <string name="tvpassword">비밀번호</string>
-    <string name="ts_signup_error">오류.</string>
-    <string name="etpassword">비밀번호</string>
-    <string name="tvname">이름</string>
-    <string name="etname">이름</string>
-    <string name="ts_login_id">비밀번호가 유효하지 않습니다</string>
-    <string name="ts_login_ps">아이디가 유효하지 않습니다</string>
-    <string name="btn_signup_confirm">로그인</string>
-    <string name="detail_mark">상세 점수가 궁금하세요?</string>
-    <string name="store">주변 맛집 보러가기</string>
-    <string name="time_to">까지 주로 활동해요!</string>
-    <string name="mark">점수</string>
-    <string name="standard_time">HH:mm</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">(빈 프래그먼트)</string>
-    <string name="loading">여행지 점수 계산 중...</string>
+    <string name="_10">10</string>
+    <string name="_00">00</string>
+    <string name="persent">퍼센트</string>
+    <string name="colon">:</string>
+    <string name="close">닫기</string>
 
-    <!--임의로 탭에 정보 넣기 위해 추가함. 수정하셔도 됩니다.-->
-    <string name="title_search">검색</string>
-    <!--feat/SettingsFragment-->
-    <string name="title_settings">설정</string>
-    <string name="menu_search_history">검색 기록</string>
-    <string name="menu_bookmarks">보관함</string>
-    <string name="menu_logout">로그아웃</string>
-    <string name="menu_sign_off">탈퇴하기</string>
 
+    <!--category-->
+    <string name="place_name">장소 이름</string>
+    <string name="place_detail">장소 정보</string>
+    <string name="place_address">장소 주소</string>
+    <string name="place_open_hour">장소 운영 시간</string>
+    <string name="points">점</string>
+    <string name="around">주변</string>
+    <string name="month">월</string>
+    <string name="day">일</string>
+    <string name="category_food">음식점 ∨</string>
+    <string name="category_name">카테고리 이름</string>
+
+
+    <!--navigation_drawer--><!--navigation_drawer--><!--navigation_drawer--><!--navigation_drawer--><!--navigation_drawer-->
+    <string name="info">내 정보</string>
+    <string name="search_history">검색 기록</string>
+    <string name="notification">공지사항</string>
+    <string name="version">앱 버전</string>
+
+
+    <!--recyclerview--><!--recyclerview--><!--recyclerview--><!--recyclerview--><!--recyclerview--><!--recyclerview--><!--recyclerview-->
+    <string name="address">address</string>
+    <string name="score">score</string>
+    <string name="_4_0">4.0</string>
+
+
+    <!--    loading--><!--    loading--><!--    loading--><!--    loading--><!--    loading--><!--    loading--><!--    loading--><!--    loading-->
+    <string name="loading_address">위치 정보를 불러오고 있어요!</string>
+
+
+    <!--backpress--><!--backpress--><!--backpress--><!--backpress--><!--backpress--><!--backpress--><!--backpress--><!--backpress-->
+    <string name="backpress_first">한번 더 누르면 종료됩니다.</string>
+    <string name="backpress_second">앱을 종료하시겠습니까?</string>
+    <string name="backpress_end">종료</string>
+    <string name="backpress_return_home">처음 화면으로 돌아가시겠습니까?</string>
+
+
+    <!--    onboarding--><!--    onboarding--><!--    onboarding--><!--    onboarding--><!--    onboarding--><!--    onboarding-->
     <string name="onboarding_email_log_in_btn">이메일로 로그인</string>
     <string name="onboarding_guest_log_in_btn">게스트로 이용하기</string>
-    <string name="onboarding_sign_up_btn">회원가입</string>
-    <string name="onboarding_to_sign_up">회원가입</string>
-    <string name="onboarding_email_hint">이메일</string>
-    <string name="onboarding_password_hint">비밀번호</string>
-    <string name="onboarding_username_hint">별명</string>
+    <string name="onboarding_sign_up">회원가입</string>
+    <string name="onboarding_welcome">Hanple로 나들이 추천 받기</string>
+    <string name="onboarding_email_empty">이메일 란이 비어있어요.</string>
+    <string name="onboarding_password_empty">비밀번호 란이 비어있어요.</string>
+    <string name="onboarding_firebase_auth_success">Firebase Auth 인증 성공!</string>
+    <string name="onboarding_check_email_password">아이디나 비밀번호를 확인해 주세요.</string>
+    <string name="onboarding_email_format_wrong">올바른 이메일 형식이 아닙니다.</string>
+
+
+    <!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings-->
+    <string name="settings_manage_information">내 정보 관리</string>
+    <string name="settings_nickname_sample">coco co35</string>
+    <string name="settings_email_sample">test123@google.com</string>
+    <string name="settings_password_sample">********</string>
+    <string name="settings_logout">로그아웃</string>
+    <string name="settings_exit">HANPLE 탈퇴</string>
+
+
+    <!--    search--><!--    search--><!--    search--><!--    search--><!--    search--><!--    search--><!--    search--><!--    search-->
+
+    <!--    search_main-->
+    <string name="search_where_are_you_going">어디로 가시나요?</string>
+    <string name="search_check_score"><![CDATA[점수 확인하기 >]]></string>
+    <string name="search_recommend">이런 장소는 어떠세요?</string>
+
+    <!--    search_cost-->
+    <string name="search_spend_per_day">하루동안 얼만큼 쓸건가요?</string>
+    <string name="search_won">만 원</string>
+    <string name="search_cost_ok">정도면 적당할 것 같아요!</string>
+    <string name="search_enter_amount">금액을 입력해주세요.</string>
+
+    <!--    search_loading-->
+    <string name="search_calculate_score">점수를 계산 중이에요!</string>
+
+    <!--    search_people-->
+    <string name="search_travel_tendency">여행 성향을 알려주세요</string>
+    <string name="search_congestion_option_1">한적한게 좋아요!</string>
+    <string name="search_congestion_option_2">조금은 사람이 있으면 좋겠어요!</string>
+    <string name="search_congestion_option_3">적당한게 좋아요!</string>
+    <string name="search_congestion_option_4">사람이 많이 오가면 좋겠어요!</string>
+    <string name="search_congestion_option_5">핫플이 좋아요!</string>
+    <string name="search_enter_congestion">여행 성향을 선택해주세요.</string>
+
+    <!--    search_time-->
+    <string name="search_enter_activity_time">활동 시간대를 입력해주세요</string>
+    <string name="search_enter_again">다시 입력하기</string>
+    <string name="search_time_from">부터</string>
+    <string name="search_time_to">까지 주로 활동해요!</string>
+    <string name="search_input_complete">입력 완료</string>
+    <string name="search_wrong_time_format">잘못 입력된 정보가 있습니다</string>
+    <string name="search_enter_time_format">입력되지 않은 정보가 있습니다</string>
+    <string name="search_start_time">1000</string>
+    <string name="search_end_time">2200</string>
+
+    <!--    search_transportation-->
+    <string name="search_how_to_go">어떻게 가시나요?</string>
+    <string name="search_transportation_public">대중교통을 이용해요!</string>
+    <string name="search_transportation_car">차를 가지고 갈거에요!</string>
+    <string name="search_enter_transportation">이동 수단을 선택해주세요.</string>
+
+
+    <!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score-->
+
+    <!--score_main-->
+    <string name="score_address_sample">더 현대 서울</string>
+    <string name="score_date_sample">6/2(일) 11:00</string>
+    <string name="score_total_sample">77점</string>
+    <string name="score_see_detail_score">상세 점수 보러가기</string>
+    <string name="score_total_description_sample">놀러 가기 적당해요!</string>
+    <string name="score_weather_description_sample_1">비가 올 수 있어요.</string>
+    <string name="score_weather_description_sample_2">우산을 준비하세요!</string>
+
+    <string-array name="score_total_description">
+        <item>해당 장소를 추천하지 않아요.</item>
+        <item>놀러 가기 적당해요~</item>
+        <item>매우 추천합니다. 꼭 다녀오세요!</item>
+    </string-array>
+
+    <string-array name="score_weather_description">
+        <item>비가 올 수 있어요</item>
+        <item>우산을 준비하세요</item>
+        <item>전반적으로 날씨가 흐려요</item>
+        <item>맑은 날씨에요</item>
+    </string-array>
+
+    <!--score_detail-->
+    <string name="score_detail">상세 점수</string>
+    <string name="score_detail_dust">미세 먼지 점수</string>
+    <string name="score_detail_weather_good">좋은 날씨에요~</string>
+    <string name="score_detail_weather">날씨 점수</string>
+    <string name="score_detail_traffic">교통 점수</string>
+    <string name="score_detail_congestion">여행 성향 점수</string>
+    <string name="score_detail_cost">비용 점수</string>
+
+    <string-array name="score_detail_dust_description">
+        <item>미세먼지 농도가 \'좋음\' 수준이에요</item>
+        <item>미세먼지 농도가 \'보통\' 수준이에요</item>
+        <item>미세먼지 농도가 \'나쁨\' 수준이에요</item>
+    </string-array>
+
+    <string-array name="score_detail_weather_description">
+        <item>맑은 날씨에요</item>
+        <item>전반적으로 날씨가 흐려요</item>
+        <item>비가 올 수 있어요</item>
+    </string-array>
+
+    <string-array name="score_detail_congestion_description">
+        <item>내가 원하던 장소에요</item>
+        <item>무난한 장소에요</item>
+        <item>원하던 장소가 아니에요</item>
+    </string-array>
+
+    <string-array name="score_detail_cost_description">
+        <item>마음껏 쓸 수 있어요</item>
+        <item>원하는 것들을 할 수 있어요</item>
+        <item>할 수 있는게 많지 않아요</item>
+    </string-array>
+
+    <string-array name="score_detail_traffic_description">
+        <item>막힘없이 이동할 수 있어요</item>
+        <item>일정에 맞게 이동할 수 있어요</item>
+        <item>이동에 시간이 오래 걸려요</item>
+    </string-array>
+
+
+    <!--    archive--><!--    archive--><!--    archive--><!--    archive--><!--    archive--><!--    archive--><!--    archive--><!--    archive-->
+
+    <!--archive_main-->
+    <string name="storage">보관함</string>
+    <string name="view_on_map"><![CDATA[지도에서 보기 >]]></string>
+
 </resources>

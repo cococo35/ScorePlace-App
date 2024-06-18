@@ -12,7 +12,7 @@
         android:id="@+id/tv_search_time_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="활동 시간대를 입력해주세요"
+        android:text="@string/search_enter_activity_time"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -53,7 +53,7 @@
         android:maxLength="2"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="00"
+        android:text="@string/_00"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_search_time_title"
@@ -64,13 +64,13 @@
         android:id="@+id/tv_search_time_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=":"
+        android:text="@string/colon"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_from_hour"
         app:layout_constraintTop_toTopOf="@+id/tv_search_time_from_hour"
-        app:layout_constraintStart_toEndOf="@id/tv_search_time_from_hour"/>
+        app:layout_constraintStart_toEndOf="@id/tv_search_time_from_hour" />
 
     <TextView
         android:id="@+id/tv_search_time_from_minute"
@@ -82,7 +82,7 @@
         android:maxLength="2"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="00"
+        android:text="@string/_00"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_search_time_point"
         app:layout_constraintStart_toEndOf="@id/tv_search_time_point"
@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_search_time_from_hour"
-        android:text="@string/time_from"
+        android:text="@string/search_time_from"
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp"
@@ -113,10 +113,9 @@
         android:layout_marginStart="26dp"
         android:maxLength="2"
         android:clickable="false"
-        android:text="00"
+        android:text="@string/_00"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp" />
-
 
 
     <TextView
@@ -127,7 +126,7 @@
         app:layout_constraintStart_toEndOf="@+id/tv_search_time_to_hour"
         app:layout_constraintTop_toTopOf="@+id/tv_search_time_to_hour"
         app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_to_hour"
-        android:text=":"
+        android:text="@string/colon"
         android:textStyle="bold"
         android:textSize="18sp" />
 
@@ -143,9 +142,9 @@
         android:layout_marginStart="5dp"
         android:maxLength="2"
         android:clickable="false"
-        android:text="00"
+        android:text="@string/_00"
         android:fontFamily="@font/pretendard_regular"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tv_search_time_to"
@@ -153,7 +152,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_search_time_to_minute"
-        android:text="@string/time_to"
+        android:text="@string/search_time_to"
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp"
@@ -180,7 +179,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tv_search_time_again_input"
             style="@style/btnGeneral3rd"
-            android:text="다시 입력하기"
+            android:text="@string/search_enter_again"
             android:textSize="20sp"
             android:layout_marginTop="8dp"/>
         <View
@@ -188,46 +187,4 @@
             android:layout_height="12dp"/>
     </LinearLayout>
 
-
-<<<<<<< HEAD
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cd_search_time_next"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/darkmint"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="15dp"
-        android:layout_marginBottom="155dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_search_time_next"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/next"
-                android:fontFamily="@font/pretendard_regular"
-                android:textSize="27sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
-=======
-</androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> f548a2e01d5458264523989b2d099b19b2924087

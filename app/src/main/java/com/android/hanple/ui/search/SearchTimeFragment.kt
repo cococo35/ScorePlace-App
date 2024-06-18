@@ -107,12 +107,12 @@ class SearchTimeFragment : Fragment() {
                 binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()
 
             if (fromStart == "" && toStart == "") {
-                Toast.makeText(requireContext(), "입력되지 않은 정보가 있습니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.search_enter_time_format), Toast.LENGTH_SHORT).show()
             } else if (
                 (binding.tvSearchTimeFromHour.text.toString() + binding.tvSearchTimeFromMinute.text.toString()).toInt() >=
                 (binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()).toInt()
             ) {
-                Toast.makeText(requireContext(), "잘못 입력된 정보가 있습니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.search_wrong_time_format), Toast.LENGTH_SHORT).show()
             } else {
                 if (
                     binding.tvSearchTimeFromHour.text.toString().toInt() in 0..23 &&
@@ -127,14 +127,14 @@ class SearchTimeFragment : Fragment() {
                     transaction.replace(R.id.fr_main, searchTransportationFragment)
                     transaction.commit()
                 } else {
-                    Toast.makeText(requireContext(), "잘못 입력된 정보가 있습니다", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.search_wrong_time_format), Toast.LENGTH_SHORT).show()
                 }
             }
         }
         viewModel.startTime.observe(viewLifecycleOwner){
             if(it == null || it == "not input"){
-                binding.tvSearchTimeFromHour.text = "00"
-                binding.tvSearchTimeFromMinute.text = "00"
+                binding.tvSearchTimeFromHour.text = getString(R.string._00)
+                binding.tvSearchTimeFromMinute.text = getString(R.string._00)
             }
             else{
                 binding.tvSearchTimeFromHour.text = it.substring(0,2)
@@ -143,8 +143,8 @@ class SearchTimeFragment : Fragment() {
         }
         viewModel.endTime.observe(viewLifecycleOwner){
             if(it == null || it == "not input"){
-                binding.tvSearchTimeToHour.text = "00"
-                binding.tvSearchTimeToMinute.text = "00"
+                binding.tvSearchTimeToHour.text = getString(R.string._00)
+                binding.tvSearchTimeToMinute.text = getString(R.string._00)
             }
             else{
                 binding.tvSearchTimeToHour.text = it.substring(0,2)
@@ -234,8 +234,8 @@ class SearchTimeFragment : Fragment() {
     @SuppressLint("InflateParams")
     private fun createTimePickerBottomView() {
 
-        var startTime : String = "1000"
-        var endTime : String = "2200"
+        var startTime : String = getString(R.string.search_start_time)
+        var endTime : String = getString(R.string.search_end_time)
 
         viewModel.getStartTime(startTime)
         viewModel.getEndTime(endTime)
