@@ -94,8 +94,8 @@ class SearchViewModel(
     private var additionalCountCost = 0
     private var additionalCountTransport = 0
 
-    val _recommandPlace = MutableLiveData<List<CategoryPlace>>()
-    val recommendPlace: LiveData<List<CategoryPlace>> get() = _recommandPlace
+    private val _recommendPlace = MutableLiveData<List<CategoryPlace>>()
+    val recommendPlace: LiveData<List<CategoryPlace>> get() = _recommendPlace
 
     private val placeBuffer = MutableLiveData<Place>()
 
@@ -313,11 +313,11 @@ class SearchViewModel(
         }
     }
 
-    fun getCategoryImage(list: MutableList<CategoryPlace>) {
+    private fun getCategoryImage(list: MutableList<CategoryPlace>) {
         val size = list.size
         val bufferList = nearByPlaceBuffer.value
         viewModelScope.launch {
-            for (i in 0..size - 1) {
+            for (i in 0..< size) {
                 val meta = bufferList?.get(i)?.photoMetadatas?.get(0)
                 if (meta != null) {
                     val request = FetchResolvedPhotoUriRequest.builder(meta)
@@ -325,7 +325,7 @@ class SearchViewModel(
                         .setMaxHeight(300)
                         .build()
                     placeClient.value!!.fetchResolvedPhotoUri(request)
-                        .addOnSuccessListener { it ->
+                        .addOnSuccessListener {
                             list[i].setImgUri(it.uri)
                         }
                 }
@@ -679,9 +679,9 @@ class SearchViewModel(
     fun getRecommendPlace(list: List<Int>, dao: RecommendDAO) {
         val recommendListBuffer = mutableListOf<CategoryPlace>()
         var uri: Uri? = null
-        var data: CategoryPlace? = null
+        var data: CategoryPlace?
         viewModelScope.launch {
-            list.forEach { it ->
+            list.forEach {
                 val recommendID = dao.getRecommendPlaceById(it).name
                 val placeFields =
                     Arrays.asList(
@@ -714,7 +714,7 @@ class SearchViewModel(
                     recommendListBuffer.add(data!!)
                 }
             }
-            _recommandPlace.value = recommendListBuffer
+            _recommendPlace.value = recommendListBuffer
         }
         Log.d("룸 데이터 출력", "")
     }
@@ -729,7 +729,7 @@ class SearchViewModel(
                     .setMaxHeight(300)
                     .build()
                 placeClient.value!!.fetchResolvedPhotoUri(request)
-                    .addOnSuccessListener { it ->
+                    .addOnSuccessListener {
                         data.setImgUri(it.uri)
                     }
             }
@@ -783,6 +783,7 @@ class SearchViewModelFactory : ViewModelProvider.Factory {
     private val weatherRepository = WeatherRemoteImpl(WeatherRetrofit.search)
 
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(
         modelClass: Class<T>,
         extras: CreationExtras

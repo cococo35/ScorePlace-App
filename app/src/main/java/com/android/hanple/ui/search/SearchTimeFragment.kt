@@ -106,29 +106,15 @@ class SearchTimeFragment : Fragment() {
             toStart =
                 binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()
 
-            if (fromStart == "" && toStart == "") {
-                Toast.makeText(requireContext(), getString(R.string.search_enter_time_format), Toast.LENGTH_SHORT).show()
-            } else if (
-                (binding.tvSearchTimeFromHour.text.toString() + binding.tvSearchTimeFromMinute.text.toString()).toInt() >=
-                (binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()).toInt()
-            ) {
+            // 기존 검증 방식은 editText일 때에만 의미가 있기 때문에 전부 제거 & 활동 시간이 30분 미만일 때의 메세지 추가
+            if (toStart.toInt() - fromStart.toInt() < 50) {
                 Toast.makeText(requireContext(), getString(R.string.search_wrong_time_format), Toast.LENGTH_SHORT).show()
             } else {
-                if (
-                    binding.tvSearchTimeFromHour.text.toString().toInt() in 0..23 &&
-                    binding.tvSearchTimeFromMinute.text.toString().toInt() in 0..59 &&
-                    binding.tvSearchTimeToHour.text.toString().toInt() in 0..23 &&
-                    binding.tvSearchTimeToMinute.text.toString().toInt() in 0..59
-                ) {
-
                     val searchTransportationFragment = SearchTransportationFragment()
                     val transaction = parentFragmentManager.beginTransaction()
                     transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
                     transaction.replace(R.id.fr_main, searchTransportationFragment)
                     transaction.commit()
-                } else {
-                    Toast.makeText(requireContext(), getString(R.string.search_wrong_time_format), Toast.LENGTH_SHORT).show()
-                }
             }
         }
         viewModel.startTime.observe(viewLifecycleOwner){
@@ -152,66 +138,6 @@ class SearchTimeFragment : Fragment() {
             }
         }
     }
-
-    //인풋이 Time Picker로 변하면서 필요 없어짐
-//        binding.apply {
-//            edSearchTimeFrom.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-//
-//                    activity?.let { hideKeyBoard(it) }
-//
-//                    return@OnKeyListener true
-//                }
-//                false
-//            })
-//
-//            edSearchTimeFrom2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-//
-//                    activity?.let { hideKeyBoard(it) }
-//
-//                    return@OnKeyListener true
-//                }
-//                false
-//            })
-//
-//            edSearchTimeTo.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-//
-//                    activity?.let { hideKeyBoard(it) }
-//
-//                    return@OnKeyListener true
-//                }
-//                false
-//            })
-//
-//            edSearchTimeTo2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-//
-//                    activity?.let { hideKeyBoard(it) }
-//
-//                    return@OnKeyListener true
-//                }
-//                false
-//            })
-
-//            edSearchTimeTo2.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
-//                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-//                    val searchTransportationFragment = SearchTransportationFragment()
-//                    val transaction = parentFragmentManager.beginTransaction()
-//                    transaction.replace(R.id.fr_main, searchTransportationFragment)
-//                    transaction.addToBackStack(null)
-//                    transaction.commit()
-//
-//                    activity?.let { hideKeyBoard(it) }
-//
-//                    return@OnKeyListener true
-//                }
-//                false
-//            })
-//        }
-
-
 
     private fun hideKeyBoard(activity: Activity) {
         val keyBoard = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -251,19 +177,27 @@ class SearchTimeFragment : Fragment() {
 
         startTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
             startTime = getTimeString(hourOfDay) + getTimeString(minute)
-            Log.d("from 시간", startTime)
-            viewModel.getStartTime(startTime)
         }
         endTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
             endTime = getTimeString(hourOfDay) + getTimeString(minute)
-            Log.d("to 시간", endTime)
-            viewModel.getEndTime(endTime)
         }
 
         insertButton.setOnClickListener {
             viewModel.getTimeStamp(startTime,endTime)
             timePickerBottomSheetView.dismiss()
+
+            // startTime > endTime 일 경우 endTime + 2400 해서 다음날을 기준으로 하도록 수정
+            if (startTime > endTime) {
+                viewModel.getStartTime(startTime)
+                viewModel.getEndTime((endTime.toInt() + 2400).toString())
+            } else {
+                viewModel.getStartTime(startTime)
+                viewModel.getEndTime(endTime)
+            }
+            Log.d("from 시간", startTime)
+            Log.d("to 시간", endTime)
         }
+
         timePickerBottomSheetView.setCancelable(false)
         timePickerBottomSheetView.show()
     }
