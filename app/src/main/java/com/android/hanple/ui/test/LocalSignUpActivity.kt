@@ -9,8 +9,8 @@ class LocalSignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLocalSignUpBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityLocalSignUpBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+        binding = ActivityLocalSignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }
