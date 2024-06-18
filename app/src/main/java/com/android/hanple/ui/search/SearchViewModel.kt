@@ -11,7 +11,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.android.hanple.Address.AddressRemoteImpl
 import com.android.hanple.Dust.DustRemoteImpl
-import com.android.hanple.room.RecommendDAO
 import com.android.hanple.Weather.WeatherRemoteImpl
 import com.android.hanple.data.CategoryPlace
 import com.android.hanple.data.congestion.CongestionRemoteImpl
@@ -19,7 +18,7 @@ import com.android.hanple.network.AddressRetrofit
 import com.android.hanple.network.CongestionRetrofit
 import com.android.hanple.network.DustRetrofit
 import com.android.hanple.network.WeatherRetrofit
-import com.android.hanple.room.RecommendDataBase
+import com.android.hanple.room.RecommendDAO
 import com.android.hanple.room.RecommendPlace
 import com.android.hanple.room.recommendPlaceGoogleID
 import com.google.android.gms.maps.model.LatLng
@@ -274,9 +273,9 @@ class SearchViewModel(
                 Place.Field.PRICE_LEVEL,
                 Place.Field.PHOTO_METADATAS,
             )
-            var includeType = listOf(type)
-            var latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
-            var circle = CircularBounds.newInstance(latLng, 800.0)
+            val includeType = listOf(type)
+            val latLng = LatLng(_Lat.value!!.toDouble(), _Lng.value!!.toDouble())
+            val circle = CircularBounds.newInstance(latLng, 800.0)
             val searchNearbyRequest = SearchNearbyRequest.builder(circle, placeField)
                 .setIncludedTypes(includeType)
                 .setMaxResultCount(6)
@@ -339,7 +338,7 @@ class SearchViewModel(
     // getCongestionScoreType 별 점수 계산 수정
     fun getCongestionScore(type: Int): Int {
         addtionalCountCongest = 0
-        var score = 15
+        val score: Int
         val list = congestionDescription.value
         Log.d("혼잡도 리스트", list.toString())
         if (list == null) {
@@ -504,16 +503,16 @@ class SearchViewModel(
     fun getDustScore() {
         addtionalCountDust = 0
         var sum = 0
-        var score: Int = 0
-        var average: Int = 0
+        var score: Int
+        var average: Int
         val list = dustAqi.value
         viewModelScope.launch {
             if (list != null) {
-                list?.forEach {
+                list.forEach {
                     sum += it.toInt()
                 }
 
-                average = sum / list!!.size
+                average = sum / list.size
                 score = if (average <= 2) {
                     10
                 } else if (average <= 3) {
@@ -652,7 +651,7 @@ class SearchViewModel(
         } else {
             (score * 0.5 + 25) - (additionalCount * additionalCount)          // additionalCount 가 양수일 때, 음수일 때 if문으로 나눠 계산
         }
-        _totalScore.postValue(score)
+        _totalScore.postValue(addScore.toInt())
         Log.d("날씨 점수", weatherScore.value.toString())
         Log.d("미세먼지 점수", dustScore.value.toString())
         Log.d("교통 점수", transportScore.value.toString())
