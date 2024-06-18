@@ -38,6 +38,15 @@ class LocalSignUpActivity : AppCompatActivity() {
             }
         })
 
+        // etEmail 텍스트 변경 리스너 추가
+        binding.etUsername.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(editable: Editable?) {
+                viewModel.setUsername(editable.toString())
+            }
+        })
+
         // EditText 포커스 변경 리스너 설정
         binding.etPassword.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
@@ -57,8 +66,25 @@ class LocalSignUpActivity : AppCompatActivity() {
             if (hasFocus) {
                 lifecycleScope.launch {
                     viewModel.isEmailValid.collect { isValid ->
-                        binding.tvError.text =
-                            if (isValid) "이메일 주소 형식이 맞네요!" else "잘못된 이메일 형식이에요 ㅠ.ㅠ"
+                        val message = if (isValid) "이메일 주소 형식이 맞네요!" else "잘못된 이메일 형식이에요 ㅠ.ㅠ"
+                        val color = if (isValid) R.color.darkblue else R.color.darkmint2
+
+                        binding.tvError.text = message
+                        binding.tvError.setTextColor(ContextCompat.getColor(this@LocalSignUpActivity, color))
+                    }
+                }
+            }
+        }
+
+        binding.etUsername.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                lifecycleScope.launch {
+                    viewModel.isUsernameValid.collect { isValid ->
+                        val message = if (isValid) "멋진 별명이네요!" else "2글자 이상의 별명을 입력해 주세요."
+                        val color = if (isValid) R.color.darkblue else R.color.darkmint2
+
+                        binding.tvError.text = message
+                        binding.tvError.setTextColor(ContextCompat.getColor(this@LocalSignUpActivity, color))
                     }
                 }
             }
