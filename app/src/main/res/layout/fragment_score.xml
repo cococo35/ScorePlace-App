@@ -95,40 +95,26 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.card.MaterialCardView
+            <!-- 하단 버튼 -->
+            <LinearLayout
                 android:id="@+id/cd_score_detail"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:cardBackgroundColor="@color/darkmint"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="15dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_score_description" >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
+                app:layout_constraintTop_toBottomOf="@id/tv_score_description"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/tv_score_detail"
+                    style="@style/btnGeneral1st"
+                    android:text="상세 점수 보러가기"
+                    android:textSize="20sp"
+                    android:layout_marginTop="8dp"/>
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <TextView
-                        android:id="@+id/tv_score_detail"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:text="상세 점수 보러가기"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:textSize="22sp"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:textColor="@color/white" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+                    android:layout_height="12dp"/>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/iv_score_weather"

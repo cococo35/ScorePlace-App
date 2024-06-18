@@ -40,11 +40,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_search_transportation_public"
+            <ImageView
+                android:id="@+id/iv_bus"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/ic_bus_24dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -84,11 +84,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_search_transportation_car"
+            <ImageView
+                android:id="@+id/iv_car"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/ic_car_24dp"
+                android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
