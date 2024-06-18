@@ -44,7 +44,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.random.Random
 
-class ScoreFragment : Fragment() {
+class gScoreFragment : Fragment() {
     private val binding by lazy {
         FragmentScoreBinding.inflate(layoutInflater)
     }

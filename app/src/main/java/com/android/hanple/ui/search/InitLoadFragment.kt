@@ -72,8 +72,5 @@ class InitLoadFragment : Fragment() {
     }
 
     private fun initView(){
-
     }
-
-
 }
