@@ -315,7 +315,7 @@ class ScoreFragment : Fragment() {
 
     private fun clearBackStack() {
         AlertDialog.Builder(requireContext())
-            .setMessage(getString(R.string.return_home_screen))
+            .setMessage(getString(R.string.backpress_return_home))
             .setPositiveButton(getString(R.string.yes)) { dialog, _ ->
                 val fragmentManager: FragmentManager = parentFragmentManager
                 val searchFragment = SearchFragment()

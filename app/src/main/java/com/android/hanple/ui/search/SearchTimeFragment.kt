@@ -107,12 +107,12 @@ class SearchTimeFragment : Fragment() {
                 binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()
 
             if (fromStart == "" && toStart == "") {
-                Toast.makeText(requireContext(), getString(R.string.enter_time_format), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.search_enter_time_format), Toast.LENGTH_SHORT).show()
             } else if (
                 (binding.tvSearchTimeFromHour.text.toString() + binding.tvSearchTimeFromMinute.text.toString()).toInt() >=
                 (binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()).toInt()
             ) {
-                Toast.makeText(requireContext(), getString(R.string.wrong_time_format), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.search_wrong_time_format), Toast.LENGTH_SHORT).show()
             } else {
                 if (
                     binding.tvSearchTimeFromHour.text.toString().toInt() in 0..23 &&
@@ -127,7 +127,7 @@ class SearchTimeFragment : Fragment() {
                     transaction.replace(R.id.fr_main, searchTransportationFragment)
                     transaction.commit()
                 } else {
-                    Toast.makeText(requireContext(), getString(R.string.wrong_time_format), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.search_wrong_time_format), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -234,8 +234,8 @@ class SearchTimeFragment : Fragment() {
     @SuppressLint("InflateParams")
     private fun createTimePickerBottomView() {
 
-        var startTime : String = getString(R.string.start_time)
-        var endTime : String = getString(R.string.end_time)
+        var startTime : String = getString(R.string.search_start_time)
+        var endTime : String = getString(R.string.search_end_time)
 
         viewModel.getStartTime(startTime)
         viewModel.getEndTime(endTime)

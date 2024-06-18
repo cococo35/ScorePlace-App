@@ -137,12 +137,12 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     if (System.currentTimeMillis() - backPressedTime >= 2000) {
                         backPressedTime = System.currentTimeMillis()
-                        Toast.makeText(this@MainActivity, getString(R.string.first_backpress), Toast.LENGTH_SHORT)
+                        Toast.makeText(this@MainActivity, getString(R.string.backpress_first), Toast.LENGTH_SHORT)
                             .show()
                     } else if (System.currentTimeMillis() - backPressedTime < 2000) {
                         AlertDialog.Builder(this@MainActivity)
-                            .setTitle(getString(R.string.end))
-                            .setMessage(getString(R.string.second_backpress))
+                            .setTitle(getString(R.string.backpress_end))
+                            .setMessage(getString(R.string.backpress_second))
                             .setPositiveButton(getString(R.string.yes), object : DialogInterface.OnClickListener {
                                 override fun onClick(dialog: DialogInterface?, which: Int) {
                                     this@MainActivity.finish()

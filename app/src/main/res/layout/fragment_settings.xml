@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
-        android:text="@string/manage_information"
+        android:text="@string/settings_manage_information"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="34sp"
         android:textStyle="bold" />
@@ -40,7 +40,7 @@
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@id/tv_settings_nickname"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_nickname"
-        android:text="@string/nickname_sample"
+        android:text="@string/settings_nickname_sample"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp"
         android:textColor="@color/darkgray" />
@@ -74,7 +74,7 @@
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@id/tv_settings_email"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_email"
-        android:text="@string/email_sample"
+        android:text="@string/settings_email_sample"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp"
         android:textColor="@color/darkgray" />
@@ -108,7 +108,7 @@
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="@id/tv_settings_password"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_password"
-        android:text="@string/password_sample"
+        android:text="@string/settings_password_sample"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp"
         android:textColor="@color/darkgray" />
@@ -130,7 +130,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_settings_password_value"
         app:layout_constraintTop_toBottomOf="@id/iv_settings_line3"
         android:layout_marginTop="55dp"
-        android:text="@string/logout"
+        android:text="@string/settings_logout"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -142,7 +142,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_settings_logout"
         app:layout_constraintTop_toBottomOf="@id/tv_settings_logout"
         android:layout_marginTop="25dp"
-        android:text="@string/exit"
+        android:text="@string/settings_exit"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textColor="@color/red"

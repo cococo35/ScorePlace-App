@@ -98,7 +98,7 @@ class SearchTransportationFragment : Fragment() {
                     transaction.replace(R.id.fr_main, searchPeopleFragment)
                     transaction.commit()
                 } else {
-                    Toast.makeText(requireContext(), getString(R.string.enter_transportation), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.search_enter_transportation), Toast.LENGTH_SHORT).show()
                 }
             }
             tvSearchTransportationSkip.setOnClickListener {

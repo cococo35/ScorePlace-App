@@ -86,7 +86,7 @@ class SearchPeopleFragment : Fragment() {
             tvSearchPeopleNext.setOnClickListener {
 
                 if (preferType == 0) {
-                    Toast.makeText(requireContext(), getString(R.string.enter_congestion), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.search_enter_congestion), Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.getCongestionScore(preferType)
                     val searchCostFragment = SearchCostFragment()

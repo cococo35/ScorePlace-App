@@ -23,7 +23,7 @@
         android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcome"
+        android:text="@string/onboarding_welcome"
         android:layout_marginBottom="20dp"
         android:textAlignment="center"
         android:textColor="@color/darkblue"
@@ -83,7 +83,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_sign_up"
         style="@style/btnGeneral1st"
-        android:text="@string/sign_up"
+        android:text="@string/onboarding_sign_up"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="20sp"
         android:layout_marginTop="12dp"
