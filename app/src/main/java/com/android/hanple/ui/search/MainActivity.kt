@@ -109,7 +109,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     //API키 수정은 여기서만
     private fun initPlaceSDK() {
         // Define a variable to hold the Places API key.
@@ -161,8 +160,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    private fun deleteItem(){
+    private fun deleteItem() {
         Log.d("데이터 삭제 성공", "")
         runBlocking {
             recommendDAO.deleteItem()
@@ -212,11 +210,11 @@ class MainActivity : AppCompatActivity() {
         return list
     }
 
-    fun visibleDrawerView(){
+    fun visibleDrawerView() {
         binding.btnMainMenu.visibility = View.VISIBLE
     }
 
-    fun hideDrawerView(){
+    fun hideDrawerView() {
         binding.btnMainMenu.visibility = View.GONE
     }
 }

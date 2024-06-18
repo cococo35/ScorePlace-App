@@ -161,38 +161,35 @@
         android:layout_marginStart="25dp" />
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cd_search_time_skip"
+    <!-- 하단 버튼 -->
+    <LinearLayout
+        android:id="@+id/ll_buttons"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardBackgroundColor="@color/gray"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="15dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cd_search_time_next">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="36dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_search_time_next"
+            style="@style/btnGeneral1st"
+            android:text="@string/next"
+            android:textSize="20sp"
+            android:layout_marginTop="24dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_search_time_again_input"
+            style="@style/btnGeneral3rd"
+            android:text="다시 입력하기"
+            android:textSize="20sp"
+            android:layout_marginTop="8dp"/>
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="12dp"/>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_search_time_again_input"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="다시 입력하기"
-                android:fontFamily="@font/pretendard_regular"
-                android:textSize="27sp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -231,3 +228,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+=======
+</androidx.constraintlayout.widget.ConstraintLayout>
+>>>>>>> f548a2e01d5458264523989b2d099b19b2924087

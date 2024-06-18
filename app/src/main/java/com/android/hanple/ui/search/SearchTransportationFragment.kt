@@ -2,21 +2,20 @@ package com.android.hanple.ui.search
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
 import androidx.activity.OnBackPressedCallback
-
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchTransportationBinding
+import com.github.penfeizhou.animation.apng.APNGDrawable
+import com.github.penfeizhou.animation.loader.AssetStreamLoader
 
 class SearchTransportationFragment : Fragment() {
     private var _binding : FragmentSearchTransportationBinding? = null
@@ -64,6 +63,12 @@ class SearchTransportationFragment : Fragment() {
     }
 
     private fun initView(){
+        val busAssetLoader: AssetStreamLoader = AssetStreamLoader(activity, "animated_footprints.png")
+        binding.ivBus.setImageDrawable(APNGDrawable(busAssetLoader))
+
+        val carAssetLoader: AssetStreamLoader = AssetStreamLoader(activity, "animated_sport_utility_vehicle.png")
+        binding.ivCar.setImageDrawable(APNGDrawable(carAssetLoader))
+
         var isSelected = false
         binding.apply {
             cdSearchTransportationCar.setOnClickListener {
@@ -72,7 +77,7 @@ class SearchTransportationFragment : Fragment() {
                 binding.cdSearchTransportationPublic.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
                 isSelected = true
             }
-            btnSearchTransportationCar.setOnClickListener {
+            ivCar.setOnClickListener {
                 viewModel.getParkingData()
                 binding.cdSearchTransportationCar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.neomint))
                 binding.cdSearchTransportationPublic.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -84,7 +89,7 @@ class SearchTransportationFragment : Fragment() {
                 binding.cdSearchTransportationCar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
                 isSelected = true
             }
-            btnSearchTransportationPublic.setOnClickListener {
+            ivBus.setOnClickListener {
                 viewModel.usePublic()
                 binding.cdSearchTransportationPublic.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.neomint))
                 binding.cdSearchTransportationCar.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))

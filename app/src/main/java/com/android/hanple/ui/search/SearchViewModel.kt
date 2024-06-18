@@ -107,6 +107,7 @@ class SearchViewModel(
     val selectCategoryPlaceName : LiveData<String?> get() = _selectCategoryPlaceName
     val selectCategoryPlaceSummary : LiveData<String?> get() = _selectCategoryPlaceSummary
     val selectCategoryPlaceOpeningHour : LiveData<OpeningHours?> get() = _selectCategoryPlaceOpeningHour
+
     //선택지 좌표 넣기
     fun getSelectPlaceLatLng(data: LatLng) {
         _Lat.postValue(data.latitude.toString())
@@ -643,7 +644,7 @@ class SearchViewModel(
         } else {
             (score * 0.5 + 25) - (additionalCount * additionalCount)          // additionalCount 가 양수일 때, 음수일 때 if문으로 나눠 계산
         }
-        _totalScore.value = addScore.toInt()
+        _totalScore.postValue(score)
         Log.d("날씨 점수", weatherScore.value.toString())
         Log.d("미세먼지 점수", dustScore.value.toString())
         Log.d("교통 점수", transportScore.value.toString())
@@ -667,7 +668,7 @@ class SearchViewModel(
     }
 
     @SuppressLint("SuspiciousIndentation")
-    fun getRecommendPlace(list: List<Int>, dao: RecommendDAO){
+    fun getRecommendPlace(list: List<Int>, dao: RecommendDAO) {
         val recommendListBuffer = mutableListOf<CategoryPlace>()
         var uri : Uri? = null
         var data : CategoryPlace? = null
