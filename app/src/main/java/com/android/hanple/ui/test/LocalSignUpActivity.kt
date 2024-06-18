@@ -23,10 +23,13 @@ class LocalSignUpActivity : AppCompatActivity() {
         binding = ActivityLocalSignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //EditText 상의 입력값이 달라질 때마다 viewModel에 text값을 보냅니다.
         textChangeListener(binding.etEmail, viewModel::setEmail)
         textChangeListener(binding.etPassword, viewModel::setPassword)
         textChangeListener(binding.etUsername, viewModel::setUsername)
 
+        //1. viewModel에서 해당 text값이 valid한지 체크한 후, true/false 값을 보내줍니다.
+        //2. focusChangeListener에서는 EditText 종류 및 true/false 값에 따라 에러 메시지의 String 및 색상을 UI에 표시합니다.
         focusChangeListener(binding.etEmail, viewModel.isEmailValid, getString(R.string.email_valid), getString(R.string.email_invalid))
         focusChangeListener(binding.etPassword, viewModel.isPasswordValid, getString(R.string.password_valid), getString(R.string.password_invalid))
         focusChangeListener(binding.etUsername, viewModel.isUsernameValid, getString(R.string.username_valid), getString(R.string.username_invalid))
