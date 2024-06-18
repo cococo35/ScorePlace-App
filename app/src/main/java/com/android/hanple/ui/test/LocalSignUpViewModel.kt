@@ -19,7 +19,7 @@ class LocalSignUpViewModel: ViewModel() {
     val isEmailValid: StateFlow<Boolean> = _isEmailValid
 
     private val _username: MutableStateFlow<String> = MutableStateFlow("")
-    val nickname: StateFlow<String> = _username
+    val username: StateFlow<String> = _username
 
     private val _isUsernameValid = MutableStateFlow(false)
     val isUsernameValid: StateFlow<Boolean> = _isUsernameValid
