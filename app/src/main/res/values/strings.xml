@@ -12,6 +12,11 @@
     <string name="onboarding_guest_log_in_btn">게스트로 이용하기</string>
     <string name="sign_up">회원가입</string>
     <string name="welcome">Hanple로 나들이 추천 받기</string>
+    <string name="email_empty">이메일 란이 비어있어요.</string>
+    <string name="password_empty">비밀번호 란이 비어있어요.</string>
+    <string name="firebase_auth_success">Firebase Auth 인증 성공!</string>
+    <string name="check_email_password">아이디나 비밀번호를 확인해 주세요.</string>
+    <string name="email_format_wrong">올바른 이메일 형식이 아닙니다.</string>
 
 
     <!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings-->
@@ -70,9 +75,9 @@
     <string name="transportation_car">차를 가지고 갈거에요!</string>
 
 
-<!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score-->
+    <!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score-->
 
-    <!--button-->
+    <!--buttons-->
     <string name="close">닫기</string>
 
     <!--score_main-->
@@ -93,6 +98,36 @@
     <string name="score_detail_congestion">여행 성향 점수</string>
     <string name="score_detail_cost">비용 점수</string>
 
+    <string-array name="score_detail_dust_description">
+        <item>미세먼지 농도가 \'좋음\' 수준이에요</item>
+        <item>미세먼지 농도가 \'보통\' 수준이에요</item>
+        <item>미세먼지 농도가 \'나쁨\' 수준이에요</item>
+    </string-array>
+
+    <string-array name="score_detail_weather_description">
+        <item>맑은 날씨에요</item>
+        <item>전반적으로 날씨가 흐려요</item>
+        <item>비가 올 수 있어요</item>
+    </string-array>
+
+    <string-array name="score_detail_congestion_description">
+        <item>내가 원하던 장소에요</item>
+        <item>무난한 장소에요</item>
+        <item>원하던 장소가 아니에요</item>
+    </string-array>
+
+    <string-array name="score_detail_cost_description">
+        <item>마음껏 쓸 수 있어요</item>
+        <item>원하는 것들을 할 수 있어요</item>
+        <item>할 수 있는게 많지 않아요</item>
+    </string-array>
+
+    <string-array name="score_detail_traffic_description">
+        <item>막힘없이 이동할 수 있어요</item>
+        <item>일정에 맞게 이동할 수 있어요</item>
+        <item>이동에 시간이 오래 걸려요</item>
+    </string-array>
+
     <!--category-->
     <string name="place_name">장소 이름</string>
     <string name="place_detail">장소 정보</string>
@@ -101,9 +136,6 @@
     <string name="around">주변</string>
     <string name="category_food">음식점 ∨</string>
     <string name="category_name">카테고리 이름</string>
-    <string name="_4_0">4.0</string>
-    <string name="address">address</string>
-    <string name="score">score</string>
 
 
     <!--    archive--><!--    archive--><!--    archive--><!--    archive--><!--    archive--><!--    archive--><!--    archive--><!--    archive-->
@@ -118,5 +150,10 @@
     <string name="search_history">검색 기록</string>
     <string name="notification">공지사항</string>
     <string name="version">앱 버전</string>
+
+    <!--recyclerview--><!--recyclerview--><!--recyclerview--><!--recyclerview--><!--recyclerview--><!--recyclerview--><!--recyclerview-->
+    <string name="address">address</string>
+    <string name="score">score</string>
+    <string name="_4_0">4.0</string>
 
 </resources>

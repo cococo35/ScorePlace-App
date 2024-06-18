@@ -28,8 +28,8 @@ class LogInActivity : AppCompatActivity() {
             val password = binding.etPassword.text.toString()
             val logInChecker: Int = authViewModel.emailLogIn(email, password) //여기서 로그인!
             when(logInChecker) {
-                1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
-                2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()
+                1 -> Toast.makeText(this, getText(R.string.email_empty), Toast.LENGTH_SHORT).show()
+                2 -> Toast.makeText(this, getText(R.string.password_empty), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -66,7 +66,7 @@ class LogInActivity : AppCompatActivity() {
         authViewModel.authState.observe(this, Observer { authState -> //firebase auth 계정 체크
             when (authState) {
                 is LogInViewModel.AuthState.Success -> {
-                    Toast.makeText(this, "Firebase Auth 인증 성공!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getText(R.string.firebase_auth_success), Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()  // 현재 Activity를 종료하여 뒤로가기 시 로그인 화면이 보이지 않도록 함
@@ -76,8 +76,8 @@ class LogInActivity : AppCompatActivity() {
                     var toastMessage: String = ""
                     Log.d("Firebase Auth Failed", exception)
                     when (exception) {
-                        "The supplied auth credential is incorrect, malformed or has expired." -> toastMessage = "아이디나 비밀번호를 확인해 주세요."
-                        "The email address is badly formatted." -> toastMessage = "올바른 이메일 형식이 아닙니다."
+                        "The supplied auth credential is incorrect, malformed or has expired." -> toastMessage = getString(R.string.check_email_password)
+                        "The email address is badly formatted." -> toastMessage = getString(R.string.email_format_wrong)
                     }
                     Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
                 }

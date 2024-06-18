@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.android.hanple.R
 import com.android.hanple.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
@@ -22,8 +23,8 @@ class SignUpActivity : AppCompatActivity() {
             val password = binding.etPassword.text.toString()
             val signUpChecker: Int = viewModel.signUp(email, password) //여기서 회원가입!
             when(signUpChecker) {
-                1 -> Toast.makeText(this, "이메일 란이 비어있어요.", Toast.LENGTH_SHORT).show()
-                2 -> Toast.makeText(this, "비밀번호 란이 비어있어요.", Toast.LENGTH_SHORT).show()
+                1 -> Toast.makeText(this, getString(R.string.email_empty), Toast.LENGTH_SHORT).show()
+                2 -> Toast.makeText(this, getString(R.string.password_empty), Toast.LENGTH_SHORT).show()
             }
             finish() //로그인 위에 사인업이 띄워져있으니 액티비티 끝내면 다시 로그인 페이지로 돌아간다.
         }
