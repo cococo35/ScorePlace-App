@@ -43,17 +43,11 @@ class LocalSignUpActivity : AppCompatActivity() {
             if (hasFocus) {
                 lifecycleScope.launch {
                     viewModel.isPasswordValid.collect { isValid ->
-                        if (isValid) {
-                            binding.tvError.text = "비밀번호 8자 이상 통과 >.<"
-                            binding.tvError.setTextColor(
-                                ContextCompat.getColor( this@LocalSignUpActivity, R.color.darkblue)
-                            )
-                        } else {
-                            binding.tvError.text = "비밀번호가 8자 미만이에요;;;"
-                            binding.tvError.setTextColor(
-                                ContextCompat.getColor(this@LocalSignUpActivity,R.color.darkmint2)
-                                )
-                        }
+                        val message = if (isValid) "비밀번호 8자 이상 통과 >.<" else "비밀번호가 8자 미만이에요;;;"
+                        val color = if (isValid) R.color.darkblue else R.color.darkmint2
+
+                        binding.tvError.text = message
+                        binding.tvError.setTextColor(ContextCompat.getColor(this@LocalSignUpActivity, color))
                     }
                 }
             }
