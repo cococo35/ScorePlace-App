@@ -20,6 +20,7 @@ import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.room.RecommendDataBase
 import com.android.hanple.room.RecommendPlace
 import com.android.hanple.room.recommendPlaceGoogleID
+import com.android.hanple.ui.archive.ArchiveActivity
 import com.android.hanple.ui.archive.ListViewFragment
 import com.android.hanple.ui.settings.SettingsActivity
 import com.android.hanple.ui.settings.SettingsFragment
@@ -96,11 +97,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_bookmark -> {
-                    val listViewFragment = ListViewFragment()
-                    supportFragmentManager.commit {
-                        replace(R.id.fr_main, listViewFragment)
-                        addToBackStack(null)
-                }
+                  val intent = Intent(this, ArchiveActivity::class.java)
+                    startActivity(intent)
             }
         }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
