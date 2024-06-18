@@ -17,7 +17,7 @@ class LocalSignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLocalSignUpBinding
     private val viewModel: LocalSignUpViewModel by viewModels()
 
-    private fun setTextChangeListener(editText: EditText, updateFunction: (String) -> Unit) {
+    private fun textChangeListener(editText: EditText, updateFunction: (String) -> Unit) {
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -27,15 +27,14 @@ class LocalSignUpActivity : AppCompatActivity() {
         })
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLocalSignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setTextChangeListener(binding.etEmail, viewModel::setEmail)
-        setTextChangeListener(binding.etPassword, viewModel::setPassword)
-        setTextChangeListener(binding.etUsername, viewModel::setUsername)
+        textChangeListener(binding.etEmail, viewModel::setEmail)
+        textChangeListener(binding.etPassword, viewModel::setPassword)
+        textChangeListener(binding.etUsername, viewModel::setUsername)
 
         // EditText 포커스 변경 리스너 설정
         binding.etPassword.setOnFocusChangeListener { _, hasFocus ->
