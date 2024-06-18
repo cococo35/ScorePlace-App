@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_detail_dialog_title"
@@ -12,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textStyle="bold"
-        android:text="상세 점수"
+        android:text="@string/score_detail"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="36sp"
         android:layout_marginTop="125dp"
@@ -27,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="55dp"
-        android:text="미세 먼지 점수"
+        android:text="@string/score_detail_dust"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -41,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_dust"
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_dust"
         android:layout_marginTop="5dp"
-        android:text="좋은 날씨에요~"
+        android:text="@string/score_detail_weather_good"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 
@@ -62,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
-        android:text="날씨 점수"
+        android:text="@string/score_detail_weather"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -76,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_weather"
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_weather"
         android:layout_marginTop="5dp"
-        android:text="좋은 날씨에요~"
+        android:text="@string/score_detail_weather_good"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 
@@ -96,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
-        android:text="교통 점수"
+        android:text="@string/score_detail_traffic"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -110,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_traffic"
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_traffic"
         android:layout_marginTop="5dp"
-        android:text="좋은 날씨에요~"
+        android:text="@string/score_detail_weather_good"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 
@@ -130,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
-        android:text="여행 성향 점수"
+        android:text="@string/score_detail_congestion"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -144,7 +143,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_congestion"
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_congestion"
         android:layout_marginTop="5dp"
-        android:text="좋은 날씨에요~"
+        android:text="@string/score_detail_weather_good"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 
@@ -164,7 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
-        android:text="비용 점수"
+        android:text="@string/score_detail_cost"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -178,7 +177,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_detail_dialog_score_cost"
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_cost"
         android:layout_marginTop="5dp"
-        android:text="좋은 날씨에요~"
+        android:text="@string/score_detail_weather_good"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 
@@ -205,7 +204,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tv_detail_dialog_dismiss"
             style="@style/btnGeneral2nd"
-            android:text="닫기"
+            android:text="@string/close"
             android:textSize="20sp"
             android:layout_marginTop="8dp"/>
         <View

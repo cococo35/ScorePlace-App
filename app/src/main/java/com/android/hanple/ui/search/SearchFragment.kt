@@ -125,7 +125,7 @@ class SearchFragment : Fragment() {
     private fun clickRecommendPlace(place: CategoryPlace){
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle("${place.name}의 추천 점수를 알아볼까요?")
-            .setPositiveButton("YES") { dialog, _ ->
+            .setPositiveButton(getString(R.string.yes)) { dialog, _ ->
                 val searchTimeFragment = SearchTimeFragment()
                 viewModel.getSelectRecommendData(place)
                 viewModel.getSelectPlaceLatLng(place.latLng!!)
@@ -135,7 +135,7 @@ class SearchFragment : Fragment() {
                 transaction.replace(R.id.fr_main, searchTimeFragment)
                 transaction.commit()
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton(getString(R.string.no), null)
             .create()
             .show()
     }

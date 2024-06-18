@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/white"
     android:padding="16dp"
-    app:layout_behavior="com.google.android.material.bottom sheet.BottomSheetBehavior"
-    >
+    app:layout_behavior="com.google.android.material.bottom sheet.BottomSheetBehavior">
+
     <TextView
         android:id="@+id/tv_insert_time_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="활동 시간대를 입력해주세요"
+        android:text="@string/search_enter_activity_time"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -29,21 +28,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_insert_time_title"
-        android:layout_marginTop="16dp"
-        />
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/tv_insert_time_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/time_insert_start"
-        android:text="@string/time_from"
+        android:text="@string/search_time_from"
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/time_insert_end"/>
+        app:layout_constraintBottom_toTopOf="@+id/time_insert_end" />
 
     <TimePicker
         android:id="@+id/time_insert_end"
@@ -53,8 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_insert_time_from"
-        android:layout_marginTop="4dp"
-        />
+        android:layout_marginTop="4dp" />
 
     <TextView
         android:id="@+id/tv_insert_time_to"
@@ -63,12 +60,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_insert_end"
-        android:text="@string/time_to"
+        android:text="@string/search_time_to"
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="17sp"
-        android:layout_marginTop="4dp"
-         />
+        android:layout_marginTop="4dp" />
 
 
     <!-- 하단 버튼 -->
@@ -76,15 +72,15 @@
         android:id="@+id/ll_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_insert_time_to"
+        app:layout_constraintEnd_toEndOf="@id/tv_insert_time_to"
+        app:layout_constraintTop_toBottomOf="@id/tv_insert_time_to"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="vertical"
-        android:layout_marginBottom="12dp">
+        android:orientation="vertical" >
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tv_time_insert_dismiss"
             style="@style/btnGeneral2nd"
-            android:text="입력 완료"
+            android:text="@string/search_input_complete"
             android:textSize="20sp"
             android:layout_marginTop="24dp"/>
         <View

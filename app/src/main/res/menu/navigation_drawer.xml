@@ -4,22 +4,22 @@
         <item
             android:id="@+id/nav_account"
             android:icon="@drawable/ic_account_24dp"
-            android:title="내 정보" />
+            android:title="@string/info" />
         <item
             android:id="@+id/nav_search_log"
             android:icon="@drawable/ic_search_24dp"
-            android:title="검색 기록" />
+            android:title="@string/search_history" />
         <item
             android:id="@+id/nav_bookmark"
             android:icon="@drawable/ic_bookmark_24dp"
-            android:title="보관함" />
+            android:title="@string/storage" />
         <item
             android:id="@+id/nav_notification"
             android:icon="@drawable/ic_notification_black_24dp"
-            android:title="공지사항" />
+            android:title="@string/notification" />
         <item
             android:id="@+id/nav_version"
             android:icon="@drawable/ic_version_24dp"
-            android:title="앱 버전" />
+            android:title="@string/version" />
     </group>
 </menu>

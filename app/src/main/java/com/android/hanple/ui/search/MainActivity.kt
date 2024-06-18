@@ -20,6 +20,7 @@ import com.android.hanple.databinding.ActivityMainBinding
 import com.android.hanple.room.RecommendDataBase
 import com.android.hanple.room.RecommendPlace
 import com.android.hanple.room.recommendPlaceGoogleID
+import com.android.hanple.ui.archive.ArchiveActivity
 import com.android.hanple.ui.archive.ListViewFragment
 import com.android.hanple.ui.settings.SettingsActivity
 import com.android.hanple.ui.settings.SettingsFragment
@@ -96,11 +97,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_bookmark -> {
-                    val listViewFragment = ListViewFragment()
-                    supportFragmentManager.commit {
-                        replace(R.id.fr_main, listViewFragment)
-                        addToBackStack(null)
-                }
+                  val intent = Intent(this, ArchiveActivity::class.java)
+                    startActivity(intent)
             }
         }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -137,18 +135,18 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     if (System.currentTimeMillis() - backPressedTime >= 2000) {
                         backPressedTime = System.currentTimeMillis()
-                        Toast.makeText(this@MainActivity, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT)
+                        Toast.makeText(this@MainActivity, getString(R.string.backpress_first), Toast.LENGTH_SHORT)
                             .show()
                     } else if (System.currentTimeMillis() - backPressedTime < 2000) {
                         AlertDialog.Builder(this@MainActivity)
-                            .setTitle("종료")
-                            .setMessage("앱을 종료하시겠습니까?")
-                            .setPositiveButton("YES", object : DialogInterface.OnClickListener {
+                            .setTitle(getString(R.string.backpress_end))
+                            .setMessage(getString(R.string.backpress_second))
+                            .setPositiveButton(getString(R.string.yes), object : DialogInterface.OnClickListener {
                                 override fun onClick(dialog: DialogInterface?, which: Int) {
                                     this@MainActivity.finish()
                                 }
                             })
-                            .setNegativeButton("NO", object : DialogInterface.OnClickListener {
+                            .setNegativeButton(getString(R.string.no), object : DialogInterface.OnClickListener {
                                 override fun onClick(dialog: DialogInterface?, which: Int) {
                                 }
                             })
