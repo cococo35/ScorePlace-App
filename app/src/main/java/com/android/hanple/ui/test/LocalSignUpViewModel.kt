@@ -41,4 +41,5 @@ class LocalSignUpViewModel: ViewModel() {
         _isUsernameValid.value = username.length >= 2 && username.isNotBlank() //한국어 한글자도 length = 1 로 취급
     }
 
+
 }

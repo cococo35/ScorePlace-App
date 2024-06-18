@@ -3,6 +3,7 @@ package com.android.hanple.ui.test
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,37 +16,26 @@ class LocalSignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLocalSignUpBinding
     private val viewModel: LocalSignUpViewModel by viewModels()
+
+    private fun setTextChangeListener(editText: EditText, updateFunction: (String) -> Unit) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(editable: Editable?) {
+                updateFunction(editable.toString())
+            }
+        })
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLocalSignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // etPassword 텍스트 변경 리스너 추가
-        binding.etPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(editable: Editable?) {
-                viewModel.setPassword(editable.toString())
-            }
-        })
-
-        // etEmail 텍스트 변경 리스너 추가
-        binding.etEmail.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(editable: Editable?) {
-                viewModel.setEmail(editable.toString())
-            }
-        })
-
-        // etEmail 텍스트 변경 리스너 추가
-        binding.etUsername.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(editable: Editable?) {
-                viewModel.setUsername(editable.toString())
-            }
-        })
+        setTextChangeListener(binding.etEmail, viewModel::setEmail)
+        setTextChangeListener(binding.etPassword, viewModel::setPassword)
+        setTextChangeListener(binding.etUsername, viewModel::setUsername)
 
         // EditText 포커스 변경 리스너 설정
         binding.etPassword.setOnFocusChangeListener { _, hasFocus ->
