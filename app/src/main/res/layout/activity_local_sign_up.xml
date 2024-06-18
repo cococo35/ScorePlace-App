@@ -18,31 +18,27 @@
 
 
 
-    <TextView
-        android:id="@+id/title_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/onboarding_welcome"
-        android:layout_marginBottom="20dp"
-        android:textAlignment="center"
-        android:textColor="@color/darkblue"
-        android:fontFamily="@font/pretendard_regular"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/edit_texts_li"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/edit_texts_li"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        app:layout_constraintTop_toBottomOf="@id/iv_back"
+        android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/onboarding_welcome"
+            android:layout_marginBottom="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/darkblue"
+            android:fontFamily="@font/pretendard_regular"
+            android:textSize="20sp"
+            android:textStyle="bold" />
         <EditText
             android:id="@+id/et_email"
             style="@style/etGeneral"
