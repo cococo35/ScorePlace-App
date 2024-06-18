@@ -6,6 +6,14 @@
     <!--    loading--><!--    loading--><!--    loading--><!--    loading--><!--    loading--><!--    loading--><!--    loading--><!--    loading-->
     <string name="loading_address">위치 정보를 불러오고 있어요!</string>
 
+    <!--backpress--><!--backpress--><!--backpress--><!--backpress--><!--backpress--><!--backpress--><!--backpress--><!--backpress-->
+    <string name="first_backpress">한번 더 누르면 종료됩니다.</string>
+    <string name="second_backpress">앱을 종료하시겠습니까?</string>
+    <string name="end">종료</string>
+    <string name="yes">네</string>
+    <string name="no">아니오</string>
+    <string name="return_home_screen">처음 화면으로 돌아가시겠습니까?</string>
+
 
     <!--    onboarding--><!--    onboarding--><!--    onboarding--><!--    onboarding--><!--    onboarding--><!--    onboarding-->
     <string name="onboarding_email_log_in_btn">이메일로 로그인</string>
@@ -22,7 +30,7 @@
     <!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings-->
     <string name="manage_information">내 정보 관리</string>
     <string name="nickname">별명</string>
-    <string name="nickname_sample">cococo35</string>
+    <string name="nickname_sample">coco co35</string>
     <string name="email">이메일</string>
     <string name="email_sample">test123@google.com</string>
     <string name="password">비밀번호</string>
@@ -47,6 +55,7 @@
     <string name="_10">10</string>
     <string name="won">만 원</string>
     <string name="cost_ok">정도면 적당할 것 같아요!</string>
+    <string name="enter_amount">금액을 입력해주세요.</string>
 
     <!--    search_loading-->
     <string name="calculate_score">점수를 계산 중이에요!</string>
@@ -59,6 +68,7 @@
     <string name="congestion_option_3">적당한게 좋아요!</string>
     <string name="congestion_option_4">사람이 많이 오가면 좋겠어요!</string>
     <string name="congestion_option_5">핫플이 좋아요!</string>
+    <string name="enter_congestion">여행 성향을 선택해주세요.</string>
 
     <!--    search_time-->
     <string name="enter_activity_time">활동 시간대를 입력해주세요</string>
@@ -68,11 +78,17 @@
     <string name="time_from">부터</string>
     <string name="time_to">까지 주로 활동해요!</string>
     <string name="input_complete">입력 완료</string>
+    <string name="wrong_time_format">잘못 입력된 정보가 있습니다</string>
+    <string name="enter_time_format">입력되지 않은 정보가 있습니다</string>
+    <string name="start_time">1000</string>
+    <string name="end_time">2200</string>
 
     <!--    search_transportation-->
     <string name="how_to_go">어떻게 가시나요?</string>
     <string name="transportation_public">대중교통을 이용해요!</string>
     <string name="transportation_car">차를 가지고 갈거에요!</string>
+    <string name="enter_transportation">이동 수단을 선택해주세요.</string>
+
 
 
     <!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score--><!--    score-->
@@ -85,9 +101,22 @@
     <string name="date_sample">6/2(일) 11:00</string>
     <string name="score_sample">77점</string>
     <string name="see_detail_score">상세 점수 보러가기</string>
-    <string name="score_description_normal">놀러 가기 적당해요!</string>
-    <string name="score_weather_description_rain_1">비가 올 수 있어요.</string>
-    <string name="score_weather_description_rain_2">우산을 준비하세요!</string>
+    <string name="score_description_sample">놀러 가기 적당해요!</string>
+    <string name="score_weather_description_sample_1">비가 올 수 있어요.</string>
+    <string name="score_weather_description_sample_2">우산을 준비하세요!</string>
+
+    <string-array name="score_total_description">
+        <item>해당 장소를 추천하지 않아요.</item>
+        <item>놀러 가기 적당해요~</item>
+        <item>매우 추천합니다. 꼭 다녀오세요!</item>
+    </string-array>
+
+    <string-array name="score_weather_description">
+        <item>비가 올 수 있어요</item>
+        <item>우산을 준비하세요</item>
+        <item>전반적으로 날씨가 흐려요</item>
+        <item>맑은 날씨에요</item>
+    </string-array>
 
     <!--score_detail-->
     <string name="score_detail">상세 점수</string>
@@ -133,7 +162,10 @@
     <string name="place_detail">장소 정보</string>
     <string name="place_address">장소 주소</string>
     <string name="place_open_hour">장소 운영 시간</string>
+    <string name="points">점</string>
     <string name="around">주변</string>
+    <string name="month">월</string>
+    <string name="day">일</string>
     <string name="category_food">음식점 ∨</string>
     <string name="category_name">카테고리 이름</string>
 

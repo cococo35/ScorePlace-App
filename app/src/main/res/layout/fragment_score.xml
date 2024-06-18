@@ -90,7 +90,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_score_score"
                 app:layout_constraintStart_toStartOf="@id/tv_score_score"
                 app:layout_constraintEnd_toEndOf="@id/tv_score_score"
-                android:text="@string/score_description_normal"
+                android:text="@string/score_description_sample"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -147,7 +147,7 @@
                 app:layout_constraintTop_toTopOf="@id/iv_score_weather"
                 app:layout_constraintBottom_toBottomOf="@id/iv_score_weather"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/score_weather_description_rain_1"
+                android:text="@string/score_weather_description_sample_1"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="18sp" />
 
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_score_weather_description"
                 app:layout_constraintStart_toStartOf="@id/tv_score_weather_description"
-                android:text="@string/score_weather_description_rain_2"
+                android:text="@string/score_weather_description_sample_2"
                 android:textColor="@color/darkblue"
                 android:textStyle="bold"
                 android:fontFamily="@font/pretendard_regular"
