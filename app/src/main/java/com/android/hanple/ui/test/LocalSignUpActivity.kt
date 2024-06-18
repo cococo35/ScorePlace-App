@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityLocalSignUpBinding
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class LocalSignUpActivity : AppCompatActivity() {
@@ -55,7 +56,7 @@ class LocalSignUpActivity : AppCompatActivity() {
         editText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 lifecycleScope.launch {
-                    isValidFlow.collect { isValid ->
+                    isValidFlow.collectLatest { isValid ->
                         val message = if (isValid) successMessage else errorMessage
                         val color = if (isValid) R.color.darkblue else R.color.darkmint2
 
