@@ -99,7 +99,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginLeft="25dp"/>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_presonal_info"
+            android:id="@+id/btn_private_policy"
             style="@style/btnGeneral2nd"
             android:text="@string/onboarding_personal_info"
             android:textSize="20sp"

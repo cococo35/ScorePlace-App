@@ -1,5 +1,6 @@
 package com.android.hanple.ui.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -37,6 +38,11 @@ class SignUpActivity : AppCompatActivity() {
             R.string.password_invalid))
         focusChangeListener(binding.etUsername, viewModel.isUsernameValid, getString(R.string.username_valid), getString(
             R.string.username_invalid))
+
+        binding.btnPrivatePolicy.setOnClickListener {//이용약관 확인
+            val intent = Intent(this, PrivatePolicyActivity::class.java)
+            startActivity(intent)
+        }
 
         //회원가입 버튼을 누르면, 각 EditText에 있는 결과값을 받아
         binding.btnSignUp.setOnClickListener {
