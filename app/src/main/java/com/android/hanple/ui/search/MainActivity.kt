@@ -99,15 +99,15 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_bookmark -> {
-                  val intent = Intent(this, ArchiveActivity::class.java)
+
+                    val intent = Intent(this, ArchiveActivity::class.java)
                     startActivity(intent)
+                }
             }
-        }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
     }
-
 
 
     //API키 수정은 여기서만
@@ -161,8 +161,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    private fun deleteItem(){
+    private fun deleteItem() {
         Log.d("데이터 삭제 성공", "")
         runBlocking {
             recommendDAO.deleteItem()
@@ -200,11 +199,11 @@ class MainActivity : AppCompatActivity() {
         return list
     }
 
-    fun visibleDrawerView(){
+    fun visibleDrawerView() {
         binding.btnMainMenu.visibility = View.VISIBLE
     }
 
-    fun hideDrawerView(){
+    fun hideDrawerView() {
         binding.btnMainMenu.visibility = View.GONE
     }
 

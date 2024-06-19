@@ -86,8 +86,12 @@ class ScoreFragment : Fragment() {
             toggleBookmarkIcon()
             val address = binding.tvScoreTitle.text.toString()
             val score = binding.tvScoreScore.text.toString().removeSuffix(getString(R.string.points)).toDoubleOrNull() ?: 0.0
-            savePlaceToPreferences(address, score)
+            if (!isPlaceBookmarked(address)) {
+                savePlaceToPreferences(address, score)
+            }
+            saveBookmarkState(address)
         }
+        checkBookmarkState()
     }
 
     override fun onAttach(context: Context) {
@@ -455,9 +459,41 @@ class ScoreFragment : Fragment() {
         val editor = sharedPreferences.edit()
 
         val placeCount = sharedPreferences.getInt("place_count", 0)
-        editor.putString("address_$placeCount", address)
-        editor.putFloat("score_$placeCount", score.toFloat())
-        editor.putInt("place_count", placeCount + 1)
+        val existingAddresses = (0 until placeCount).mapNotNull { sharedPreferences.getString("address_$it", null) }
+        if (!existingAddresses.contains(address)) {
+            editor.putString("address_$placeCount", address)
+            editor.putFloat("score_$placeCount", score.toFloat())
+            editor.putInt("place_count", placeCount + 1)
+            editor.apply()
+        }
+    }
+
+    // 북마크 상태 저장 코드 추가
+    private fun saveBookmarkState(address: String) {
+        val sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("is_bookmarked_$address", binding.ivScoreBookmark.tag == "bookmarked")
         editor.apply()
+    }
+
+    // 북마크 상태 체크 코드 추가
+    private fun checkBookmarkState() {
+        val sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
+        val address = binding.tvScoreTitle.text.toString()
+        val isBookmarked = sharedPreferences.getBoolean("is_bookmarked_$address", false)
+        if (isBookmarked) {
+            binding.ivScoreBookmark.setImageResource(R.drawable.ic_bookmark_filed)
+            binding.ivScoreBookmark.tag = "bookmarked"
+        } else {
+            binding.ivScoreBookmark.setImageResource(R.drawable.ic_bookmark_24dp)
+            binding.ivScoreBookmark.tag = "not_bookmarked"
+        }
+    }
+
+    private fun isPlaceBookmarked(address: String): Boolean {
+        val sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
+        val placeCount = sharedPreferences.getInt("place_count", 0)
+        val existingAddresses = (0 until placeCount).mapNotNull { sharedPreferences.getString("address_$it", null) }
+        return existingAddresses.contains(address)
     }
 }
