@@ -13,21 +13,21 @@ class SignUpViewModel : ViewModel() {
 
     private val authRepository = AuthRepository()
 
-    //LiveData 사용해 유저 정보 체크
-    private val _password: MutableLiveData<String> = MutableLiveData("")
-    val password: LiveData<String> = _password
-    private val _isPasswordValid = MutableLiveData(false)
-    val isPasswordValid: LiveData<Boolean> = _isPasswordValid
+    //StateFlow 사용해 유저 정보 체크
+    private val _password: MutableStateFlow<String> = MutableStateFlow("")
+    val password: StateFlow<String> = _password
+    private val _isPasswordValid = MutableStateFlow(false)
+    val isPasswordValid: StateFlow<Boolean> = _isPasswordValid
 
-    private val _email: MutableLiveData<String> = MutableLiveData("")
-    val email: LiveData<String> = _email
-    private val _isEmailValid = MutableLiveData(false)
-    val isEmailValid: LiveData<Boolean> = _isEmailValid
+    private val _email: MutableStateFlow<String> = MutableStateFlow("")
+    val email: StateFlow<String> = _email
+    private val _isEmailValid = MutableStateFlow(false)
+    val isEmailValid: StateFlow<Boolean> = _isEmailValid
 
-    private val _username: MutableLiveData<String> = MutableLiveData("")
-    val username: LiveData<String> = _username
-    private val _isUserNameValid = MutableLiveData(false)
-    val isUserNameValid: LiveData<Boolean> = _isUserNameValid
+    private val _username: MutableStateFlow<String> = MutableStateFlow("")
+    val username: StateFlow<String> = _username
+    private val _isUserNameValid = MutableStateFlow(false)
+    val isUserNameValid: StateFlow<Boolean> = _isUserNameValid
 
     //이용약관 체크
     private val _readAll = MutableLiveData<Boolean>(false)

@@ -36,7 +36,7 @@ class SignUpActivity : AppCompatActivity() {
             R.string.email_invalid))
         focusChangeListener(binding.etPassword, viewModel.isPasswordValid, getString(R.string.password_valid), getString(
             R.string.password_invalid))
-        focusChangeListener(binding.etUsername, viewModel.isUsernameValid, getString(R.string.username_valid), getString(
+        focusChangeListener(binding.etUsername, viewModel.isUserNameValid, getString(R.string.username_valid), getString(
             R.string.username_invalid))
 
         binding.btnPrivatePolicy.setOnClickListener {//이용약관 확인
