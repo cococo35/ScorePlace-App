@@ -1,13 +1,8 @@
 package com.android.hanple.ui.onboarding
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.android.hanple.R
 import com.android.hanple.databinding.ActivityPrivatePolicyBinding
-import com.android.hanple.databinding.ActivitySignUpBinding
 
 class PrivatePolicyActivity : AppCompatActivity() {
 
@@ -15,6 +10,11 @@ class PrivatePolicyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityPrivatePolicyBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnDismiss.setOnClickListener {
+            finish()
+        }
     }
 }
