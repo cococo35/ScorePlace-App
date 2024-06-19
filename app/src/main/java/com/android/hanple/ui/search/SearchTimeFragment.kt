@@ -31,14 +31,14 @@ class SearchTimeFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
     }
-    private val timePickerBottomSheet by lazy{
+    private val timePickerBottomSheet by lazy {
         layoutInflater.inflate(R.layout.fragment_insert_time, null)
     }
     private val timePickerBottomSheetView by lazy {
         BottomSheetDialog(requireContext())
     }
-    private lateinit var callback : OnBackPressedCallback
-    private lateinit var localDateTime : String
+    private lateinit var callback: OnBackPressedCallback
+    private lateinit var localDateTime: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +56,7 @@ class SearchTimeFragment : Fragment() {
         putViewModelData()
         (activity as MainActivity).hideDrawerView()
         timePickerBottomSheetView.setContentView(timePickerBottomSheet)
-        if(viewModel.readTimeStamp.value == null || viewModel.readTimeStamp.value!!.isEmpty()){
+        if (viewModel.readTimeStamp.value == null || viewModel.readTimeStamp.value!!.isEmpty()) {
             createTimePickerBottomView()
         }
     }
@@ -69,14 +69,14 @@ class SearchTimeFragment : Fragment() {
                 if (mainDrawer.isDrawerOpen(GravityCompat.START)) {
                     mainDrawer.closeDrawer(GravityCompat.START)
                 } else {
-                        val searchFragment = SearchFragment()
-                        val transaction = parentFragmentManager.beginTransaction()
-                        transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
-                        transaction.replace(R.id.fr_main, searchFragment)
-                        transaction.commit()
-                        viewModel.resetPlaceData()
-                        viewModel.resetRecommendPlaceData()
-                        (activity as MainActivity).visibleDrawerView()
+                    val searchFragment = SearchFragment()
+                    val transaction = parentFragmentManager.beginTransaction()
+                    transaction.setCustomAnimations(R.anim.to_left, R.anim.from_left)
+                    transaction.replace(R.id.fr_main, searchFragment)
+                    transaction.commit()
+                    viewModel.resetPlaceData()
+                    viewModel.resetRecommendPlaceData()
+                    (activity as MainActivity).visibleDrawerView()
                 }
             }
         }
@@ -88,7 +88,6 @@ class SearchTimeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 
 
     private fun initView() {
@@ -107,41 +106,38 @@ class SearchTimeFragment : Fragment() {
                 binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()
 
             // 기존 검증 방식은 editText일 때에만 의미가 있기 때문에 전부 제거 & 활동 시간이 30분 미만일 때의 메세지 추가
-            if (toStart.toInt() - fromStart.toInt() < 50) {
-                Toast.makeText(requireContext(), getString(R.string.search_wrong_time_format), Toast.LENGTH_SHORT).show()
+            if (toStart.toInt() - fromStart.toInt() in 1 ..49) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.search_wrong_time_format),
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
-                    val searchTransportationFragment = SearchTransportationFragment()
-                    val transaction = parentFragmentManager.beginTransaction()
-                    transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
-                    transaction.replace(R.id.fr_main, searchTransportationFragment)
-                    transaction.commit()
+                val searchTransportationFragment = SearchTransportationFragment()
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.setCustomAnimations(R.anim.to_right, R.anim.from_right)
+                transaction.replace(R.id.fr_main, searchTransportationFragment)
+                transaction.commit()
             }
         }
-        viewModel.startTime.observe(viewLifecycleOwner){
-            if(it == null || it == "not input"){
+        viewModel.startTime.observe(viewLifecycleOwner) {
+            if (it == null || it == "not input") {
                 binding.tvSearchTimeFromHour.text = getString(R.string._00)
                 binding.tvSearchTimeFromMinute.text = getString(R.string._00)
-            }
-            else{
-                binding.tvSearchTimeFromHour.text = it.substring(0,2)
+            } else {
+                binding.tvSearchTimeFromHour.text = it.substring(0, 2)
                 binding.tvSearchTimeFromMinute.text = it.substring(2)
             }
         }
-        viewModel.endTime.observe(viewLifecycleOwner){
-            if(it == null || it == "not input"){
+        viewModel.endTime.observe(viewLifecycleOwner) {
+            if (it == null || it == "not input") {
                 binding.tvSearchTimeToHour.text = getString(R.string._00)
                 binding.tvSearchTimeToMinute.text = getString(R.string._00)
-            }
-            else{
-                binding.tvSearchTimeToHour.text = it.substring(0,2)
+            } else {
+                binding.tvSearchTimeToHour.text = it.substring(0, 2)
                 binding.tvSearchTimeToMinute.text = it.substring(2)
             }
         }
-    }
-
-    private fun hideKeyBoard(activity: Activity) {
-        val keyBoard = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        keyBoard.hideSoftInputFromWindow(activity.window.decorView.applicationWindowToken, 0)
     }
 
     private fun putViewModelData() {
@@ -150,7 +146,7 @@ class SearchTimeFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getLocalTime(){
+    private fun getLocalTime() {
         val time: Long = System.currentTimeMillis() / 1000
         localDateTime = time.toString()
         Log.d("시간 확인", localDateTime)
@@ -160,8 +156,8 @@ class SearchTimeFragment : Fragment() {
     @SuppressLint("InflateParams")
     private fun createTimePickerBottomView() {
 
-        var startTime : String = getString(R.string.search_start_time)
-        var endTime : String = getString(R.string.search_end_time)
+        var startTime: String = getString(R.string.search_start_time)
+        var endTime: String = getString(R.string.search_end_time)
 
         viewModel.getStartTime(startTime)
         viewModel.getEndTime(endTime)
@@ -183,17 +179,12 @@ class SearchTimeFragment : Fragment() {
         }
 
         insertButton.setOnClickListener {
-            viewModel.getTimeStamp(startTime,endTime)
+            viewModel.getTimeStamp(startTime, endTime)
             timePickerBottomSheetView.dismiss()
 
-            // startTime > endTime 일 경우 endTime + 2400 해서 다음날을 기준으로 하도록 수정
-            if (startTime > endTime) {
-                viewModel.getStartTime(startTime)
-                viewModel.getEndTime((endTime.toInt() + 2400).toString())
-            } else {
-                viewModel.getStartTime(startTime)
-                viewModel.getEndTime(endTime)
-            }
+            viewModel.getStartTime(startTime)
+            viewModel.getEndTime(endTime)
+
             Log.d("from 시간", startTime)
             Log.d("to 시간", endTime)
         }
@@ -202,15 +193,13 @@ class SearchTimeFragment : Fragment() {
         timePickerBottomSheetView.show()
     }
 
-    private fun getTimeString(data: Int) : String {
-        var text : String = ""
-        if(data < 10){
+    private fun getTimeString(data: Int): String {
+        var text: String = ""
+        if (data < 10) {
             text = "0$data"
-        }
-        else {
+        } else {
             text = "$data"
         }
         return text
     }
-
 }

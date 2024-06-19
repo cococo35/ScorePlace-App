@@ -143,8 +143,13 @@ class SearchViewModel(
     }
 
     fun getTimeStamp(str1: String, str2: String) {
-        val list = listOf(str1, str2)
-        timeStamp.postValue(list)
+        if (str1 >= str2) {
+            val list = listOf(str1, (str2.toInt() + 2400).toString())
+            timeStamp.postValue(list)
+        } else {
+            val list = listOf(str1, str2)
+            timeStamp.postValue(list)
+        }
     }
 
     fun resetTimeStamp() {
@@ -455,6 +460,16 @@ class SearchViewModel(
             score = 30
         }
         return score
+    }
+
+    fun getTimeSlot() {
+        val startTime = timeStamp.value?.get(0)?.toInt()
+        val endTime = timeStamp.value?.get(1)
+        val slot = listOf("morning", "afternoon", "evening", "night")
+        val checkTimeSlot: String
+        when (startTime) {
+            in 601..1200 -> checkTimeSlot = slot[0]
+        }
     }
 
     // weatherScore 가중치 20 -> 30
