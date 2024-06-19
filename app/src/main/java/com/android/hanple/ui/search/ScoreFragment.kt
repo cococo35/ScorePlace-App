@@ -135,7 +135,7 @@ class ScoreFragment : Fragment() {
 
 
         val localDateTime: LocalDateTime = LocalDateTime.now()
-        val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+        val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         viewModel.selectPlace?.observe(viewLifecycleOwner) {
             if(it == null){
                 binding.tvScoreTitle.text = "${viewModel.selectRecommendPlace.value?.name}"

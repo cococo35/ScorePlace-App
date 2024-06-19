@@ -23,6 +23,9 @@ import com.android.hanple.R
 import com.android.hanple.databinding.FragmentSearchTimeBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 @SuppressLint("InflateParams")
 class SearchTimeFragment : Fragment() {
@@ -39,7 +42,7 @@ class SearchTimeFragment : Fragment() {
     }
     private lateinit var callback : OnBackPressedCallback
     private lateinit var localDateTime : String
-
+    private var today : String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -223,9 +226,12 @@ class SearchTimeFragment : Fragment() {
         viewModel.getWeatherData(localDateTime)
     }
 
+    @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getLocalTime(){
-        val time: Long = System.currentTimeMillis() / 1000
+        val time: Long = System.currentTimeMillis()
+        val timeFormat = SimpleDateFormat("yyyy-MM-dd")
+        today = timeFormat.format(Date(time))
         localDateTime = time.toString()
         Log.d("시간 확인", localDateTime)
     }
@@ -250,7 +256,7 @@ class SearchTimeFragment : Fragment() {
         endTimePicker.minute = 0
 
         startTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-            startTime = getTimeString(hourOfDay) + getTimeString(minute)
+            startTime = today + "-" + getTimeString(hourOfDay) + " : " + getTimeString(minute)
             Log.d("from 시간", startTime)
             viewModel.getStartTime(startTime)
         }
