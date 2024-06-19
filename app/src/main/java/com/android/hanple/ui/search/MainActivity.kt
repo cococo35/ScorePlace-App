@@ -97,17 +97,10 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_bookmark -> {
-<<<<<<< HEAD
-                    val listViewFragment = ListViewFragment()
-                    supportFragmentManager.commit {
-                        replace(R.id.fr_main, listViewFragment)
-                        addToBackStack(null)
-                    }
-                }
-=======
-                  val intent = Intent(this, ArchiveActivity::class.java)
+
+                    val intent = Intent(this, ArchiveActivity::class.java)
                     startActivity(intent)
->>>>>>> 2f2b150df09e8e678853cb27dd5832a282991274
+                }
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true

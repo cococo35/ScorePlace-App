@@ -2,10 +2,7 @@ package com.android.hanple.ui.archive
 
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.hanple.R
@@ -25,32 +22,48 @@ class ArchiveActivity : AppCompatActivity() {
         initView()
     }
 
-
-
     private fun initView(){
-        val dummmyList = mutableListOf<CategoryPlace>()
-        for(i in 0..10){
-            dummmyList.add(CategoryPlace("주소 ${i+1}", 4.5, null, null, null, null, null,null,true, null))
+        val address = intent.getStringExtra("address") ?: ""
+        val score = intent.getDoubleExtra("score", 0.0)
+        val placeList = mutableListOf<CategoryPlace>().apply {
+            add(CategoryPlace(address, score, null, null, null, null, null, null, true, null))
         }
+
         supportFragmentManager.commit {
             replace(R.id.fr_archive_map, MapFragment())
             addToBackStack(null)
         }
+
         val bottomViewBehavior = BottomSheetBehavior.from(binding.recyclerMapList)
         bottomViewBehavior.isDraggable = true
         bottomViewBehavior.peekHeight = 120
-        bottomViewBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
+        bottomViewBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
-                //슬라이드 상태 변화에 활용할 메소드를 넣을 때 넣기
+                when (newState) {
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        // BottomSheet가 확장되었을 때 수행할 작업
+                        binding.recyclerMapList.visibility = View.VISIBLE
+                    }
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        // BottomSheet가 축소되었을 때 수행할 작업
+                        binding.recyclerMapList.visibility = View.GONE
+                    }
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+                        // BottomSheet가 숨겨졌을 때 수행할 작업
+                        binding.recyclerMapList.visibility = View.GONE
+                    }
+                }
             }
+
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                //슬라이드 시 활용할 메소드가 있으면 넣기
+                // 슬라이드 중일 때 수행할 작업
+                binding.recyclerMapList.alpha = slideOffset
             }
         })
-        //현재는 더미 리스트를 어댑터에 꽂아 넣었는데 이것도 바꾸기
+
         binding.recyclerMapList.adapter = PlaceStorageListAdapter(this, { place ->
-        }, dummmyList)
+            // 아이템 클릭 시 처리할 로직
+        }, placeList)
         binding.recyclerMapList.layoutManager = LinearLayoutManager(this)
     }
-
 }
