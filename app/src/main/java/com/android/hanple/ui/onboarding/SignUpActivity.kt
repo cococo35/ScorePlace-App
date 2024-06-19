@@ -25,9 +25,9 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //EditText 상의 입력값이 달라질 때마다 viewModel에 text값을 보냅니다.
-        textChangeListener(binding.etEmail, viewModel::setEmail)
-        textChangeListener(binding.etPassword, viewModel::setPassword)
-        textChangeListener(binding.etUsername, viewModel::setUsername)
+        textChangeListener(binding.etEmail, viewModel::updateEmail)
+        textChangeListener(binding.etPassword, viewModel::updatePassword)
+        textChangeListener(binding.etUsername, viewModel::updateUsername)
 
         //1. viewModel에서 해당 text값이 valid한지 체크한 후, true/false 값을 보내줍니다.
         //2. focusChangeListener에서는 EditText 종류 및 true/false 값에 따라 에러 메시지의 String 및 색상을 UI에 표시합니다.

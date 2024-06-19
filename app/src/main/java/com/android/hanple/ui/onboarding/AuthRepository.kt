@@ -13,4 +13,20 @@ class AuthRepository {
         } catch (e: Exception) {
             Result.failure(e)
         }
+
+    suspend fun signInWithEmailAndPassword(
+        email: String, password: String): Result<FirebaseUser> = try {
+        val result = auth.signInWithEmailAndPassword(email, password).await()
+        Result.success(result.user!!)
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
+    suspend fun signInAnonymously(): Result<FirebaseUser> = try {
+        val result = auth.signInAnonymously().await()
+        Result.success(result.user!!)
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
 }

@@ -65,6 +65,7 @@
     <string name="onboarding_firebase_auth_success">Firebase Auth 인증 성공!</string>
     <string name="onboarding_check_email_password">아이디나 비밀번호를 확인해 주세요.</string>
     <string name="onboarding_email_format_wrong">올바른 이메일 형식이 아닙니다.</string>
+    <string name="onboarding_personal_info">이옹약관 확인하기</string>
     <!-- sign-up -->
     <string name="email_valid">이메일 주소 형식이 맞네요!</string>
     <string name="email_invalid">잘못된 이메일 형식이에요 ㅠ.ㅠ</string>

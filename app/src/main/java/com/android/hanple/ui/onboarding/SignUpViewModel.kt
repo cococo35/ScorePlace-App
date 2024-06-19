@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 
 class SignUpViewModel : ViewModel() {
     //Model에서 메소드 불러오기
+
     private val authRepository = AuthRepository()
 
     //StateFlow로 UI 상의 입력정보를 stream에 졸졸 흘려보냄
@@ -30,17 +31,17 @@ class SignUpViewModel : ViewModel() {
     val isUsernameValid: StateFlow<Boolean> = _isUsernameValid
 
     //StateFlow에 값 추가하고, 실시간 입력값 확인하기
-    fun setPassword(password: String) {
+    fun updatePassword(password: String) {
         _password.value = password
         _isPasswordValid.value = password.length >= 8
     }
-    fun setEmail(email: String) {
+    fun updateEmail(email: String) {
         _email.value = email
         _isEmailValid.value = android.util.Patterns
             .EMAIL_ADDRESS.matcher(email).matches()
         //android.util.Patterns.EMAIL_ADDRESS로 이메일 형식 확인 가능. 안드로이드 내장값
     }
-    fun setUsername(username: String) {
+    fun updateUsername(username: String) {
         _username.value = username
         _isUsernameValid.value = username.length >= 2 && username.isNotBlank() //한국어 한글자도 length = 1 로 취급
     }
@@ -53,6 +54,5 @@ class SignUpViewModel : ViewModel() {
             val result = authRepository.createUserWithEmailAndPassword(email, password)
         }
     }
-
 }
 

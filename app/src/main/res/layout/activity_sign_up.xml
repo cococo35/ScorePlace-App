@@ -80,16 +80,30 @@
             android:maxLines="1"/>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_sign_up"
-        style="@style/btnGeneral1st"
-        android:text="@string/onboarding_sign_up"
-        android:fontFamily="@font/pretendard_regular"
-        android:textSize="20sp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/ll_edit_texts"
+    <LinearLayout
+        android:id="@+id/ll_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="36dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_presonal_info"
+            style="@style/btnGeneral2nd"
+            android:text="@string/onboarding_personal_info"
+            android:textSize="20sp"
+            android:layout_marginTop="24dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sign_up"
+            style="@style/btnGeneral3rd"
+            android:text="@string/onboarding_sign_up"
+            android:textSize="20sp"
+            android:layout_marginTop="8dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
