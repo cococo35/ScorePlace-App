@@ -205,10 +205,12 @@ class SearchViewModel(
                     _Lng.value!!,
                     "48b0c79a814c79a5a38bb17b9109a288"
                 )
+                if(response != null) {
                 response.list.forEach {
                     list.add(it.main!!.aqi!!)
                 }
                 dustAqi.value = list
+                    }
             }.onFailure { e ->
                 Log.d("미세먼지 데이터 갱신 실패", e.toString())
             }
@@ -547,7 +549,7 @@ class SearchViewModel(
                 }
             }
             else
-                dustScore.postValue(score)
+                dustScore.postValue(5)
         }
     }
 
@@ -668,13 +670,12 @@ class SearchViewModel(
         } else {
             (score * 0.5 + 25) - (additionalCount * additionalCount)          // additionalCount 가 양수일 때, 음수일 때 if문으로 나눠 계산
         }
-        _totalScore.postValue(addScore.toInt())
-        Log.d("날씨 점수", weatherScore.value.toString())
-        Log.d("미세먼지 점수", dustScore.value.toString())
-        Log.d("교통 점수", transportScore.value.toString())
-        Log.d("비용 점수", costScore.value.toString())
-        Log.d("혼잡도 점수", congestScore.value.toString())
-        Log.d("총 점수", _totalScore.value.toString())
+        _totalScore.postValue(score)
+        Log.d("날씨 점수", weatherScore?.value.toString())
+        Log.d("미세먼지 점수", dustScore?.value.toString())
+        Log.d("교통 점수", transportScore?.value.toString())
+        Log.d("비용 점수", costScore?.value.toString())
+        Log.d("혼잡도 점수", congestScore?.value.toString())
     }
 
     fun resetScore() {
