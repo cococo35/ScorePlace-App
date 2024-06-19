@@ -13,7 +13,7 @@ class SignUpViewModel : ViewModel() {
 
     private val authRepository = AuthRepository()
 
-    //StateFlow로 UI 상의 입력정보를 stream에 졸졸 흘려보냄
+    //LiveData 사용해 유저 정보 체크
     private val _password: MutableLiveData<String> = MutableLiveData("")
     val password: LiveData<String> = _password
     private val _isPasswordValid = MutableLiveData(false)
@@ -26,9 +26,8 @@ class SignUpViewModel : ViewModel() {
 
     private val _username: MutableLiveData<String> = MutableLiveData("")
     val username: LiveData<String> = _username
-    private val _isUserNameValid = MutableStateFlow(false)
+    private val _isUserNameValid = MutableLiveData(false)
     val isUserNameValid: LiveData<Boolean> = _isUserNameValid
-    //
 
     //이용약관 체크
     private val _readAll = MutableLiveData<Boolean>(false)
