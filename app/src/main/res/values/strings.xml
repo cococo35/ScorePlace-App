@@ -65,7 +65,16 @@
     <string name="onboarding_firebase_auth_success">Firebase Auth 인증 성공!</string>
     <string name="onboarding_check_email_password">아이디나 비밀번호를 확인해 주세요.</string>
     <string name="onboarding_email_format_wrong">올바른 이메일 형식이 아닙니다.</string>
-
+    <string name="onboarding_personal_info">이용약관 확인하기</string>
+    <string name="onboarding_auto_login">다음부터는 자동 로그인할래요!</string>
+    <!-- sign-up -->
+    <string name="email_valid">이메일 주소 형식이 맞네요!</string>
+    <string name="email_invalid">잘못된 이메일 형식이에요 ㅠ.ㅠ</string>
+    <string name="password_valid">비밀번호 8자 이상 통과 ~</string>
+    <string name="password_invalid">비밀번호가 8자 미만이에요;;;</string>
+    <string name="username_valid">멋진 별명이네요!</string>
+    <string name="username_invalid">2글자 이상의 별명을 입력해 주세요.</string>
+    <string name="check_privacy_policy">개인정보 처리약관을 확인하셨나요?</string>
 
     <!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings-->
     <string name="settings_manage_information">내 정보 관리</string>
@@ -74,6 +83,18 @@
     <string name="settings_password_sample">********</string>
     <string name="settings_logout">로그아웃</string>
     <string name="settings_exit">HANPLE 탈퇴</string>
+
+    <string name="scroll_test">http://guny.kr/stuff/klorem/에서 아무렇게나 문단을 생성해서 자리를 채웠습니다. 국가안전보장에 관련되는 대외정책·군사정책과 국내정책의 수립에 관하여 국무회의의 심의에 앞서 대통령의 자문에 응하기 위하여 국가안전보장회의를 둔다.
+의원을 제명하려면 국회재적의원 3분의 2 이상의 찬성이 있어야 한다. 대통령의 임기가 만료되는 때에는 임기만료 70일 내지 40일전에 후임자를 선거한다.
+대법관은 대법원장의 제청으로 국회의 동의를 얻어 대통령이 임명한다. 국가는 건전한 소비행위를 계도하고 생산품의 품질향상을 촉구하기 위한 소비자보호운동을 법률이 정하는 바에 의하여 보장한다.
+피고인의 자백이 고문·폭행·협박·구속의 부당한 장기화 또는 기망 기타의 방법에 의하여 자의로 진술된 것이 아니라고 인정될 때 또는 정식재판에 있어서 피고인의 자백이 그에게 불리한 유일한 증거일 때에는 이를 유죄의 증거로 삼거나 이를 이유로 처벌할 수 없다.
+국민의 모든 자유와 권리는 국가안전보장·질서유지 또는 공공복리를 위하여 필요한 경우에 한하여 법률로써 제한할 수 있으며, 제한하는 경우에도 자유와 권리의 본질적인 내용을 침해할 수 없다.
+전직대통령의 신분과 예우에 관하여는 법률로 정한다. 제1항의 해임건의는 국회재적의원 3분의 1 이상의 발의에 의하여 국회재적의원 과반수의 찬성이 있어야 한다.
+연소자의 근로는 특별한 보호를 받는다. 대통령은 국회에 출석하여 발언하거나 서한으로 의견을 표시할 수 있다. 국가는 대외무역을 육성하며, 이를 규제·조정할 수 있다.
+근로자는 근로조건의 향상을 위하여 자주적인 단결권·단체교섭권 및 단체행동권을 가진다. 대법원장과 대법관이 아닌 법관의 임기는 10년으로 하며, 법률이 정하는 바에 의하여 연임할 수 있다.
+헌법재판소의 장은 국회의 동의를 얻어 재판관중에서 대통령이 임명한다. 중앙선거관리위원회는 법령의 범위안에서 선거관리·국민투표관리 또는 정당사무에 관한 규칙을 제정할 수 있으며, 법률에 저촉되지 아니하는 범위안에서 내부규율에 관한 규칙을 제정할 수 있다.
+대통령은 법률에서 구체적으로 범위를 정하여 위임받은 사항과 법률을 집행하기 위하여 필요한 사항에 관하여 대통령령을 발할 수 있다. 원장은 국회의 동의를 얻어 대통령이 임명하고, 그 임기는 4년으로 하며, 1차에 한하여 중임할 수 있다.
+군사재판을 관할하기 위하여 특별법원으로서 군사법원을 둘 수 있다. 국회의 회의는 공개한다. 다만, 출석의원 과반수의 찬성이 있거나 의장이 국가의 안전보장을 위하여 필요하다고 인정할 때에는 공개하지 아니할 수 있다.</string>
 
 
     <!--    search--><!--    search--><!--    search--><!--    search--><!--    search--><!--    search--><!--    search--><!--    search-->
@@ -188,5 +209,6 @@
     <!--archive_main-->
     <string name="storage">보관함</string>
     <string name="view_on_map"><![CDATA[지도에서 보기 >]]></string>
+
 
 </resources>
