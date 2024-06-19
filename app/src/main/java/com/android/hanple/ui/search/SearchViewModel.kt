@@ -464,11 +464,11 @@ class SearchViewModel(
 
     fun getTimeSlot() {
         val startTime = timeStamp.value?.get(0)?.toInt()
-        val endTime = timeStamp.value?.get(1)
-        val slot = listOf("morning", "afternoon", "evening", "night")
-        val checkTimeSlot: String
-        when (startTime) {
-            in 601..1200 -> checkTimeSlot = slot[0]
+        val endTime = timeStamp.value?.get(1)?.toInt()
+        if (startTime != null && endTime != null) {
+            if (startTime - endTime in 0..300) {
+                
+            }
         }
     }
 
@@ -518,16 +518,16 @@ class SearchViewModel(
     fun getDustScore() {
         addtionalCountDust = 0
         var sum = 0
-        var score: Int
-        var average: Int
+        var score: Int = 0
+        var average: Int = 0
         val list = dustAqi.value
         viewModelScope.launch {
             if (list != null) {
-                list.forEach {
+                list?.forEach {
                     sum += it.toInt()
                 }
 
-                average = sum / list.size
+                average = sum / list!!.size
                 score = if (average <= 2) {
                     10
                 } else if (average <= 3) {
@@ -546,6 +546,8 @@ class SearchViewModel(
                     addtionalCountDust--
                 }
             }
+            else
+                dustScore.postValue(score)
         }
     }
 
