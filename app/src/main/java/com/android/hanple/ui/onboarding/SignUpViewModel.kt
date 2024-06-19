@@ -3,93 +3,64 @@ package com.android.hanple.ui.onboarding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class SignUpViewModel : ViewModel() {
+    //Model에서 메소드 불러오기
 
-    private val auth: FirebaseAuth = Firebase.auth //firebase auth 가져오기.
+    private val authRepository = AuthRepository()
 
-    private val _signUpState = MutableLiveData<SignUpState>()
-    val signUpState: LiveData<SignUpState> get() = _signUpState
+    //StateFlow 사용해 유저 정보 체크
+    private val _password: MutableStateFlow<String> = MutableStateFlow("")
+    val password: StateFlow<String> = _password
+    private val _isPasswordValid = MutableStateFlow(false)
+    val isPasswordValid: StateFlow<Boolean> = _isPasswordValid
 
-    fun signUp(email: String?, password: String?): Int {
-        if (email == null || email == "") return 1
-        else if (password == null || password == "") return 2
-        else {
-            auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { signup ->
-                    if(signup.isSuccessful) {
-                        _signUpState.value = SignUpState.Success(auth.currentUser)
-                    } else {
-                        _signUpState.value = SignUpState.Failure(signup.exception)
-                    }
-                }
-            return 0
+    private val _email: MutableStateFlow<String> = MutableStateFlow("")
+    val email: StateFlow<String> = _email
+    private val _isEmailValid = MutableStateFlow(false)
+    val isEmailValid: StateFlow<Boolean> = _isEmailValid
+
+    private val _username: MutableStateFlow<String> = MutableStateFlow("")
+    val username: StateFlow<String> = _username
+    private val _isUserNameValid = MutableStateFlow(false)
+    val isUserNameValid: StateFlow<Boolean> = _isUserNameValid
+
+    //이용약관 체크
+    private val _readAll = MutableLiveData<Boolean>(false)
+    val readAll: LiveData<Boolean> get() = _readAll
+
+    fun updateReadAll(isChecked: Boolean) {
+        _readAll.value = isChecked
+    }
+    //이용약관 체크
+
+    //StateFlow에 값 추가하고, 실시간 입력값 확인하기
+    fun updatePassword(password: String) {
+        _password.value = password
+        _isPasswordValid.value = password.length >= 8
+    }
+    fun updateEmail(email: String) {
+        _email.value = email
+        _isEmailValid.value = android.util.Patterns
+            .EMAIL_ADDRESS.matcher(email).matches()
+        //android.util.Patterns.EMAIL_ADDRESS로 이메일 형식 확인 가능. 안드로이드 내장값
+    }
+    fun updateUsername(username: String) {
+        _username.value = username
+        _isUserNameValid.value = username.length >= 2 && username.isNotBlank() //한국어 한글자도 length = 1 로 취급
+    }
+
+    //회원가입 시 작동하는 메소드
+    fun signUpWithEmail(email: String, password: String, username: String) {
+        //TODO: SharedPref에 개인정보 보내기
+        //TODO: firestore에 개인정보 보내기
+        viewModelScope.launch { //ViewModel이므로 viewModelScope 안에서 논다.
+            val result = authRepository.createUserWithEmailAndPassword(email, password)
         }
     }
-
-    sealed class SignUpState {
-        data class Success(val user: FirebaseUser?) : SignUpState()
-        data class Failure(val exception: Exception?) : SignUpState()
-
-    }
-//
-//    private val _signupSuccess = MutableLiveData<Boolean>()
-//    val signupSuccess: LiveData<Boolean> = _signupSuccess
-//
-//    //View가 ViewModel을 관찰한다면, ViewModel은 View에게 데이터 변경, 즉 UI 내용 변경을 알려준다.
-//    fun updateSignupData(field: Field, value: String) { //UI update. input이 들어올 때마다 갱신
-//        val currentData = _signupData.value ?: SignupData()
-//        val updatedData = when (field) {
-//            Field.NAME -> currentData.copy(name = value)
-//            Field.ID -> currentData.copy(id = value)
-//            Field.PASSWORD -> currentData.copy(password = value)
-//            Field.PHONE -> if (ConvertUtils.phoneNumberRegex.containsMatchIn(value)) currentData.copy(
-//                phoneNumber = value
-//            ) else currentData.copy(phoneNumber = null)
-//        }
-//        _signupData.value = updatedData
-//    }
-//
-//    fun checkStatus(): Boolean { //
-//        return (_signupData.value?.checkStatus() == true)
-//    }
-//
-//    fun registerUser() {
-//        val newUser = _signupData.value?.asUser()
-//        if (newUser != null) {
-//            UserSampleData.addUser(newUser)
-//            _signupSuccess.value = true
-//        } else {
-//            _signupSuccess.value = false
-//        }
-//    }
-//
-//
-//    enum class Field {
-//        NAME, ID, PASSWORD, PHONE
-//    }
-//
-//    data class SignupData(
-//        val phoneNumber: String? = null,
-//        val name: String? = null,
-//        val id: String? = null,
-//        val password: String? = null,
-//    ) {
-//        fun checkStatus(): Boolean = //null 체크.
-//            !phoneNumber.isNullOrBlank() && !name.isNullOrBlank() && !id.isNullOrBlank() && !password.isNullOrBlank()
-//
-//        fun asUser(): User {
-//            return User(
-//                id = id ?: "",
-//                name = name ?: "",
-//                password = password ?: "",
-//                phoneNumber = phoneNumber ?: ""
-//            )
-//        }
-//    }
 }
 
