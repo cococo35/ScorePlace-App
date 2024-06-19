@@ -15,8 +15,10 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.android.hanple.R
 import com.android.hanple.databinding.ActivityMainBinding
+import com.android.hanple.room.RecommendDAO
 import com.android.hanple.room.RecommendDataBase
 import com.android.hanple.room.RecommendPlace
 import com.android.hanple.room.recommendPlaceGoogleID
@@ -28,6 +30,7 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -39,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by lazy {
         ViewModelProvider(this, SearchViewModelFactory())[SearchViewModel::class.java]
     }
-    private val recommendDAO by lazy {
+     val recommendDAO by lazy {
         RecommendDataBase.getMyRecommendPlaceDataBase(this).getMyRecommendPlaceDAO()
     }
     private lateinit var callback: OnBackPressedCallback
@@ -48,8 +51,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         sendLogInInfoToSettings()
+        initRoomData()
         setContentView(binding.root)
-        insertRoomData()
         initFragment()
         setNavigation()
         initPlaceSDK()
@@ -64,7 +67,6 @@ class MainActivity : AppCompatActivity() {
         }
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
-
     private fun sendLogInInfoToSettings() {
         val nickname = intent.getStringExtra("nickname")
         if (nickname != null) {
@@ -167,34 +169,22 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun insertRoomData() {
+    //뷰모델
+
+    private fun initRoomData(){
         CoroutineScope(Dispatchers.IO).launch {
-            val firstJob = launch {
-                Log.d("데이터 삽입", "")
-                for (i in 0..recommendPlaceGoogleID.size - 1) {
-                    recommendDAO.insertRecommendPlace(
-                        RecommendPlace(
-                            i + 1,
-                            recommendPlaceGoogleID[i]
-                        )
-                    )
-                }
+            launch {
+                val value = 0
+                viewModel.insertRoomData(randomNumberPlace(), recommendDAO)
+                delay(2000)
+                val searchFragment = SearchFragment()
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.fr_main, searchFragment)
+                transaction.commit()
             }
-            firstJob.join()
-            val secondJob = launch {
-                val list = randomNumberPlace()
-                Log.d("데이터 출력", "")
-                viewModel.getRecommendPlace(list, recommendDAO)
-            }
-            secondJob.join()
-            val searchFragment = SearchFragment()
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fr_main, searchFragment)
-            transaction.commit()
-            Log.d("프래그먼트 전환", "")
+
         }
     }
-
     private fun randomNumberPlace(): List<Int> {
         val edge = recommendPlaceGoogleID.size
         val list = mutableListOf<Int>()
@@ -216,4 +206,5 @@ class MainActivity : AppCompatActivity() {
     fun hideDrawerView() {
         binding.btnMainMenu.visibility = View.GONE
     }
+
 }
