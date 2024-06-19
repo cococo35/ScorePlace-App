@@ -52,15 +52,5 @@
         app:layout_constraintTop_toBottomOf="@+id/score_load_progessbar"
         android:layout_marginTop="2dp" />
 
-    <ImageView
-        android:id="@+id/score_icon_hanple"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/hanple_logo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="6dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

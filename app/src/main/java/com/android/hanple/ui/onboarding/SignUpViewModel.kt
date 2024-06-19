@@ -1,5 +1,7 @@
 package com.android.hanple.ui.onboarding
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +30,16 @@ class SignUpViewModel : ViewModel() {
     val username: StateFlow<String> = _username
 
     private val _isUsernameValid = MutableStateFlow(false)
+
+    //이용약관 체크
     val isUsernameValid: StateFlow<Boolean> = _isUsernameValid
+    private val _readAll = MutableLiveData<Boolean>(false)
+    val readAll: LiveData<Boolean> get() = _readAll
+
+    fun updateReadAll(isChecked: Boolean) {
+        _readAll.value = isChecked
+    }
+    //이용약관 체크
 
     //StateFlow에 값 추가하고, 실시간 입력값 확인하기
     fun updatePassword(password: String) {

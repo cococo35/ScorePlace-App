@@ -44,6 +44,13 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.cbPrivacyPolicy.setOnCheckedChangeListener { _, isChecked -> //ViewModel에 체크박스 체크 여부 전송
+            viewModel.updateReadAll(isChecked)
+        }
+        viewModel.readAll.observe(this) { isChecked -> //ViewModel에서
+            binding.btnSignUp.isEnabled = isChecked
+        }
+
         //회원가입 버튼을 누르면, 각 EditText에 있는 결과값을 받아
         binding.btnSignUp.setOnClickListener {
             val email = binding.etEmail.text.toString()

@@ -16,10 +16,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="vertical"
         android:layout_marginBottom="12dp">
+        <CheckBox
+            android:id="@+id/cb_read_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_privacy_policy"
+            android:textSize="16dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:textColor="@color/darkgray"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="25dp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_dismiss"
-            style="@style/btnGeneral2nd"
+            style="@style/btnGeneral4th"
             android:text="@string/close"
+            android:enabled="false"
             android:textSize="20sp"
             android:layout_marginTop="8dp"/>
         <View

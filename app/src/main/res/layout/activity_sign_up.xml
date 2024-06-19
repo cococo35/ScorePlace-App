@@ -90,6 +90,7 @@
         android:orientation="vertical"
         android:layout_marginBottom="36dp">
         <CheckBox
+            android:id="@+id/cb_privacy_policy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/check_privacy_policy"
@@ -106,7 +107,8 @@
             android:layout_marginTop="12dp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sign_up"
-            style="@style/btnGeneral3rd"
+            style="@style/btnGeneral4th"
+            android:enabled="false"
             android:text="@string/onboarding_sign_up"
             android:textSize="20sp"
             android:layout_marginTop="8dp"/>
