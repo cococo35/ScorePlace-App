@@ -202,11 +202,11 @@ class SearchViewModel(
                     "48b0c79a814c79a5a38bb17b9109a288"
                 )
                 if(response != null) {
-                response.list.forEach {
-                    list.add(it.main!!.aqi!!)
-                }
-                dustAqi.value = list
+                    response.list.forEach {
+                        list.add(it.main!!.aqi!!)
                     }
+                    dustAqi.value = list
+                }
             }.onFailure { e ->
                 Log.d("미세먼지 데이터 갱신 실패", e.toString())
             }
