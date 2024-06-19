@@ -47,15 +47,15 @@ class ListViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
 
+        // Load places from SharedPreferences
+        val places = loadPlacesFromPreferences()
+
         adapter = PlaceStorageListAdapter(requireContext(), { place ->
             // 아이템 클릭 시 처리할 로직
-        }, mutableListOf())
+        }, places)
 
         binding.recyclerviewList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewList.adapter = adapter
-
-        // Load places from SharedPreferences
-        loadPlacesFromPreferences()
 
         arguments?.let {
             val address = it.getString(ARG_ADDRESS)
@@ -90,8 +90,11 @@ class ListViewFragment : Fragment() {
         }
 
         adapter.onAddressClick = { place ->
-            adapter.removePlace(place)
-            savePlacesToPreferences()
+            val mapFragment = MapFragment.newInstance(setOf(place))
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fr_main, mapFragment)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
@@ -118,7 +121,7 @@ class ListViewFragment : Fragment() {
         editor.apply()
     }
 
-    private fun loadPlacesFromPreferences() {
+    private fun loadPlacesFromPreferences(): MutableList<CategoryPlace> {
         val placeCount = sharedPreferences.getInt("place_count", 0)
         val places = mutableListOf<CategoryPlace>()
         for (i in 0 until placeCount) {
@@ -128,7 +131,7 @@ class ListViewFragment : Fragment() {
                 places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, null, null, true, null))
             }
         }
-        adapter.updatePlaces(places)
+        return places
     }
 
     override fun onDestroyView() {

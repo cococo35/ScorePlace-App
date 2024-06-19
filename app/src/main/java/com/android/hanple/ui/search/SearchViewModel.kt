@@ -518,14 +518,18 @@ class SearchViewModel(
                 Log.d("미세먼지 점수", score.toString())
                 dustScore.postValue(score)
 
+
                 if (score >= 6) {
                     addtionalCountDust++
                 } else {
                     addtionalCountDust--
                 }
             }
+            else
+                dustScore.postValue(score)
         }
     }
+
 
 
     // costScore 가중치 20 -> 10
