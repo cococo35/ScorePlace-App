@@ -89,12 +89,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="vertical"
         android:layout_marginBottom="36dp">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_privacy_policy"
+            android:textSize="16dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:textColor="@color/darkgray"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="25dp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_presonal_info"
             style="@style/btnGeneral2nd"
             android:text="@string/onboarding_personal_info"
             android:textSize="20sp"
-            android:layout_marginTop="24dp"/>
+            android:layout_marginTop="12dp"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sign_up"
             style="@style/btnGeneral3rd"

@@ -66,6 +66,7 @@
     <string name="onboarding_check_email_password">아이디나 비밀번호를 확인해 주세요.</string>
     <string name="onboarding_email_format_wrong">올바른 이메일 형식이 아닙니다.</string>
     <string name="onboarding_personal_info">이옹약관 확인하기</string>
+    <string name="onboarding_auto_login">다음부터는 자동 로그인할래요!</string>
     <!-- sign-up -->
     <string name="email_valid">이메일 주소 형식이 맞네요!</string>
     <string name="email_invalid">잘못된 이메일 형식이에요 ㅠ.ㅠ</string>
@@ -73,6 +74,7 @@
     <string name="password_invalid">비밀번호가 8자 미만이에요;;;</string>
     <string name="username_valid">멋진 별명이네요!</string>
     <string name="username_invalid">2글자 이상의 별명을 입력해 주세요.</string>
+    <string name="check_privacy_policy">개인정보 처리약관을 확인하셨나요?</string>
 
     <!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings-->
     <string name="settings_manage_information">내 정보 관리</string>
