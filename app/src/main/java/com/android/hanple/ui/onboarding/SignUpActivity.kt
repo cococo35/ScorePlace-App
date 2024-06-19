@@ -48,6 +48,10 @@ class SignUpActivity : AppCompatActivity() {
                 viewModel.signUpWithEmail(email, password, username)
             }
         }
+
+        binding.ivBack.setOnClickListener {
+            finish() //로그인 페이지로 돌아가기
+        }
     }
 
     private fun textChangeListener(editText: EditText, updateFunction: (String) -> Unit) { // updateFunction = viewModel::set어쩌고
