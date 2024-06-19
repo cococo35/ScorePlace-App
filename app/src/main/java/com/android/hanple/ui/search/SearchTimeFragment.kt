@@ -43,6 +43,7 @@ class SearchTimeFragment : Fragment() {
     private lateinit var callback : OnBackPressedCallback
     private lateinit var localDateTime : String
     private var today : String = ""
+    private var nextDay : String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -230,10 +231,13 @@ class SearchTimeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getLocalTime(){
         val time: Long = System.currentTimeMillis()
+        val nextTime : Long = System.currentTimeMillis() + 86400000
         val timeFormat = SimpleDateFormat("yyyy-MM-dd")
         today = timeFormat.format(Date(time))
-        localDateTime = time.toString()
-        Log.d("시간 확인", localDateTime)
+        nextDay = timeFormat.format(Date(nextTime))
+        localDateTime = (time / 1000).toString()
+        Log.d("시간 확인", today)
+        Log.d("시간 확인", nextDay)
     }
 
     //Time Picker 출력 메소드
@@ -256,12 +260,16 @@ class SearchTimeFragment : Fragment() {
         endTimePicker.minute = 0
 
         startTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-            startTime = today + "-" + getTimeString(hourOfDay) + " : " + getTimeString(minute)
+            startTime = today + " " + getTimeString(hourOfDay) + ":" + getTimeString(minute)
             Log.d("from 시간", startTime)
             viewModel.getStartTime(startTime)
         }
         endTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-            endTime = getTimeString(hourOfDay) + getTimeString(minute)
+            if(hourOfDay < 10) {
+                endTime = nextDay + " " + getTimeString(hourOfDay) + ":" + getTimeString(minute)
+            }
+            else
+                endTime = today + " " + getTimeString(hourOfDay) + ":" + getTimeString(minute)
             Log.d("to 시간", endTime)
             viewModel.getEndTime(endTime)
         }

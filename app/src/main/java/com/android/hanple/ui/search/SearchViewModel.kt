@@ -159,10 +159,12 @@ class SearchViewModel(
 
     fun getStartTime(str: String) {
         _startTime.value = str
+        Log.d("startTime", _startTime.value.toString())
     }
 
     fun getEndTime(str: String) {
         _endTime.value = str
+        Log.d("endTime", _endTime.value.toString())
     }
 
     fun getCongestionData(query: String) {
