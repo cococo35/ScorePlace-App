@@ -1,46 +1,42 @@
 package com.android.hanple.ui.onboarding
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class LogInViewModel : ViewModel() {
+    //Model에서 메소드 불러오기
+    private val authRepository = AuthRepository()
 
-    // (mutable, immutable) LiveData 선언해 주기.
-    private val _authState = MutableLiveData<AuthState>()
-    val authState: LiveData<AuthState> get() = _authState
+    private val _email: MutableStateFlow<String> = MutableStateFlow("")
+    val email: StateFlow<String> = _email
 
-    sealed class AuthState { //로 observe에서 깔끔하게
-        data class Success(val user: FirebaseUser?) : AuthState()
-        data class Failure(val exception: Exception?) : AuthState()
+    private val _password: MutableStateFlow<String> = MutableStateFlow("")
+    val password: StateFlow<String> = _password
+
+    // 이메일, 비밀번호 업데이트
+    fun updateEmail(newEmail: String) {
+        _email.value = newEmail
     }
-    private val auth: FirebaseAuth = Firebase.auth //firebase auth 가져오기.
+    fun updatePassword(newPassword: String) {
+        _password.value = newPassword
+    }
 
-    fun guestLogIn() {
-        auth.signInAnonymously().addOnSuccessListener {
-            Log.d("firebase auth", "게스트 로그인 성공")
+    fun logInWithEmail(email: String, password: String) {
+        //TODO: SharedPref에 개인정보 보내기
+        //TODO: firestore에 개인정보 보내기
+        viewModelScope.launch { //ViewModel이므로 viewModelScope 안에서 논다.
+            val result = authRepository.signInWithEmailAndPassword(email, password) //model에 정보 보내기
         }
     }
 
-    fun getUid(): String = auth.currentUser?.uid.toString()
-    fun emailLogIn(email: String?, password: String?): Int {
-        if (email == null || email == "") return 1
-        else if (password == null || password == "") return 2
-        else {
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener { login ->
-                    if (login.isSuccessful) {
-                        _authState.value = AuthState.Success(auth.currentUser) //로그인 성공(현재 유저 정보)
-                    } else {
-                        _authState.value = AuthState.Failure(login.exception) //로그인 실패(예외 String)
-                    }
-                }
-            return 0
+    fun logInGuest() {
+        //TODO: SharedPref에 개인정보 보내기
+        //TODO: firestore에 개인정보 보내기
+        viewModelScope.launch { //ViewModel이므로 viewModelScope 안에서 논다.
+            val result = authRepository.signInAnonymously() //model에서 회원가입 처리
         }
     }
 
