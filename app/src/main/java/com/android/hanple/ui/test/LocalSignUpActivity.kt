@@ -35,12 +35,14 @@ class LocalSignUpActivity : AppCompatActivity() {
         focusChangeListener(binding.etPassword, viewModel.isPasswordValid, getString(R.string.password_valid), getString(R.string.password_invalid))
         focusChangeListener(binding.etUsername, viewModel.isUsernameValid, getString(R.string.username_valid), getString(R.string.username_invalid))
 
+        //회원가입 버튼을 누르면, 각 EditText에 있는 결과값을 받아
         binding.btnSignUp.setOnClickListener {
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            val username = binding.etUsername.text.toString()
+            //viewModel에 있는 회원가입 시도 메소드로 넘겨줍니다.
             lifecycleScope.launch {
-                viewModel.signUpWithEmail(
-                    email = binding.etEmail.text.toString(),
-                    password = binding.etPassword.text.toString(),
-                    username = binding.etUsername.text.toString())
+                viewModel.signUpWithEmail(email, password, username)
             }
         }
 
