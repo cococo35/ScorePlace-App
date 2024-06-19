@@ -1,10 +1,15 @@
 package com.android.hanple.ui.test
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.android.hanple.ui.onboarding.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class LocalSignUpViewModel: ViewModel() {
+
+    private val authRepository = AuthRepository()
 
     private val _password: MutableStateFlow<String> = MutableStateFlow("")
     val password: StateFlow<String> = _password
@@ -41,5 +46,12 @@ class LocalSignUpViewModel: ViewModel() {
         _isUsernameValid.value = username.length >= 2 && username.isNotBlank() //한국어 한글자도 length = 1 로 취급
     }
 
+    fun signUpWithEmail(email: String, password: String, username: String) {
+        //TODO: SharedPref에 개인정보 보내기
+        //TODO: firestore에 개인정보 보내기
+        viewModelScope.launch { //ViewModel이므로 viewModelScope 안에서 논다.
+            val result = authRepository.createUserWithEmailAndPassword(email, password)
+        }
+    }
 
 }

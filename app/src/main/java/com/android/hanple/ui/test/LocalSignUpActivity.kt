@@ -34,6 +34,16 @@ class LocalSignUpActivity : AppCompatActivity() {
         focusChangeListener(binding.etEmail, viewModel.isEmailValid, getString(R.string.email_valid), getString(R.string.email_invalid))
         focusChangeListener(binding.etPassword, viewModel.isPasswordValid, getString(R.string.password_valid), getString(R.string.password_invalid))
         focusChangeListener(binding.etUsername, viewModel.isUsernameValid, getString(R.string.username_valid), getString(R.string.username_invalid))
+
+        binding.btnSignUp.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.signUpWithEmail(
+                    email = binding.etEmail.text.toString(),
+                    password = binding.etPassword.text.toString(),
+                    username = binding.etUsername.text.toString())
+            }
+        }
+
     }
 
 
@@ -55,7 +65,7 @@ class LocalSignUpActivity : AppCompatActivity() {
     ) {
         editText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                lifecycleScope.launch {
+                lifecycleScope.launch {//Activity이므로 Activity의 lifecycle 안에서 논다.
                     isValidFlow.collectLatest { isValid ->
                         val message = if (isValid) successMessage else errorMessage
                         val color = if (isValid) R.color.darkblue else R.color.darkmint2
