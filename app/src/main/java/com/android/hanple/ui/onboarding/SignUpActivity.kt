@@ -18,36 +18,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
-    private fun textChangeListener(editText: EditText, updateFunction: (String) -> Unit) { // updateFunction = viewModel::set어쩌고
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(editable: Editable?) {
-                updateFunction(editable.toString())
-            }
-        })
-    }
-
-    private fun focusChangeListener(
-        editText: EditText,
-        isValidFlow: StateFlow<Boolean>, // isValidFlow = viewModel.is어쩌고Valid
-        successMessage: String,
-        errorMessage: String
-    ) {
-        editText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                lifecycleScope.launch {//Activity이므로 Activity의 lifecycle 안에서 논다.
-                    isValidFlow.collectLatest { isValid ->
-                        val message = if (isValid) successMessage else errorMessage
-                        val color = if (isValid) R.color.darkblue else R.color.darkmint2
-
-                        binding.tvError.text = message
-                        binding.tvError.setTextColor(ContextCompat.getColor(this@SignUpActivity, color))
-                    }
-                }
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +46,37 @@ class SignUpActivity : AppCompatActivity() {
             //viewModel에 있는 회원가입 시도 메소드로 넘겨줍니다.
             lifecycleScope.launch {
                 viewModel.signUpWithEmail(email, password, username)
+            }
+        }
+    }
+
+    private fun textChangeListener(editText: EditText, updateFunction: (String) -> Unit) { // updateFunction = viewModel::set어쩌고
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(editable: Editable?) {
+                updateFunction(editable.toString())
+            }
+        })
+    }
+
+    private fun focusChangeListener(
+        editText: EditText,
+        isValidFlow: StateFlow<Boolean>, // isValidFlow = viewModel.is어쩌고Valid
+        successMessage: String,
+        errorMessage: String
+    ) {
+        editText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                lifecycleScope.launch {//Activity이므로 Activity의 lifecycle 안에서 논다.
+                    isValidFlow.collectLatest { isValid ->
+                        val message = if (isValid) successMessage else errorMessage
+                        val color = if (isValid) R.color.darkblue else R.color.darkmint2
+
+                        binding.tvError.text = message
+                        binding.tvError.setTextColor(ContextCompat.getColor(this@SignUpActivity, color))
+                    }
+                }
             }
         }
     }
