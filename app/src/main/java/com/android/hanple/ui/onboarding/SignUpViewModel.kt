@@ -14,25 +14,23 @@ class SignUpViewModel : ViewModel() {
     private val authRepository = AuthRepository()
 
     //StateFlow로 UI 상의 입력정보를 stream에 졸졸 흘려보냄
-    private val _password: MutableStateFlow<String> = MutableStateFlow("")
-    val password: StateFlow<String> = _password
+    private val _password: MutableLiveData<String> = MutableLiveData("")
+    val password: LiveData<String> = _password
+    private val _isPasswordValid = MutableLiveData(false)
+    val isPasswordValid: LiveData<Boolean> = _isPasswordValid
 
-    private val _isPasswordValid = MutableStateFlow(false)
-    val isPasswordValid: StateFlow<Boolean> = _isPasswordValid
+    private val _email: MutableLiveData<String> = MutableLiveData("")
+    val email: LiveData<String> = _email
+    private val _isEmailValid = MutableLiveData(false)
+    val isEmailValid: LiveData<Boolean> = _isEmailValid
 
-    private val _email: MutableStateFlow<String> = MutableStateFlow("")
-    val email: StateFlow<String> = _email
-
-    private val _isEmailValid = MutableStateFlow(false)
-    val isEmailValid: StateFlow<Boolean> = _isEmailValid
-
-    private val _username: MutableStateFlow<String> = MutableStateFlow("")
-    val username: StateFlow<String> = _username
-
-    private val _isUsernameValid = MutableStateFlow(false)
+    private val _username: MutableLiveData<String> = MutableLiveData("")
+    val username: LiveData<String> = _username
+    private val _isUserNameValid = MutableStateFlow(false)
+    val isUserNameValid: LiveData<Boolean> = _isUserNameValid
+    //
 
     //이용약관 체크
-    val isUsernameValid: StateFlow<Boolean> = _isUsernameValid
     private val _readAll = MutableLiveData<Boolean>(false)
     val readAll: LiveData<Boolean> get() = _readAll
 
@@ -54,7 +52,7 @@ class SignUpViewModel : ViewModel() {
     }
     fun updateUsername(username: String) {
         _username.value = username
-        _isUsernameValid.value = username.length >= 2 && username.isNotBlank() //한국어 한글자도 length = 1 로 취급
+        _isUserNameValid.value = username.length >= 2 && username.isNotBlank() //한국어 한글자도 length = 1 로 취급
     }
 
     //회원가입 시 작동하는 메소드

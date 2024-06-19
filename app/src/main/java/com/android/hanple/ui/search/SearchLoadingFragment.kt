@@ -73,8 +73,8 @@ class SearchLoadingFragment : Fragment() {
             while(value != 100){
                 delay(10)
                 value += 1
-                binding.scoreLoadProgessbar.progress = value
-                binding.scoreLoadProgressValue.text = "$value%"
+//                binding.scoreLoadProgessbar.progress = value
+//                binding.scoreLoadProgressValue.text = "$value%"
             }
             val scoreFragment = ScoreFragment()
             val transaction = parentFragmentManager.beginTransaction()
