@@ -9,6 +9,25 @@
       "client_info": {
         "mobilesdk_app_id": "1:796765914690:android:82ffd73986499eed920fdb",
         "android_client_info": {
+          "package_name": "com.android.hanple"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg2-8nYjunCy5kvKlL3NRMcjl5FhzJezU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796765914690:android:2101e631b95db302920fdb",
+        "android_client_info": {
           "package_name": "com.scoreplace.hanple"
         }
       },
