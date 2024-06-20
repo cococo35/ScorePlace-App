@@ -1,5 +1,6 @@
 package com.android.hanple.ui.archive
 
+import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android.hanple.data.CategoryPlace
 import com.android.hanple.databinding.FragmentMapBinding
+import com.android.hanple.ui.search.MainActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -62,7 +64,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this@MapFragment)
 
         binding.icBackbtn.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            (activity as ArchiveActivity).finish()
         }
     }
 

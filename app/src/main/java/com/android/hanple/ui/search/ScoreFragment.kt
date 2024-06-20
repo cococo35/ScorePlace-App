@@ -203,7 +203,7 @@ class ScoreFragment : Fragment() {
                     binding.tvScoreWeatherDescription2.text = resources.getStringArray(R.array.score_weather_description)[1]
                     binding.ivScoreWeather.setImageDrawable(APNGDrawable(rainAssetLoader))
                 }
-                !it.contains("Rain") && it.count { it.contains("Clouds") } >= 3 -> {
+                !it.contains("Rain") && it.count { it.contains("Clouds") } >= ((it.size)/2) -> {
                     binding.tvScoreWeatherDescription.text = resources.getStringArray(R.array.score_weather_description)[2]
                     binding.tvScoreWeatherDescription2.text = ""
                     binding.ivScoreWeather.setImageDrawable(APNGDrawable(cloudAssetLoader))
