@@ -2,7 +2,9 @@ package com.android.hanple.ui.search
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,9 +34,14 @@ import com.google.android.libraries.places.api.net.FetchPlaceResponse
 import com.google.android.libraries.places.api.net.FetchResolvedPhotoUriRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.api.net.SearchNearbyRequest
+import com.google.type.DateTime
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 import java.util.Arrays
+import java.util.Calendar
+import java.util.Date
 
 class SearchViewModel(
     private val addressRemoteImpl: AddressRemoteImpl,
@@ -213,7 +220,22 @@ class SearchViewModel(
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getWeatherData(today: String) {
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm")
+        val endTimeBuffer : Date? = _endTime.value?.let { format.parse(it) }
+        val startTimeBuffer : Date? = _startTime.value?.let { format.parse(it) }
+        var EndTime : Date? = null
+        val cal = Calendar.getInstance()
+        if (endTimeBuffer != null) {
+            cal.setTime(endTimeBuffer)
+            cal.add(Calendar.HOUR , 2)
+            EndTime  = cal.time
+        }
+        Log.d("end time", EndTime.toString())
+        Log.d("start time", startTimeBuffer.toString() )
+
         viewModelScope.launch {
             val list = mutableListOf<String>()
             runCatching {
@@ -223,8 +245,10 @@ class SearchViewModel(
                     "48b0c79a814c79a5a38bb17b9109a288"
                 )
                 response.list?.forEach { item ->
-                    if (item.dt?.toInt()!! in today.toInt()..today.toInt() + 86400) {
-                        Log.d("날씨", item.dt.toString())
+                    Log.d("전체 시간", item.dt_txt.toString())
+                    val bufferDate : Date = item.dt_txt!!.let { format.parse(it) }!!
+                    if (bufferDate < EndTime && bufferDate >= startTimeBuffer) {
+                        Log.d("범위에 포함된 날씨", item.dt_txt.toString())
                         val data = item.weather
                         data.forEach {
                             list.add(it.main!!)

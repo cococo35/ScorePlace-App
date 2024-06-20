@@ -130,8 +130,8 @@
     <string name="search_input_complete">입력 완료</string>
     <string name="search_wrong_time_format">잘못 입력된 정보가 있습니다</string>
     <string name="search_enter_time_format">입력되지 않은 정보가 있습니다</string>
-    <string name="search_start_time">1000</string>
-    <string name="search_end_time">2200</string>
+    <string name="search_start_time">10:00</string>
+    <string name="search_end_time">22:00</string>
 
     <!--    search_transportation-->
     <string name="search_how_to_go">어떻게 가시나요?</string>
