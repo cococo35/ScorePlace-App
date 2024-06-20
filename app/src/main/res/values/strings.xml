@@ -79,6 +79,7 @@
     <string name="privacy_policy">개인정보 처리방침</string>
     <string name="privacy_policy_checked">개인정보 처리약관 확인하기</string>
     <string name="privacy_policy_unscrolled">스크롤을 내려 끝까지 읽어주세요</string>
+    <string name="privacy_policy_scrolled">약관을 확인했어요</string>
 
     <!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings-->
     <string name="settings_manage_information">내 정보 관리</string>
