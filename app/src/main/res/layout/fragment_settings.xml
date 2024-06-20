@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.settings.SettingsFragment">
+
+    <TextView
+        android:id="@+id/tv_settings_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/settings_manage_information"
+        android:fontFamily="@font/line_seed_bold"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_title"
+        android:layout_marginTop="55dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/nickname"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_nickname_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_nickname"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_nickname"
+        android:text="@string/settings_nickname_sample"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp"
+        android:textColor="@color/darkgray" />
+
+    <ImageView
+        android:id="@+id/iv_settings_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_nickname_value"
+        android:layout_marginTop="10dp"
+        android:background="@color/lightgray" />
+
+    <TextView
+        android:id="@+id/tv_settings_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_nickname_value"
+        app:layout_constraintTop_toBottomOf="@id/iv_settings_line"
+        android:layout_marginTop="15dp"
+        android:text="@string/email"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_email_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_email"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_email"
+        android:text="@string/settings_email_sample"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp"
+        android:textColor="@color/darkgray" />
+
+    <ImageView
+        android:id="@+id/iv_settings_line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_email_value"
+        android:layout_marginTop="10dp"
+        android:background="@color/lightgray" />
+
+    <TextView
+        android:id="@+id/tv_settings_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_email_value"
+        app:layout_constraintTop_toBottomOf="@id/iv_settings_line2"
+        android:layout_marginTop="15dp"
+        android:text="@string/password"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_password_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@id/tv_settings_password"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_password"
+        android:text="@string/settings_password_sample"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp"
+        android:textColor="@color/darkgray" />
+
+    <ImageView
+        android:id="@+id/iv_settings_line3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_settings_password_value"
+        android:layout_marginTop="10dp"
+        android:background="@color/lightgray" />
+
+    <TextView
+        android:id="@+id/tv_settings_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_settings_exit"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="30dp"
+        android:textColor="@color/darkgray"
+        android:text="@string/settings_logout"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_settings_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="45dp"
+        android:layout_marginStart="30dp"
+        android:text="@string/settings_exit"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="22sp"
+        android:textColor="@color/lightred"
+        android:textStyle="bold" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

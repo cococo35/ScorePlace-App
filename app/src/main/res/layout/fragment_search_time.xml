@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/searchTimeFragment"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.search.SearchTimeFragment">
+
+    <TextView
+        android:id="@+id/tv_search_time_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_enter_activity_time"
+        android:fontFamily="@font/line_seed_bold"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:layout_marginTop="125dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_separator1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_from_minute"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_time_point" />
+
+    <View
+        android:id="@+id/view_separator2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_time_point2"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_to_minute" />
+
+    <TextView
+        android:id="@+id/tv_search_time_from_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pretendard_regular"
+        android:maxLength="2"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/_00"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_time_title"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/tv_search_time_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/colon"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_from_hour"
+        app:layout_constraintTop_toTopOf="@+id/tv_search_time_from_hour"
+        app:layout_constraintStart_toEndOf="@id/tv_search_time_from_hour" />
+
+    <TextView
+        android:id="@+id/tv_search_time_from_minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:clickable="false"
+        android:fontFamily="@font/pretendard_regular"
+        android:maxLength="2"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="@string/_00"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_search_time_point"
+        app:layout_constraintStart_toEndOf="@id/tv_search_time_point"
+        app:layout_constraintTop_toTopOf="@id/tv_search_time_point" />
+
+    <TextView
+        android:id="@+id/tv_search_time_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_time_from_hour"
+        android:text="@string/search_time_from"
+        android:textStyle="bold"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="25dp" />
+
+    <TextView
+        android:id="@+id/tv_search_time_to_hour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_search_time_from"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="26dp"
+        android:maxLength="2"
+        android:clickable="false"
+        android:text="@string/_00"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:id="@+id/tv_search_time_point2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_search_time_to_hour"
+        app:layout_constraintTop_toTopOf="@+id/tv_search_time_to_hour"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_search_time_to_hour"
+        android:text="@string/colon"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_search_time_to_minute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        app:layout_constraintStart_toEndOf="@id/tv_search_time_point2"
+        app:layout_constraintTop_toTopOf="@id/tv_search_time_point2"
+        app:layout_constraintBottom_toBottomOf="@id/tv_search_time_point2"
+        android:layout_marginStart="5dp"
+        android:maxLength="2"
+        android:clickable="false"
+        android:text="@string/_00"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_search_time_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_time_to_minute"
+        android:text="@string/search_time_to"
+        android:textStyle="bold"
+        android:fontFamily="@font/pretendard_regular"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="25dp" />
+
+
+    <!-- 하단 버튼 -->
+    <LinearLayout
+        android:id="@+id/ll_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="36dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_search_time_next"
+            style="@style/btnGeneral1st"
+            android:text="@string/next"
+            android:textSize="20sp"
+            android:layout_marginTop="24dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tv_search_time_again_input"
+            style="@style/btnGeneral3rd"
+            android:text="@string/search_enter_again"
+            android:textSize="20sp"
+            android:layout_marginTop="8dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
