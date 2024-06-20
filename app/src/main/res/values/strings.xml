@@ -76,6 +76,8 @@
     <string name="password_invalid">비밀번호가 8자 미만이에요;;;</string>
     <string name="username_valid">멋진 별명이네요!</string>
     <string name="username_invalid">2글자 이상의 별명을 입력해 주세요.</string>
+
+    <!-- privacy policy -->
     <string name="privacy_policy">개인정보 처리방침</string>
     <string name="privacy_policy_checked">개인정보 처리약관 확인하기</string>
     <string name="privacy_policy_unscrolled">스크롤을 내려 끝까지 읽어주세요</string>

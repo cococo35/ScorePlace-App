@@ -1,19 +1,23 @@
 package com.scoreplace.hanple.ui.onboarding
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.scoreplace.hanple.R
-import com.scoreplace.hanple.databinding.ActivityPrivatePolicyBinding
+import com.scoreplace.hanple.databinding.ActivityPrivacyPolicyBinding
 
-class PrivatePolicyActivity : AppCompatActivity() {
+class PrivacyPolicyActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityPrivatePolicyBinding
-    private val viewModel: PrivatePolicyViewModel by viewModels()
+    private lateinit var binding: ActivityPrivacyPolicyBinding
+    private val viewModel: PrivacyPolicyViewModel by viewModels()
+    private val sharedPreferences by lazy {
+        getSharedPreferences("PRIVACY_POLICY", Context.MODE_PRIVATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPrivatePolicyBinding.inflate(layoutInflater)
+        binding = ActivityPrivacyPolicyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //View -> ViewModel로 정보 전송
@@ -31,9 +35,17 @@ class PrivatePolicyActivity : AppCompatActivity() {
 
         //View 내 처리사항
         binding.ivBack.setOnClickListener {
+            with(sharedPreferences.edit()) {
+                putBoolean("IS_POLICY_AGREED", true)
+                apply()
+            }
             finish()
         } //그냥 뒤로 가기
         binding.btnDismiss.setOnClickListener {
+            with(sharedPreferences.edit()) {
+                putBoolean("IS_POLICY_AGREED", false)
+                apply()
+            }
             finish()
         } //체크 후 뒤로 가기
 

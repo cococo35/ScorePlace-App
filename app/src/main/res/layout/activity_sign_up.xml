@@ -95,7 +95,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_private_policy"
+        android:id="@+id/btn_privacy_policy"
         style="@style/btnGeneral2nd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

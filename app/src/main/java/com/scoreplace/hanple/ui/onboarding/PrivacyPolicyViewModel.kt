@@ -1,11 +1,10 @@
 package com.scoreplace.hanple.ui.onboarding
 
-import android.util.MutableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class PrivatePolicyViewModel: ViewModel() {
+class PrivacyPolicyViewModel: ViewModel() {
     private val _readAll = MutableLiveData<Boolean>(false)
     val readAll: LiveData<Boolean> get() = _readAll
 
