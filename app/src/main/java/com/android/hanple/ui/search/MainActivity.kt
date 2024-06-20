@@ -93,15 +93,18 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                 }
-
-                R.id.nav_view -> {
-                    // 액티비티 이동
+                R.id.nav_search_log -> {
+                    Toast.makeText(this, "준비중입니다", Toast.LENGTH_SHORT).show()
                 }
-
                 R.id.nav_bookmark -> {
-
                     val intent = Intent(this, ArchiveActivity::class.java)
                     startActivity(intent)
+                }
+                R.id.nav_notification -> {
+                    Toast.makeText(this, "준비중입니다", Toast.LENGTH_SHORT).show()
+                }
+                R.id.nav_version -> {
+                    Toast.makeText(this, "준비중입니다", Toast.LENGTH_SHORT).show()
                 }
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
