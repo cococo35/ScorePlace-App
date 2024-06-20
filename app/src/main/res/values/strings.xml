@@ -1,3 +1,4 @@
+
 <resources>
     <!--    앱 이름-->
     <string name="app_name">Hanple</string>
@@ -16,6 +17,7 @@
     <string name="persent">퍼센트</string>
     <string name="colon">:</string>
     <string name="close">닫기</string>
+    <string name="confirm">확인</string>
 
 
     <!--category-->
@@ -74,7 +76,8 @@
     <string name="password_invalid">비밀번호가 8자 미만이에요;;;</string>
     <string name="username_valid">멋진 별명이네요!</string>
     <string name="username_invalid">2글자 이상의 별명을 입력해 주세요.</string>
-    <string name="check_privacy_policy">개인정보 처리약관을 확인하셨나요?</string>
+    <string name="privacy_policy_checked">개인정보 처리약관 확인하기</string>
+    <string name="privacy_policy_unscrolled">스크롤을 내려 끝까지 읽어주세요</string>
 
     <!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings--><!--    settings-->
     <string name="settings_manage_information">내 정보 관리</string>
