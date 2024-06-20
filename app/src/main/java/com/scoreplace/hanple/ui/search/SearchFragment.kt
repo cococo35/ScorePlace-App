@@ -56,8 +56,8 @@ class SearchFragment : Fragment() {
     private fun initView(){
         binding.btnSearchNext.visibility = View.GONE
         binding.recyclerviewSearchRecommend.adapter =
-            com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter(object :
-                com.scoreplace.hanple.adapter.OnDataClick {
+            PlaceScoreCategoryAdapter(object :
+                OnDataClick {
                 override fun onItemClick(data: CategoryPlace) {
                     clickRecommendPlace(data)
                 }
@@ -118,7 +118,7 @@ class SearchFragment : Fragment() {
             whenStarted {
                 while(true) {
                     delay(1000)
-                    (binding.recyclerviewSearchRecommend.adapter as com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).notifyDataSetChanged()
+                    (binding.recyclerviewSearchRecommend.adapter as PlaceScoreCategoryAdapter).notifyDataSetChanged()
                 }
             }
         }

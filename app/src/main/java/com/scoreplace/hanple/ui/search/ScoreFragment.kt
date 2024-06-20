@@ -131,7 +131,7 @@ class ScoreFragment : Fragment() {
             } else {
                 binding.recyclerviewScoreCategory.visibility = View.VISIBLE
                 binding.tvNotFound.visibility = View.GONE
-                (binding.recyclerviewScoreCategory.adapter as com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).submitList(it)
+                (binding.recyclerviewScoreCategory.adapter as PlaceScoreCategoryAdapter).submitList(it)
             }
         }
 
@@ -364,7 +364,7 @@ class ScoreFragment : Fragment() {
             whenStarted {
                 while (true) {
                     delay(1000)
-                    (binding.recyclerviewScoreCategory.adapter as com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).notifyDataSetChanged()
+                    (binding.recyclerviewScoreCategory.adapter as PlaceScoreCategoryAdapter).notifyDataSetChanged()
                 }
             }
         }

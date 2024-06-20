@@ -18,10 +18,8 @@ interface OnDataClick {
 
 }
 class PlaceScoreCategoryAdapter(
-    private val onDataClick: com.scoreplace.hanple.adapter.OnDataClick
-) : ListAdapter<CategoryPlace, com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter.PlaceViewHolder>(
-    com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter.Companion.diffCallback
-) {
+    private val onDataClick:OnDataClick
+) : ListAdapter<CategoryPlace, PlaceScoreCategoryAdapter.PlaceViewHolder>(diffCallback) {
 
     inner class PlaceViewHolder(
         private val binding: RecyclerviewScoreCategoryItemBinding,
@@ -50,7 +48,7 @@ class PlaceScoreCategoryAdapter(
         
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter.PlaceViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceScoreCategoryAdapter.PlaceViewHolder {
         val view = RecyclerviewScoreCategoryItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -59,7 +57,7 @@ class PlaceScoreCategoryAdapter(
         return PlaceViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter.PlaceViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PlaceScoreCategoryAdapter.PlaceViewHolder, position: Int) {
         val currentItem = getItem(position)
         holder.bind(currentItem)
     }
