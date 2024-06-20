@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/searchFragment"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.search.SearchFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_search_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_where_are_you_going"
+                android:fontFamily="@font/line_seed_bold"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/autocompletecardview"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/tv_search_title"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp">
+
+                <fragment
+                    android:id="@+id/start_autocomplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                    android:clickable="false" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/btn_search_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_check_score"
+                android:background="@color/white"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"
+                android:clickable="false"
+                app:layout_constraintTop_toBottomOf="@id/autocompletecardview"
+                app:layout_constraintEnd_toEndOf="@id/autocompletecardview" />
+
+            <TextView
+                android:id="@+id/tv_search_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="35dp"
+                app:layout_constraintTop_toBottomOf="@id/autocompletecardview"
+                android:layout_marginTop="65dp"
+                android:text="@string/search_recommend"
+                android:fontFamily="@font/pretendard_regular"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_search_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/recyclerview_recommend_item"
+                app:layout_constraintStart_toStartOf="@id/tv_search_recommend"
+                app:layout_constraintTop_toBottomOf="@id/tv_search_recommend"
+                android:padding="25dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
