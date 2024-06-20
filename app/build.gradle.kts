@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.android.hanple"
+    namespace = "com.scoreplace.hanple"
     compileSdk = 34
 
     buildFeatures {
@@ -32,7 +32,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.android.hanple"
+        applicationId = "com.scoreplace.hanple"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
