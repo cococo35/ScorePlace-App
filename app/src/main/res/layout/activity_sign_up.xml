@@ -84,7 +84,7 @@
         android:id="@+id/cb_privacy_policy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/check_privacy_policy"
+        android:text="@string/privacy_policy_checked"
         android:textSize="18dp"
         android:fontFamily="@font/pretendard_bold"
         android:textColor="@color/darkgray"
