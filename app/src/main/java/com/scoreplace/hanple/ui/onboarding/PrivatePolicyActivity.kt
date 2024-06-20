@@ -16,9 +16,9 @@ class PrivatePolicyActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.cbReadAll.setOnCheckedChangeListener { _, isChecked -> //ViewModel에 체크박스 체크 여부 전송
-            viewModel.updateReadAll(isChecked)
-        }
+//        binding.cbReadAll.setOnCheckedChangeListener { _, isChecked -> //ViewModel에 체크박스 체크 여부 전송
+//            viewModel.updateReadAll(isChecked)
+//        }
         viewModel.readAll.observe(this) { isChecked -> //ViewModel에서
             binding.btnDismiss.isEnabled = isChecked
         }
