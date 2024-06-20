@@ -56,15 +56,15 @@ class SearchFragment : Fragment() {
     private fun initView(){
         binding.btnSearchNext.visibility = View.GONE
         binding.recyclerviewSearchRecommend.adapter =
-            _root_ide_package_.com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter(object :
-                _root_ide_package_.com.scoreplace.hanple.adapter.OnDataClick {
+            com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter(object :
+                com.scoreplace.hanple.adapter.OnDataClick {
                 override fun onItemClick(data: CategoryPlace) {
                     clickRecommendPlace(data)
                 }
             })
         binding.recyclerviewSearchRecommend.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         viewModel.recommendPlace.observe(viewLifecycleOwner){
-            (binding.recyclerviewSearchRecommend.adapter as _root_ide_package_.com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).submitList(it)
+            (binding.recyclerviewSearchRecommend.adapter as PlaceScoreCategoryAdapter).submitList(it)
         }
         binding.btnSearchNext.setOnClickListener {
             val searchTimeFragment = SearchTimeFragment()
@@ -118,7 +118,7 @@ class SearchFragment : Fragment() {
             whenStarted {
                 while(true) {
                     delay(1000)
-                    (binding.recyclerviewSearchRecommend.adapter as _root_ide_package_.com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).notifyDataSetChanged()
+                    (binding.recyclerviewSearchRecommend.adapter as com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).notifyDataSetChanged()
                 }
             }
         }

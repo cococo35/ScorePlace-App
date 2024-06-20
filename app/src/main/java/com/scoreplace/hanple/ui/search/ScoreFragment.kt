@@ -115,8 +115,8 @@ class ScoreFragment : Fragment() {
 
         viewModel.getNearByPlace(typeList[0])
         binding.recyclerviewScoreCategory.adapter =
-            _root_ide_package_.com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter(object :
-                _root_ide_package_.com.scoreplace.hanple.adapter.OnDataClick {
+            com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter(object :
+                com.scoreplace.hanple.adapter.OnDataClick {
                 override fun onItemClick(data: CategoryPlace) {
                     onSelectItemClick(data)
                     initSelectPlaceDetailDialog()
@@ -131,7 +131,7 @@ class ScoreFragment : Fragment() {
             } else {
                 binding.recyclerviewScoreCategory.visibility = View.VISIBLE
                 binding.tvNotFound.visibility = View.GONE
-                (binding.recyclerviewScoreCategory.adapter as _root_ide_package_.com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).submitList(it)
+                (binding.recyclerviewScoreCategory.adapter as com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).submitList(it)
             }
         }
 
@@ -364,7 +364,7 @@ class ScoreFragment : Fragment() {
             whenStarted {
                 while (true) {
                     delay(1000)
-                    (binding.recyclerviewScoreCategory.adapter as _root_ide_package_.com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).notifyDataSetChanged()
+                    (binding.recyclerviewScoreCategory.adapter as com.scoreplace.hanple.adapter.PlaceScoreCategoryAdapter).notifyDataSetChanged()
                 }
             }
         }
