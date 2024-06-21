@@ -29,31 +29,32 @@ class PrivacyPolicyActivity : AppCompatActivity() {
 
         //ViewModel -> View 정보 받아오기
         viewModel.readAll.observe(this) { isChecked -> //ViewModel에서
-            binding.btnDismiss.isEnabled = isChecked
+            binding.btnYes.isEnabled = isChecked
             changeButtonText(isChecked)
         }
 
         //View 내 처리사항
         binding.ivBack.setOnClickListener {
             with(sharedPreferences.edit()) {
-                putBoolean("IS_POLICY_AGREED", true)
-                apply()
-            }
-            finish()
-        } //그냥 뒤로 가기
-        binding.btnDismiss.setOnClickListener {
-            with(sharedPreferences.edit()) {
                 putBoolean("IS_POLICY_AGREED", false)
                 apply()
             }
             finish()
-        } //체크 후 뒤로 가기
+        }
+        binding.btnYes.setOnClickListener {
+            with(sharedPreferences.edit()) {
+                putBoolean("IS_POLICY_AGREED", true)
+                apply()
+            }
+
+            finish()
+        }
 
     }
 
     private fun changeButtonText(isChecked: Boolean) { //텍스트는 color와 달리 selector 없어 여기 작성함.
         if (isChecked) {
-            binding.btnDismiss.text = getString(R.string.privacy_policy_scrolled)
-        } else binding.btnDismiss.text = getString(R.string.privacy_policy_unscrolled)
+            binding.btnYes.text = getString(R.string.privacy_policy_scrolled)
+        } else binding.btnYes.text = getString(R.string.privacy_policy_unscrolled)
     }
 }

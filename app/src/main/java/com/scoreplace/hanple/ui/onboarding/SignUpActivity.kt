@@ -1,9 +1,11 @@
 package com.scoreplace.hanple.ui.onboarding
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,12 +21,15 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
+    private val sharedPreferences by lazy {
+        getSharedPreferences("PRIVACY_POLICY", Context.MODE_PRIVATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        Log.d("hello", sharedPreferences.getBoolean("IS_POLICY_AGREED", false).toString())
         //EditText 상의 입력값이 달라질 때마다 viewModel에 text값을 보냅니다.
         textChangeListener(binding.etEmail, viewModel::updateEmail)
         textChangeListener(binding.etPassword, viewModel::updatePassword)
@@ -65,6 +70,13 @@ class SignUpActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener {
             finish() //로그인 페이지로 돌아가기
         }
+    }
+
+    override fun onResume() { //Privacy Policy 액티비티 꺼지면 onResume부터 실행됩니다.
+        super.onResume()
+        Log.d("hello", sharedPreferences.getBoolean("IS_POLICY_AGREED", false).toString())
+        val isPolicyAgreed = sharedPreferences.getBoolean("IS_POLICY_AGREED", true)
+        binding.cbPrivacyPolicy.isChecked = true
     }
 
     private fun textChangeListener(editText: EditText, updateFunction: (String) -> Unit) { // updateFunction = viewModel::set어쩌고

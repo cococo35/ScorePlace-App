@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="@id/iv_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/privacy_policy"/>
+        android:text="@string/privacy_policy_title"/>
 
 
     <!--약관 스크롤뷰 -->
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="12dp"/>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_dismiss"
+            android:id="@+id/btn_yes"
             style="@style/btnGeneral4th"
             android:text="@string/privacy_policy_unscrolled"
             android:enabled="false"
