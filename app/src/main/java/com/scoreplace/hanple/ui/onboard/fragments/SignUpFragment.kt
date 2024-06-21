@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.FragmentPrivacyPolicyBinding
+import com.scoreplace.hanple.databinding.FragmentSignUpBinding
 
 class SignUpFragment : Fragment() {
 
-    private var _binding: FragmentPrivacyPolicyBinding? = null
+    private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentPrivacyPolicyBinding.inflate(inflater, container, false)
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
     }
 
