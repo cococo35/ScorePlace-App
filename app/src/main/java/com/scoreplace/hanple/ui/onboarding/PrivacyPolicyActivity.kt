@@ -1,6 +1,6 @@
 package com.scoreplace.hanple.ui.onboarding
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +11,7 @@ class PrivacyPolicyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPrivacyPolicyBinding
     private val viewModel: PrivacyPolicyViewModel by viewModels()
-    private val sharedPreferences by lazy {
-        getSharedPreferences("PRIVACY_POLICY", Context.MODE_PRIVATE)
-    }
+    private val intent = Intent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,18 +33,13 @@ class PrivacyPolicyActivity : AppCompatActivity() {
 
         //View 내 처리사항
         binding.ivBack.setOnClickListener {
-            with(sharedPreferences.edit()) {
-                putBoolean("IS_POLICY_AGREED", false)
-                apply()
-            }
+            intent.putExtra("", false)
+            setResult(RESULT_OK, intent)
             finish()
         }
         binding.btnYes.setOnClickListener {
-            with(sharedPreferences.edit()) {
-                putBoolean("IS_POLICY_AGREED", true)
-                apply()
-            }
-
+            intent.putExtra("", true)
+            setResult(RESULT_OK, intent)
             finish()
         }
 
