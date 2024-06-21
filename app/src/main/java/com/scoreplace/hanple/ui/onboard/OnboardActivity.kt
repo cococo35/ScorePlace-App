@@ -1,12 +1,10 @@
 package com.scoreplace.hanple.ui.onboard
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.ActivityOnboardBinding
+import com.scoreplace.hanple.ui.onboard.fragments.LogInFragment
 
 class OnboardActivity : AppCompatActivity() {
 
@@ -16,6 +14,13 @@ class OnboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initView()
+    }
 
+    private fun initView() {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.fcv_parent, LogInFragment())
+        fragmentTransaction.commit()
     }
 }
