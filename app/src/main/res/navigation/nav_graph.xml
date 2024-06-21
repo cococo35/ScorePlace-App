@@ -21,6 +21,10 @@
             android:id="@+id/action_privacyPolicyFragment_pop"
             app:launchSingleTop="false"
             app:popUpTo="@id/signUpFragment" />
+        <argument
+            android:name="isPrivacyPolicyChecked"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"

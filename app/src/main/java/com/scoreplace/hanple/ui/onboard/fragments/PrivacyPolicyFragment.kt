@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.FragmentPrivacyPolicyBinding
 
@@ -26,6 +27,10 @@ class PrivacyPolicyFragment : Fragment() {
             findNavController().navigateUp()
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onDestroyView() {
