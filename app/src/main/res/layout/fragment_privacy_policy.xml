@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.onboarding.PrivacyPolicyActivity">
+    tools:context=".ui.onboarding.PrivacyPolicyFragment">
 
     <!-- 뒤로가기 버튼 -->
     <ImageView

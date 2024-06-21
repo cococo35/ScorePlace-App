@@ -1,11 +1,9 @@
 package com.scoreplace.hanple.ui.onboarding
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -51,7 +49,7 @@ class SignUpActivity : AppCompatActivity() {
 
         //View 안에서 해결 (-> 또 다른 View)
         binding.btnPrivacyPolicy.setOnClickListener {//이용약관 확인
-            val intent = Intent(this, PrivacyPolicyActivity::class.java)
+            val intent = Intent(this, PrivacyPolicyFragment::class.java)
             startActivity(intent)
         }
         //View -> ViewModel

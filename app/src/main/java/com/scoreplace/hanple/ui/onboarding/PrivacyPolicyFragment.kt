@@ -1,23 +1,25 @@
 package com.scoreplace.hanple.ui.onboarding
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.scoreplace.hanple.R
-import com.scoreplace.hanple.databinding.ActivityPrivacyPolicyBinding
+import com.scoreplace.hanple.databinding.FragmentPrivacyPolicyBinding
 
-class PrivacyPolicyActivity : AppCompatActivity() {
+class PrivacyPolicyFragment : Fragment() {
 
-    private lateinit var binding: ActivityPrivacyPolicyBinding
+    private var _binding: FragmentPrivacyPolicyBinding? = null
+    private val binding get() = _binding!! //fragment 생명 주기를 고려
     private val viewModel: PrivacyPolicyViewModel by viewModels()
-    private val intent = Intent()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityPrivacyPolicyBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentPrivacyPolicyBinding.inflate(inflater, container, false)
 
         //View -> ViewModel로 정보 전송
         binding.sv.setOnScrollChangeListener { _, _, _, _, _ ->
@@ -27,24 +29,26 @@ class PrivacyPolicyActivity : AppCompatActivity() {
         }
 
         //ViewModel -> View 정보 받아오기
-        viewModel.readAll.observe(this) { isChecked -> //ViewModel에서
+        viewModel.readAll.observe(viewLifecycleOwner) { isChecked -> //ViewModel에서
             binding.btnYes.isEnabled = isChecked
             changeButtonText(isChecked)
         }
 
         //View 내 처리사항
         binding.ivBack.setOnClickListener {
-            intent.putExtra("", false)
-            setResult(RESULT_OK, intent)
-            finish()
         }
         binding.btnYes.setOnClickListener {
-            intent.putExtra("", true)
-            setResult(RESULT_OK, intent)
-            finish()
         }
 
+        return binding.root
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null //fragment 생명 주기를 고려
+    }
+
+
 
     private fun changeButtonText(isChecked: Boolean) { //텍스트는 color와 달리 selector 없어 여기 작성함.
         if (isChecked) {
