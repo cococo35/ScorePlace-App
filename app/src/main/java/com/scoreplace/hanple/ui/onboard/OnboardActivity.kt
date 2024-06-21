@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.scoreplace.hanple.R
 
 class OnboardActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
