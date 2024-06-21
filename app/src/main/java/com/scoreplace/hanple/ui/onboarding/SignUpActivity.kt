@@ -29,7 +29,7 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.d("hello", sharedPreferences.getBoolean("IS_POLICY_AGREED", false).toString())
+
         //EditText 상의 입력값이 달라질 때마다 viewModel에 text값을 보냅니다.
         textChangeListener(binding.etEmail, viewModel::updateEmail)
         textChangeListener(binding.etPassword, viewModel::updatePassword)
@@ -44,14 +44,17 @@ class SignUpActivity : AppCompatActivity() {
         focusChangeListener(binding.etUsername, viewModel.isUserNameValid, getString(R.string.username_valid), getString(
             R.string.username_invalid))
 
+        //View 안에서 해결 (-> 또 다른 View)
         binding.btnPrivacyPolicy.setOnClickListener {//이용약관 확인
             val intent = Intent(this, PrivacyPolicyActivity::class.java)
             startActivity(intent)
         }
-
+        //View -> ViewModel
         binding.cbPrivacyPolicy.setOnCheckedChangeListener { _, isChecked -> //ViewModel에 체크박스 체크 여부 전송
             viewModel.updateReadAll(isChecked)
         }
+
+        //ViewModel -> View
         viewModel.readAll.observe(this) { isChecked -> //ViewModel에서
             binding.btnSignUp.isEnabled = isChecked
         }
@@ -72,11 +75,10 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() { //Privacy Policy 액티비티 꺼지면 onResume부터 실행됩니다.
+    override fun onResume() { //Privacy Policy 액티비티 꺼지면 onResume부터 실행됩니다. 회원가입 액티비티가 밑에 깔렸기 때문
         super.onResume()
-        Log.d("hello", sharedPreferences.getBoolean("IS_POLICY_AGREED", false).toString())
-        val isPolicyAgreed = sharedPreferences.getBoolean("IS_POLICY_AGREED", true)
-        binding.cbPrivacyPolicy.isChecked = true
+        val isPolicyAgreed = sharedPreferences.getBoolean("IS_POLICY_AGREED", false)
+        binding.cbPrivacyPolicy.isChecked = isPolicyAgreed
     }
 
     private fun textChangeListener(editText: EditText, updateFunction: (String) -> Unit) { // updateFunction = viewModel::set어쩌고

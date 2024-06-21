@@ -100,6 +100,7 @@
         android:layout_height="wrap_content"
         android:text="@string/privacy_policy_checked"
         android:textSize="18dp"
+        android:clickable="false"
         android:fontFamily="@font/pretendard_bold"
         android:textColor="@color/darkgray"
         app:layout_constraintBottom_toTopOf="@id/ll_buttons"
