@@ -22,20 +22,26 @@ class PrivacyPolicyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPrivacyPolicyBinding.inflate(inflater, container, false)
+
         //View -> ViewModel로 정보 전송
         binding.sv.setOnScrollChangeListener { _, _, _, _, _ ->
             val isAtBottom: Boolean
                     = binding.sv.scrollY + binding.sv.height >= binding.sv.getChildAt(0).measuredHeight
             viewModel.updateReadAll(isAtBottom) // 뷰모델로 스크롤 다 내렸는지 아닌지 체크
         }
+
         //ViewModel -> View 정보 받아오기
-        viewModel.scrolled.observe(this) { isChecked -> //ViewModel에서
+        viewModel.scrolled.observe(viewLifecycleOwner) { isChecked -> //ViewModel에서
             binding.btnYes.isEnabled = isChecked
             changeButtonText(isChecked)
         }
 
-        binding.ivBack.setOnClickListener{ findNavController().navigateUp() }
-        binding.btnYes.setOnClickListener{ findNavController().navigateUp() }
+        binding.ivBack.setOnClickListener{
+            viewModel.updateAgreeOnPrivacyPolicy(false)
+            findNavController().navigateUp() }
+        binding.btnYes.setOnClickListener{
+            viewModel.updateAgreeOnPrivacyPolicy(true)
+            findNavController().navigateUp() }
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

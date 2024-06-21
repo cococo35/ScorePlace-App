@@ -12,4 +12,13 @@ class OnboardViewModel: ViewModel() {
     fun updateReadAll(isChecked: Boolean) {
         _scrolled.value = isChecked
     }
+
+    //PrivacyPolicy -> SignUp
+    private val _agreeOnPrivacyPolicy = MutableLiveData<Boolean>(false)
+    val agreeOnPrivacyPolicy: LiveData<Boolean> get() = _agreeOnPrivacyPolicy
+
+    fun updateAgreeOnPrivacyPolicy(isChecked: Boolean) {
+        _agreeOnPrivacyPolicy.value = isChecked
+    }
+
 }

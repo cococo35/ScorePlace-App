@@ -5,6 +5,8 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("androidx.navigation.safeargs.kotlin")
+
 }
 
 android {
