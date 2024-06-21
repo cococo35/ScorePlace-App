@@ -6,17 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.scoreplace.hanple.R
+import com.scoreplace.hanple.databinding.ActivityOnboardBinding
 
 class OnboardActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityOnboardBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_onboard)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        binding = ActivityOnboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
     }
 }
