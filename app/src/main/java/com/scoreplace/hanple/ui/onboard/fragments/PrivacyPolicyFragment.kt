@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.FragmentPrivacyPolicyBinding
 
@@ -18,6 +19,12 @@ class PrivacyPolicyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPrivacyPolicyBinding.inflate(inflater, container, false)
+        binding.ivBack.setOnClickListener{
+            findNavController().navigateUp()
+        }
+        binding.btnYes.setOnClickListener{
+            findNavController().navigateUp()
+        }
         return binding.root
     }
 

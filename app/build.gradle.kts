@@ -139,4 +139,9 @@ dependencies {
     implementation("com.github.penfeizhou.android.animation:glide-plugin:${penfeizhou_version}")
     implementation("com.github.penfeizhou.android.animation:apng:${penfeizhou_version}")
     //glide에 apng 확장자 지원하도록 하기. https://github.com/penfeizhou/APNG4Android
+
+    // Kotlin에서 네비게이션 사용하기 https://developer.android.com/guide/navigation?hl=ko#add-navhost
+    val nav_version = "2.7.7"
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 }

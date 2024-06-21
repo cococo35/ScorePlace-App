@@ -14,13 +14,5 @@ class OnboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initView()
-    }
-
-    private fun initView() {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.add(R.id.fcv_parent, LogInFragment())
-        fragmentTransaction.commit()
     }
 }
