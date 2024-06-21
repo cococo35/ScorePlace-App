@@ -21,10 +21,15 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
-    private val sharedPreferences by lazy {
-        getSharedPreferences("PRIVACY_POLICY", Context.MODE_PRIVATE)
-    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+            val isPolicyAgreed = data?.getBooleanExtra("IS_POLICY_AGREED", false)?: false
+            binding.cbPrivacyPolicy.isChecked = isPolicyAgreed
+            }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -77,8 +82,6 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onResume() { //Privacy Policy 액티비티 꺼지면 onResume부터 실행됩니다. 회원가입 액티비티가 밑에 깔렸기 때문
         super.onResume()
-        val isPolicyAgreed = sharedPreferences.getBoolean("IS_POLICY_AGREED", false)
-        binding.cbPrivacyPolicy.isChecked = isPolicyAgreed
     }
 
     private fun textChangeListener(editText: EditText, updateFunction: (String) -> Unit) { // updateFunction = viewModel::set어쩌고
