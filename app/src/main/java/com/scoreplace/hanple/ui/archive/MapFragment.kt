@@ -1,20 +1,20 @@
 package com.scoreplace.hanple.ui.archive
 
-import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.scoreplace.hanple.data.CategoryPlace
 import com.scoreplace.hanple.databinding.FragmentMapBinding
-import com.scoreplace.hanple.ui.search.MainActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import java.io.IOException
 
@@ -26,8 +26,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         fun newInstance(places: Set<CategoryPlace>): MapFragment {
             val fragment = MapFragment()
-            val args = Bundle()
-            args.putSerializable(ARG_PLACES, HashSet(places))
+            val args = Bundle().apply {
+                putSerializable(ARG_PLACES, HashSet(places))
+            }
             fragment.arguments = args
             return fragment
         }
@@ -39,6 +40,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
     private var places: Set<CategoryPlace>? = null
+    private var markerMap: MutableMap<CategoryPlace, Marker> = mutableMapOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,29 +66,37 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this@MapFragment)
 
         binding.icBackbtn.setOnClickListener {
-            (activity as ArchiveActivity).finish()
+            requireActivity().finish()
         }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
 
-        places?.forEach { place ->
-            val latLng = getLatLngFromAddress(place.address ?: "")
-            if (latLng != null) {
-                setupMarker(latLng, place.address ?: "")
-            }
-        }
-
-        // 전체 위치를 보기 좋은 위치로 카메라 이동
+        // 첫 번째 장소의 위치를 초기 카메라 위치로 설정
         if (!places.isNullOrEmpty()) {
             val firstPlace = places!!.first()
             val firstLatLng = getLatLngFromAddress(firstPlace.address ?: "")
             if (firstLatLng != null) {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstLatLng, 15f))
+                setupMarker(firstLatLng, firstPlace)
+            }
+        } else {
+            // places가 비어있을 경우, 사용자가 원하는 기본 위치 설정 예시 (서울로 설정)
+            val seoulLatLng = LatLng(37.5665, 126.9780)  // 서울의 위도와 경도
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(seoulLatLng, 12f))
+        }
+
+        // 기존의 places를 이용한 마커 설정 로직
+        places?.forEach { place ->
+            val latLng = getLatLngFromAddress(place.address ?: "")
+            if (latLng != null) {
+                setupMarker(latLng, place)
             }
         }
     }
+
+
 
     private fun getLatLngFromAddress(address: String): LatLng? {
         val context = context ?: return null // context가 null인지 확인
@@ -105,13 +115,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun setupMarker(positionLatLng: LatLng, title: String) {
+    private fun setupMarker(positionLatLng: LatLng, place: CategoryPlace) {
         val markerOption = MarkerOptions().apply {
             position(positionLatLng)
-            title(title)
-            snippet("위치: $title")
+            title(place.address)
+            snippet("점수: ${place.score}")
         }
-        googleMap.addMarker(markerOption)
+        val marker = googleMap.addMarker(markerOption)
+
+        // markerMap에 값을 추가할 때는 put 메서드를 사용합니다.
+        if (marker != null) {
+            markerMap.put(place, marker)
+        }
+
     }
 
     override fun onStart() {
@@ -143,5 +159,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView.onDestroy()
         super.onDestroyView()
         _binding = null
+    }
+
+    fun removeMarker(place: CategoryPlace) {
+        markerMap.remove(place)?.remove()
     }
 }

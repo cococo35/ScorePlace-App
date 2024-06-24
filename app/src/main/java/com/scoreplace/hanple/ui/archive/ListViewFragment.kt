@@ -12,6 +12,8 @@ import com.scoreplace.hanple.R
 import com.scoreplace.hanple.adapter.PlaceStorageListAdapter
 import com.scoreplace.hanple.data.CategoryPlace
 import com.scoreplace.hanple.databinding.FragmentListViewBinding
+import com.scoreplace.hanple.ui.archive.MapFragment
+import com.scoreplace.hanple.ui.search.MainActivity
 
 class ListViewFragment : Fragment() {
 
@@ -19,6 +21,7 @@ class ListViewFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: PlaceStorageListAdapter
     private lateinit var sharedPreferences: SharedPreferences
+    private var mapFragment: MapFragment? = null
 
     companion object {
         private const val ARG_ADDRESS = "address"
@@ -47,46 +50,23 @@ class ListViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
 
-        // Load places from SharedPreferences
+        // SharedPreferences에서 장소 목록을 불러옵니다.
         val places = loadPlacesFromPreferences()
 
         adapter = PlaceStorageListAdapter(requireContext(), { place ->
-            // 아이템 클릭 시 처리할 로직
+            // 아이템 클릭 시 처리할 로직: 아이템 삭제
+            adapter.removePlace(place)
         }, places)
 
         binding.recyclerviewList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewList.adapter = adapter
 
-        arguments?.let {
-            val address = it.getString(ARG_ADDRESS)
-            val score = it.getDouble(ARG_SCORE)
-
-            if (address != null) {
-                val newPlace = CategoryPlace(address, score, null, null, null, null, null, null, true, null)
-                if (adapter.currentList.none { it.address == address }) {
-                    adapter.addPlace(newPlace)
-                    savePlaceToPreferences(address, score)
-                }
-            }
-        }
-
-        binding.tvListViewMap.setOnClickListener {
-            if (adapter.itemCount > 0) {
-                val mapFragment = MapFragment.newInstance(adapter.currentList.toSet())
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fr_main, mapFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }
-
-        binding.icBackbtn.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
 
         adapter.onFavoriteClick = { place ->
             adapter.removePlace(place)
             savePlacesToPreferences()
+
+            mapFragment?.removeMarker(place)
         }
 
         adapter.onAddressClick = { place ->
@@ -95,18 +75,6 @@ class ListViewFragment : Fragment() {
                 .replace(R.id.fr_main, mapFragment)
                 .addToBackStack(null)
                 .commit()
-        }
-    }
-
-    private fun savePlaceToPreferences(address: String, score: Double) {
-        val placeCount = sharedPreferences.getInt("place_count", 0)
-        val existingAddresses = (0 until placeCount).mapNotNull { sharedPreferences.getString("address_$it", null) }
-        if (!existingAddresses.contains(address)) {
-            val editor = sharedPreferences.edit()
-            editor.putString("address_$placeCount", address)
-            editor.putFloat("score_$placeCount", score.toFloat())
-            editor.putInt("place_count", placeCount + 1)
-            editor.apply()
         }
     }
 
@@ -137,5 +105,9 @@ class ListViewFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun setMapFragment(fragment: MapFragment) {
+        mapFragment = fragment
     }
 }
