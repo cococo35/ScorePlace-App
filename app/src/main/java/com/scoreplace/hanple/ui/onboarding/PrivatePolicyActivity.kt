@@ -3,6 +3,7 @@ package com.scoreplace.hanple.ui.onboarding
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.ActivityPrivatePolicyBinding
 
 class PrivatePolicyActivity : AppCompatActivity() {
@@ -12,6 +13,7 @@ class PrivatePolicyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_Hanple) //앱 시작 스플래시
         binding = ActivityPrivatePolicyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
