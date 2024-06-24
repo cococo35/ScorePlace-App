@@ -57,27 +57,6 @@
 
 
     <!--    onboarding--><!--    onboarding--><!--    onboarding--><!--    onboarding--><!--    onboarding--><!--    onboarding-->
-    <string name="onboarding_email_log_in_btn">이메일로 로그인</string>
-    <string name="onboarding_guest_log_in_btn">게스트로 이용하기</string>
-    <string name="onboarding_sign_up">회원가입</string>
-    <string name="onboarding_welcome">Hanple로 나들이 추천 받기</string>
-    <string name="onboarding_email_empty">이메일 란이 비어있어요.</string>
-    <string name="onboarding_password_empty">비밀번호 란이 비어있어요.</string>
-    <string name="onboarding_firebase_auth_success">Firebase Auth 인증 성공!</string>
-    <string name="onboarding_check_email_password">아이디나 비밀번호를 확인해 주세요.</string>
-    <string name="onboarding_email_format_wrong">올바른 이메일 형식이 아닙니다.</string>
-    <string name="onboarding_personal_info">이용약관 확인하기</string>
-    <string name="onboarding_auto_login">다음부터는 자동 로그인할래요!</string>
-
-    <!-- sign-up -->
-    <string name="sign_up_title">회원가입</string>
-    <string name="email_valid">이메일 주소 형식이 맞네요!</string>
-    <string name="email_invalid">잘못된 이메일 형식이에요 ㅠ.ㅠ</string>
-    <string name="password_valid">비밀번호 8자 이상 통과 ~</string>
-    <string name="password_invalid">비밀번호가 8자 미만이에요;;;</string>
-    <string name="username_valid">멋진 별명이네요!</string>
-    <string name="username_invalid">2글자 이상의 별명을 입력해 주세요.</string>
-
     <!-- privacy policy -->
     <string name="privacy_policy_title">개인정보 처리방침</string>
     <string name="privacy_policy_checked">개인정보 처리약관 확인하기</string>
