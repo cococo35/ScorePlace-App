@@ -28,8 +28,14 @@
             android:name=".ui.onboarding.PrivatePolicyActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:exported="false"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            android:exported="true"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.archive.ArchiveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -49,11 +55,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.App.Starting"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
