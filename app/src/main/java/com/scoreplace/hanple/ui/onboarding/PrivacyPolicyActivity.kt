@@ -1,11 +1,13 @@
 package com.scoreplace.hanple.ui.onboarding
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.ActivityPrivacyPolicyBinding
+import com.scoreplace.hanple.ui.search.MainActivity
 
 class PrivacyPolicyActivity : AppCompatActivity() {
 
@@ -32,7 +34,9 @@ class PrivacyPolicyActivity : AppCompatActivity() {
         }
 
         binding.btnYes.setOnClickListener{
-        finish()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
         private fun changeButtonText(isChecked: Boolean) { //텍스트는 color와 달리 selector 없어 여기 작성함.
