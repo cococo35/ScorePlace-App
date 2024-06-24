@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun initFragment() {
         supportFragmentManager.commit {
             replace(R.id.fr_main, InitLoadFragment())

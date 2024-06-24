@@ -66,7 +66,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this@MapFragment)
 
         binding.icBackbtn.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            requireActivity().finish()
         }
     }
 
@@ -94,23 +94,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 setupMarker(latLng, place)
             }
         }
-
-        // 마커 클릭 리스너 설정
-        googleMap.setOnMarkerClickListener { marker ->
-            // 마커 클릭 시 정보 표시
-            val place = markerMap.entries.find { it.value == marker }?.key
-            if (place != null) {
-
-                val address = place.address
-                val score = place.score.toString()
-                // 예시로 Toast 메시지로 표시
-                context?.let {
-                    Toast.makeText(it, "장소: $address\n점수: $score", Toast.LENGTH_SHORT).show()
-                }
-            }
-            true
         }
-    }
+
+
 
     private fun getLatLngFromAddress(address: String): LatLng? {
         val context = context ?: return null // context가 null인지 확인

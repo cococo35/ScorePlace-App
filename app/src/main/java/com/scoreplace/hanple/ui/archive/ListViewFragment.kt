@@ -13,6 +13,7 @@ import com.scoreplace.hanple.adapter.PlaceStorageListAdapter
 import com.scoreplace.hanple.data.CategoryPlace
 import com.scoreplace.hanple.databinding.FragmentListViewBinding
 import com.scoreplace.hanple.ui.archive.MapFragment
+import com.scoreplace.hanple.ui.search.MainActivity
 
 class ListViewFragment : Fragment() {
 
@@ -60,10 +61,6 @@ class ListViewFragment : Fragment() {
         binding.recyclerviewList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewList.adapter = adapter
 
-        // 뒤로 가기 버튼 처리
-        binding.icBackbtn.setOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
 
         adapter.onFavoriteClick = { place ->
             adapter.removePlace(place)
