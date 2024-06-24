@@ -90,8 +90,9 @@ class MainActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_account -> {
-                    val intent = Intent(this, SettingsActivity::class.java)
-                    startActivity(intent)
+                    Toast.makeText(this, "준비중입니다", Toast.LENGTH_SHORT).show()
+//                    val intent = Intent(this, SettingsActivity::class.java)
+//                    startActivity(intent)
                 }
                 R.id.nav_search_log -> {
                     Toast.makeText(this, "준비중입니다", Toast.LENGTH_SHORT).show()

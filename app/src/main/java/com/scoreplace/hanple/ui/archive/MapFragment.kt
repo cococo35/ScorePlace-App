@@ -64,6 +64,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView = binding.mapView
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this@MapFragment)
+
+        binding.icBackbtn.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -96,7 +100,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             // 마커 클릭 시 정보 표시
             val place = markerMap.entries.find { it.value == marker }?.key
             if (place != null) {
-                // TODO: 정보를 표시하는 로직을 추가하세요 (예: Toast 또는 다이얼로그로 표시)
+
                 val address = place.address
                 val score = place.score.toString()
                 // 예시로 Toast 메시지로 표시
@@ -170,7 +174,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         super.onDestroyView()
         _binding = null
     }
+
     fun removeMarker(place: CategoryPlace) {
         markerMap.remove(place)?.remove()
     }
-    }
+}

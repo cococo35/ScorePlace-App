@@ -49,24 +49,21 @@ class ListViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireContext().getSharedPreferences("favorite_places", Context.MODE_PRIVATE)
 
-
+        // SharedPreferences에서 장소 목록을 불러옵니다.
         val places = loadPlacesFromPreferences()
-
 
         adapter = PlaceStorageListAdapter(requireContext(), { place ->
             // 아이템 클릭 시 처리할 로직: 아이템 삭제
             adapter.removePlace(place)
         }, places)
 
-
         binding.recyclerviewList.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerviewList.adapter = adapter
 
-
+        // 뒤로 가기 버튼 처리
         binding.icBackbtn.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-
 
         adapter.onFavoriteClick = { place ->
             adapter.removePlace(place)

@@ -7,11 +7,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.scoreplace.hanple.R
 import com.scoreplace.hanple.adapter.PlaceStorageListAdapter
 import com.scoreplace.hanple.data.CategoryPlace
 import com.scoreplace.hanple.databinding.ActivityArchiveBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.scoreplace.hanple.R
 
 class ArchiveActivity : AppCompatActivity() {
 
@@ -62,6 +62,7 @@ class ArchiveActivity : AppCompatActivity() {
         }
 
         binding.recyclerMapList.adapter = adapter
+
         binding.recyclerMapList.layoutManager = LinearLayoutManager(this)
     }
 
