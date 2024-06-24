@@ -17,26 +17,27 @@ class PlaceStorageListAdapter(
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
 
     var onFavoriteClick: ((CategoryPlace) -> Unit)? = null
-    var onAddressClick: ((CategoryPlace) -> Unit)? = null
+    var onAddressClick: ((CategoryPlace) -> Unit)? = null // 클릭 리스너 추가
 
     inner class PlaceViewHolder(
         private val binding: RecyclerviewStorageItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(place: CategoryPlace) = with(binding) {
-            tvItemAddress.text = place.address
-            tvItemScore.text = place.score.toString()
 
-            root.setOnClickListener {
-                onItemClick(place)
+        init {
+            binding.root.setOnClickListener {
+                onItemClick.invoke(places[adapterPosition])
             }
+            binding.ivItemFavorite.setOnClickListener {
+                onFavoriteClick?.invoke(places[adapterPosition])
+            }
+            binding.tvItemAddress.setOnClickListener {
+                onAddressClick?.invoke(places[adapterPosition]) // 주소 클릭 리스너 호출
+            }
+        }
 
-            ivItemFavorite.setOnClickListener {
-                onFavoriteClick?.invoke(place)
-            }
-
-            tvItemAddress.setOnClickListener {
-                onAddressClick?.invoke(place)
-            }
+        fun bind(place: CategoryPlace) {
+            binding.tvItemAddress.text = place.address
+            binding.tvItemScore.text = place.score.toString()
         }
     }
 
@@ -87,7 +88,7 @@ class PlaceStorageListAdapter(
             val address = sharedPreferences.getString("place_$i", null)
             val score = sharedPreferences.getFloat("score_$i", 0f)
             if (address != null) {
-                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, null,null,true, null))
+                places.add(CategoryPlace(address, score.toDouble(), null, null, null, null, null, null, true, null))
             }
         }
         notifyDataSetChanged()
