@@ -8,13 +8,21 @@ import androidx.navigation.fragment.findNavController
 import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.ActivityPrivacyPolicyBinding
 import com.scoreplace.hanple.ui.search.MainActivity
-
+import android.content.SharedPreferences
 class PrivacyPolicyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPrivacyPolicyBinding
     private val viewModel: PrivacyPolicyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val sharedPreferences = getSharedPreferences("privacy_policy", MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("isPrivacyPolicyChecked", false)) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Hanple) //앱 시작 스플래시
         binding = ActivityPrivacyPolicyBinding.inflate(layoutInflater)
@@ -34,6 +42,9 @@ class PrivacyPolicyActivity : AppCompatActivity() {
         }
 
         binding.btnYes.setOnClickListener{
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("isPrivacyPolicyChecked", true).apply()
+
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

@@ -8,8 +8,9 @@ class PrivacyPolicyViewModel: ViewModel() {
     private val _scrolled = MutableLiveData<Boolean>(false)
     val scrolled: LiveData<Boolean> get() = _scrolled
 
-    fun updateScrolled(isChecked: Boolean) {
-        _scrolled.value = isChecked
-    }
+    private val isChecked: Boolean = false
 
+    fun updateScrolled(isScrolled: Boolean) {
+        _scrolled.value = isScrolled
+    }
 }
