@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class PrivacyPolicyViewModel: ViewModel() {
-    private val _readAll = MutableLiveData<Boolean>(false)
-    val readAll: LiveData<Boolean> get() = _readAll
+    private val _scrolled = MutableLiveData<Boolean>(false)
+    val scrolled: LiveData<Boolean> get() = _scrolled
 
-    fun updateReadAll(isChecked: Boolean) {
-        _readAll.value = isChecked
+    fun updateScrolled(isChecked: Boolean) {
+        _scrolled.value = isChecked
     }
 
 }
