@@ -78,6 +78,8 @@
     <string name="username_valid">멋진 별명이네요!</string>
     <string name="username_invalid">2글자 이상의 별명을 입력해 주세요.</string>
 
+=======
+>>>>>>> eb990c2b928f2ed15d3bc26207e13ea37dc2e146
     <!-- privacy policy -->
     <string name="privacy_policy_title">개인정보 처리방침</string>
     <string name="privacy_policy_checked">개인정보 처리약관 확인하기</string>
