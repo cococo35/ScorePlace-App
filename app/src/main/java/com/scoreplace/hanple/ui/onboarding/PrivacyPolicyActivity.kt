@@ -1,21 +1,16 @@
 package com.scoreplace.hanple.ui.onboarding
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.ActivityPrivatePolicyBinding
 
-class PrivatePolicyActivity : AppCompatActivity() {
+class PrivacyPolicyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPrivatePolicyBinding
-    private val viewModel: PrivatePolicyViewModel by viewModels()
+    private val viewModel: PrivacyPolicyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

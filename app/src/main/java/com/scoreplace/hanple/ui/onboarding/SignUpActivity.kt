@@ -40,7 +40,7 @@ class SignUpActivity : AppCompatActivity() {
             R.string.username_invalid))
 
         binding.btnPrivatePolicy.setOnClickListener {//이용약관 확인
-            val intent = Intent(this, PrivatePolicyActivity::class.java)
+            val intent = Intent(this, PrivacyPolicyActivity::class.java)
             startActivity(intent)
         }
 
