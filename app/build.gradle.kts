@@ -73,7 +73,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.firebase.firestore.ktx)
     implementation(libs.androidx.room.common)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -130,10 +129,7 @@ dependencies {
     testImplementation("androidx.room:room-testing:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
 
-    //firebase firestore
-    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.google.firebase:firebase-auth-ktx") //firebase auth
+
 
     val penfeizhou_version = "3.0.1"
     implementation("com.github.penfeizhou.android.animation:glide-plugin:${penfeizhou_version}")
