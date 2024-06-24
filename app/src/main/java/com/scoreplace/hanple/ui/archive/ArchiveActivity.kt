@@ -29,10 +29,13 @@ class ArchiveActivity : AppCompatActivity() {
 
     private fun initView() {
         val places = loadPlacesFromPreferences()
+
+        // MapFragment를 초기화면으로 설정
+        val mapFragment = MapFragment.newInstance(places.toSet())
         supportFragmentManager.commit {
-            replace(R.id.fr_archive_map, MapFragment())
-            addToBackStack(null)
+            replace(R.id.fr_archive_map, mapFragment)
         }
+
         val bottomViewBehavior = BottomSheetBehavior.from(binding.recyclerMapList)
         bottomViewBehavior.isDraggable = true
         bottomViewBehavior.peekHeight = 120
@@ -51,9 +54,9 @@ class ArchiveActivity : AppCompatActivity() {
         }, places)
 
         adapter.onAddressClick = { place ->
-            val mapFragment = MapFragment.newInstance(setOf(place))
+            val newMapFragment = MapFragment.newInstance(setOf(place))
             supportFragmentManager.commit {
-                replace(R.id.fr_archive_map, mapFragment)
+                replace(R.id.fr_archive_map, newMapFragment)
                 addToBackStack(null)
             }
         }
