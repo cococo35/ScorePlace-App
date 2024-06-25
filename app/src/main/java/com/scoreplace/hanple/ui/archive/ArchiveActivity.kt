@@ -57,7 +57,6 @@ class ArchiveActivity : AppCompatActivity() {
             val newMapFragment = MapFragment.newInstance(setOf(place))
             supportFragmentManager.commit {
                 replace(R.id.fr_archive_map, newMapFragment)
-                addToBackStack(null)
             }
         }
 
