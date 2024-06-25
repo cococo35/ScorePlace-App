@@ -12,6 +12,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:text="@string/score_detail"
+        android:textColor="@color/black"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="36sp"
         android:layout_marginTop="125dp"
@@ -27,6 +28,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="55dp"
         android:text="@string/score_detail_dust"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -41,6 +43,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_dust"
         android:layout_marginTop="5dp"
         android:text="@string/score_detail_weather_good"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 
@@ -62,6 +65,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:text="@string/score_detail_weather"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -76,6 +80,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_weather"
         android:layout_marginTop="5dp"
         android:text="@string/score_detail_weather_good"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 
@@ -96,6 +101,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:text="@string/score_detail_traffic"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -110,6 +116,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_traffic"
         android:layout_marginTop="5dp"
         android:text="@string/score_detail_weather_good"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 
@@ -130,6 +137,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:text="@string/score_detail_congestion"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -144,6 +152,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_congestion"
         android:layout_marginTop="5dp"
         android:text="@string/score_detail_weather_good"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 
@@ -164,6 +173,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:text="@string/score_detail_cost"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -178,6 +188,7 @@
         app:layout_constraintStart_toStartOf="@id/tv_detail_dialog_score_cost"
         android:layout_marginTop="5dp"
         android:text="@string/score_detail_weather_good"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="18sp" />
 

@@ -14,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/search_how_to_go"
+        android:textColor="@color/black"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -64,7 +65,8 @@
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
-        android:text="@string/search_transportation_public" />
+        android:text="@string/search_transportation_public"
+        android:textColor="@color/black" />
 
     <!-- 선택지 2: 자가용 -->
     <com.google.android.material.card.MaterialCardView
@@ -108,7 +110,8 @@
         android:textStyle="bold"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="16sp"
-        android:text="@string/search_transportation_car" />
+        android:text="@string/search_transportation_car"
+        android:textColor="@color/black" />
 
     <!-- 하단 버튼 -->
     <LinearLayout

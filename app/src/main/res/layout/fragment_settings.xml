@@ -16,6 +16,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:text="@string/settings_manage_information"
+        android:textColor="@color/black"
         android:fontFamily="@font/line_seed_bold"
         android:textSize="34sp"
         android:textStyle="bold" />
@@ -29,6 +30,7 @@
         android:layout_marginTop="55dp"
         android:layout_marginStart="30dp"
         android:text="@string/nickname"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -63,6 +65,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_settings_line"
         android:layout_marginTop="15dp"
         android:text="@string/email"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -97,6 +100,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_settings_line2"
         android:layout_marginTop="15dp"
         android:text="@string/password"
+        android:textColor="@color/black"
         android:fontFamily="@font/pretendard_regular"
         android:textSize="22sp"
         android:textStyle="bold" />
