@@ -123,7 +123,8 @@ class ScoreFragment : Fragment() {
                 }
             })
 
-        binding.recyclerviewScoreCategory.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerviewScoreCategory.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         viewModel.nearByPlace.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {
                 binding.recyclerviewScoreCategory.visibility = View.GONE
@@ -131,7 +132,9 @@ class ScoreFragment : Fragment() {
             } else {
                 binding.recyclerviewScoreCategory.visibility = View.VISIBLE
                 binding.tvNotFound.visibility = View.GONE
-                (binding.recyclerviewScoreCategory.adapter as PlaceScoreCategoryAdapter).submitList(it)
+                (binding.recyclerviewScoreCategory.adapter as PlaceScoreCategoryAdapter).submitList(
+                    it
+                )
             }
         }
 
@@ -139,29 +142,27 @@ class ScoreFragment : Fragment() {
         val localDateTime: LocalDateTime = LocalDateTime.now()
         val dateFormat = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         viewModel.selectPlace?.observe(viewLifecycleOwner) {
-            if(it == null){
+            if (it == null) {
                 binding.tvScoreTitle.text = "${viewModel.selectRecommendPlace.value?.name}"
-                binding.tvCategoryText.text = "${viewModel.selectRecommendPlace.value?.name} " + getString(R.string.around)
-                binding.tvScoreTitle2.text =
-                    localDateTime.toString().substring(5, 7) +
-                            getString(R.string.month) +
-                            localDateTime.toString().substring(8, 10) +
-                            getString(R.string.day) +
-                            localDateTime.toString().substring(11, 16)
-            }
-            else {
+                binding.tvCategoryText.text =
+                    "${viewModel.selectRecommendPlace.value?.name} " + getString(R.string.around)
+            } else {
                 binding.tvScoreTitle.text = "${it?.name}"
                 binding.tvCategoryText.text = "${it?.name} " + getString(R.string.around)
-                binding.tvScoreTitle2.text =
-                    localDateTime.toString().substring(5, 7) +
-                            getString(R.string.month) +
-                            localDateTime.toString().substring(8, 10) +
-                            getString(R.string.day) +
-                            localDateTime.toString().substring(11, 16)
+            }
+            viewModel.totalScore.observe(viewLifecycleOwner) {
+                binding.tvScoreScore.text = "${it}" + getString(R.string.points)
             }
         }
-        viewModel.totalScore.observe(viewLifecycleOwner) {
-            binding.tvScoreScore.text = "${it}" + getString(R.string.points)
+        viewModel.readTimeStamp?.observe(viewLifecycleOwner){
+            if(it.isEmpty()){
+                binding.tvScoreTitle2.text =""
+            }
+            else {
+                val start = it[0].substring(5)
+                val end = it[1].substring(5)
+                binding.tvScoreTitle2.text = start + "~" + end
+            }
         }
     }
 

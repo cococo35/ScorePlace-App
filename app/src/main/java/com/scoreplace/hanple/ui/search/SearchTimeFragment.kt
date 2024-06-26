@@ -114,8 +114,7 @@ class SearchTimeFragment : Fragment() {
             if (fromStart == "" && toStart == "") {
                 Toast.makeText(requireContext(), getString(R.string.search_enter_time_format), Toast.LENGTH_SHORT).show()
             } else if (
-                (binding.tvSearchTimeFromHour.text.toString() + binding.tvSearchTimeFromMinute.text.toString()).toInt() >=
-                (binding.tvSearchTimeToHour.text.toString() + binding.tvSearchTimeToMinute.text.toString()).toInt()
+                viewModel.properTimeInput() == false
             ) {
                 Toast.makeText(requireContext(), getString(R.string.search_wrong_time_format), Toast.LENGTH_SHORT).show()
             } else {
@@ -187,6 +186,7 @@ class SearchTimeFragment : Fragment() {
 
         viewModel.getStartTime(startTime)
         viewModel.getEndTime(endTime)
+        viewModel.getTimeStamp(startTime,endTime)
 
         val startTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_start)
         val endTimePicker = timePickerBottomSheet.findViewById<TimePicker>(R.id.time_insert_end)
