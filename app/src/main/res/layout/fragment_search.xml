@@ -23,6 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/search_where_are_you_going"
+                android:textColor="@color/black"
                 android:fontFamily="@font/line_seed_bold"
                 android:textSize="36sp"
                 android:textStyle="bold"
@@ -56,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/search_check_score"
+                android:textColor="@color/black"
                 android:background="@color/white"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="16sp"
@@ -75,6 +77,7 @@
                 app:layout_constraintTop_toBottomOf="@id/autocompletecardview"
                 android:layout_marginTop="65dp"
                 android:text="@string/search_recommend"
+                android:textColor="@color/black"
                 android:fontFamily="@font/pretendard_regular"
                 android:textSize="18sp"
                 android:textStyle="bold" />
