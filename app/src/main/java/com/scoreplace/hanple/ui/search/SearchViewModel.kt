@@ -798,6 +798,24 @@ class SearchViewModel(
             getRecommendPlace(list, dao)
         }
     }
+
+    @SuppressLint("SimpleDateFormat")
+    fun properTimeInput() : Boolean {
+        var result : Boolean
+        val format = SimpleDateFormat("yyyy-MM-dd HH:mm")
+        val endTimeBuffer : Date? = _endTime.value?.let { format.parse(it) }
+        val startTimeBuffer : Date? = _startTime.value?.let { format.parse(it) }
+        Log.d("시간 확인", endTimeBuffer.toString())
+        Log.d("시간 확인", startTimeBuffer.toString())
+        if(startTimeBuffer!! >= endTimeBuffer!!){
+            result = false
+        }
+        else
+            result = true
+
+        return result
+    }
+
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
