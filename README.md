@@ -3,6 +3,7 @@
 </h1>
 <p align="center">
 </p>
+
 ![image](https://github.com/cococo35/ScorePlace-App/assets/161271441/484b153a-5017-471b-8103-7f45ac1bf8a8)
 
 <br/><br/>
