@@ -3,7 +3,15 @@
 </h1>
 <p align="center">
 </p>
-이미지 업로드 예정
+![image](https://github.com/cococo35/ScorePlace-App/assets/161271441/484b153a-5017-471b-8103-7f45ac1bf8a8)
+
+<br/><br/>
+
+![image](https://github.com/cococo35/ScorePlace-App/assets/161271441/85868319-6f94-4498-a712-0f86e400d0a7)
+
+![image](https://github.com/cococo35/ScorePlace-App/assets/161271441/eae24f2b-65a4-4299-a648-6a277474c462)
+
+![image](https://github.com/cococo35/ScorePlace-App/assets/161271441/e2052817-004d-47a6-871c-004ee908d394)
 
 <br/>
 
@@ -93,4 +101,5 @@
 
 ## 유지보수 및 개선사항
 
-### 추가 예정
+### 첫 화면에서 장소 이름이 길어 칸을 벗어나는 오류 수정중입니다
+### 이동방식 선택하는 화면에서 글자가 겹치는 오류 수정중입니다
