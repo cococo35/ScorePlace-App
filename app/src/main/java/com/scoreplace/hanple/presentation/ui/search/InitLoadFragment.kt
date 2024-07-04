@@ -19,6 +19,7 @@ import com.scoreplace.hanple.room.RecommendPlace
 import com.scoreplace.hanple.room.recommendPlaceGoogleID
 import com.github.penfeizhou.animation.apng.APNGDrawable
 import com.github.penfeizhou.animation.loader.AssetStreamLoader
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -29,11 +30,12 @@ import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
 
+@AndroidEntryPoint
 class InitLoadFragment : Fragment() {
     private var _binding : FragmentInitLoadBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(requireActivity())[SearchViewModel::class.java]
     }
     private val recommendDAO by lazy {
         RecommendDataBase.getMyRecommendPlaceDataBase(requireContext()).getMyRecommendPlaceDAO()

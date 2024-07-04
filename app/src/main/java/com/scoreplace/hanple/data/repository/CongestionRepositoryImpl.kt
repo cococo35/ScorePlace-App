@@ -1,10 +1,10 @@
 package com.scoreplace.hanple.data.repository
 
-import com.scoreplace.hanple.data.congestion.CongestionRemoteDataResource
+import com.scoreplace.hanple.data.remote.CongestionRemoteDataResource
+import javax.inject.Inject
 
 
-
-class CongestionRemoteImpl(
+class CongestionRepositoryImpl @Inject constructor(
     private val congestionRemoteDataResource: CongestionRemoteDataResource
 ) : CongestionRepository {
     override suspend fun getCongestion(

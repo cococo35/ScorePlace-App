@@ -16,12 +16,15 @@ import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.FragmentSearchTransportationBinding
 import com.github.penfeizhou.animation.apng.APNGDrawable
 import com.github.penfeizhou.animation.loader.AssetStreamLoader
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class SearchTransportationFragment : Fragment() {
     private var _binding : FragmentSearchTransportationBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy{
-        ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(requireActivity())[SearchViewModel::class.java]
     }
     private lateinit var callback : OnBackPressedCallback
     override fun onCreateView(

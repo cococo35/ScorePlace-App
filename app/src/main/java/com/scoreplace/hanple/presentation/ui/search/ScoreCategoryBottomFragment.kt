@@ -7,15 +7,16 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.scoreplace.hanple.databinding.FragmentScoreCategoryBottomBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ScoreCategoryBottomFragment : BottomSheetDialogFragment() {
 
     private val binding by lazy {
         FragmentScoreCategoryBottomBinding.inflate(layoutInflater)
     }
     private val viewModel by lazy {
-        ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(requireActivity())[SearchViewModel::class.java]
     }
 
     override fun onCreateView(

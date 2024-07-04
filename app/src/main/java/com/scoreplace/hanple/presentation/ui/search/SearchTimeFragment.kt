@@ -23,16 +23,18 @@ import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.FragmentSearchTimeBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.util.Date
 
+@AndroidEntryPoint
 @SuppressLint("InflateParams")
 class SearchTimeFragment : Fragment() {
     private var _binding: FragmentSearchTimeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(requireActivity())[SearchViewModel::class.java]
     }
     private val timePickerBottomSheet by lazy{
         layoutInflater.inflate(R.layout.fragment_insert_time, null)

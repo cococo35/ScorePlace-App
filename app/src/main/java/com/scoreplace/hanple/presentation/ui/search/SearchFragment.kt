@@ -22,15 +22,17 @@ import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
     private var _binding : FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by lazy{
-        ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(requireActivity())[SearchViewModel::class.java]
     }
     private var inputOk : Boolean = false
 

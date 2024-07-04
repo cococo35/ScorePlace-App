@@ -17,16 +17,18 @@ import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.FragmentSearchLoadingBinding
 import com.github.penfeizhou.animation.apng.APNGDrawable
 import com.github.penfeizhou.animation.loader.AssetStreamLoader
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SearchLoadingFragment : Fragment() {
     private var _binding : FragmentSearchLoadingBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy{
-        ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(requireActivity())[SearchViewModel::class.java]
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

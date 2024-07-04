@@ -16,12 +16,14 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.FragmentSearchCostBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchCostFragment : Fragment() {
     private var _binding: FragmentSearchCostBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(requireActivity())[SearchViewModel::class.java]
     }
     private lateinit var callback: OnBackPressedCallback
     override fun onCreateView(

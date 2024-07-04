@@ -11,15 +11,16 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.scoreplace.hanple.R
 import com.scoreplace.hanple.databinding.FragmentDetailScoreDialogBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DetailScoreDialogFragment : DialogFragment() {
 
     private var _binding : FragmentDetailScoreDialogBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by lazy {
-        ViewModelProvider(requireActivity(), SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(requireActivity())[SearchViewModel::class.java]
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -1,5 +1,6 @@
-package com.scoreplace.hanple.Address
+package com.scoreplace.hanple.data.remote
 
+import com.scoreplace.hanple.Address.AddressResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query

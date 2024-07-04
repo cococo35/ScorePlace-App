@@ -22,29 +22,28 @@ import com.google.android.libraries.places.api.net.FetchResolvedPhotoUriRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.api.net.SearchNearbyRequest
 import com.scoreplace.hanple.data.CategoryPlace
-import com.scoreplace.hanple.data.repository.AddressRemoteImpl
-import com.scoreplace.hanple.data.repository.CongestionRemoteImpl
+import com.scoreplace.hanple.data.repository.AddressRepositoryImpl
+import com.scoreplace.hanple.data.repository.CongestionRepositoryImpl
 import com.scoreplace.hanple.data.repository.CongestionRepository
 import com.scoreplace.hanple.data.repository.DustRepositoryImpl
-import com.scoreplace.hanple.data.repository.WeatherRemoteImpl
+import com.scoreplace.hanple.data.repository.WeatherRepositoryImpl
 import com.scoreplace.hanple.data.repository.WeatherRepository
-import com.scoreplace.hanple.network.AddressRetrofit
-import com.scoreplace.hanple.network.CongestionRetrofit
-import com.scoreplace.hanple.network.DustRetrofit
-import com.scoreplace.hanple.network.WeatherRetrofit
 import com.scoreplace.hanple.presentation.repository.AddressRepository
 import com.scoreplace.hanple.presentation.repository.DustRepository
 import com.scoreplace.hanple.room.RecommendDAO
 import com.scoreplace.hanple.room.RecommendPlace
 import com.scoreplace.hanple.room.recommendPlaceGoogleID
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Arrays
 import java.util.Calendar
 import java.util.Date
+import javax.inject.Inject
 
-class SearchViewModel(
+@HiltViewModel
+class SearchViewModel @Inject constructor(
     private val addressRepository: AddressRepository,
     private val dustRepository: DustRepository,
     private val congestionRepository: CongestionRepository,
@@ -819,23 +818,4 @@ class SearchViewModel(
 
         return result
     }
-
-}
-
-class SearchViewModelFactory : ViewModelProvider.Factory {
-    private val addressRepository = AddressRemoteImpl(AddressRetrofit.search)
-    private val dustRepository = DustRepositoryImpl(DustRetrofit.search)
-    private val congestionRepository = CongestionRemoteImpl(CongestionRetrofit.search)
-    private val weatherRepository = WeatherRemoteImpl(WeatherRetrofit.search)
-
-
-    override fun <T : ViewModel> create(
-        modelClass: Class<T>,
-        extras: CreationExtras
-    ): T = SearchViewModel(
-        addressRepository,
-        dustRepository,
-        congestionRepository,
-        weatherRepository,
-    ) as T
 }

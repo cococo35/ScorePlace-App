@@ -1,5 +1,6 @@
-package com.scoreplace.hanple.data.congestion
+package com.scoreplace.hanple.data.remote
 
+import com.scoreplace.hanple.data.congestion.CongestionResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 

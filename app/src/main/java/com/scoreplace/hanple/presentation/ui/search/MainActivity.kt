@@ -28,6 +28,7 @@ import com.scoreplace.hanple.ui.settings.SettingsActivity
 import com.scoreplace.hanple.ui.settings.SettingsFragment
 import com.google.android.libraries.places.api.Places
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -36,11 +37,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.random.Random
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel by lazy {
-        ViewModelProvider(this, SearchViewModelFactory())[SearchViewModel::class.java]
+        ViewModelProvider(this)[SearchViewModel::class.java]
     }
      val recommendDAO by lazy {
         RecommendDataBase.getMyRecommendPlaceDataBase(this).getMyRecommendPlaceDAO()
