@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.data.repository
 
 import com.scoreplace.hanple.Weather.WeatherApiResponse
+import com.scoreplace.hanple.domain.remote.WeatherApiResponseEntity
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -15,5 +16,5 @@ interface WeatherRepository {
         lat : String?,
         lon : String?,
         appid : String?
-    ) : WeatherApiResponse
+    ) : WeatherApiResponseEntity
 }

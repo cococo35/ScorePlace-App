@@ -1,5 +1,6 @@
 package com.scoreplace.hanple.di
 
+import com.scoreplace.hanple.data.remote.DustRemoteDataSource
 import com.scoreplace.hanple.data.repository.CongestionRepository
 import com.scoreplace.hanple.data.repository.CongestionRepositoryImpl
 import com.scoreplace.hanple.data.repository.DustRepositoryImpl
@@ -9,7 +10,8 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 
 @InstallIn(ViewModelComponent::class)
 @Module

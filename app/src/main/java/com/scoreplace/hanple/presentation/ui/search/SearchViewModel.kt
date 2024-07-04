@@ -44,7 +44,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val addressRepository: AddressRepository,
     private val dustRepository: DustRepository,
     private val congestionRepository: CongestionRepository,
     private val weatherRepository: WeatherRepository,
@@ -209,7 +208,7 @@ class SearchViewModel @Inject constructor(
                     "48b0c79a814c79a5a38bb17b9109a288"
                 )
                 if(response != null) {
-                    response.list.forEach {
+                    response.list?.forEach {
                         list.add(it.main!!.aqi!!)
                     }
                     dustAqi.value = list

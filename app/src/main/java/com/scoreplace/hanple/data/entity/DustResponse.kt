@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class DustApiResponse(
     @SerializedName("coord") val coord: Coord?,
-    @SerializedName("list") val list: List<DustResponse>
+    @SerializedName("list") val list: List<DustResponse>?
 )
 
 data class DustResponse(

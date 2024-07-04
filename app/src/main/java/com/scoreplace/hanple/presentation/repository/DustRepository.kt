@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.presentation.repository
 
 import com.scoreplace.hanple.Dust.DustApiResponse
+import com.scoreplace.hanple.domain.remote.DustApiResponseEntity
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -12,5 +13,5 @@ import dagger.hilt.components.SingletonComponent
 
 interface DustRepository {
 
-    suspend fun getDustData(lat: String, lon: String, appid: String) : DustApiResponse
+    suspend fun getDustData(lat: String, lon: String, appid: String) : DustApiResponseEntity
 }

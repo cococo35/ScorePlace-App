@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.data.repository
 
 import com.scoreplace.hanple.data.congestion.CongestionResponse
+import com.scoreplace.hanple.domain.remote.CongestionResponseEntity
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -20,5 +21,5 @@ interface CongestionRepository {
         START_INDEX: Int,
         END_INDEX: Int,
         AREA_NM: String
-    ) : CongestionResponse
+    ) : CongestionResponseEntity
 }

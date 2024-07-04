@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.data.repository
 
 import com.scoreplace.hanple.data.remote.CongestionRemoteDataResource
+import com.scoreplace.hanple.domain.remote.toEntity
 import javax.inject.Inject
 
 
@@ -14,5 +15,5 @@ class CongestionRepositoryImpl @Inject constructor(
         START_INDEX: Int,
         END_INDEX: Int,
         AREA_NM: String
-    ) = congestionRemoteDataResource.getCongestion(KEY, TYPE, SERVICE, START_INDEX, END_INDEX, AREA_NM)
+    ) = congestionRemoteDataResource.getCongestion(KEY, TYPE, SERVICE, START_INDEX, END_INDEX, AREA_NM).toEntity()
 }

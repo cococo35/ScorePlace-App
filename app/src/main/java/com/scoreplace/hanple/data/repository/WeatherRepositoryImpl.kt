@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.data.repository
 
 import com.scoreplace.hanple.data.remote.WeatherRemoteDataResource
+import com.scoreplace.hanple.domain.remote.toEntity
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
@@ -10,6 +11,6 @@ class WeatherRepositoryImpl @Inject constructor(
         lat: String?,
         lon: String?,
         appid: String?
-    ) = weatherRemoteDataResource.getWeather(lat, lon, appid)
+    ) = weatherRemoteDataResource.getWeather(lat, lon, appid).toEntity()
 
 }

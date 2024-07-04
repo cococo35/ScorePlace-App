@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.presentation.repository
 
 import com.scoreplace.hanple.Address.AddressResponse
+import com.scoreplace.hanple.domain.remote.AddressResponseEntity
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,5 +22,5 @@ interface AddressRepository {
     suspend fun getAddress(
         Authorization: String,
         query: String?,
-    ): AddressResponse
+    ): AddressResponseEntity
 }
