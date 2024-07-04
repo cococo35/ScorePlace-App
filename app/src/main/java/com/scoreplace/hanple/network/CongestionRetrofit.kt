@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.network
 
-import com.scoreplace.hanple.data.congestion.CongestionRemote
+
+import com.scoreplace.hanple.data.congestion.CongestionRemoteDataResource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,8 +35,8 @@ object CongestionRetrofit {
     }
 
 
-    val search: CongestionRemote by lazy {
-        retrofit.create(CongestionRemote::class.java)
+    val search: CongestionRemoteDataResource by lazy {
+        retrofit.create(CongestionRemoteDataResource::class.java)
     }
 }
 

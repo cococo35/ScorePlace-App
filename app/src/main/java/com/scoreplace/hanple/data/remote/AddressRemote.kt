@@ -4,7 +4,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-interface AddressRemote {
+interface AddressRemoteDataResource {
 
     @GET("/v2/local/search/keyword.json")
     suspend fun getAddress(
@@ -13,14 +13,6 @@ interface AddressRemote {
     ) : AddressResponse
 }
 
-class AddressRemoteImpl(
-    private val addressRemote: AddressRemote
-) : AddressRemote {
-    override suspend fun getAddress(
-        Authorization: String,
-        query: String?,
-    ) = addressRemote.getAddress(Authorization, query)
 
-}
 
 

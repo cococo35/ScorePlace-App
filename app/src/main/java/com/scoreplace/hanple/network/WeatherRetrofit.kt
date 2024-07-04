@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.network
 
-import com.scoreplace.hanple.Weather.WeatherRemote
+
+import com.scoreplace.hanple.Weather.WeatherRemoteDataResource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -35,7 +36,7 @@ object WeatherRetrofit {
 
 
 
-    val search: WeatherRemote by lazy {
-        retrofit.create(WeatherRemote::class.java)
+    val search: WeatherRemoteDataResource by lazy {
+        retrofit.create(WeatherRemoteDataResource::class.java)
     }
 }

@@ -4,6 +4,7 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -134,4 +135,13 @@ dependencies {
     implementation("com.github.penfeizhou.android.animation:glide-plugin:${penfeizhou_version}")
     implementation("com.github.penfeizhou.android.animation:apng:${penfeizhou_version}")
     //glide에 apng 확장자 지원하도록 하기. https://github.com/penfeizhou/APNG4Android
+
+
+    //hilt
+    implementation ("com.google.dagger:hilt-android:2.51.1")
+    kapt ("com.google.dagger:hilt-android-compiler:2.51.1")
+
+}
+kapt {
+    correctErrorTypes = true
 }

@@ -3,7 +3,7 @@ package com.scoreplace.hanple.data.congestion
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface CongestionRemote {
+interface CongestionRemoteDataResource {
     @GET("{KEY}/{TYPE}/{SERVICE}/{START_INDEX}/{END_INDEX}/{AREA_NM}")
     suspend fun getCongestion(
         @Path("KEY") KEY: String?,
@@ -15,17 +15,3 @@ interface CongestionRemote {
     ) : CongestionResponse
 }
 
-
-class CongestionRemoteImpl(
-    private val congestionRemote: CongestionRemote
-) : CongestionRemote {
-    override suspend fun getCongestion(
-        KEY: String?,
-        TYPE: String?,
-        SERVICE: String?,
-        START_INDEX: Int,
-        END_INDEX: Int,
-        AREA_NM: String
-    ) = congestionRemote.getCongestion(KEY, TYPE, SERVICE, START_INDEX, END_INDEX, AREA_NM)
-
-}

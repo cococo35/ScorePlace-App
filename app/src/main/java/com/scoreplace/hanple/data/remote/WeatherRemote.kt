@@ -3,7 +3,7 @@ package com.scoreplace.hanple.Weather
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface WeatherRemote {
+interface WeatherRemoteDataResource {
 
     @GET("forecast")
     suspend fun getWeather(
@@ -13,14 +13,3 @@ interface WeatherRemote {
     ) : WeatherApiResponse
 }
 
-
-class WeatherRemoteImpl(
-    private val weatherRemote: WeatherRemote
-) : WeatherRemote {
-    override suspend fun getWeather(
-        lat: String?,
-        lon: String?,
-        appid: String?
-    ) = weatherRemote.getWeather(lat, lon, appid)
-
-}

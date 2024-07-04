@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.network
 
-import com.scoreplace.hanple.Address.AddressRemote
+
+import com.scoreplace.hanple.Address.AddressRemoteDataResource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,7 +33,7 @@ object AddressRetrofit {
 
 
 
-        val search: AddressRemote by lazy {
-            retrofit.create(AddressRemote::class.java)
+        val search: AddressRemoteDataResource by lazy {
+            retrofit.create(AddressRemoteDataResource::class.java)
         }
     }

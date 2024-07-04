@@ -1,6 +1,7 @@
 package com.scoreplace.hanple.network
 
 import com.scoreplace.hanple.Dust.DustRemote
+import com.scoreplace.hanple.data.remote.DustRemoteDataSource
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,7 +33,7 @@ object DustRetrofit {
 
 
 
-    val search: DustRemote by lazy {
-        retrofit.create(DustRemote::class.java)
+    val search: DustRemoteDataSource by lazy {
+        retrofit.create(DustRemoteDataSource::class.java)
     }
 }
