@@ -22,10 +22,10 @@ import com.google.android.libraries.places.api.net.FetchResolvedPhotoUriRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.api.net.SearchNearbyRequest
 import com.scoreplace.hanple.Address.AddressRemoteImpl
-import com.scoreplace.hanple.Dust.DustRemoteImpl
 import com.scoreplace.hanple.Weather.WeatherRemoteImpl
 import com.scoreplace.hanple.data.CategoryPlace
 import com.scoreplace.hanple.data.congestion.CongestionRemoteImpl
+import com.scoreplace.hanple.data.repository.DustRepositoryImpl
 import com.scoreplace.hanple.network.AddressRetrofit
 import com.scoreplace.hanple.network.CongestionRetrofit
 import com.scoreplace.hanple.network.DustRetrofit
@@ -42,7 +42,7 @@ import java.util.Date
 
 class SearchViewModel(
     private val addressRemoteImpl: AddressRemoteImpl,
-    private val dustRemoteImpl: DustRemoteImpl,
+    private val dustRemoteImpl: DustRepositoryImpl,
     private val congestionRemoteImpl: CongestionRemoteImpl,
     private val weatherRemoteImpl: WeatherRemoteImpl,
 ) : ViewModel() {
@@ -819,9 +819,8 @@ class SearchViewModel(
 }
 
 class SearchViewModelFactory : ViewModelProvider.Factory {
-
     private val addressRepository = AddressRemoteImpl(AddressRetrofit.search)
-    private val dustRepository = DustRemoteImpl(DustRetrofit.search)
+    private val dustRepository = DustRepositoryImpl(DustRetrofit.search)
     private val congestionRepository = CongestionRemoteImpl(CongestionRetrofit.search)
     private val weatherRepository = WeatherRemoteImpl(WeatherRetrofit.search)
 
